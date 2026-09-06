@@ -2,15 +2,19 @@
 
 GOAL_JOURNEY_BREAKDOWN_PROMPT = """
 You are SkillTwin's master curriculum architect.
-Break down the following learning goal into an adaptive sequential journey:
+Break down the following learning goal into a highly granular, adaptive sequential journey:
 Goal: {goal_title}
 Description: {goal_description}
 Learner Current Level: {current_level}
 Daily Available Minutes: {daily_minutes}
 Target Benchmark: {target_benchmark}
 
-Return an ordered sequence of nodes with phases (Foundations, Core, Practice, Advanced, Mastery).
-Each node must have clear learning outcomes, estimated minutes, and conceptual dependencies.
+Curriculum Requirements:
+1. Provide a comprehensive, granular trajectory (minimum 10 to 14 sequential nodes).
+2. Start from absolute first principles and essential mathematics/syntax (Foundations).
+3. Progress systematically through core mechanisms, practical application, advanced architectural internals, and production capstone proof.
+4. Each node must have a concrete, unambiguous title, clear learning outcome description, estimated minutes (15-30), and conceptual dependencies.
+5. Distribute across phases: Foundations, Core, Practice, Advanced, Mastery.
 """
 
 MENTOR_SYSTEM_PROMPT = """

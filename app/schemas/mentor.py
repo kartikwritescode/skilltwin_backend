@@ -47,3 +47,5 @@ class MentorMessageResponse(BaseModel):
     content: str
     suggested_actions: List[ActionRecommendationSchema] = Field(default_factory=list)
     created_at: datetime
+    is_ai_generated: bool = True
+    warning_message: Optional[str] = None

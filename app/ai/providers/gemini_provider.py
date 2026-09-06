@@ -30,12 +30,15 @@ class GeminiLLMProvider(LLMProvider):
         # Clean model name (e.g. ensure 'gemini-1.5-flash' format)
         self.model = model.replace("models/", "") if model else "gemini-1.5-flash"
         self._fallback = fallback or MockLLMProvider()
+        self.last_status: str = "active"
+        self.last_error_detail: Optional[str] = None
         self._is_placeholder = (
             not self.api_key
             or "placeholder" in self.api_key.lower()
             or self.api_key == "mock-key"
         )
         if self._is_placeholder:
+            self.last_status = "placeholder_key"
             logger.warning("GeminiLLMProvider initialized with placeholder key; using Mock fallback.")
 
     @property
@@ -89,11 +92,26 @@ class GeminiLLMProvider(LLMProvider):
                         if parts:
                             text = parts[0].get("text", "").strip()
                             if text:
+                                self.last_status = "active"
+                                self.last_error_detail = None
                                 return text
-                logger.warning(
-                    f"Gemini generate_text API returned {res.status_code}: {res.text[:150]}, using fallback."
-                )
+                elif res.status_code == 429:
+                    self.last_status = "quota_exhausted"
+                    self.last_error_detail = "Google Gemini Free Tier quota exceeded (HTTP 429). Offline pedagogical intelligence active."
+                    logger.warning(f"Gemini API quota exhausted (429): {res.text[:150]}")
+                elif res.status_code == 404:
+                    self.last_status = "model_not_found"
+                    self.last_error_detail = f"Gemini model '{self.model}' not found or deprecated for this API key (HTTP 404)."
+                    logger.warning(f"Gemini model 404: {res.text[:150]}")
+                else:
+                    self.last_status = f"http_{res.status_code}"
+                    self.last_error_detail = f"Gemini API error {res.status_code}: {res.text[:100]}"
+                    logger.warning(
+                        f"Gemini generate_text API returned {res.status_code}: {res.text[:150]}, using fallback."
+                    )
         except Exception as e:
+            self.last_status = "connection_error"
+            self.last_error_detail = f"Gemini connection error: {str(e)[:100]}"
             logger.error(f"Gemini API error during generate_text: {e}, falling back to mock provider.")
 
         return await self._fallback.generate_text(
@@ -163,11 +181,26 @@ CRITICAL: Return ONLY a valid JSON object strictly matching this schema:
                             # Strip markdown backticks if present
                             clean_json = re.sub(r"^```json\s*", "", raw_json, flags=re.IGNORECASE)
                             clean_json = re.sub(r"```$", "", clean_json.strip())
+                            self.last_status = "active"
+                            self.last_error_detail = None
                             return response_schema.model_validate_json(clean_json)
-                logger.warning(
-                    f"Gemini generate_structured returned {res.status_code}: {res.text[:150]}, using fallback."
-                )
+                elif res.status_code == 429:
+                    self.last_status = "quota_exhausted"
+                    self.last_error_detail = "Google Gemini Free Tier quota exceeded (HTTP 429). Offline pedagogical intelligence active."
+                    logger.warning(f"Gemini API quota exhausted (429): {res.text[:150]}")
+                elif res.status_code == 404:
+                    self.last_status = "model_not_found"
+                    self.last_error_detail = f"Gemini model '{self.model}' not found (HTTP 404)."
+                    logger.warning(f"Gemini model 404: {res.text[:150]}")
+                else:
+                    self.last_status = f"http_{res.status_code}"
+                    self.last_error_detail = f"Gemini API error {res.status_code}: {res.text[:100]}"
+                    logger.warning(
+                        f"Gemini generate_structured returned {res.status_code}: {res.text[:150]}, using fallback."
+                    )
         except Exception as e:
+            self.last_status = "connection_error"
+            self.last_error_detail = f"Gemini API error: {str(e)[:100]}"
             logger.error(f"Gemini API structured parse error: {e}, using fallback.")
 
         return await self._fallback.generate_structured(

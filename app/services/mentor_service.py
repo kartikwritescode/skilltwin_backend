@@ -83,6 +83,8 @@ class MentorService:
             content=mentor_msg.content,
             suggested_actions=suggested_schemas,
             created_at=mentor_msg.created_at,
+            is_ai_generated=ai_result.get("is_ai_generated", True),
+            warning_message=ai_result.get("warning_message"),
         )
 
 

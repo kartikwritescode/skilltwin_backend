@@ -20,10 +20,10 @@ def get_llm_provider() -> LLMProvider:
         return MockLLMProvider()
 
     if provider_name in ["gemini", "google"]:
-        logger.info(f"Initializing Gemini LLM Provider (model: {settings.LLM_MODEL})")
+        logger.info(f"Initializing Gemini LLM Provider (model: {settings.effective_model})")
         return GeminiLLMProvider(
-            api_key=settings.LLM_API_KEY,
-            model=settings.LLM_MODEL,
+            api_key=settings.effective_api_key,
+            model=settings.effective_model,
         )
 
     logger.warning(f"Unknown LLM_PROVIDER '{provider_name}', falling back to MockLLMProvider")

@@ -103,8 +103,28 @@ Respond as SkillTwin personal mentor. Concise, encouraging, and actionable.
             temperature=0.7,
         )
 
+        # Detect provider health and quota fallback status
+        is_ai = True
+        warning_msg: Optional[str] = None
+        provider_name = getattr(self.llm_provider, "provider_name", "mock")
+
+        last_status = getattr(self.llm_provider, "last_status", "active")
+        last_error = getattr(self.llm_provider, "last_error_detail", None)
+
+        if "mock" in provider_name.lower():
+            is_ai = False
+            warning_msg = "Running offline pedagogical intelligence engine."
+        elif last_status == "quota_exhausted":
+            is_ai = False
+            warning_msg = "Google Gemini Free Tier quota reached (429). Using offline pedagogical mentor engine."
+        elif last_status != "active":
+            is_ai = False
+            warning_msg = last_error or f"AI Provider operating in offline fallback mode ({last_status})."
+
         return {
             "reply": reply_text,
+            "is_ai_generated": is_ai,
+            "warning_message": warning_msg,
             "suggested_actions": [
                 ActionRecommendation(
                     action_type=ActionType.LEARN,

@@ -1,4 +1,4 @@
-from typing import List, Union
+from typing import List, Union, Optional
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -29,10 +29,26 @@ class Settings(BaseSettings):
     )
 
     # AI / LLM Configuration
-    LLM_PROVIDER: str = Field(default="mock", description="Selected LLM provider (mock, openai, gemini, ollama)")
+    LLM_PROVIDER: str = Field(default="gemini", description="Selected LLM provider (mock, openai, gemini, ollama)")
     LLM_API_KEY: str = Field(default="placeholder-api-key", description="API key for active LLM provider")
-    LLM_MODEL: str = Field(default="mock-model", description="Model identifier for generative tasks")
-    EMBEDDING_MODEL: str = Field(default="text-embedding-3-small", description="Model identifier for vector embeddings")
+    GEMINI_API_KEY: Optional[str] = Field(default=None, description="Gemini API key alias")
+    LLM_MODEL: str = Field(default="gemini-3.6-flash", description="Model identifier for generative tasks")
+    GEMINI_MODEL: Optional[str] = Field(default=None, description="Gemini model alias")
+    EMBEDDING_MODEL: str = Field(default="text-embedding-004", description="Model identifier for vector embeddings")
+
+    @property
+    def effective_api_key(self) -> str:
+        if self.LLM_API_KEY and self.LLM_API_KEY != "placeholder-api-key":
+            return self.LLM_API_KEY
+        if self.GEMINI_API_KEY and self.GEMINI_API_KEY != "placeholder-api-key":
+            return self.GEMINI_API_KEY
+        return self.LLM_API_KEY
+
+    @property
+    def effective_model(self) -> str:
+        if self.GEMINI_MODEL:
+            return self.GEMINI_MODEL
+        return self.LLM_MODEL
 
     # Security & CORS
     ALLOWED_ORIGINS: List[str] = ["*"]

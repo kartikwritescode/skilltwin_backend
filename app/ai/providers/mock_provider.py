@@ -44,14 +44,80 @@ class MockLLMProvider(LLMProvider):
         **kwargs
     ) -> str:
         logger.debug(f"[MockLLM] generate_text invoked with prompt preview: {prompt[:80]}...")
-        if "mentor" in prompt.lower() or "today" in prompt.lower():
+        p_lower = prompt.lower()
+
+        # Extract learner context hints if present
+        goal_match = ""
+        milestone_match = ""
+        misc_match = ""
+        user_msg = ""
+
+        if "learner message:" in p_lower:
+            parts = prompt.split("LEARNER MESSAGE:")
+            if len(parts) > 1:
+                user_msg = parts[1].split("\n\n")[0].strip()
+
+        if "title:" in p_lower:
+            for line in prompt.split("\n"):
+                if line.strip().lower().startswith("title:"):
+                    if not goal_match:
+                        goal_match = line.split(":", 1)[1].strip()
+                    elif not milestone_match:
+                        milestone_match = line.split(":", 1)[1].strip()
+                elif "active misconceptions:" in line.lower():
+                    misc_match = line.split(":", 1)[1].strip()
+
+        # Generate intelligent contextual responses based on user query
+        u_lower = user_msg.lower()
+
+        if "why this concept" in u_lower or "why" in u_lower and "now" in u_lower:
+            topic = milestone_match or goal_match or "this foundational milestone"
             return (
-                "Welcome back! Based on your recent evidence, your foundation in async pipelines "
-                "is solid, but we should reinforce error handling before moving to distributed state."
+                f"We are prioritizing **{topic}** today because cognitive evidence shows that jumping ahead "
+                f"without verified mastery here causes knowledge debt. Mastering this unlocks downstream transfer "
+                f"and prevents cognitive overload on advanced topics."
             )
+
+        if "blindspot" in u_lower or "weakness" in u_lower:
+            misc = misc_match if (misc_match and misc_match.lower() != "none detected") else "boundary condition invariants and error handling"
+            return (
+                f"Analyzing your recent diagnostic proofs, your primary blindspot is in **{misc}**. "
+                f"You have solid intuitive recall for the happy path, but under edge-case conditions your model "
+                f"tends to overlook invariants. I recommend a focused 10-minute diagnostic session to patch this."
+            )
+
+        if "5-min" in u_lower or "revision" in u_lower or "spaced" in u_lower:
+            return (
+                "Spaced retrieval directly disrupts the Ebbinghaus forgetting curve. Testing your memory right as "
+                "a concept begins to decay reinforces neural synaptic pathways up to 4x more effectively than re-reading notes."
+            )
+
+        if "knowledge debt" in u_lower or "debt" in u_lower:
+            return (
+                "Your knowledge debt reflects concepts where high confidence is unsupported by verified proof of work, "
+                "or where memory decay has set in. Addressing these early keeps your learning velocity compounding."
+            )
+
+        if "stream" in u_lower or "async" in u_lower:
+            return (
+                "When debugging asynchronous data pipelines, isolate the stream subscription lifecycle first. "
+                "Verify whether you are using single-subscription vs broadcast controllers, ensure proper error "
+                "handlers on stream listeners, and confirm cancelation on disposal."
+            )
+
+        if "machine learning" in u_lower or "ml" in u_lower or "gradient" in u_lower or "neural" in u_lower:
+            return (
+                "In machine learning, geometric intuition is paramount. Always link the algebraic expression "
+                "(like matrix transformations or loss gradients) directly to its physical impact on the loss surface. "
+                "If the optimization stalls, inspect your learning rate schedule and gradient magnitudes first."
+            )
+
+        # General dynamic pedagogical reply
+        topic_ref = milestone_match or goal_match or "your active learning objective"
         return (
-            "Here is your focused mentor advice: break down the problem into smaller invariant properties, "
-            "implement the core logic first, and verify with boundary cases."
+            f"Here is your focused mentor strategy for **{topic_ref}**: break down the target problem into smaller invariant "
+            f"properties, implement and articulate the core mechanism first, and verify with boundary test cases before "
+            f"moving forward."
         )
 
     async def generate_structured(
@@ -66,24 +132,51 @@ class MockLLMProvider(LLMProvider):
 
         if response_schema == GeneratedJourneyPlan:
             # Deterministically synthesize an ordered winding roadmap
-            goal_keywords = prompt.split()
-            topic = "Core Mastery"
-            if "flutter" in prompt.lower():
+            p_low = prompt.lower()
+            if any(k in p_low for k in ["machine learning", "ml", "deep learning", "ai engineer", "data science"]):
+                topic = "Machine Learning"
+                node_specs = [
+                    ("Python & Vectorized Math", "Master NumPy vector broadcasting, memory contiguous arrays, and linear operations.", "Foundations"),
+                    ("Linear Algebra & Vector Spaces", "Vector projections, dot products, span, basis, and matrix transformations.", "Foundations"),
+                    ("Matrix Operations & Inverses", "Determinants, eigenvalues, eigenvectors, and singular value decomposition (SVD).", "Foundations"),
+                    ("Multivariate Calculus & Gradients", "Partial derivatives, Jacobian matrices, Hessian curvature, and directional gradients.", "Foundations"),
+                    ("Probability & Distributions", "Conditional probability, Bayes' Theorem, Gaussian distributions, and Maximum Likelihood (MLE).", "Core"),
+                    ("Loss Functions & Convexity", "Mean Squared Error, Cross-Entropy, hinge loss, and convex vs non-convex landscapes.", "Core"),
+                    ("Optimization & Gradient Descent", "Batch, Mini-batch, Momentum, RMSProp, and Adam optimizer dynamics.", "Core"),
+                    ("Classical Supervised Learning", "Linear/Logistic Regression, Decision Trees, Random Forests, and Bias-Variance tradeoff.", "Practice"),
+                    ("Feature Engineering & Validation", "Standardization, PCA dimensional reduction, cross-validation, and data leakage prevention.", "Practice"),
+                    ("Neural Networks & Backpropagation", "Multilayer perceptrons, activation functions, computation graphs, and the Chain Rule.", "Practice"),
+                    ("Convolutional Architectures", "Spatial convolutions, pooling, receptive fields, ResNet skip connections, and image features.", "Advanced"),
+                    ("Sequence Models & Attention", "RNNs, vanishing gradients, LSTMs, and Scaled Dot-Product Self-Attention mechanisms.", "Advanced"),
+                    ("Transformer Architecture & LLMs", "Multi-head attention, Positional Encodings, BERT/GPT architectures, and LoRA fine-tuning.", "Mastery"),
+                    ("Production ML & Model Evaluation", "Precision-Recall calibration, latency profiling, quantization, and deployment pipelines.", "Mastery"),
+                ]
+            elif "flutter" in p_low:
                 topic = "Flutter Architecture"
                 node_specs = [
-                    ("Dart Async & Streams", "Understand StreamControllers, Futures, and microtask queues.", "Foundations"),
-                    ("InheritedWidget & Scope", "Deep dive into widget tree context and element lifecycle.", "Architecture"),
-                    ("State Management Architecture", "Master Riverpod / Bloc unidirectional data flow.", "Architecture"),
-                    ("Custom RenderObjects", "Build custom layouts by understanding paint and performLayout protocols.", "Advanced"),
-                    ("Platform Channels & FFI", "Bridge native Android/iOS C/Kotlin libraries with Dart.", "Mastery"),
+                    ("Dart Language Fundamentals", "Type system, sound null safety, records, patterns, and memory model.", "Foundations"),
+                    ("Dart Async, Isolates & Streams", "Event loops, microtask queues, StreamControllers, and background worker threads.", "Foundations"),
+                    ("Widget Tree, Elements & RenderObjects", "Three-tree architecture: Widget configuration, Element lifecycle, and RenderObject layout.", "Foundations"),
+                    ("InheritedWidget & Scoped State", "Context-based dependency injection, O(1) lookups, and rebuild scope boundary optimization.", "Core"),
+                    ("Riverpod Unidirectional Data Flow", "AutoDispose, family providers, AsyncValue state transitions, and clean domain isolation.", "Core"),
+                    ("Custom RenderObjects & Canvas", "Building custom layout algorithms with performLayout, paintCanvas, and hitTest protocols.", "Practice"),
+                    ("Animations & Physics Engines", "AnimationController, CurvedAnimation, Implicit animations, and custom ticker physics.", "Practice"),
+                    ("Platform Channels & Native Interop", "MethodChannel, EventChannel, Dart FFI with C/Rust, and background platform services.", "Advanced"),
+                    ("Performance Profiling & DevTools", "Frame budget (16ms/60fps), jank diagnosis, memory leak tracing, and raster caching.", "Advanced"),
+                    ("Production Resilient Architecture", "Offline-first SQLite caching, token refresh pipelines, and multi-flavor enterprise deployment.", "Mastery"),
                 ]
             else:
+                topic = "Software Architecture & Algorithms"
                 node_specs = [
-                    (f"Foundations of {topic}", "Master core primitives, invariants, and mental models.", "Foundations"),
-                    ("Architectural Design Patterns", "Deconstruct separation of concerns and data pipelines.", "Architecture"),
-                    ("System Implementation", "Apply core mechanisms to real-world edge scenarios.", "Practice"),
-                    ("Deep Diagnostics & Debugging", "Diagnose bottlenecks, race conditions, and state desync.", "Advanced"),
-                    ("Capstone Production Proof", "Deliver end-to-end evidence under interview/real conditions.", "Mastery"),
+                    ("Foundations & Mental Models", "Master core primitives, invariant boundaries, and memory management semantics.", "Foundations"),
+                    ("Algorithmic Invariants & Complexity", "Time/space complexity analysis, recursion stacks, and asymptotic behavior.", "Foundations"),
+                    ("Data Structures & Memory Layouts", "Cache locality, pointer-based vs contiguous memory structures, and hashing mechanics.", "Core"),
+                    ("Separation of Concerns & Pipelines", "Clean architectural boundaries, dependency inversion, and cohesive domain abstractions.", "Core"),
+                    ("Concurrency & Asynchronous I/O", "Non-blocking event loops, mutexes, deadlocks, and race condition prevention.", "Practice"),
+                    ("Data Persistence & Transaction Invariants", "ACID guarantees, indexing strategies, write-ahead logs, and schema migrations.", "Practice"),
+                    ("Deep Diagnostics & Performance", "Profiling CPU hot paths, memory leak diagnosis, and distributed trace analysis.", "Advanced"),
+                    ("System Reliability & Edge Recovery", "Circuit breakers, exponential backoff with jitter, and idempotent state transitions.", "Advanced"),
+                    ("Capstone Production Proof", "Deliver end-to-end resilient architecture under real-world adversarial conditions.", "Mastery"),
                 ]
 
             nodes: List[GeneratedJourneyNode] = []
@@ -102,7 +195,7 @@ class MockLLMProvider(LLMProvider):
                         description=desc,
                         phase=phase,
                         order=idx + 1,
-                        concept_name=title.lower().replace(" ", "_"),
+                        concept_name=title.lower().replace(" ", "_").replace("&", "and"),
                         estimated_minutes=25,
                         position_x=pos_x,
                         position_y=pos_y,
@@ -121,7 +214,7 @@ class MockLLMProvider(LLMProvider):
                 goal_title=prompt[:60],
                 nodes=nodes,
                 edges=edges,
-                summary="Adaptive 5-stage mastery trajectory optimized for retention and proven evidence."
+                summary=f"Granular {len(nodes)}-stage mastery trajectory optimized for conceptual depth and proven evidence."
             )
             return plan  # type: ignore
 
