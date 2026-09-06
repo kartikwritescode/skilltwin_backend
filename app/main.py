@@ -1,0 +1,93 @@
+from contextlib import asynccontextmanager
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+import time
+
+from app.core.config import settings
+from app.core.logging import logger
+from app.core.exceptions import SkillTwinException, domain_exception_handler
+from app.api.v1.router import api_router
+from app.schemas.health import HealthResponse
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup sequence
+    logger.info(f"Starting {settings.APP_NAME} in '{settings.APP_ENV}' mode (Debug: {settings.DEBUG})")
+    logger.info(f"Configured LLM Provider: {settings.LLM_PROVIDER} ({settings.LLM_MODEL})")
+    yield
+    # Shutdown sequence
+    logger.info("Gracefully shutting down SkillTwin Backend...")
+
+
+def create_application() -> FastAPI:
+    application = FastAPI(
+        title="SkillTwin AI Mentor API",
+        description=(
+            "Contract and intelligence source-of-truth for the SkillTwin personalized AI mentor platform. "
+            "Exposes adaptive goals, winding journey roadmaps, evidence-based learner twin state, "
+            "real-time mentor guidance, and spaced retention retrieval practice."
+        ),
+        version="1.0.0",
+        docs_url="/docs",
+        redoc_url="/redoc",
+        openapi_url="/openapi.json",
+        lifespan=lifespan,
+    )
+
+    # CORS Middleware
+    application.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.ALLOWED_ORIGINS,
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    # Structured request logging middleware
+    @application.middleware("http")
+    async def log_requests(request: Request, call_next):
+        start_time = time.time()
+        response = await call_next(request)
+        duration_ms = round((time.time() - start_time) * 1000, 2)
+        logger.info(
+            f"{request.method} {request.url.path} -> {response.status_code} ({duration_ms}ms)"
+        )
+        return response
+
+    # Exception Handlers
+    application.add_exception_handler(SkillTwinException, domain_exception_handler)
+
+    # Root Health Check Endpoint
+    @application.get("/health", response_model=HealthResponse, tags=["Health"], summary="Root Health Check")
+    async def root_health():
+        """Root health check for load balancers and container orchestrators."""
+        return HealthResponse(
+            status="ok",
+            version="1.0.0",
+            service=settings.APP_NAME,
+            environment=settings.APP_ENV,
+            dependencies={
+                "database": "connected",
+                "ai_provider": settings.LLM_PROVIDER,
+                "api_v1": "operational",
+            }
+        )
+
+    # Mount API v1
+    application.include_router(api_router, prefix=settings.API_V1_STR)
+
+    return application
+
+
+app = create_application()
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(
+        "app.main:app",
+        host=settings.HOST,
+        port=settings.PORT,
+        reload=settings.DEBUG,
+    )

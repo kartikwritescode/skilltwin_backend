@@ -1,0 +1,4671 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SkillTwin AI Mentor API",
+    "description": "Contract and intelligence source-of-truth for the SkillTwin personalized AI mentor platform. Exposes adaptive goals, winding journey roadmaps, evidence-based learner twin state, real-time mentor guidance, and spaced retention retrieval practice.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Root Health Check",
+        "description": "Root health check for load balancers and container orchestrators.",
+        "operationId": "root_health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "API v1 Health Check",
+        "description": "Verify API v1 and subsystem operational readiness.",
+        "operationId": "v1_health_check_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profile": {
+      "get": {
+        "tags": [
+          "Profile"
+        ],
+        "summary": "Get Learner Profile",
+        "description": "Returns the authenticated user's profile.\nExtracts identity strictly from verified Supabase JWT claims, ensuring no spoofing.",
+        "operationId": "get_profile_api_v1_profile_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Profile"
+        ],
+        "summary": "Update Learner Profile",
+        "description": "Updates the authenticated user's profile details.",
+        "operationId": "update_profile_api_v1_profile_patch",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserProfileUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/twin": {
+      "get": {
+        "tags": [
+          "Learner Twin"
+        ],
+        "summary": "Get Live Learner Twin State",
+        "description": "Returns the comprehensive live Learner Twin state:\n- Multi-factor concept mastery scores\n- Calibrated confidence and retention scores\n- Knowledge risk rankings and active weaknesses\n- Recent verified evidence proofs",
+        "operationId": "get_learner_twin_api_v1_twin_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearnerTwinResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/goals": {
+      "post": {
+        "tags": [
+          "Goals"
+        ],
+        "summary": "Create Goal & Initialize Journey Generation",
+        "description": "Creates a new learning goal for the authenticated learner.\nInitializes an adaptive journey in PENDING/PROCESSING state and triggers asynchronous\nbackground roadmap generation, returning the goal and tracking status immediately.",
+        "operationId": "create_goal_api_v1_goals_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoalCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoalResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Goals"
+        ],
+        "summary": "List Authenticated Learner Goals",
+        "description": "List all learning goals owned by the authenticated learner.",
+        "operationId": "list_goals_api_v1_goals_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GoalResponse"
+                  },
+                  "title": "Response List Goals Api V1 Goals Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/goals/{goal_id}": {
+      "get": {
+        "tags": [
+          "Goals"
+        ],
+        "summary": "Get Goal by ID",
+        "description": "Retrieve goal details and live journey generation status.\nStrictly verifies ownership against the authenticated JWT identity.",
+        "operationId": "get_goal_api_v1_goals__goal_id__get",
+        "parameters": [
+          {
+            "name": "goal_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Goal Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoalResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Goals"
+        ],
+        "summary": "Partially Update Goal",
+        "description": "Partially update properties of an existing goal (e.g. daily minutes, target deadline, constraints).\nStrictly verifies ownership against the authenticated JWT identity.",
+        "operationId": "patch_goal_api_v1_goals__goal_id__patch",
+        "parameters": [
+          {
+            "name": "goal_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Goal Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoalUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GoalResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journeys/{journey_id}": {
+      "get": {
+        "tags": [
+          "Journeys"
+        ],
+        "summary": "Get Journey Roadmap",
+        "description": "Returns the complete structured winding roadmap including nodes,\norder, phases, states (LOCKED, AVAILABLE, CURRENT, COMPLETED, SKIPPED),\nprerequisites, and calculated overall progress.",
+        "operationId": "get_journey_api_v1_journeys__journey_id__get",
+        "parameters": [
+          {
+            "name": "journey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Journey Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JourneyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journeys/{journey_id}/nodes/{node_id}": {
+      "patch": {
+        "tags": [
+          "Journeys"
+        ],
+        "summary": "Update Journey Node State",
+        "description": "Updates the state of a specific node (e.g. COMPLETED, CURRENT).\nTriggers prerequisite cascade unlocking downstream and recalculates overall journey progress.",
+        "operationId": "update_node_state_api_v1_journeys__journey_id__nodes__node_id__patch",
+        "parameters": [
+          {
+            "name": "journey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Journey Id"
+            }
+          },
+          {
+            "name": "node_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Node Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JourneyNodeUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JourneyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/journeys/{journey_id}/remediation": {
+      "post": {
+        "tags": [
+          "Journeys"
+        ],
+        "summary": "Insert Remediation Node",
+        "description": "Dynamically inserts a remediation node before a target node when a knowledge gap is identified.",
+        "operationId": "insert_remediation_api_v1_journeys__journey_id__remediation_post",
+        "parameters": [
+          {
+            "name": "journey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Journey Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RemediationInsertRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JourneyNodeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/mentor/today": {
+      "get": {
+        "tags": [
+          "Mentor"
+        ],
+        "summary": "Get Today's Recommended Best Action",
+        "description": "SkillTwin North Star: Returns what the learner should do right now,\nthe pedagogical reasoning ('Why this action'), daily checklist, and mentor briefing.",
+        "operationId": "get_mentor_today_api_v1_mentor_today_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MentorTodayResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/mentor/message": {
+      "post": {
+        "tags": [
+          "Mentor"
+        ],
+        "summary": "Send Message to AI Mentor",
+        "description": "Send an empathetic, goal-aligned query to the persistent AI mentor.\nReceives contextual guidance and actionable next step recommendations.",
+        "operationId": "send_mentor_message_api_v1_mentor_message_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MentorMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MentorMessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sessions": {
+      "post": {
+        "tags": [
+          "Sessions"
+        ],
+        "summary": "Start Learning / Practice Session",
+        "description": "Initiates an interactive learning, practice, proof, or teach-back session.",
+        "operationId": "start_session_api_v1_sessions_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sessions/{session_id}/complete": {
+      "post": {
+        "tags": [
+          "Sessions"
+        ],
+        "summary": "Complete Session & Evaluate Evidence",
+        "description": "Submits user proof/answers, invokes the AI evaluation rubric,\npersists evidence, and updates learner twin mastery state.",
+        "operationId": "complete_session_api_v1_sessions__session_id__complete_post",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Session Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionCompleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/concepts/{concept_id}": {
+      "get": {
+        "tags": [
+          "Concepts"
+        ],
+        "summary": "Get Concept Detail & Live Learner State",
+        "description": "Returns concept curriculum definition together with the learner's live Twin state:\n- Multi-factor mastery score, confidence calibration, retention score, and risk score\n- Status, active misconceptions, evidence history, and next scheduled review",
+        "operationId": "get_concept_detail_api_v1_concepts__concept_id__get",
+        "parameters": [
+          {
+            "name": "concept_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Concept Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConceptDetailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/concepts/{concept_id}/evidence": {
+      "get": {
+        "tags": [
+          "Concepts"
+        ],
+        "summary": "Get Concept Evidence History",
+        "description": "Returns the chronological history of empirical evidence proofs\n(recalls, practice problems, teach-backs, projects, delayed retrievals) for this concept.",
+        "operationId": "get_concept_evidence_api_v1_concepts__concept_id__evidence_get",
+        "parameters": [
+          {
+            "name": "concept_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Concept Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EvidenceSchema"
+                  },
+                  "title": "Response Get Concept Evidence Api V1 Concepts  Concept Id  Evidence Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/revision/next": {
+      "get": {
+        "tags": [
+          "Revision"
+        ],
+        "summary": "Get Next Retrieval Practice Queue",
+        "description": "Returns prioritized 3-10 minute retrieval practice items based on retention decay,\nmisconceptions, and spaced repetition intervals.",
+        "operationId": "get_next_revision_api_v1_revision_next_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevisionNextResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/revision/{id}/complete": {
+      "post": {
+        "tags": [
+          "Revision"
+        ],
+        "summary": "Complete Spaced Review",
+        "description": "Completes a spaced retrieval review session.\nApplies RetentionEngine:\n- Gradually reduces review frequency (expands interval) on successful retrieval.\n- Contracts interval on failure.\n- Recalibrates next_review, retention_score, and composite priority.",
+        "operationId": "complete_spaced_review_api_v1_revision__id__complete_post",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewCompleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewItemResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/revision/submit": {
+      "post": {
+        "tags": [
+          "Revision"
+        ],
+        "summary": "Submit Retrieval Result",
+        "description": "Submits spaced retrieval practice result and reschedules interval (backwards compatible).",
+        "operationId": "submit_retrieval_review_api_v1_revision_submit_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewSubmissionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewItemResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/revision/notifications": {
+      "get": {
+        "tags": [
+          "Revision"
+        ],
+        "summary": "Get Mentor Revision Notifications",
+        "description": "Returns active mentor notifications reminding the learner of decaying retention cards.",
+        "operationId": "get_revision_notifications_api_v1_revision_notifications_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MentorNotificationsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/resources/upload": {
+      "post": {
+        "tags": [
+          "Resources"
+        ],
+        "summary": "Upload Resource (Async Pipeline)",
+        "operationId": "upload_resource_api_v1_resources_upload_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_resource_api_v1_resources_upload_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/resources": {
+      "get": {
+        "tags": [
+          "Resources"
+        ],
+        "summary": "List Resources",
+        "operationId": "list_resources_api_v1_resources_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResourceResponse"
+                  },
+                  "title": "Response List Resources Api V1 Resources Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/resources/{resource_id}": {
+      "get": {
+        "tags": [
+          "Resources"
+        ],
+        "summary": "Get Resource Details",
+        "operationId": "get_resource_api_v1_resources__resource_id__get",
+        "parameters": [
+          {
+            "name": "resource_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Resource Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Resources"
+        ],
+        "summary": "Delete Resource",
+        "operationId": "delete_resource_api_v1_resources__resource_id__delete",
+        "parameters": [
+          {
+            "name": "resource_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Resource Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/resources/search": {
+      "post": {
+        "tags": [
+          "Resources"
+        ],
+        "summary": "RAG Vector Search",
+        "operationId": "search_resources_api_v1_resources_search_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RAGSearchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RAGSearchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/knowledge/maintenance": {
+      "get": {
+        "tags": [
+          "Knowledge Maintenance"
+        ],
+        "summary": "Get Personalized Knowledge Maintenance Posture",
+        "description": "Evaluates every concept in the learner's ecosystem against mastery, retention decay,\ngoal relevance, prerequisites, known misconceptions, recent evidence, and journey position.\n\nAssigns each concept one of five strategic maintenance actions:\n- FIX: Active misconceptions or remediation nodes requiring immediate cognitive repair\n- REVISE: Mastered or in-progress concepts suffering retention decay or due for review\n- LEARN_NEXT: Unlocked next concepts in the learner's journey\n- KEEP: Strong mastery and fresh retention requiring no immediate action\n- DEPRIORITIZE: Irrelevant to active goals or deeply locked behind prerequisites",
+        "operationId": "get_knowledge_maintenance_api_v1_knowledge_maintenance_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgeMaintenanceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/knowledge/notes/generate": {
+      "post": {
+        "tags": [
+          "Knowledge Maintenance"
+        ],
+        "summary": "Generate Personalized Study Notes",
+        "description": "Synthesizes custom study notes tailored directly to the learner's state using:\n- Active goal context\n- Target concept definition\n- Semantic RAG source chunks retrieved from uploaded resources\n- Learner twin cognitive state (mastery, retention)\n- Specific diagnosed misconceptions and previous explanation evaluations\n\nCached efficiently by user cognitive state to reduce redundant LLM calls.",
+        "operationId": "generate_personalized_notes_api_v1_knowledge_notes_generate_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateNotesRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PersonalizedStudyNotesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/teach/transcribe": {
+      "post": {
+        "tags": [
+          "Teach Mode"
+        ],
+        "summary": "Transcribe Learner Voice Explanation (Speech-to-Text)",
+        "description": "Transcribes learner speech into text for Feynman teach-back analysis.\nValidates audio format, duration, and extracts operational transcription.",
+        "operationId": "transcribe_audio_explanation_api_v1_teach_transcribe_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe_audio_explanation_api_v1_teach_transcribe_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioTranscriptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/teach/evaluate": {
+      "post": {
+        "tags": [
+          "Teach Mode"
+        ],
+        "summary": "Evaluate Teach-Back Explanation & Update Learner Model",
+        "description": "Evaluates a learner's teach-back explanation using the Feynman technique.\n\nPipeline:\nTranscript + Learner Context -> LLM Evaluator -> EvaluationService -> LearnerService -> State & Journey Recalibration.\n\nEnforces mandatory separation: The LLM evaluator does not directly write to the database.\nOutputs are validated by EvaluationService and deterministically persisted by LearnerService.",
+        "operationId": "evaluate_teach_explanation_api_v1_teach_evaluate_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeachEvaluateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeachEvaluationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ActionRecommendationSchema": {
+        "properties": {
+          "action_type": {
+            "$ref": "#/components/schemas/ActionType"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "estimated_minutes": {
+            "type": "integer",
+            "title": "Estimated Minutes"
+          },
+          "concept_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Concept Id"
+          },
+          "node_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Node Id"
+          },
+          "priority": {
+            "type": "integer",
+            "title": "Priority",
+            "default": 1
+          },
+          "quick_action_label": {
+            "type": "string",
+            "title": "Quick Action Label",
+            "default": "Start Now"
+          }
+        },
+        "type": "object",
+        "required": [
+          "action_type",
+          "title",
+          "reason",
+          "estimated_minutes"
+        ],
+        "title": "ActionRecommendationSchema"
+      },
+      "ActionType": {
+        "type": "string",
+        "enum": [
+          "LEARN",
+          "REVISE",
+          "PRACTICE",
+          "PROVE",
+          "TEACH",
+          "REMEDIATE",
+          "SKIP",
+          "REFLECT"
+        ],
+        "title": "ActionType"
+      },
+      "AudioTranscriptionResponse": {
+        "properties": {
+          "transcript": {
+            "type": "string",
+            "title": "Transcript"
+          },
+          "duration_seconds": {
+            "type": "number",
+            "title": "Duration Seconds"
+          },
+          "word_count": {
+            "type": "integer",
+            "title": "Word Count"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "detected_language": {
+            "type": "string",
+            "title": "Detected Language",
+            "default": "en"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transcript",
+          "duration_seconds",
+          "word_count",
+          "confidence"
+        ],
+        "title": "AudioTranscriptionResponse"
+      },
+      "Body_transcribe_audio_explanation_api_v1_teach_transcribe_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "description": "Recorded audio explanation (WAV, MP3, M4A, WebM, OGG)"
+          },
+          "concept_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Concept Id",
+            "description": "Optional concept context hint for acoustic modeling"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_transcribe_audio_explanation_api_v1_teach_transcribe_post"
+      },
+      "Body_upload_resource_api_v1_resources_upload_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "is_public": {
+            "type": "boolean",
+            "title": "Is Public",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_resource_api_v1_resources_upload_post"
+      },
+      "ConceptDetailResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "domain": {
+            "type": "string",
+            "title": "Domain"
+          },
+          "difficulty_level": {
+            "type": "string",
+            "title": "Difficulty Level"
+          },
+          "prerequisites": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Prerequisites"
+          },
+          "mastery": {
+            "type": "number",
+            "title": "Mastery"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "retention_risk": {
+            "$ref": "#/components/schemas/RetentionRisk"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LearnerConceptStatus"
+          },
+          "evidence_count": {
+            "type": "integer",
+            "title": "Evidence Count"
+          },
+          "mastery_score": {
+            "type": "number",
+            "title": "Mastery Score",
+            "default": 0.0
+          },
+          "confidence_score": {
+            "type": "number",
+            "title": "Confidence Score",
+            "default": 0.0
+          },
+          "retention_score": {
+            "type": "number",
+            "title": "Retention Score",
+            "default": 100.0
+          },
+          "risk_score": {
+            "type": "number",
+            "title": "Risk Score",
+            "default": 0.0
+          },
+          "last_seen_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Seen At"
+          },
+          "next_review_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Review At"
+          },
+          "last_evidence_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Evidence At"
+          },
+          "misconceptions": {
+            "items": {
+              "$ref": "#/components/schemas/MisconceptionSchema"
+            },
+            "type": "array",
+            "title": "Misconceptions",
+            "default": []
+          },
+          "evidence_history": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceSchema"
+            },
+            "type": "array",
+            "title": "Evidence History",
+            "default": []
+          },
+          "mentor_recommendation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mentor Recommendation"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "description",
+          "domain",
+          "difficulty_level",
+          "prerequisites",
+          "mastery",
+          "confidence",
+          "retention_risk",
+          "status",
+          "evidence_count"
+        ],
+        "title": "ConceptDetailResponse"
+      },
+      "ConceptMaintenanceItem": {
+        "properties": {
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "concept_name": {
+            "type": "string",
+            "title": "Concept Name"
+          },
+          "action": {
+            "$ref": "#/components/schemas/MaintenanceAction"
+          },
+          "priority": {
+            "type": "integer",
+            "title": "Priority"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "mastery_score": {
+            "type": "number",
+            "title": "Mastery Score"
+          },
+          "retention_score": {
+            "type": "number",
+            "title": "Retention Score"
+          },
+          "misconceptions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Misconceptions"
+          },
+          "journey_position": {
+            "type": "string",
+            "title": "Journey Position"
+          },
+          "is_goal_relevant": {
+            "type": "boolean",
+            "title": "Is Goal Relevant",
+            "default": true
+          },
+          "recommended_time_minutes": {
+            "type": "integer",
+            "title": "Recommended Time Minutes",
+            "default": 15
+          }
+        },
+        "type": "object",
+        "required": [
+          "concept_id",
+          "concept_name",
+          "action",
+          "priority",
+          "reason",
+          "mastery_score",
+          "retention_score",
+          "journey_position"
+        ],
+        "title": "ConceptMaintenanceItem"
+      },
+      "ConceptMasterySummary": {
+        "properties": {
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "concept_name": {
+            "type": "string",
+            "title": "Concept Name"
+          },
+          "mastery_score": {
+            "type": "number",
+            "title": "Mastery Score"
+          },
+          "confidence_score": {
+            "type": "number",
+            "title": "Confidence Score"
+          },
+          "retention_score": {
+            "type": "number",
+            "title": "Retention Score"
+          },
+          "risk_score": {
+            "type": "number",
+            "title": "Risk Score"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LearnerConceptStatus"
+          },
+          "evidence_count": {
+            "type": "integer",
+            "title": "Evidence Count"
+          },
+          "last_seen_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Seen At"
+          },
+          "next_review_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Review At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "concept_id",
+          "concept_name",
+          "mastery_score",
+          "confidence_score",
+          "retention_score",
+          "risk_score",
+          "status",
+          "evidence_count"
+        ],
+        "title": "ConceptMasterySummary"
+      },
+      "EvidenceSchema": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "evidence_type": {
+            "$ref": "#/components/schemas/EvidenceType"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "feedback": {
+            "type": "string",
+            "title": "Feedback"
+          },
+          "reasoning_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reasoning Score"
+          },
+          "transfer_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transfer Score"
+          },
+          "misconceptions_detected": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Misconceptions Detected"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "concept_id",
+          "evidence_type",
+          "score",
+          "feedback",
+          "created_at"
+        ],
+        "title": "EvidenceSchema"
+      },
+      "EvidenceType": {
+        "type": "string",
+        "enum": [
+          "RECALL",
+          "PRACTICE",
+          "EXPLANATION",
+          "TEACH_BACK",
+          "PROJECT",
+          "ASSESSMENT",
+          "DELAYED_RETRIEVAL"
+        ],
+        "title": "EvidenceType"
+      },
+      "GenerateNotesRequest": {
+        "properties": {
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "force_regenerate": {
+            "type": "boolean",
+            "title": "Force Regenerate",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "concept_id"
+        ],
+        "title": "GenerateNotesRequest"
+      },
+      "GenerationStatus": {
+        "type": "string",
+        "enum": [
+          "PENDING",
+          "PROCESSING",
+          "READY",
+          "FAILED"
+        ],
+        "title": "GenerationStatus"
+      },
+      "GoalCreateRequest": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 3,
+            "title": "Title",
+            "example": "Become a Senior Flutter Engineer"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "example": "Master architecture, state management, and async performance"
+          },
+          "deadline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deadline",
+            "example": "2026-12-31"
+          },
+          "daily_minutes": {
+            "type": "integer",
+            "maximum": 480.0,
+            "minimum": 5.0,
+            "title": "Daily Minutes",
+            "default": 30,
+            "example": 30
+          },
+          "current_level": {
+            "type": "string",
+            "title": "Current Level",
+            "default": "beginner",
+            "example": "intermediate"
+          },
+          "existing_knowledge": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Existing Knowledge",
+            "example": "Comfortable with basic Dart and UI widgets"
+          },
+          "constraints": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Constraints",
+            "example": [
+              "Only weekdays",
+              "No videos longer than 15 min"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "title": "GoalCreateRequest"
+      },
+      "GoalResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "deadline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deadline"
+          },
+          "daily_minutes": {
+            "type": "integer",
+            "title": "Daily Minutes"
+          },
+          "current_level": {
+            "type": "string",
+            "title": "Current Level"
+          },
+          "existing_knowledge": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Existing Knowledge"
+          },
+          "constraints": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Constraints"
+          },
+          "status": {
+            "$ref": "#/components/schemas/GoalStatus"
+          },
+          "active_journey_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Journey Id"
+          },
+          "generation_status": {
+            "$ref": "#/components/schemas/GenerationStatus",
+            "default": "PENDING"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "title",
+          "daily_minutes",
+          "current_level",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "GoalResponse"
+      },
+      "GoalStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "completed",
+          "paused",
+          "archived"
+        ],
+        "title": "GoalStatus"
+      },
+      "GoalUpdateRequest": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 3
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "deadline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Deadline"
+          },
+          "daily_minutes": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 480.0,
+                "minimum": 5.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Daily Minutes"
+          },
+          "current_level": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Level"
+          },
+          "existing_knowledge": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Existing Knowledge"
+          },
+          "constraints": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Constraints"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GoalStatus"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "title": "GoalUpdateRequest"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "ok"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "default": "1.0.0"
+          },
+          "service": {
+            "type": "string",
+            "title": "Service",
+            "default": "SkillTwin Backend"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment"
+          },
+          "dependencies": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Dependencies"
+          }
+        },
+        "type": "object",
+        "required": [
+          "environment",
+          "dependencies"
+        ],
+        "title": "HealthResponse"
+      },
+      "JourneyEdgeResponse": {
+        "properties": {
+          "source_node_id": {
+            "type": "string",
+            "title": "Source Node Id"
+          },
+          "target_node_id": {
+            "type": "string",
+            "title": "Target Node Id"
+          },
+          "edge_type": {
+            "type": "string",
+            "title": "Edge Type",
+            "default": "prerequisite"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_node_id",
+          "target_node_id"
+        ],
+        "title": "JourneyEdgeResponse"
+      },
+      "JourneyNodeResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "subtitle": {
+            "type": "string",
+            "title": "Subtitle",
+            "default": ""
+          },
+          "phase": {
+            "type": "string",
+            "title": "Phase"
+          },
+          "state": {
+            "$ref": "#/components/schemas/NodeState"
+          },
+          "progress": {
+            "type": "integer",
+            "title": "Progress",
+            "default": 0
+          },
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "estimated_minutes": {
+            "type": "integer",
+            "title": "Estimated Minutes",
+            "default": 20
+          },
+          "prerequisites": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Prerequisites",
+            "default": []
+          },
+          "is_remediation": {
+            "type": "boolean",
+            "title": "Is Remediation",
+            "default": false
+          },
+          "order": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Order"
+          },
+          "position_x": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Position X",
+            "default": 0.5
+          },
+          "position_y": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Position Y",
+            "default": 0.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "phase",
+          "state",
+          "concept_id"
+        ],
+        "title": "JourneyNodeResponse"
+      },
+      "JourneyNodeUpdate": {
+        "properties": {
+          "state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NodeState"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "progress": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress"
+          }
+        },
+        "type": "object",
+        "title": "JourneyNodeUpdate"
+      },
+      "JourneyResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "goal_id": {
+            "type": "string",
+            "title": "Goal Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "progress": {
+            "type": "integer",
+            "title": "Progress",
+            "default": 0
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/JourneyNodeResponse"
+            },
+            "type": "array",
+            "title": "Nodes",
+            "default": []
+          },
+          "edges": {
+            "items": {
+              "$ref": "#/components/schemas/JourneyEdgeResponse"
+            },
+            "type": "array",
+            "title": "Edges",
+            "default": []
+          },
+          "status": {
+            "$ref": "#/components/schemas/JourneyStatus",
+            "default": "ACTIVE"
+          },
+          "generation_status": {
+            "$ref": "#/components/schemas/GenerationStatus",
+            "default": "READY"
+          },
+          "generation_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Generation Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "goal_id",
+          "title"
+        ],
+        "title": "JourneyResponse"
+      },
+      "JourneyStatus": {
+        "type": "string",
+        "enum": [
+          "ACTIVE",
+          "COMPLETED",
+          "PAUSED"
+        ],
+        "title": "JourneyStatus"
+      },
+      "KnowledgeMaintenanceResponse": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          },
+          "total_concepts": {
+            "type": "integer",
+            "title": "Total Concepts"
+          },
+          "breakdown": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Breakdown"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ConceptMaintenanceItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "generated_at",
+          "total_concepts",
+          "breakdown",
+          "items"
+        ],
+        "title": "KnowledgeMaintenanceResponse"
+      },
+      "LearnerConceptStatus": {
+        "type": "string",
+        "enum": [
+          "NOT_STARTED",
+          "LEARNING",
+          "MASTERED",
+          "NEEDS_REVIEW"
+        ],
+        "title": "LearnerConceptStatus"
+      },
+      "LearnerTwinResponse": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "overall_mastery": {
+            "type": "number",
+            "title": "Overall Mastery"
+          },
+          "concepts_tracked": {
+            "type": "integer",
+            "title": "Concepts Tracked"
+          },
+          "concepts_mastered": {
+            "type": "integer",
+            "title": "Concepts Mastered"
+          },
+          "high_retention_risk_count": {
+            "type": "integer",
+            "title": "High Retention Risk Count"
+          },
+          "concepts": {
+            "items": {
+              "$ref": "#/components/schemas/ConceptMasterySummary"
+            },
+            "type": "array",
+            "title": "Concepts",
+            "default": []
+          },
+          "weaknesses": {
+            "items": {
+              "$ref": "#/components/schemas/WeaknessItem"
+            },
+            "type": "array",
+            "title": "Weaknesses",
+            "default": []
+          },
+          "recent_evidence": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceSchema"
+            },
+            "type": "array",
+            "title": "Recent Evidence",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "overall_mastery",
+          "concepts_tracked",
+          "concepts_mastered",
+          "high_retention_risk_count"
+        ],
+        "title": "LearnerTwinResponse"
+      },
+      "MaintenanceAction": {
+        "type": "string",
+        "enum": [
+          "KEEP",
+          "REVISE",
+          "FIX",
+          "LEARN_NEXT",
+          "DEPRIORITIZE"
+        ],
+        "title": "MaintenanceAction"
+      },
+      "MentorMessageRequest": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Message",
+            "example": "Why did you recommend recursion today?"
+          },
+          "context": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "title": "MentorMessageRequest"
+      },
+      "MentorMessageResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "role": {
+            "$ref": "#/components/schemas/MentorRole",
+            "default": "mentor"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "suggested_actions": {
+            "items": {
+              "$ref": "#/components/schemas/ActionRecommendationSchema"
+            },
+            "type": "array",
+            "title": "Suggested Actions"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "content",
+          "created_at"
+        ],
+        "title": "MentorMessageResponse"
+      },
+      "MentorNotification": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "concept_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Concept Id"
+          },
+          "notification_type": {
+            "type": "string",
+            "title": "Notification Type",
+            "default": "REVISION_DUE"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "is_read": {
+            "type": "boolean",
+            "title": "Is Read",
+            "default": false
+          },
+          "action_url": {
+            "type": "string",
+            "title": "Action Url",
+            "default": "/revision"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "message",
+          "created_at"
+        ],
+        "title": "MentorNotification"
+      },
+      "MentorNotificationsResponse": {
+        "properties": {
+          "unread_count": {
+            "type": "integer",
+            "title": "Unread Count"
+          },
+          "notifications": {
+            "items": {
+              "$ref": "#/components/schemas/MentorNotification"
+            },
+            "type": "array",
+            "title": "Notifications"
+          }
+        },
+        "type": "object",
+        "required": [
+          "unread_count",
+          "notifications"
+        ],
+        "title": "MentorNotificationsResponse"
+      },
+      "MentorRole": {
+        "type": "string",
+        "enum": [
+          "user",
+          "mentor",
+          "system"
+        ],
+        "title": "MentorRole"
+      },
+      "MentorTodayResponse": {
+        "properties": {
+          "greeting": {
+            "type": "string",
+            "title": "Greeting"
+          },
+          "mentor_note": {
+            "type": "string",
+            "title": "Mentor Note"
+          },
+          "current_goal_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Goal Title"
+          },
+          "current_goal_progress": {
+            "type": "number",
+            "title": "Current Goal Progress",
+            "default": 0.0
+          },
+          "recommended_action": {
+            "$ref": "#/components/schemas/ActionRecommendationSchema"
+          },
+          "alternative_actions": {
+            "items": {
+              "$ref": "#/components/schemas/ActionRecommendationSchema"
+            },
+            "type": "array",
+            "title": "Alternative Actions"
+          },
+          "candidate_rankings": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Candidate Rankings"
+          },
+          "deadline_pressure": {
+            "type": "string",
+            "title": "Deadline Pressure",
+            "default": "normal"
+          },
+          "pipeline_steps_executed": {
+            "type": "integer",
+            "title": "Pipeline Steps Executed",
+            "default": 14
+          },
+          "daily_checklist": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Daily Checklist"
+          }
+        },
+        "type": "object",
+        "required": [
+          "greeting",
+          "mentor_note",
+          "recommended_action"
+        ],
+        "title": "MentorTodayResponse"
+      },
+      "MisconceptionSchema": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "tag": {
+            "type": "string",
+            "title": "Tag"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "severity": {
+            "$ref": "#/components/schemas/MisconceptionSeverity"
+          },
+          "status": {
+            "$ref": "#/components/schemas/MisconceptionStatus"
+          },
+          "detected_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Detected At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "concept_id",
+          "tag",
+          "description",
+          "severity",
+          "status",
+          "detected_at"
+        ],
+        "title": "MisconceptionSchema"
+      },
+      "MisconceptionSeverity": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "title": "MisconceptionSeverity"
+      },
+      "MisconceptionStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "resolved"
+        ],
+        "title": "MisconceptionStatus"
+      },
+      "NodeState": {
+        "type": "string",
+        "enum": [
+          "LOCKED",
+          "AVAILABLE",
+          "CURRENT",
+          "COMPLETED",
+          "SKIPPED"
+        ],
+        "title": "NodeState"
+      },
+      "PersonalizedStudyNotesResponse": {
+        "properties": {
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "key_points": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Key Points"
+          },
+          "your_weakness": {
+            "type": "string",
+            "title": "Your Weakness"
+          },
+          "remember_this": {
+            "type": "string",
+            "title": "Remember This"
+          },
+          "next_action": {
+            "type": "string",
+            "title": "Next Action"
+          },
+          "cached": {
+            "type": "boolean",
+            "title": "Cached",
+            "default": false
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "concept_id",
+          "title",
+          "summary",
+          "key_points",
+          "your_weakness",
+          "remember_this",
+          "next_action",
+          "generated_at"
+        ],
+        "title": "PersonalizedStudyNotesResponse"
+      },
+      "ProcessingStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "processing",
+          "completed",
+          "failed"
+        ],
+        "title": "ProcessingStatus"
+      },
+      "RAGChunkResult": {
+        "properties": {
+          "chunk_id": {
+            "type": "string",
+            "title": "Chunk Id"
+          },
+          "resource_id": {
+            "type": "string",
+            "title": "Resource Id"
+          },
+          "resource_title": {
+            "type": "string",
+            "title": "Resource Title"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "chunk_index": {
+            "type": "integer",
+            "title": "Chunk Index"
+          },
+          "concept_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Concept Id"
+          },
+          "similarity_score": {
+            "type": "number",
+            "title": "Similarity Score"
+          },
+          "is_public": {
+            "type": "boolean",
+            "title": "Is Public",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "chunk_id",
+          "resource_id",
+          "resource_title",
+          "content",
+          "chunk_index",
+          "similarity_score"
+        ],
+        "title": "RAGChunkResult"
+      },
+      "RAGSearchRequest": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "concept_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Concept Id"
+          },
+          "top_k": {
+            "type": "integer",
+            "title": "Top K",
+            "default": 4
+          }
+        },
+        "type": "object",
+        "required": [
+          "query"
+        ],
+        "title": "RAGSearchRequest"
+      },
+      "RAGSearchResponse": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "concept_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Concept Id"
+          },
+          "total_found": {
+            "type": "integer",
+            "title": "Total Found"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/RAGChunkResult"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "type": "object",
+        "required": [
+          "query",
+          "total_found",
+          "results"
+        ],
+        "title": "RAGSearchResponse"
+      },
+      "RemediationInsertRequest": {
+        "properties": {
+          "target_node_id": {
+            "type": "string",
+            "title": "Target Node Id"
+          },
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "subtitle": {
+            "type": "string",
+            "title": "Subtitle"
+          },
+          "estimated_minutes": {
+            "type": "integer",
+            "title": "Estimated Minutes",
+            "default": 15
+          }
+        },
+        "type": "object",
+        "required": [
+          "target_node_id",
+          "concept_id",
+          "title",
+          "subtitle"
+        ],
+        "title": "RemediationInsertRequest"
+      },
+      "ResourceResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "resource_type": {
+            "$ref": "#/components/schemas/ResourceType"
+          },
+          "storage_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Storage Path"
+          },
+          "processing_status": {
+            "$ref": "#/components/schemas/ProcessingStatus"
+          },
+          "is_public": {
+            "type": "boolean",
+            "title": "Is Public",
+            "default": false
+          },
+          "error_message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Message"
+          },
+          "extracted_concepts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Extracted Concepts"
+          },
+          "chunk_count": {
+            "type": "integer",
+            "title": "Chunk Count",
+            "default": 0
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "title",
+          "resource_type",
+          "processing_status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ResourceResponse"
+      },
+      "ResourceType": {
+        "type": "string",
+        "enum": [
+          "pdf",
+          "text",
+          "link",
+          "note"
+        ],
+        "title": "ResourceType"
+      },
+      "RetentionRisk": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "title": "RetentionRisk"
+      },
+      "RetrievalAccuracy": {
+        "type": "string",
+        "enum": [
+          "correct",
+          "partially_correct",
+          "incorrect"
+        ],
+        "title": "RetrievalAccuracy"
+      },
+      "RetrievalConfidence": {
+        "type": "string",
+        "enum": [
+          "confident",
+          "not_confident"
+        ],
+        "title": "RetrievalConfidence"
+      },
+      "RetrievalResult": {
+        "type": "string",
+        "enum": [
+          "fail",
+          "hard",
+          "good",
+          "easy"
+        ],
+        "title": "RetrievalResult"
+      },
+      "ReviewCompleteRequest": {
+        "properties": {
+          "is_successful": {
+            "type": "boolean",
+            "title": "Is Successful",
+            "description": "True if retrieval was correct/successful, False if failed"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence",
+            "description": "Self-reported confidence percentage"
+          },
+          "time_spent_seconds": {
+            "type": "integer",
+            "title": "Time Spent Seconds",
+            "description": "Time spent on retrieval practice",
+            "default": 120
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "is_successful"
+        ],
+        "title": "ReviewCompleteRequest"
+      },
+      "ReviewItemResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "concept_name": {
+            "type": "string",
+            "title": "Concept Name"
+          },
+          "last_reviewed": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Reviewed"
+          },
+          "next_review": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Next Review"
+          },
+          "interval": {
+            "type": "integer",
+            "title": "Interval",
+            "default": 1
+          },
+          "successful_retrievals": {
+            "type": "integer",
+            "title": "Successful Retrievals",
+            "default": 0
+          },
+          "failed_retrievals": {
+            "type": "integer",
+            "title": "Failed Retrievals",
+            "default": 0
+          },
+          "retention_score": {
+            "type": "number",
+            "title": "Retention Score",
+            "default": 100.0
+          },
+          "priority_score": {
+            "type": "number",
+            "title": "Priority Score",
+            "default": 0.0
+          },
+          "is_high_priority": {
+            "type": "boolean",
+            "title": "Is High Priority",
+            "default": false
+          },
+          "retention_risk": {
+            "type": "string",
+            "title": "Retention Risk",
+            "default": "medium"
+          },
+          "why_today": {
+            "type": "string",
+            "title": "Why Today",
+            "default": "Memory decay threshold reached. Spaced retrieval anchors foundational invariants."
+          },
+          "mentor_prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mentor Prompt"
+          },
+          "estimated_minutes": {
+            "type": "integer",
+            "title": "Estimated Minutes",
+            "default": 4
+          },
+          "next_review_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Review Text"
+          },
+          "due_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due At"
+          },
+          "interval_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Interval Days"
+          },
+          "repetitions": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Repetitions"
+          },
+          "last_reviewed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Reviewed At"
+          },
+          "ease_factor": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ease Factor",
+            "default": 2.5
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "concept_id",
+          "concept_name",
+          "next_review"
+        ],
+        "title": "ReviewItemResponse"
+      },
+      "ReviewSubmissionRequest": {
+        "properties": {
+          "review_item_id": {
+            "type": "string",
+            "title": "Review Item Id"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RetrievalResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "accuracy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RetrievalAccuracy"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RetrievalConfidence"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "time_spent_seconds": {
+            "type": "integer",
+            "title": "Time Spent Seconds",
+            "default": 120
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "review_item_id"
+        ],
+        "title": "ReviewSubmissionRequest"
+      },
+      "RevisionNextResponse": {
+        "properties": {
+          "header": {
+            "type": "string",
+            "title": "Header",
+            "default": "5 minutes for your future self."
+          },
+          "total_due_count": {
+            "type": "integer",
+            "title": "Total Due Count"
+          },
+          "primary_review_item": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewItemResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "upcoming_items": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewItemResponse"
+            },
+            "type": "array",
+            "title": "Upcoming Items",
+            "default": []
+          },
+          "mentor_guidance": {
+            "type": "string",
+            "title": "Mentor Guidance",
+            "default": "Consistent 5-minute retrieval is the single highest-yield cognitive investment."
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_due_count"
+        ],
+        "title": "RevisionNextResponse"
+      },
+      "SessionCompleteRequest": {
+        "properties": {
+          "user_submission": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Submission",
+            "description": "Explanation, code, or answers submitted by learner"
+          },
+          "step_responses": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Step Responses",
+            "description": "Optional step-by-step answers"
+          },
+          "time_spent_seconds": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Time Spent Seconds",
+            "description": "Time spent in session in seconds",
+            "default": 300
+          },
+          "self_reported_confidence": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Self Reported Confidence",
+            "default": 75.0
+          },
+          "quiz_results": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quiz Results"
+          }
+        },
+        "type": "object",
+        "title": "SessionCompleteRequest"
+      },
+      "SessionCreateRequest": {
+        "properties": {
+          "recommendation_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommendation Id",
+            "example": "rec_abc123"
+          },
+          "session_type": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SessionType"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "example": "REMEDIATE"
+          },
+          "concept_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Concept Id",
+            "example": "concept_dart_async_and_streams"
+          },
+          "goal_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal Id",
+            "example": "goal_flutter_pro"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata"
+          }
+        },
+        "type": "object",
+        "title": "SessionCreateRequest"
+      },
+      "SessionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "goal_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal Id"
+          },
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "session_type": {
+            "$ref": "#/components/schemas/SessionType"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SessionStatus"
+          },
+          "recommendation_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommendation Id"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/SessionStepSchema"
+            },
+            "type": "array",
+            "title": "Steps"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Started At"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceSchema"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "mastery_delta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mastery Delta",
+            "description": "Change in learner mastery resulting from this session"
+          },
+          "next_recommended_step": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Recommended Step"
+          },
+          "next_recommendation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ActionRecommendationSchema"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "concept_id",
+          "session_type",
+          "status",
+          "started_at"
+        ],
+        "title": "SessionResponse"
+      },
+      "SessionStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "completed",
+          "abandoned"
+        ],
+        "title": "SessionStatus"
+      },
+      "SessionStepSchema": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "order": {
+            "type": "integer",
+            "title": "Order"
+          },
+          "step_type": {
+            "$ref": "#/components/schemas/SessionStepType"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "instruction": {
+            "type": "string",
+            "title": "Instruction"
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt"
+          },
+          "question_type": {
+            "type": "string",
+            "title": "Question Type",
+            "default": "open_ended"
+          },
+          "options": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Options"
+          },
+          "rubric_criteria": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rubric Criteria",
+            "default": ""
+          },
+          "user_response": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Response"
+          },
+          "evaluation_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evaluation Score"
+          },
+          "feedback": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feedback"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "order",
+          "step_type",
+          "title",
+          "instruction",
+          "prompt"
+        ],
+        "title": "SessionStepSchema"
+      },
+      "SessionStepType": {
+        "type": "string",
+        "enum": [
+          "RECALL",
+          "EXPLAIN",
+          "PRACTICE",
+          "DIAGNOSE",
+          "APPLY",
+          "TRANSFER",
+          "TEACH"
+        ],
+        "title": "SessionStepType"
+      },
+      "SessionType": {
+        "type": "string",
+        "enum": [
+          "LEARN",
+          "PRACTICE",
+          "PROVE",
+          "TEACH",
+          "REMEDIATE",
+          "REVISE",
+          "REFLECT"
+        ],
+        "title": "SessionType"
+      },
+      "TeachEvaluateRequest": {
+        "properties": {
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "explanation_text": {
+            "type": "string",
+            "minLength": 5,
+            "title": "Explanation Text",
+            "description": "Learner explanation text transcribed or typed"
+          },
+          "audio_duration_seconds": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Duration Seconds"
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          },
+          "self_reported_confidence": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 100.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Self Reported Confidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "concept_id",
+          "explanation_text"
+        ],
+        "title": "TeachEvaluateRequest"
+      },
+      "TeachEvaluationResponse": {
+        "properties": {
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "conceptual_accuracy": {
+            "type": "integer",
+            "title": "Conceptual Accuracy"
+          },
+          "completeness": {
+            "type": "integer",
+            "title": "Completeness"
+          },
+          "reasoning": {
+            "type": "integer",
+            "title": "Reasoning"
+          },
+          "confidence": {
+            "type": "integer",
+            "title": "Confidence"
+          },
+          "transfer": {
+            "type": "integer",
+            "title": "Transfer"
+          },
+          "misconceptions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Misconceptions"
+          },
+          "missing_concepts": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Concepts"
+          },
+          "recommendation": {
+            "type": "string",
+            "title": "Recommendation"
+          },
+          "evidence_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Id"
+          },
+          "updated_mastery_score": {
+            "type": "number",
+            "title": "Updated Mastery Score"
+          },
+          "updated_confidence_score": {
+            "type": "number",
+            "title": "Updated Confidence Score"
+          },
+          "updated_status": {
+            "type": "string",
+            "title": "Updated Status"
+          },
+          "feedback_summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feedback Summary"
+          },
+          "key_strengths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Key Strengths"
+          },
+          "growth_areas": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Growth Areas"
+          },
+          "evaluated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Evaluated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "concept_id",
+          "conceptual_accuracy",
+          "completeness",
+          "reasoning",
+          "confidence",
+          "transfer",
+          "recommendation",
+          "updated_mastery_score",
+          "updated_confidence_score",
+          "updated_status",
+          "evaluated_at"
+        ],
+        "title": "TeachEvaluationResponse"
+      },
+      "UserProfileResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "full_name": {
+            "type": "string",
+            "title": "Full Name"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone",
+            "default": "UTC"
+          },
+          "preferences": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Preferences"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "full_name",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "UserProfileResponse"
+      },
+      "UserProfileUpdateRequest": {
+        "properties": {
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name"
+          },
+          "timezone": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone"
+          },
+          "preferences": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preferences"
+          }
+        },
+        "type": "object",
+        "title": "UserProfileUpdateRequest"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WeaknessItem": {
+        "properties": {
+          "concept_id": {
+            "type": "string",
+            "title": "Concept Id"
+          },
+          "concept_name": {
+            "type": "string",
+            "title": "Concept Name"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "risk_score": {
+            "type": "number",
+            "title": "Risk Score"
+          },
+          "misconceptions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Misconceptions",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "concept_id",
+          "concept_name",
+          "reason",
+          "risk_score"
+        ],
+        "title": "WeaknessItem"
+      }
+    }
+  }
+}
