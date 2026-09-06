@@ -1,16 +1,16 @@
 from typing import Optional
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, Field
 from app.schemas.profile import UserProfileResponse
 
 
 class SignupRequest(BaseModel):
-    email: EmailStr
+    email: str = Field(..., min_length=3)
     password: str = Field(..., min_length=6)
     name: Optional[str] = "Learner"
 
 
 class LoginRequest(BaseModel):
-    email: EmailStr
+    email: str = Field(..., min_length=3)
     password: str
 
 
