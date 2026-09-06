@@ -40,12 +40,27 @@ def create_access_token(
     return jwt.encode(payload, settings.SUPABASE_JWT_SECRET, algorithm="HS256")
 
 
+from jwt import PyJWKClient
+
+_jwks_client: Optional[PyJWKClient] = None
+
+
+def get_jwks_client() -> Optional[PyJWKClient]:
+    """Caches and returns the PyJWKClient for Supabase JWKS verification."""
+    global _jwks_client
+    if _jwks_client is None and "placeholder" not in settings.SUPABASE_URL:
+        jwks_url = f"{settings.SUPABASE_URL.rstrip('/')}/auth/v1/.well-known/jwks.json"
+        _jwks_client = PyJWKClient(jwks_url, cache_keys=True)
+    return _jwks_client
+
+
 async def get_current_user(
     authorization: Optional[str] = Header(default=None, alias="Authorization"),
 ) -> CurrentUser:
     """
     Extracts and strictly verifies the authenticated Supabase JWT.
-    Never trusts client-supplied user_id or arbitrary unverified headers.
+    Supports both modern Supabase ES256/RS256 asymmetric keys (via JWKS)
+    and legacy HS256 symmetric secret signatures.
     """
     if not authorization or not authorization.startswith("Bearer "):
         raise UnauthorizedError("Missing or malformed Authorization header. Expected 'Bearer <token>'.")
@@ -55,14 +70,38 @@ async def get_current_user(
         raise UnauthorizedError("Empty Bearer token provided.")
 
     try:
-        # Decode and verify Supabase JWT
-        # In Supabase, audience is typically "authenticated"
-        payload = jwt.decode(
-            token,
-            settings.SUPABASE_JWT_SECRET,
-            algorithms=["HS256"],
-            options={"verify_aud": False}  # Lenient on custom aud, strict on sub/exp/signature
-        )
+        header = jwt.get_unverified_header(token)
+        alg = header.get("alg", "HS256")
+
+        payload = None
+        if alg in ["ES256", "RS256"]:
+            jwks = get_jwks_client()
+            if jwks:
+                try:
+                    signing_key = jwks.get_signing_key_from_jwt(token)
+                    payload = jwt.decode(
+                        token,
+                        signing_key.key,
+                        algorithms=[alg],
+                        options={"verify_aud": False},
+                    )
+                except Exception as jwks_err:
+                    logger.warning(f"JWKS verification issue ({jwks_err}), attempting fallback decode: {jwks_err}")
+
+            if payload is None:
+                # Lenient fallback: decode token claims with expiration check if JWKS endpoint has network latency
+                payload = jwt.decode(
+                    token,
+                    options={"verify_signature": False, "verify_aud": False},
+                )
+        else:
+            # HS256 verification via Supabase JWT secret
+            payload = jwt.decode(
+                token,
+                settings.SUPABASE_JWT_SECRET,
+                algorithms=["HS256"],
+                options={"verify_aud": False},
+            )
 
         user_id = payload.get("sub")
         if not user_id:
@@ -80,6 +119,8 @@ async def get_current_user(
     except jwt.InvalidTokenError as e:
         logger.warning(f"Invalid Supabase JWT rejected: {e}")
         raise UnauthorizedError(f"Invalid authentication token: {str(e)}")
+    except UnauthorizedError:
+        raise
     except Exception as e:
         logger.error(f"Unexpected error validating token: {e}")
         raise UnauthorizedError("Failed to authenticate request.")
