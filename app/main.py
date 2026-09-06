@@ -11,14 +11,31 @@ from app.api.v1.router import api_router
 from app.schemas.health import HealthResponse
 
 
+from app.core.database import init_db, check_db_health
+from app.workers.retention_worker import retention_worker
+import asyncio
+
+_worker_task = None
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup sequence
     logger.info(f"Starting {settings.APP_NAME} in '{settings.APP_ENV}' mode (Debug: {settings.DEBUG})")
     logger.info(f"Configured LLM Provider: {settings.LLM_PROVIDER} ({settings.LLM_MODEL})")
+    await init_db()
+    global _worker_task
+    _worker_task = asyncio.create_task(retention_worker.start_periodic_worker(interval_seconds=3600))
     yield
     # Shutdown sequence
     logger.info("Gracefully shutting down SkillTwin Backend...")
+    retention_worker.stop()
+    if _worker_task and not _worker_task.done():
+        _worker_task.cancel()
+        try:
+            await _worker_task
+        except asyncio.CancelledError:
+            pass
 
 
 def create_application() -> FastAPI:
@@ -63,13 +80,14 @@ def create_application() -> FastAPI:
     @application.get("/health", response_model=HealthResponse, tags=["Health"], summary="Root Health Check")
     async def root_health():
         """Root health check for load balancers and container orchestrators."""
+        db_alive = await check_db_health()
         return HealthResponse(
-            status="ok",
+            status="ok" if db_alive else "degraded",
             version="1.0.0",
             service=settings.APP_NAME,
             environment=settings.APP_ENV,
             dependencies={
-                "database": "connected",
+                "database": "connected" if db_alive else "disconnected",
                 "ai_provider": settings.LLM_PROVIDER,
                 "api_v1": "operational",
             }

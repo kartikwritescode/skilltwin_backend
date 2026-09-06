@@ -30,13 +30,17 @@ async def test_create_goal_and_get_journey(async_client: AsyncClient, auth_heade
     assert goal_resp.status_code == 200
     assert goal_resp.json()["id"] == goal_id
 
-    # Wait briefly for background async roadmap generation
-    await asyncio.sleep(0.05)
+    # Wait resiliently for background async roadmap generation
+    journey_data = {}
+    for _ in range(30):
+        journey_resp = await async_client.get(f"/api/v1/journeys/{journey_id}", headers=auth_headers)
+        if journey_resp.status_code == 200:
+            journey_data = journey_resp.json()
+            if journey_data.get("generation_status") == "READY":
+                break
+        await asyncio.sleep(0.05)
 
-    # 3. Get Journey Roadmap Details
-    journey_resp = await async_client.get(f"/api/v1/journeys/{journey_id}", headers=auth_headers)
     assert journey_resp.status_code == 200
-    journey_data = journey_resp.json()
     assert journey_data["id"] == journey_id
     assert journey_data["generation_status"] == "READY"
     assert len(journey_data["nodes"]) > 0

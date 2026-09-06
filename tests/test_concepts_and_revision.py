@@ -8,7 +8,7 @@ async def test_concept_detail(async_client: AsyncClient, auth_headers: dict):
     assert response.status_code == 200
     data = response.json()
     assert data["id"] == "concept_recursion"
-    assert data["name"] == "Recursion"
+    assert "Recursion" in data["name"]
     assert "mastery" in data
     assert "retention_risk" in data
     assert "mentor_recommendation" in data

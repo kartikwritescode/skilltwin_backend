@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     SUPABASE_SERVICE_ROLE_KEY: str = Field(default="placeholder-service-role-key", description="Supabase service role secret key")
     SUPABASE_ANON_KEY: str = Field(default="placeholder-anon-key", description="Supabase anonymous client key")
     DATABASE_URL: str = Field(
-        default="sqlite+aiosqlite:///:memory:",
+        default="sqlite+aiosqlite:///./skilltwin.db",
         description="Database connection URL"
     )
 

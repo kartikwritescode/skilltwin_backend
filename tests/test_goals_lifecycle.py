@@ -37,12 +37,17 @@ async def test_goal_creation_and_async_generation(async_client: AsyncClient, aut
     journey_id = goal_data["active_journey_id"]
 
     # Yield control to allow background asyncio task to complete generation
-    await asyncio.sleep(0.05)
+    journey_data = {}
+    for _ in range(30):
+        journey_resp = await async_client.get(f"/api/v1/journeys/{journey_id}", headers=auth_headers)
+        if journey_resp.status_code == 200:
+            journey_data = journey_resp.json()
+            if journey_data.get("generation_status") == "READY":
+                break
+        await asyncio.sleep(0.05)
 
     # 2. Check Journey state after background generation finishes
-    journey_resp = await async_client.get(f"/api/v1/journeys/{journey_id}", headers=auth_headers)
     assert journey_resp.status_code == 200
-    journey_data = journey_resp.json()
     assert journey_data["generation_status"] == "READY"
     assert len(journey_data["nodes"]) > 0
 

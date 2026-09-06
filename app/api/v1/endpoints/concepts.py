@@ -13,6 +13,31 @@ from app.core.exceptions import EntityNotFoundError
 router = APIRouter(prefix="/concepts", tags=["Concepts"])
 
 
+@router.get("/graph/topology", summary="Get Full Interactive Concept Graph Topology")
+async def get_concept_graph(
+    current_user: CurrentUser = Depends(get_current_user),
+    concept_repo: ConceptRepository = Depends(lambda: concept_repository),
+    learner_repo: LearnerRepository = Depends(lambda: learner_repository),
+):
+    """
+    Returns the complete concept dependency graph including nodes, prerequisite edges,
+    and the learner's personalized mastery/risk state for each node.
+    """
+    graph_data = await concept_repo.get_graph()
+    user_states = await learner_repo.list_states_for_user(current_user.user_id)
+    state_map = {s.concept_id: s for s in user_states}
+
+    for node in graph_data["nodes"]:
+        cid = node["id"]
+        state = state_map.get(cid)
+        node["mastery_score"] = state.mastery_score if state else 0.0
+        node["status"] = state.status.value if state else "NOT_STARTED"
+        node["risk_score"] = state.risk_score if state else 0.0
+        node["evidence_count"] = state.evidence_count if state else 0
+
+    return graph_data
+
+
 @router.get("/{concept_id}", response_model=ConceptDetailResponse, summary="Get Concept Detail & Live Learner State")
 async def get_concept_detail(
     concept_id: str,

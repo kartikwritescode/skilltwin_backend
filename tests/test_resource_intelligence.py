@@ -16,11 +16,17 @@ async def test_resource_upload_and_async_processing(async_client: AsyncClient, a
     assert upload_data["title"] == "Dart Streams Guide"
     assert upload_data["processing_status"] in ["processing", "completed"]
 
-    await asyncio.sleep(0.1)
+    # Wait for async background processing
+    res_data = {}
+    for _ in range(30):
+        get_resp = await async_client.get(f"/api/v1/resources/{res_id}", headers=auth_headers)
+        if get_resp.status_code == 200:
+            res_data = get_resp.json()
+            if res_data.get("processing_status") == "completed":
+                break
+        await asyncio.sleep(0.05)
 
-    get_resp = await async_client.get(f"/api/v1/resources/{res_id}", headers=auth_headers)
     assert get_resp.status_code == 200
-    res_data = get_resp.json()
     assert res_data["processing_status"] == "completed"
     assert res_data["chunk_count"] > 0
     assert len(res_data["extracted_concepts"]) > 0

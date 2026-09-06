@@ -1,3 +1,4 @@
+import asyncio
 import pytest
 from datetime import datetime, timezone, timedelta
 from httpx import AsyncClient
@@ -50,6 +51,15 @@ async def test_deadline_pressure_evaluation(async_client: AsyncClient):
     }
     g_resp = await async_client.post("/api/v1/goals", json=goal_payload, headers=headers)
     assert g_resp.status_code == 201
+    g_data = g_resp.json()
+
+    # Wait for journey generation so deadline pressure has nodes to evaluate
+    journey_id = g_data["active_journey_id"]
+    for _ in range(30):
+        j_resp = await async_client.get(f"/api/v1/journeys/{journey_id}", headers=headers)
+        if j_resp.status_code == 200 and j_resp.json().get("generation_status") == "READY":
+            break
+        await asyncio.sleep(0.05)
 
     mentor_resp = await async_client.get("/api/v1/mentor/today", headers=headers)
     assert mentor_resp.status_code == 200
@@ -87,9 +97,16 @@ async def test_complete_intelligence_closed_loop(async_client: AsyncClient):
     # --------------------------------------------------------------------------
     # 2. JOURNEY: Retrieve generated roadmap
     # --------------------------------------------------------------------------
-    journey_resp = await async_client.get(f"/api/v1/journeys/{goal_data['active_journey_id']}", headers=headers)
+    journey_data = {}
+    for _ in range(30):
+        journey_resp = await async_client.get(f"/api/v1/journeys/{goal_data['active_journey_id']}", headers=headers)
+        if journey_resp.status_code == 200:
+            journey_data = journey_resp.json()
+            if journey_data.get("generation_status") == "READY":
+                break
+        await asyncio.sleep(0.05)
+
     assert journey_resp.status_code == 200
-    journey_data = journey_resp.json()
     assert len(journey_data["nodes"]) > 0
     initial_node = journey_data["nodes"][0]
     initial_progress = journey_data["progress"]

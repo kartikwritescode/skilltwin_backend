@@ -7,8 +7,21 @@ backend_dir = Path(__file__).resolve().parent.parent
 if str(backend_dir) not in sys.path:
     sys.path.insert(0, str(backend_dir))
 
+from app.core.config import settings
+settings.DATABASE_URL = "sqlite+aiosqlite:///./skilltwin.db"
+settings.LLM_PROVIDER = "mock"
+
 from app.main import app
 from app.core.security import create_access_token
+from app.core.database import init_db
+from app.ai.providers.factory import get_llm_provider
+
+get_llm_provider.cache_clear()
+
+
+@pytest.fixture(autouse=True, scope="session")
+async def initialize_test_database():
+    await init_db()
 
 
 @pytest.fixture(scope="session")
