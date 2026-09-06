@@ -42,3 +42,37 @@ async def test_session_lifecycle(async_client: AsyncClient, auth_headers: dict):
     assert evidence["concept_id"] == "concept_dart_async_and_streams"
     assert evidence["score"] > 0
     assert "feedback" in evidence
+
+
+@pytest.mark.asyncio
+async def test_empty_session_submission_yields_zero_score(async_client: AsyncClient, auth_headers: dict):
+    # 1. Start a practice session
+    create_payload = {
+        "concept_id": "concept_dart_async_and_streams",
+        "session_type": "practice",
+    }
+    start_resp = await async_client.post("/api/v1/sessions", json=create_payload, headers=auth_headers)
+    assert start_resp.status_code == 201
+    session_id = start_resp.json()["id"]
+
+    # 2. Complete session with NO answers (empty submission)
+    complete_payload = {
+        "user_submission": "",
+        "step_responses": [],
+        "time_spent_seconds": 10,
+    }
+    complete_resp = await async_client.post(
+        f"/api/v1/sessions/{session_id}/complete",
+        json=complete_payload,
+        headers=auth_headers
+    )
+    assert complete_resp.status_code == 200
+    data = complete_resp.json()
+    assert data["status"] == "completed"
+    assert data["score"] == 0.0
+    assert data["mastery_delta"] <= 0.0
+    assert len(data["step_evaluations"]) > 0
+    for se in data["step_evaluations"]:
+        assert se["is_correct"] is False
+        assert len(se["correct_answer"]) > 0
+        assert len(se["explanation"]) > 0

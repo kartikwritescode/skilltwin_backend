@@ -37,20 +37,36 @@ Options: Learn new concept, Revise decaying concept, Practice problem, Prove mas
 """
 
 SESSION_EVALUATION_RUBRIC = """
-Evaluate the learner's submission against this rubric:
-1. Accuracy: Are core principles correct?
-2. Reasoning: Did they explain cause and effect or mechanism?
-3. Transfer: Can they apply it to edge cases?
-4. Misconceptions: What incorrect mental models are present?
-5. Resolved: Which prior misconceptions have been successfully corrected?
+You are SkillTwin's rigorous pedagogical evaluator.
+Assess the learner's submissions with high academic and engineering rigor.
 
-Submission:
+Target Concept: {concept_name}
+Session Type: {session_type}
+Prior Known Misconceptions: {prior_misconceptions}
+
+Session Steps and Learner Submissions:
+{steps_context}
+
+Overall Submission Text:
 {submission}
 
-Context:
-Concept: {concept_name}
-Session Type: {session_type}
-Prior Misconceptions: {prior_misconceptions}
+Evaluation Instructions:
+1. For EACH step in step_evaluations:
+   - Compare learner's answer against the prompt, options, and rubric.
+   - Set is_correct (true ONLY if conceptually sound and correct).
+   - Provide the authoritative correct_answer and an explanation clarifying the core invariant.
+2. Scoring:
+   - score (0.0 to 100.0): Proportion of steps answered correctly and reasoning quality. If the submission was empty, gibberish, or wrong, score must be <= 35.0.
+   - accuracy_score, reasoning_score, transfer_score, completeness_score (0.0 to 100.0).
+3. Mastery & Confidence Deltas:
+   - mastery_delta: Range -5.0 to +10.0. If score < 50, delta is 0.0 or negative. If score >= 80, positive (5.0 to 10.0).
+   - confidence_delta: Range -5.0 to +10.0. Negative if unattempted or failed.
+4. Feedback & Insights:
+   - feedback: Honest, encouraging, constructive pedagogical analysis.
+   - improvements: Specific concepts demonstrated well (empty if none).
+   - focus_areas: Exact errors, gaps, or edge cases to revisit.
+   - misconceptions_detected: Specific fallacies revealed.
+   - resolved_misconceptions: Prior misconceptions now overcome.
 """
 
 QUESTION_GENERATION_PROMPT = """
@@ -66,6 +82,14 @@ Inputs:
 - Active Misconceptions: {misconceptions}
 - Relevant Resource Context: {resource_context}
 - Session Type: {session_type}
+
+For each step:
+- Provide clear `title`, `instruction`, and `prompt`.
+- Specify `question_type` ("multiple_choice", "open_ended", "code_fix", or "diagnosis").
+- For multiple_choice, provide 3-4 distinct plausible `options`.
+- ALWAYS provide `correct_answer` with the exact correct choice or solution.
+- ALWAYS provide `explanation` explaining the invariant principle and why incorrect choices fail.
+- Define `rubric_criteria`.
 
 Generate structured sequential steps from:
 RECALL, EXPLAIN, PRACTICE, DIAGNOSE, APPLY, TRANSFER, TEACH.

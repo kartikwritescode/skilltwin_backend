@@ -26,15 +26,29 @@ class GeneratedJourneyPlan(BaseModel):
     summary: str
 
 
+class StepEvaluation(BaseModel):
+    step_id: Optional[str] = ""
+    question: Optional[str] = ""
+    user_answer: Optional[str] = ""
+    is_correct: bool = False
+    correct_answer: str = ""
+    explanation: str = ""
+
+
 class EvaluationResult(BaseModel):
     score: float = Field(..., ge=0.0, le=100.0)
-    reasoning_score: float = Field(default=80.0, ge=0.0, le=100.0)
-    transfer_score: float = Field(default=75.0, ge=0.0, le=100.0)
+    reasoning_score: float = Field(default=0.0, ge=0.0, le=100.0)
+    transfer_score: float = Field(default=0.0, ge=0.0, le=100.0)
+    accuracy_score: float = Field(default=0.0, ge=0.0, le=100.0)
+    completeness_score: float = Field(default=0.0, ge=0.0, le=100.0)
     feedback: str
+    improvements: List[str] = Field(default_factory=list)
+    focus_areas: List[str] = Field(default_factory=list)
     misconceptions_detected: List[str] = Field(default_factory=list)
     resolved_misconceptions: List[str] = Field(default_factory=list)
-    mastery_delta: float = Field(default=5.0)
-    confidence_delta: float = Field(default=5.0)
+    mastery_delta: float = Field(default=0.0)
+    confidence_delta: float = Field(default=0.0)
+    step_evaluations: List[StepEvaluation] = Field(default_factory=list)
 
 
 class GeneratedSessionStep(BaseModel):
@@ -49,6 +63,8 @@ class GeneratedSessionStep(BaseModel):
     question_type: str = Field(default="open_ended", description="open_ended, multiple_choice, code_fix, diagnosis")
     options: List[str] = Field(default_factory=list)
     rubric_criteria: str = ""
+    correct_answer: str = Field(default="", description="The correct answer or ideal solution")
+    explanation: str = Field(default="", description="Pedagogical explanation of why this is correct")
 
 
 class GeneratedSessionPlan(BaseModel):

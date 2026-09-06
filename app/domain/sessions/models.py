@@ -60,6 +60,8 @@ class SessionStep:
     question_type: str = "open_ended"  # open_ended, multiple_choice, code_fix, diagnosis
     options: List[str] = field(default_factory=list)
     rubric_criteria: str = ""
+    correct_answer: str = ""
+    explanation: str = ""
     user_response: Optional[str] = None
     evaluation_score: Optional[float] = None
     feedback: Optional[str] = None

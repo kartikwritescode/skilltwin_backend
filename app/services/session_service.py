@@ -23,6 +23,7 @@ from app.schemas.sessions import (
     SessionResponse,
     SessionStepSchema,
     EvidenceSchema,
+    StepEvaluationSchema,
 )
 from app.schemas.mentor import ActionRecommendationSchema
 from app.services.assessment_service import AssessmentService, assessment_service
@@ -154,6 +155,8 @@ class SessionService:
                 question_type=s.question_type,
                 options=s.options,
                 rubric_criteria=s.rubric_criteria,
+                correct_answer=getattr(s, "correct_answer", "") or "",
+                explanation=getattr(s, "explanation", "") or "",
             )
             session_steps.append(step)
 
@@ -181,6 +184,8 @@ class SessionService:
                 question_type=st.question_type,
                 options=st.options,
                 rubric_criteria=st.rubric_criteria,
+                correct_answer=st.correct_answer,
+                explanation=st.explanation,
                 user_response=st.user_response,
                 evaluation_score=st.evaluation_score,
                 feedback=st.feedback,
@@ -190,9 +195,11 @@ class SessionService:
 
         return SessionResponse(
             id=session.id,
+            session_id=session.id,
             user_id=session.user_id,
             goal_id=session.goal_id,
             concept_id=session.concept_id,
+            concept_title=concept_name,
             session_type=session.session_type,
             status=session.status,
             recommendation_id=session.recommendation_id,
@@ -213,30 +220,52 @@ class SessionService:
 
         # ----------------------------------------------------------------------
         # TRANSACTIONAL COMPLETION PIPELINE
-        # 1. Evaluate performance
-        # 2. Create evidence
-        # 3. Update learner concept state (mastery, confidence)
-        # 4. Update misconceptions (new + resolved)
-        # 5. Update retention curve
-        # 6. Update journey (advance node & progress)
-        # 7. Create next recommendation
+        # 1. Collect and structure learner answers
+        # 2. Evaluate performance against rubric & correct answers
+        # 3. Create evidence & update Learner Twin
+        # 4. Update misconceptions & retention
+        # 5. Advance journey node if earned
+        # 6. Synthesize next recommendation
         # ----------------------------------------------------------------------
 
         # Resolve concept metadata & learner state
         concept = await self.concept_repo.get_by_id(session.concept_id)
         concept_name = concept.name if concept else session.concept_id
         learner_state = await self.learner_svc.get_or_create_concept_state(user_id, session.concept_id)
+        prior_mastery = learner_state.mastery_score
+        prior_confidence = learner_state.confidence_score
 
-        # 1. EVALUATE PERFORMANCE against rubric
+        # 1. Collect step responses from request and model_extra (if raw dictionary was sent)
+        step_responses = list(request.step_responses or [])
+        if not step_responses and getattr(request, "model_extra", None):
+            for k, v in request.model_extra.items():
+                if v is not None and str(v).strip() and (k.startswith("step_") or any(s.id == k for s in session.steps)):
+                    step_responses.append({"step_id": k, "response": str(v)})
+
+        user_submission = request.user_submission
+        if not user_submission and step_responses:
+            user_submission = "\n".join([f"Step {r.get('step_id', '')}: {r.get('response', '')}" for r in step_responses if r.get('response')])
+
+        # 2. EVALUATE PERFORMANCE against rubric
         eval_result = await self.assessment_svc.evaluate_learner_performance(
             concept_name=concept_name,
             session_type=session.session_type.value,
-            submission=request.user_submission,
+            submission=user_submission,
             prior_misconceptions=learner_state.misconception_tags,
-            quiz_data={"quiz_results": request.quiz_results, "step_responses": request.step_responses},
+            quiz_data={"quiz_results": request.quiz_results, "step_responses": step_responses},
+            steps=session.steps,
         )
 
-        # 2. CREATE EVIDENCE
+        # Update step records with evaluation results
+        for st in session.steps:
+            for se in eval_result.step_evaluations:
+                if se.step_id == st.id:
+                    st.user_response = se.user_answer
+                    st.evaluation_score = 100.0 if se.is_correct else 0.0
+                    st.feedback = se.explanation
+                    break
+
+        # 3. CREATE EVIDENCE
         ev_type = EvidenceType.PRACTICE
         stype = session.session_type
         if stype == SessionType.LEARN:
@@ -265,10 +294,15 @@ class SessionService:
             self_confidence=request.self_reported_confidence,
         )
 
-        # 3, 4, 5. UPDATE LEARNER CONCEPT STATE, MISCONCEPTIONS & RETENTION
+        # Refresh learner state after evidence update to calculate actual deltas
+        refreshed_state = await self.learner_svc.get_or_create_concept_state(user_id, session.concept_id)
+        mastery_delta = round(refreshed_state.mastery_score - prior_mastery, 1)
+        confidence_delta = round(refreshed_state.confidence_score - prior_confidence, 1)
+
+        # 4. UPDATE LEARNER CONCEPT STATE, MISCONCEPTIONS & RETENTION
         for resolved_tag in eval_result.resolved_misconceptions:
-            if resolved_tag in learner_state.misconception_tags:
-                learner_state.misconception_tags.remove(resolved_tag)
+            if resolved_tag in refreshed_state.misconception_tags:
+                refreshed_state.misconception_tags.remove(resolved_tag)
                 logger.info(f"Resolved misconception '{resolved_tag}' for concept {session.concept_id}")
 
         active_miscs = await self.learner_repo.list_misconceptions_for_concept(user_id, session.concept_id)
@@ -279,10 +313,10 @@ class SessionService:
                 m.resolved_at = datetime.now(timezone.utc)
                 await self.learner_repo.save_misconception(m)
 
-        learner_state.risk_score = self.learner_svc.update_risk(
-            learner_state.mastery_score, learner_state.retention_score, len(learner_state.misconception_tags)
+        refreshed_state.risk_score = self.learner_svc.update_risk(
+            refreshed_state.mastery_score, refreshed_state.retention_score, len(refreshed_state.misconception_tags)
         )
-        await self.learner_repo.save_concept_state(learner_state)
+        await self.learner_repo.save_concept_state(refreshed_state)
 
         # Update session record
         session.status = SessionStatus.COMPLETED
@@ -291,7 +325,7 @@ class SessionService:
         session.evidence.append(evidence)
         await self.session_repo.save(session)
 
-        # 6. UPDATE JOURNEY (advance node, recalculate progress, unlock prerequisites)
+        # 5. UPDATE JOURNEY (advance node, recalculate progress, unlock prerequisites)
         journey = None
         if session.goal_id:
             journey = await self.journey_repo.get_by_goal_id(session.goal_id)
@@ -309,7 +343,7 @@ class SessionService:
                     journey.id, matching_node.id, matching_node.state, node_progress=int(eval_result.score)
                 )
 
-        # 7. CREATE NEXT RECOMMENDATION
+        # 6. CREATE NEXT RECOMMENDATION
         next_today_brief = await self.recommendation_svc.get_today_recommendation(user_id)
         next_rec = next_today_brief.recommended_action
 
@@ -339,6 +373,8 @@ class SessionService:
                 question_type=st.question_type,
                 options=st.options,
                 rubric_criteria=st.rubric_criteria,
+                correct_answer=st.correct_answer,
+                explanation=st.explanation,
                 user_response=st.user_response,
                 evaluation_score=st.evaluation_score,
                 feedback=st.feedback,
@@ -346,11 +382,25 @@ class SessionService:
             for st in session.steps
         ]
 
+        step_eval_schemas = [
+            StepEvaluationSchema(
+                step_id=se.step_id or "",
+                question=se.question or "",
+                user_answer=se.user_answer or "",
+                is_correct=se.is_correct,
+                correct_answer=se.correct_answer or "",
+                explanation=se.explanation or "",
+            )
+            for se in eval_result.step_evaluations
+        ]
+
         return SessionResponse(
             id=session.id,
+            session_id=session.id,
             user_id=session.user_id,
             goal_id=session.goal_id,
             concept_id=session.concept_id,
+            concept_title=concept_name,
             session_type=session.session_type,
             status=session.status,
             recommendation_id=session.recommendation_id,
@@ -359,10 +409,22 @@ class SessionService:
             completed_at=session.completed_at,
             score=session.score,
             evidence=evidence_schemas,
-            mastery_delta=eval_result.mastery_delta,
+            mastery_delta=mastery_delta,
+            confidence_delta=confidence_delta,
+            current_mastery=refreshed_state.mastery_score,
+            current_confidence=refreshed_state.confidence_score,
+            improvements=eval_result.improvements,
+            focus_areas=eval_result.focus_areas,
+            mentor_recommendation=next_today_brief.mentor_note or eval_result.feedback,
+            accuracy_score=eval_result.accuracy_score,
+            completeness_score=eval_result.completeness_score,
+            reasoning_feedback=eval_result.feedback,
+            identified_misconceptions=eval_result.misconceptions_detected,
+            step_evaluations=step_eval_schemas,
             next_recommended_step=f"{next_rec.quick_action_label}: {next_rec.title}" if next_rec else None,
             next_recommendation=next_rec,
         )
+
 
 
 session_service = SessionService()

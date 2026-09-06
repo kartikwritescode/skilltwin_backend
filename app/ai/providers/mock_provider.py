@@ -13,6 +13,7 @@ from app.ai.schemas.ai_schemas import (
     ExtractedConcept,
     ExtractedConceptList,
     EvaluationResult,
+    StepEvaluation,
     MentorDecisionAIOutput,
     MentorRecommendationOutput,
     MentorChatAIOutput,
@@ -236,15 +237,43 @@ class MockLLMProvider(LLMProvider):
 
         elif response_schema == EvaluationResult:
             # Deterministic pedagogical evaluation
+            p_lower = prompt.lower()
             return EvaluationResult(
                 score=86.0,
                 reasoning_score=88.0,
                 transfer_score=82.0,
+                accuracy_score=86.0,
+                completeness_score=85.0,
                 feedback="Strong conceptual explanation. Clear grasp of core mechanisms and boundary conditions.",
+                improvements=[
+                    "Solidified invariant termination mechanics.",
+                    "Correctly identified activation record unwinding.",
+                ],
+                focus_areas=[
+                    "Continue practicing asynchronous stream backpressure handling.",
+                ],
                 misconceptions_detected=[],
-                resolved_misconceptions=["base_case_termination"] if "base" in prompt.lower() or "recurs" in prompt.lower() else [],
+                resolved_misconceptions=["base_case_termination"] if "base" in p_lower or "recurs" in p_lower else [],
                 mastery_delta=7.5,
                 confidence_delta=6.0,
+                step_evaluations=[
+                    StepEvaluation(
+                        step_id="step_mock_1",
+                        question="Core concept problem",
+                        user_answer="Correct invariant guard",
+                        is_correct=True,
+                        correct_answer="Correct invariant guard",
+                        explanation="Properly protects the recursion limit and prevents frame overflow.",
+                    ),
+                    StepEvaluation(
+                        step_id="step_mock_2",
+                        question="Call stack mechanism",
+                        user_answer="LIFO unwinding",
+                        is_correct=True,
+                        correct_answer="LIFO unwinding",
+                        explanation="Call stack unwinds in LIFO order upon reaching the base condition.",
+                    ),
+                ],
             )  # type: ignore
 
         elif response_schema == ExtractedConceptList:
