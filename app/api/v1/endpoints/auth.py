@@ -36,14 +36,14 @@ async def signup(request: SignupRequest):
                     if supabase_user.get("id"):
                         user_id = supabase_user["id"]
                     token = data.get("access_token") or create_access_token(user_id=user_id, email=email)
-                    profile = await user_service.get_or_create_profile(user_id=user_id, email=email)
+                    profile = await user_service.get_or_create_profile(user_id=user_id, email=email, full_name=request.name)
                     return AuthTokenResponse(access_token=token, user=profile)
         except Exception as e:
             logger.warning(f"Supabase auth failed, falling back to direct JWT: {e}")
 
     # Fallback / Local direct auth
     token = create_access_token(user_id=user_id, email=email)
-    profile = await user_service.get_or_create_profile(user_id=user_id, email=email)
+    profile = await user_service.get_or_create_profile(user_id=user_id, email=email, full_name=request.name)
     return AuthTokenResponse(access_token=token, user=profile)
 
 

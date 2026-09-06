@@ -8,9 +8,11 @@ class UserService:
     def __init__(self, repo: UserRepository = user_repository):
         self.repo = repo
 
-    async def get_or_create_profile(self, user_id: str, email: str) -> UserProfileResponse:
+    async def get_or_create_profile(
+        self, user_id: str, email: str, full_name: Optional[str] = None
+    ) -> UserProfileResponse:
         logger.info(f"Resolving profile for user: {user_id}")
-        profile = await self.repo.get_or_create(user_id=user_id, email=email)
+        profile = await self.repo.get_or_create(user_id=user_id, email=email, full_name=full_name)
         return UserProfileResponse(
             id=profile.id,
             email=profile.email,
