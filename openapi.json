@@ -28,6 +28,188 @@
         }
       }
     },
+    "/api/v1/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Learner Signup",
+        "description": "Registers a learner. If Supabase is connected, registers in Supabase Auth.\nFalls back gracefully to local JWT token generation + profile storage.",
+        "operationId": "signup_api_v1_auth_signup_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignupRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Learner Login",
+        "description": "Authenticates a learner via Supabase Auth or direct JWT.",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get Current Authenticated User",
+        "description": "Returns profile for currently authenticated user.",
+        "operationId": "get_me_api_v1_auth_me_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/onboarding-status": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Check Onboarding Status",
+        "description": "Checks if the user has completed onboarding.",
+        "operationId": "onboarding_status_api_v1_auth_onboarding_status_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/health": {
       "get": {
         "tags": [
@@ -652,6 +834,895 @@
         }
       }
     },
+    "/api/v1/learning-paths/generate": {
+      "post": {
+        "tags": [
+          "Dynamic Learning Paths & Dashboards"
+        ],
+        "summary": "Generate Personalized Learning Path from Goal",
+        "description": "Onboarding entrypoint:\nTakes free-text learning goal, target mastery level (Beginner/Intermediate/Expert/Interview Ready/Other),\ncustom target, and profile attributes.\nGenerates a deep hierarchical learning roadmap (Sections -> Topics) and persists to DB.",
+        "operationId": "generate_learning_path_api_v1_learning_paths_generate_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningGoalCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningGoalResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning-paths/active": {
+      "get": {
+        "tags": [
+          "Dynamic Learning Paths & Dashboards"
+        ],
+        "summary": "Get Authenticated Learner's Active Hierarchical Learning Path",
+        "description": "Returns the active hierarchical roadmap including sections, granular topics,\nprerequisites, objectives, mastery scores, and live completion progress.",
+        "operationId": "get_active_learning_path_api_v1_learning_paths_active_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/LearningPathResponse"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Active Learning Path Api V1 Learning Paths Active Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning-paths/{path_id}": {
+      "get": {
+        "tags": [
+          "Dynamic Learning Paths & Dashboards"
+        ],
+        "summary": "Get Hierarchical Learning Path by ID",
+        "description": "Returns a specific hierarchical learning path by ID.",
+        "operationId": "get_learning_path_by_id_api_v1_learning_paths__path_id__get",
+        "parameters": [
+          {
+            "name": "path_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Path Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPathResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/home/dashboard": {
+      "get": {
+        "tags": [
+          "Dynamic Learning Paths & Dashboards"
+        ],
+        "summary": "Get Personalized Home Dashboard Metrics",
+        "description": "SkillTwin Home Screen Source-of-Truth:\nReturns non-fabricated learner metrics derived directly from database progress:\n- Active goal and target level\n- Current module and topic\n- Real overall progress (0.0 to 1.0) and mastery\n- Real streak and learning minutes\n- Weak areas and revision count\n- Contextual next best action",
+        "operationId": "get_home_dashboard_api_v1_home_dashboard_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HomeDashboardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/twin/dashboard": {
+      "get": {
+        "tags": [
+          "Dynamic Learning Paths & Dashboards"
+        ],
+        "summary": "Get Cognitive Twin Verified Model",
+        "description": "SkillTwin Cognitive Twin Source-of-Truth:\nReturns true empirical mastery model without vanity inflation.\nIf learner has no completed topics, returns has_sufficient_data=False.",
+        "operationId": "get_twin_dashboard_api_v1_twin_dashboard_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TwinDashboardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/topics/{topic_id}": {
+      "get": {
+        "tags": [
+          "Topic Actions & Interactive Modes"
+        ],
+        "summary": "Get Detailed Topic Overview & Status",
+        "description": "Returns topic metadata, prerequisites, objectives, status, mastery, and navigation IDs.",
+        "operationId": "get_topic_detail_api_v1_topics__topic_id__get",
+        "parameters": [
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Topic Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicDetailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/topics/{topic_id}/start": {
+      "post": {
+        "tags": [
+          "Topic Actions & Interactive Modes"
+        ],
+        "summary": "Start Topic Session (status = learning)",
+        "description": "Sets topic state to learning and records active session timestamp.",
+        "operationId": "start_topic_api_v1_topics__topic_id__start_post",
+        "parameters": [
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Topic Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicStatusUpdateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/topics/{topic_id}/complete": {
+      "post": {
+        "tags": [
+          "Topic Actions & Interactive Modes"
+        ],
+        "summary": "Mark Topic Completed (status = completed)",
+        "description": "Marks topic completed, schedules spaced repetition review, auto-unlocks next topic,\nand updates overall path progress.",
+        "operationId": "complete_topic_api_v1_topics__topic_id__complete_post",
+        "parameters": [
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Topic Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicStatusUpdateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/topics/{topic_id}/revision": {
+      "post": {
+        "tags": [
+          "Topic Actions & Interactive Modes"
+        ],
+        "summary": "Mark Topic as Needs Revision (status = needs_revision)",
+        "description": "Flags topic as needing revision and schedules immediate retrieval queue.",
+        "operationId": "mark_topic_revision_api_v1_topics__topic_id__revision_post",
+        "parameters": [
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Topic Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicStatusUpdateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/topics/{topic_id}/explain": {
+      "post": {
+        "tags": [
+          "Topic Actions & Interactive Modes"
+        ],
+        "summary": "Understand Mode: Get Tailored Topic Explanation (Cached + RAG)",
+        "description": "Returns tailored Socratic explanation.\nChecks DB cache first (Cost optimization); on miss, grounds against RAG knowledge chunks.",
+        "operationId": "get_topic_explanation_api_v1_topics__topic_id__explain_post",
+        "parameters": [
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Topic Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicExplanationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/topics/{topic_id}/questions": {
+      "post": {
+        "tags": [
+          "Topic Actions & Interactive Modes"
+        ],
+        "summary": "Questions Mode: Get Practice Test Suite (MCQ, Scenario, Code Fix, Interview)",
+        "description": "Returns stored practice questions or generates a balanced multi-format set.",
+        "operationId": "get_topic_questions_api_v1_topics__topic_id__questions_post",
+        "parameters": [
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Topic Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicQuestionsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/topics/{topic_id}/submit": {
+      "post": {
+        "tags": [
+          "Topic Actions & Interactive Modes"
+        ],
+        "summary": "Submit Practice Answers & Update Mastery",
+        "description": "Scores submissions, computes mastery delta deterministically, records attempts,\nand returns granular feedback.",
+        "operationId": "submit_topic_answers_api_v1_topics__topic_id__submit_post",
+        "parameters": [
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Topic Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionSubmissionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionSubmissionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/topics/{topic_id}/ask": {
+      "post": {
+        "tags": [
+          "Topic Actions & Interactive Modes"
+        ],
+        "summary": "Ask Question: Topic-Scoped Socratic Q&A (RAG-backed)",
+        "description": "Answers freeform learner questions scoped to the current topic and grounded\nin uploaded RAG knowledge documents.",
+        "operationId": "ask_topic_question_api_v1_topics__topic_id__ask_post",
+        "parameters": [
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Topic Id"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContextualAskRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContextualAskResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voice/transcribe": {
+      "post": {
+        "tags": [
+          "Voice Interaction Pipeline"
+        ],
+        "summary": "Transcribe Spoken Voice (Speech-to-Text)",
+        "description": "Transcribes learner microphone speech to text using multimodal AI.\nHandles network timeouts and audio normalization.",
+        "operationId": "transcribe_voice_api_v1_voice_transcribe_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe_voice_api_v1_voice_transcribe_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioTranscriptionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voice/ask": {
+      "post": {
+        "tags": [
+          "Voice Interaction Pipeline"
+        ],
+        "summary": "Voice-Driven Contextual Question Pipeline (STT -> RAG -> LLM -> TTS)",
+        "description": "End-to-end voice question pipeline:\n1. Transcribes audio input via STT\n2. Scopes to current topic\n3. Retrieves grounded RAG chunks\n4. Generates concise Socratic answer\n5. Returns text and TTS audio prompt",
+        "operationId": "voice_ask_api_v1_voice_ask_post",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_voice_ask_api_v1_voice_ask_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContextualAskResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/mentor/today": {
       "get": {
         "tags": [
@@ -875,6 +1946,54 @@
                 "schema": {
                   "$ref": "#/components/schemas/SessionResponse"
                 }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/concepts/graph/topology": {
+      "get": {
+        "tags": [
+          "Concepts"
+        ],
+        "summary": "Get Full Interactive Concept Graph Topology",
+        "description": "Returns the complete concept dependency graph including nodes, prerequisite edges,\nand the learner's personalized mastery/risk state for each node.",
+        "operationId": "get_concept_graph_api_v1_concepts_graph_topology_get",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           },
@@ -1826,6 +2945,47 @@
         ],
         "title": "ActionType"
       },
+      "AnswerSubmissionItem": {
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "title": "Question Id"
+          },
+          "user_answer": {
+            "type": "string",
+            "title": "User Answer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question_id",
+          "user_answer"
+        ],
+        "title": "AnswerSubmissionItem"
+      },
+      "AreaMasteryItem": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "mastery_score": {
+            "type": "number",
+            "title": "Mastery Score"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "mastery_score",
+          "status"
+        ],
+        "title": "AreaMasteryItem"
+      },
       "AudioTranscriptionResponse": {
         "properties": {
           "transcript": {
@@ -1859,6 +3019,28 @@
         ],
         "title": "AudioTranscriptionResponse"
       },
+      "AuthTokenResponse": {
+        "properties": {
+          "access_token": {
+            "type": "string",
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "title": "Token Type",
+            "default": "bearer"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserProfileResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "access_token",
+          "user"
+        ],
+        "title": "AuthTokenResponse"
+      },
       "Body_transcribe_audio_explanation_api_v1_teach_transcribe_post": {
         "properties": {
           "file": {
@@ -1885,6 +3067,33 @@
           "file"
         ],
         "title": "Body_transcribe_audio_explanation_api_v1_teach_transcribe_post"
+      },
+      "Body_transcribe_voice_api_v1_voice_transcribe_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "description": "Recorded audio (WAV, MP3, M4A, WebM, OGG)"
+          },
+          "topic_hint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Topic Hint",
+            "description": "Optional topic context hint"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_transcribe_voice_api_v1_voice_transcribe_post"
       },
       "Body_upload_resource_api_v1_resources_upload_post": {
         "properties": {
@@ -1915,6 +3124,33 @@
           "file"
         ],
         "title": "Body_upload_resource_api_v1_resources_upload_post"
+      },
+      "Body_voice_ask_api_v1_voice_ask_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "description": "Audio recording of question"
+          },
+          "topic_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Topic Id",
+            "description": "Current topic ID context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_voice_ask_api_v1_voice_ask_post"
       },
       "ConceptDetailResponse": {
         "properties": {
@@ -2197,6 +3433,70 @@
           "evidence_count"
         ],
         "title": "ConceptMasterySummary"
+      },
+      "ContextualAskRequest": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "topic_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Topic Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "query"
+        ],
+        "title": "ContextualAskRequest"
+      },
+      "ContextualAskResponse": {
+        "properties": {
+          "answer": {
+            "type": "string",
+            "title": "Answer"
+          },
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sources",
+            "default": []
+          },
+          "suggested_followups": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Suggested Followups",
+            "default": []
+          },
+          "audio_tts_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Tts Text"
+          }
+        },
+        "type": "object",
+        "required": [
+          "answer"
+        ],
+        "title": "ContextualAskResponse"
       },
       "EvidenceSchema": {
         "properties": {
@@ -2658,6 +3958,148 @@
         ],
         "title": "HealthResponse"
       },
+      "HomeDashboardResponse": {
+        "properties": {
+          "goal_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goal Id"
+          },
+          "goal_title": {
+            "type": "string",
+            "title": "Goal Title",
+            "default": "No Active Goal"
+          },
+          "target_level": {
+            "type": "string",
+            "title": "Target Level",
+            "default": "Beginner"
+          },
+          "current_module_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Module Name"
+          },
+          "current_topic_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Topic Id"
+          },
+          "current_topic_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Topic Title"
+          },
+          "overall_progress": {
+            "type": "number",
+            "title": "Overall Progress",
+            "default": 0.0
+          },
+          "overall_mastery": {
+            "type": "number",
+            "title": "Overall Mastery",
+            "default": 0.0
+          },
+          "topics_completed": {
+            "type": "integer",
+            "title": "Topics Completed",
+            "default": 0
+          },
+          "topics_remaining": {
+            "type": "integer",
+            "title": "Topics Remaining",
+            "default": 0
+          },
+          "streak_days": {
+            "type": "integer",
+            "title": "Streak Days",
+            "default": 0
+          },
+          "learning_minutes": {
+            "type": "integer",
+            "title": "Learning Minutes",
+            "default": 0
+          },
+          "weak_areas": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Weak Areas",
+            "default": []
+          },
+          "next_action_title": {
+            "type": "string",
+            "title": "Next Action Title",
+            "default": "Start your journey"
+          },
+          "next_action_reason": {
+            "type": "string",
+            "title": "Next Action Reason",
+            "default": "Begin your first foundational topic to establish baseline mastery."
+          },
+          "next_action_type": {
+            "type": "string",
+            "title": "Next Action Type",
+            "default": "LEARN"
+          },
+          "next_action_topic_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Action Topic Id"
+          },
+          "revision_due_count": {
+            "type": "integer",
+            "title": "Revision Due Count",
+            "default": 0
+          },
+          "is_new_learner": {
+            "type": "boolean",
+            "title": "Is New Learner",
+            "default": true
+          },
+          "insights": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Insights",
+            "default": []
+          }
+        },
+        "type": "object",
+        "title": "HomeDashboardResponse"
+      },
       "JourneyEdgeResponse": {
         "properties": {
           "source_node_id": {
@@ -2982,6 +4424,476 @@
         ],
         "title": "LearnerTwinResponse"
       },
+      "LearningGoalCreateRequest": {
+        "properties": {
+          "learning_goal": {
+            "type": "string",
+            "title": "Learning Goal",
+            "description": "Free text user goal, e.g. 'Become a backend developer using Django and PostgreSQL'"
+          },
+          "target_level": {
+            "type": "string",
+            "title": "Target Level",
+            "description": "Beginner, Intermediate, Expert, Interview Ready, Other",
+            "default": "Intermediate"
+          },
+          "custom_target": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Target",
+            "description": "Custom outcome if target_level is Other or custom target"
+          },
+          "daily_minutes": {
+            "type": "integer",
+            "maximum": 480.0,
+            "minimum": 5.0,
+            "title": "Daily Minutes",
+            "default": 30
+          },
+          "current_knowledge": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Current Knowledge"
+          },
+          "learning_preferences": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Learning Preferences",
+            "default": "Hands-on and project-focused"
+          },
+          "strengths": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Strengths"
+          },
+          "weaknesses": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weaknesses"
+          }
+        },
+        "type": "object",
+        "required": [
+          "learning_goal"
+        ],
+        "title": "LearningGoalCreateRequest"
+      },
+      "LearningGoalResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "learning_goal": {
+            "type": "string",
+            "title": "Learning Goal"
+          },
+          "target_level": {
+            "type": "string",
+            "title": "Target Level"
+          },
+          "custom_target": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Custom Target"
+          },
+          "daily_minutes": {
+            "type": "integer",
+            "title": "Daily Minutes"
+          },
+          "current_knowledge": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Current Knowledge",
+            "default": []
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "active_path_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Path Id"
+          },
+          "progress": {
+            "type": "number",
+            "title": "Progress",
+            "default": 0.0
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "learning_goal",
+          "target_level",
+          "daily_minutes",
+          "status"
+        ],
+        "title": "LearningGoalResponse"
+      },
+      "LearningPathResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "goal_id": {
+            "type": "string",
+            "title": "Goal Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "target_level": {
+            "type": "string",
+            "title": "Target Level",
+            "default": "Intermediate"
+          },
+          "estimated_duration": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Estimated Duration"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version",
+            "default": 1
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "ACTIVE"
+          },
+          "generation_status": {
+            "type": "string",
+            "title": "Generation Status",
+            "default": "READY"
+          },
+          "generation_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Generation Error"
+          },
+          "progress": {
+            "type": "number",
+            "title": "Progress",
+            "default": 0.0
+          },
+          "sections": {
+            "items": {
+              "$ref": "#/components/schemas/LearningSectionResponse"
+            },
+            "type": "array",
+            "title": "Sections",
+            "default": []
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "goal_id",
+          "user_id",
+          "title"
+        ],
+        "title": "LearningPathResponse"
+      },
+      "LearningSectionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "path_id": {
+            "type": "string",
+            "title": "Path Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "order_index": {
+            "type": "integer",
+            "title": "Order Index"
+          },
+          "topics": {
+            "items": {
+              "$ref": "#/components/schemas/LearningTopicResponse"
+            },
+            "type": "array",
+            "title": "Topics",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "path_id",
+          "title",
+          "order_index"
+        ],
+        "title": "LearningSectionResponse"
+      },
+      "LearningTopicResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "section_id": {
+            "type": "string",
+            "title": "Section Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "order_index": {
+            "type": "integer",
+            "title": "Order Index"
+          },
+          "difficulty": {
+            "type": "string",
+            "title": "Difficulty",
+            "default": "beginner"
+          },
+          "estimated_minutes": {
+            "type": "integer",
+            "title": "Estimated Minutes",
+            "default": 25
+          },
+          "prerequisites": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Prerequisites",
+            "default": []
+          },
+          "learning_objectives": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Learning Objectives",
+            "default": []
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "not_started"
+          },
+          "mastery_score": {
+            "type": "number",
+            "title": "Mastery Score",
+            "default": 0.0
+          },
+          "confidence_score": {
+            "type": "number",
+            "title": "Confidence Score",
+            "default": 0.0
+          },
+          "revision_count": {
+            "type": "integer",
+            "title": "Revision Count",
+            "default": 0
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "next_revision_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Revision At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "section_id",
+          "title",
+          "order_index"
+        ],
+        "title": "LearningTopicResponse"
+      },
+      "LoginRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "minLength": 3,
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "LoginRequest"
+      },
       "MaintenanceAction": {
         "type": "string",
         "enum": [
@@ -3046,6 +4958,22 @@
             "type": "string",
             "format": "date-time",
             "title": "Created At"
+          },
+          "is_ai_generated": {
+            "type": "boolean",
+            "title": "Is Ai Generated",
+            "default": true
+          },
+          "warning_message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warning Message"
           }
         },
         "type": "object",
@@ -3347,6 +5275,106 @@
           "failed"
         ],
         "title": "ProcessingStatus"
+      },
+      "QuestionAttemptResult": {
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "title": "Question Id"
+          },
+          "is_correct": {
+            "type": "boolean",
+            "title": "Is Correct"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "feedback": {
+            "type": "string",
+            "title": "Feedback"
+          },
+          "correct_answer": {
+            "type": "string",
+            "title": "Correct Answer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question_id",
+          "is_correct",
+          "score",
+          "feedback",
+          "correct_answer"
+        ],
+        "title": "QuestionAttemptResult"
+      },
+      "QuestionSubmissionRequest": {
+        "properties": {
+          "answers": {
+            "items": {
+              "$ref": "#/components/schemas/AnswerSubmissionItem"
+            },
+            "type": "array",
+            "title": "Answers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "answers"
+        ],
+        "title": "QuestionSubmissionRequest"
+      },
+      "QuestionSubmissionResponse": {
+        "properties": {
+          "topic_id": {
+            "type": "string",
+            "title": "Topic Id"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          },
+          "mastery_score": {
+            "type": "number",
+            "title": "Mastery Score"
+          },
+          "mastery_delta": {
+            "type": "number",
+            "title": "Mastery Delta"
+          },
+          "correct_count": {
+            "type": "integer",
+            "title": "Correct Count"
+          },
+          "total_count": {
+            "type": "integer",
+            "title": "Total Count"
+          },
+          "overall_feedback": {
+            "type": "string",
+            "title": "Overall Feedback"
+          },
+          "attempts": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionAttemptResult"
+            },
+            "type": "array",
+            "title": "Attempts",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "topic_id",
+          "score",
+          "mastery_score",
+          "mastery_delta",
+          "correct_count",
+          "total_count",
+          "overall_feedback"
+        ],
+        "title": "QuestionSubmissionResponse"
       },
       "RAGChunkResult": {
         "properties": {
@@ -4007,6 +6035,7 @@
             "title": "Quiz Results"
           }
         },
+        "additionalProperties": true,
         "type": "object",
         "title": "SessionCompleteRequest"
       },
@@ -4081,6 +6110,17 @@
             "type": "string",
             "title": "Id"
           },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          },
           "user_id": {
             "type": "string",
             "title": "User Id"
@@ -4099,6 +6139,17 @@
           "concept_id": {
             "type": "string",
             "title": "Concept Id"
+          },
+          "concept_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Concept Title"
           },
           "session_type": {
             "$ref": "#/components/schemas/SessionType"
@@ -4170,6 +6221,112 @@
             ],
             "title": "Mastery Delta",
             "description": "Change in learner mastery resulting from this session"
+          },
+          "confidence_delta": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence Delta",
+            "description": "Change in learner confidence resulting from this session"
+          },
+          "current_mastery": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Mastery"
+          },
+          "current_confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Confidence"
+          },
+          "improvements": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Improvements"
+          },
+          "focus_areas": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Focus Areas"
+          },
+          "mentor_recommendation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mentor Recommendation"
+          },
+          "accuracy_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accuracy Score"
+          },
+          "completeness_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completeness Score"
+          },
+          "reasoning_feedback": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reasoning Feedback"
+          },
+          "identified_misconceptions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Identified Misconceptions"
+          },
+          "step_evaluations": {
+            "items": {
+              "$ref": "#/components/schemas/StepEvaluationSchema"
+            },
+            "type": "array",
+            "title": "Step Evaluations"
           },
           "next_recommended_step": {
             "anyOf": [
@@ -4262,6 +6419,30 @@
             "title": "Rubric Criteria",
             "default": ""
           },
+          "correct_answer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Correct Answer",
+            "default": ""
+          },
+          "explanation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Explanation",
+            "default": ""
+          },
           "user_response": {
             "anyOf": [
               {
@@ -4332,6 +6513,95 @@
           "REFLECT"
         ],
         "title": "SessionType"
+      },
+      "SignupRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "minLength": 3,
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 6,
+            "title": "Password"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "default": "Learner"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "SignupRequest"
+      },
+      "StepEvaluationSchema": {
+        "properties": {
+          "step_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Step Id",
+            "default": ""
+          },
+          "question": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question",
+            "default": ""
+          },
+          "user_answer": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Answer",
+            "default": ""
+          },
+          "is_correct": {
+            "type": "boolean",
+            "title": "Is Correct",
+            "default": false
+          },
+          "correct_answer": {
+            "type": "string",
+            "title": "Correct Answer",
+            "default": ""
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "StepEvaluationSchema"
       },
       "TeachEvaluateRequest": {
         "properties": {
@@ -4501,6 +6771,429 @@
           "evaluated_at"
         ],
         "title": "TeachEvaluationResponse"
+      },
+      "TopicDetailResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "section_id": {
+            "type": "string",
+            "title": "Section Id"
+          },
+          "section_title": {
+            "type": "string",
+            "title": "Section Title"
+          },
+          "path_id": {
+            "type": "string",
+            "title": "Path Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "order_index": {
+            "type": "integer",
+            "title": "Order Index"
+          },
+          "difficulty": {
+            "type": "string",
+            "title": "Difficulty"
+          },
+          "estimated_minutes": {
+            "type": "integer",
+            "title": "Estimated Minutes"
+          },
+          "prerequisites": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Prerequisites",
+            "default": []
+          },
+          "learning_objectives": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Learning Objectives",
+            "default": []
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "mastery_score": {
+            "type": "number",
+            "title": "Mastery Score",
+            "default": 0.0
+          },
+          "confidence_score": {
+            "type": "number",
+            "title": "Confidence Score",
+            "default": 0.0
+          },
+          "revision_count": {
+            "type": "integer",
+            "title": "Revision Count",
+            "default": 0
+          },
+          "time_spent_minutes": {
+            "type": "integer",
+            "title": "Time Spent Minutes",
+            "default": 0
+          },
+          "attempts": {
+            "type": "integer",
+            "title": "Attempts",
+            "default": 0
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "next_revision_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Revision At"
+          },
+          "previous_topic_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Topic Id"
+          },
+          "next_topic_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Topic Id"
+          },
+          "has_cached_explanation": {
+            "type": "boolean",
+            "title": "Has Cached Explanation",
+            "default": false
+          },
+          "question_count": {
+            "type": "integer",
+            "title": "Question Count",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "section_id",
+          "section_title",
+          "path_id",
+          "title",
+          "order_index",
+          "difficulty",
+          "estimated_minutes",
+          "status"
+        ],
+        "title": "TopicDetailResponse"
+      },
+      "TopicExplanationResponse": {
+        "properties": {
+          "topic_id": {
+            "type": "string",
+            "title": "Topic Id"
+          },
+          "topic_title": {
+            "type": "string",
+            "title": "Topic Title"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "prompt_version": {
+            "type": "string",
+            "title": "Prompt Version",
+            "default": "v1"
+          },
+          "cached": {
+            "type": "boolean",
+            "title": "Cached",
+            "default": false
+          },
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sources",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "topic_id",
+          "topic_title",
+          "content"
+        ],
+        "title": "TopicExplanationResponse"
+      },
+      "TopicQuestionItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "topic_id": {
+            "type": "string",
+            "title": "Topic Id"
+          },
+          "question_type": {
+            "type": "string",
+            "title": "Question Type"
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt"
+          },
+          "options": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Options",
+            "default": []
+          },
+          "correct_answer": {
+            "type": "string",
+            "title": "Correct Answer"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "difficulty": {
+            "type": "string",
+            "title": "Difficulty",
+            "default": "medium"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "topic_id",
+          "question_type",
+          "prompt",
+          "correct_answer",
+          "explanation"
+        ],
+        "title": "TopicQuestionItem"
+      },
+      "TopicQuestionsResponse": {
+        "properties": {
+          "topic_id": {
+            "type": "string",
+            "title": "Topic Id"
+          },
+          "topic_title": {
+            "type": "string",
+            "title": "Topic Title"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/TopicQuestionItem"
+            },
+            "type": "array",
+            "title": "Questions",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "topic_id",
+          "topic_title"
+        ],
+        "title": "TopicQuestionsResponse"
+      },
+      "TopicStatusUpdateResponse": {
+        "properties": {
+          "topic_id": {
+            "type": "string",
+            "title": "Topic Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "mastery_score": {
+            "type": "number",
+            "title": "Mastery Score"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "next_revision_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Revision At"
+          },
+          "path_progress": {
+            "type": "number",
+            "title": "Path Progress",
+            "default": 0.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "topic_id",
+          "status",
+          "mastery_score"
+        ],
+        "title": "TopicStatusUpdateResponse"
+      },
+      "TwinDashboardResponse": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "has_sufficient_data": {
+            "type": "boolean",
+            "title": "Has Sufficient Data",
+            "default": false
+          },
+          "overall_mastery": {
+            "type": "number",
+            "title": "Overall Mastery",
+            "default": 0.0
+          },
+          "learning_level": {
+            "type": "string",
+            "title": "Learning Level",
+            "default": "Beginner"
+          },
+          "strongest_areas": {
+            "items": {
+              "$ref": "#/components/schemas/AreaMasteryItem"
+            },
+            "type": "array",
+            "title": "Strongest Areas",
+            "default": []
+          },
+          "weakest_areas": {
+            "items": {
+              "$ref": "#/components/schemas/AreaMasteryItem"
+            },
+            "type": "array",
+            "title": "Weakest Areas",
+            "default": []
+          },
+          "concepts_at_risk": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Concepts At Risk",
+            "default": []
+          },
+          "learning_velocity": {
+            "type": "number",
+            "title": "Learning Velocity",
+            "default": 0.0
+          },
+          "consistency_streak": {
+            "type": "integer",
+            "title": "Consistency Streak",
+            "default": 0
+          },
+          "knowledge_coverage": {
+            "type": "number",
+            "title": "Knowledge Coverage",
+            "default": 0.0
+          },
+          "verified_evidence_count": {
+            "type": "integer",
+            "title": "Verified Evidence Count",
+            "default": 0
+          },
+          "insights": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Insights",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id"
+        ],
+        "title": "TwinDashboardResponse"
       },
       "UserProfileResponse": {
         "properties": {

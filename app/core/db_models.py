@@ -44,6 +44,8 @@ class GoalModel(Base):
     description = Column(Text, nullable=True)
     deadline = Column(String, nullable=True)
     current_level = Column(String, default="intermediate")
+    target_level = Column(String, default="Intermediate")
+    custom_target = Column(String, nullable=True)
     existing_knowledge = Column(Text, nullable=True)
     constraints = Column(JSON, default=list)
     daily_minutes = Column(Integer, default=30)
@@ -266,3 +268,154 @@ class ReviewItemModel(Base):
     __table_args__ = (
         Index("idx_review_items_user_concept", "user_id", "concept_id", unique=True),
     )
+
+
+# =========================================================
+# DYNAMIC LEARNING SYSTEM MODELS (HIERARCHICAL & ADAPTIVE)
+# =========================================================
+
+class LearningPathModel(Base):
+    __tablename__ = "learning_paths"
+
+    id = Column(String, primary_key=True, default=lambda: f"lp_{uuid.uuid4().hex[:10]}")
+    goal_id = Column(String, nullable=False, index=True)
+    user_id = Column(String, nullable=False, index=True)
+    title = Column(String, nullable=False)
+    description = Column(Text, nullable=True)
+    target_level = Column(String, default="Intermediate")
+    estimated_duration = Column(String, nullable=True)
+    version = Column(Integer, default=1)
+    status = Column(String, default="ACTIVE")
+    generation_status = Column(String, default="READY")  # PENDING, PROCESSING, READY, FAILED
+    generation_error = Column(Text, nullable=True)
+    progress = Column(Float, default=0.0)
+    metadata_json = Column(JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+
+class LearningSectionModel(Base):
+    __tablename__ = "learning_sections"
+
+    id = Column(String, primary_key=True, default=lambda: f"sec_{uuid.uuid4().hex[:10]}")
+    path_id = Column(String, ForeignKey("learning_paths.id", ondelete="CASCADE"), nullable=False, index=True)
+    title = Column(String, nullable=False)
+    description = Column(Text, nullable=True)
+    order_index = Column(Integer, nullable=False)
+    metadata_json = Column(JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+
+class LearningTopicModel(Base):
+    __tablename__ = "learning_topics"
+
+    id = Column(String, primary_key=True, default=lambda: f"top_{uuid.uuid4().hex[:10]}")
+    section_id = Column(String, ForeignKey("learning_sections.id", ondelete="CASCADE"), nullable=False, index=True)
+    title = Column(String, nullable=False)
+    description = Column(Text, nullable=True)
+    order_index = Column(Integer, nullable=False)
+    difficulty = Column(String, default="beginner")  # beginner, intermediate, advanced, expert
+    estimated_minutes = Column(Integer, default=25)
+    prerequisites = Column(JSON, default=list)
+    learning_objectives = Column(JSON, default=list)
+    metadata_json = Column(JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+
+class TopicDependencyModel(Base):
+    __tablename__ = "topic_dependencies"
+
+    id = Column(String, primary_key=True, default=lambda: f"td_{uuid.uuid4().hex[:10]}")
+    source_topic_id = Column(String, ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
+    target_topic_id = Column(String, ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
+    dependency_type = Column(String, default="prerequisite")
+
+
+class LearnerTopicProgressModel(Base):
+    __tablename__ = "learner_topic_progress"
+
+    id = Column(String, primary_key=True, default=lambda: f"ltp_{uuid.uuid4().hex[:10]}")
+    user_id = Column(String, nullable=False, index=True)
+    topic_id = Column(String, ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
+    status = Column(String, default="not_started")  # not_started, learning, completed, needs_revision
+    mastery_score = Column(Float, default=0.0)
+    confidence_score = Column(Float, default=0.0)
+    revision_count = Column(Integer, default=0)
+    time_spent_minutes = Column(Integer, default=0)
+    attempts = Column(Integer, default=0)
+    started_at = Column(DateTime(timezone=True), nullable=True)
+    completed_at = Column(DateTime(timezone=True), nullable=True)
+    last_accessed_at = Column(DateTime(timezone=True), default=utcnow)
+    next_revision_at = Column(DateTime(timezone=True), nullable=True)
+    metadata_json = Column(JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    __table_args__ = (
+        Index("idx_learner_topic_user_topic", "user_id", "topic_id", unique=True),
+    )
+
+
+class TopicQuestionModel(Base):
+    __tablename__ = "topic_questions"
+
+    id = Column(String, primary_key=True, default=lambda: f"tq_{uuid.uuid4().hex[:10]}")
+    topic_id = Column(String, ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
+    question_type = Column(String, default="mcq")  # mcq, true_false, short_answer, scenario, code_fix, interview
+    prompt = Column(Text, nullable=False)
+    options = Column(JSON, default=list)
+    correct_answer = Column(Text, nullable=False)
+    explanation = Column(Text, nullable=False)
+    difficulty = Column(String, default="medium")
+    metadata_json = Column(JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+
+
+class QuestionAttemptModel(Base):
+    __tablename__ = "question_attempts"
+
+    id = Column(String, primary_key=True, default=lambda: f"qa_{uuid.uuid4().hex[:10]}")
+    user_id = Column(String, nullable=False, index=True)
+    question_id = Column(String, ForeignKey("topic_questions.id", ondelete="CASCADE"), nullable=False, index=True)
+    topic_id = Column(String, nullable=False, index=True)
+    user_answer = Column(Text, nullable=False)
+    is_correct = Column(Boolean, nullable=False)
+    score = Column(Float, default=0.0)
+    feedback = Column(Text, nullable=True)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+
+
+class TopicExplanationCacheModel(Base):
+    __tablename__ = "topic_explanations_cache"
+
+    id = Column(String, primary_key=True, default=lambda: f"tec_{uuid.uuid4().hex[:10]}")
+    topic_id = Column(String, ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id = Column(String, nullable=False, index=True)
+    content = Column(Text, nullable=False)
+    prompt_version = Column(String, default="v1")
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+
+    __table_args__ = (
+        Index("idx_topic_explanation_cache", "topic_id", "user_id", "prompt_version", unique=True),
+    )
+
+
+class TwinMetricsModel(Base):
+    __tablename__ = "twin_metrics"
+
+    id = Column(String, primary_key=True, default=lambda: f"tm_{uuid.uuid4().hex[:10]}")
+    user_id = Column(String, nullable=False, unique=True, index=True)
+    overall_mastery = Column(Float, default=0.0)
+    current_level = Column(String, default="Beginner")
+    strongest_areas = Column(JSON, default=list)
+    weakest_areas = Column(JSON, default=list)
+    concepts_at_risk = Column(JSON, default=list)
+    learning_velocity = Column(Float, default=0.0)
+    consistency_streak = Column(Integer, default=0)
+    knowledge_coverage = Column(Float, default=0.0)
+    has_sufficient_data = Column(Boolean, default=False)
+    insights = Column(JSON, default=list)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)

@@ -47,10 +47,22 @@ async def init_db():
     global engine, AsyncSessionLocal
     from app.core.db_models import Base
 
+    async def _apply_column_migrations(conn):
+        from sqlalchemy import text
+        for col_sql in [
+            "ALTER TABLE goals ADD COLUMN target_level TEXT DEFAULT 'Intermediate'",
+            "ALTER TABLE goals ADD COLUMN custom_target TEXT",
+        ]:
+            try:
+                await conn.execute(text(col_sql))
+            except Exception:
+                pass
+
     try:
         if engine is not None:
             async with engine.begin() as conn:
                 await conn.run_sync(Base.metadata.create_all)
+                await _apply_column_migrations(conn)
             logger.info("Database schema synchronized successfully.")
             return
     except Exception as e:
@@ -60,6 +72,7 @@ async def init_db():
         engine, AsyncSessionLocal = _create_engine("sqlite+aiosqlite:///./skilltwin.db")
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
+            await _apply_column_migrations(conn)
         logger.info("Local persistent SQLite database synchronized successfully.")
     except Exception as e:
         logger.error(f"Fallback database initialization error: {e}")
