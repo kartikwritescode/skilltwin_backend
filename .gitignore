@@ -35,5 +35,13 @@ Thumbs.db
 
 # Logs
 *.log
-android/app/google-services.json
-lib/firebase_options.dart
+
+# Databases & Local State
+*.db
+*.sqlite
+*.sqlite3
+skilltwin.db
+
+# API Secrets & Keys
+serviceAccountKey*.json
+*firebase-adminsdk*.json
