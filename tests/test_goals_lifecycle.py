@@ -123,3 +123,58 @@ async def test_goal_isolation_between_users(
     )
     assert unauthorized_patch.status_code == 401
     assert unauthorized_patch.json()["error"]["code"] == "UNAUTHORIZED"
+
+
+@pytest.mark.asyncio
+async def test_delete_goal_and_active_switching(
+    async_client: AsyncClient, auth_headers: dict, secondary_auth_headers: dict
+):
+    # 1. Create first goal (active)
+    resp1 = await async_client.post(
+        "/api/v1/goals",
+        json={"title": "Goal Alpha", "daily_minutes": 30},
+        headers=auth_headers
+    )
+    assert resp1.status_code == 201
+    goal1_id = resp1.json()["id"]
+    assert resp1.json()["status"] == "active"
+
+    # 2. Create second goal (should become active, pausing goal 1)
+    resp2 = await async_client.post(
+        "/api/v1/goals",
+        json={"title": "Goal Beta", "daily_minutes": 45},
+        headers=auth_headers
+    )
+    assert resp2.status_code == 201
+    goal2_id = resp2.json()["id"]
+    assert resp2.json()["status"] == "active"
+
+    # Verify goal 1 is now paused
+    check1 = await async_client.get(f"/api/v1/goals/{goal1_id}", headers=auth_headers)
+    assert check1.json()["status"] == "paused"
+
+    # 3. Switch goal 1 back to active
+    patch_resp = await async_client.patch(
+        f"/api/v1/goals/{goal1_id}",
+        json={"status": "active"},
+        headers=auth_headers
+    )
+    assert patch_resp.status_code == 200
+    assert patch_resp.json()["status"] == "active"
+
+    # Verify goal 2 is now paused
+    check2 = await async_client.get(f"/api/v1/goals/{goal2_id}", headers=auth_headers)
+    assert check2.json()["status"] == "paused"
+
+    # 4. Unauthorized deletion attempt by secondary user
+    unauth_del = await async_client.delete(f"/api/v1/goals/{goal2_id}", headers=secondary_auth_headers)
+    assert unauth_del.status_code == 401
+
+    # 5. Legitimate deletion by owner
+    del_resp = await async_client.delete(f"/api/v1/goals/{goal2_id}", headers=auth_headers)
+    assert del_resp.status_code == 204
+
+    # Verify goal 2 is gone
+    get_gone = await async_client.get(f"/api/v1/goals/{goal2_id}", headers=auth_headers)
+    assert get_gone.status_code == 404
+

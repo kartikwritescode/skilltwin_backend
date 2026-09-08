@@ -31,6 +31,13 @@ class GoalService:
 
         logger.info(f"Creating goal for user {user_id}: '{request.title}'")
 
+        # Pause any currently active goals for this user so only one is active at a time
+        existing_goals = await self.goal_repo.list_by_user_id(user_id)
+        for g in existing_goals:
+            if g.status == GoalStatus.ACTIVE:
+                g.status = GoalStatus.PAUSED
+                await self.goal_repo.save(g)
+
         # 2. Persist goal
         goal_id = f"goal_{uuid.uuid4().hex[:10]}"
         goal = Goal(
@@ -154,6 +161,13 @@ class GoalService:
         if request.constraints is not None:
             goal.constraints = request.constraints
         if request.status is not None:
+            if request.status == GoalStatus.ACTIVE:
+                # Pause any other active goals for this user
+                existing_goals = await self.goal_repo.list_by_user_id(user_id)
+                for g in existing_goals:
+                    if g.id != goal_id and g.status == GoalStatus.ACTIVE:
+                        g.status = GoalStatus.PAUSED
+                        await self.goal_repo.save(g)
             goal.status = request.status
 
         await self.goal_repo.save(goal)
@@ -177,6 +191,19 @@ class GoalService:
             created_at=goal.created_at,
             updated_at=goal.updated_at,
         )
+
+    async def delete_goal(self, user_id: str, goal_id: str) -> bool:
+        goal = await self.goal_repo.get_by_id(goal_id)
+        if not goal:
+            raise EntityNotFoundError("Goal", goal_id)
+
+        if goal.user_id != user_id:
+            logger.warning(f"User {user_id} attempted unauthorized deletion on goal {goal_id}")
+            raise UnauthorizedError("You are not authorized to delete this goal.")
+
+        deleted = await self.goal_repo.delete(goal_id)
+        logger.info(f"Deleted goal {goal_id} for user {user_id}")
+        return deleted
 
 
 goal_service = GoalService()

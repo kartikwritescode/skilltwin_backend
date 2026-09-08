@@ -55,3 +55,18 @@ async def patch_goal(
     Strictly verifies ownership against the authenticated JWT identity.
     """
     return await service.patch_goal(user_id=current_user.user_id, goal_id=goal_id, request=request)
+
+
+@router.delete("/{goal_id}", status_code=status.HTTP_204_NO_CONTENT, summary="Delete Goal")
+async def delete_goal(
+    goal_id: str,
+    current_user: CurrentUser = Depends(get_current_user),
+    service: GoalService = Depends(lambda: goal_service),
+):
+    """
+    Permanently delete a goal and its associated resources.
+    Strictly verifies ownership against the authenticated JWT identity.
+    """
+    await service.delete_goal(user_id=current_user.user_id, goal_id=goal_id)
+    return None
+
