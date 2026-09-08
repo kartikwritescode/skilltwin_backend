@@ -342,12 +342,28 @@ class ReviewItemModel(Base):
 # DYNAMIC LEARNING SYSTEM MODELS (HIERARCHICAL & ADAPTIVE)
 # =========================================================
 
+class LearningGoalModel(Base):
+    __tablename__ = "learning_goals"
+
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(GUID(), ForeignKey("profiles.id", ondelete="CASCADE"), nullable=False, index=True)
+    learning_goal = Column(Text, nullable=False)
+    target_level = Column(String, default="Intermediate")
+    custom_target = Column(Text, nullable=True)
+    daily_minutes = Column(Integer, default=30)
+    current_knowledge = Column(JSON, default=list)
+    status = Column(String, default="ACTIVE", index=True)
+    metadata_json = Column("metadata", JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+
 class LearningPathModel(Base):
     __tablename__ = "learning_paths"
 
     id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
-    goal_id = Column(GUID(), nullable=False, index=True)
-    user_id = Column(GUID(), nullable=False, index=True)
+    goal_id = Column(GUID(), ForeignKey("learning_goals.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id = Column(GUID(), ForeignKey("profiles.id", ondelete="CASCADE"), nullable=False, index=True)
     title = Column(String, nullable=False)
     description = Column(Text, nullable=True)
     target_level = Column(String, default="Intermediate")

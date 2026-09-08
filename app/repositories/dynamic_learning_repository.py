@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import AsyncSessionLocal
 from app.core.db_models import (
     GoalModel,
+    LearningGoalModel,
     LearningPathModel,
     LearningSectionModel,
     LearningTopicModel,
@@ -41,6 +42,50 @@ class DynamicLearningRepository:
         except Exception as e:
             logger.warning(f"Could not auto-ensure profile for user {user_id}: {e}")
 
+    async def _ensure_learning_goal_exists(
+        self,
+        session: AsyncSession,
+        goal_id: Any,
+        user_id: Any,
+        learning_goal: str,
+        target_level: str = "Intermediate",
+        custom_target: Optional[str] = None,
+        daily_minutes: int = 30,
+        status: str = "ACTIVE",
+    ) -> None:
+        """
+        Ensures a corresponding row exists in learning_goals for goal_id
+        to satisfy foreign key constraints (learning_paths_goal_id_fkey).
+        """
+        if not goal_id or not user_id:
+            return
+        try:
+            async with session.begin_nested():
+                await session.execute(
+                    text("""
+                        INSERT INTO learning_goals (id, user_id, learning_goal, target_level, custom_target, daily_minutes, status)
+                        VALUES (:id, :user_id, :learning_goal, :target_level, :custom_target, :daily_minutes, :status)
+                        ON CONFLICT (id) DO UPDATE SET
+                            learning_goal = EXCLUDED.learning_goal,
+                            target_level = EXCLUDED.target_level,
+                            custom_target = EXCLUDED.custom_target,
+                            daily_minutes = EXCLUDED.daily_minutes,
+                            status = EXCLUDED.status,
+                            updated_at = CURRENT_TIMESTAMP
+                    """),
+                    {
+                        "id": str(goal_id),
+                        "user_id": str(user_id),
+                        "learning_goal": str(learning_goal or "Learning Goal"),
+                        "target_level": str(target_level or "Intermediate"),
+                        "custom_target": str(custom_target) if custom_target else None,
+                        "daily_minutes": int(daily_minutes or 30),
+                        "status": str(status or "ACTIVE"),
+                    }
+                )
+        except Exception as e:
+            logger.warning(f"Could not auto-ensure learning_goals record for {goal_id}: {e}")
+
     # ---------------------------------------------------------------------------
     # Learning Goals
     # ---------------------------------------------------------------------------
@@ -48,6 +93,16 @@ class DynamicLearningRepository:
     async def save_goal(self, goal: GoalModel) -> GoalModel:
         async with AsyncSessionLocal() as session:
             await self._ensure_profile_exists(session, goal.user_id)
+            await self._ensure_learning_goal_exists(
+                session,
+                goal_id=goal.id,
+                user_id=goal.user_id,
+                learning_goal=goal.title,
+                target_level=goal.target_level,
+                custom_target=goal.custom_target,
+                daily_minutes=goal.daily_minutes,
+                status=str(goal.status or "ACTIVE"),
+            )
             session.add(goal)
             await session.commit()
             await session.refresh(goal)
@@ -76,6 +131,13 @@ class DynamicLearningRepository:
     async def save_path(self, path: LearningPathModel) -> LearningPathModel:
         async with AsyncSessionLocal() as session:
             await self._ensure_profile_exists(session, path.user_id)
+            await self._ensure_learning_goal_exists(
+                session,
+                goal_id=path.goal_id,
+                user_id=path.user_id,
+                learning_goal=path.title,
+                target_level=path.target_level,
+            )
             session.add(path)
             await session.commit()
             await session.refresh(path)
