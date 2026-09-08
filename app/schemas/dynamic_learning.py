@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -12,6 +12,7 @@ class LearningGoalCreateRequest(BaseModel):
     target_level: str = Field(default="Intermediate", description="Beginner, Intermediate, Expert, Interview Ready, Other")
     custom_target: Optional[str] = Field(default=None, description="Custom outcome if target_level is Other or custom target")
     daily_minutes: int = Field(default=30, ge=5, le=480)
+    deadline: Optional[date] = Field(default=None, description="Target completion deadline date")
     current_knowledge: List[str] = Field(default_factory=list)
     learning_preferences: Optional[str] = Field(default="Hands-on and project-focused")
     strengths: Optional[str] = Field(default=None)
@@ -26,6 +27,7 @@ class LearningGoalResponse(BaseModel):
     target_level: str
     custom_target: Optional[str] = None
     daily_minutes: int
+    deadline: Optional[date] = None
     current_knowledge: List[str] = []
     status: str
     active_path_id: Optional[str] = None
@@ -49,6 +51,7 @@ class LearningTopicResponse(BaseModel):
     estimated_minutes: int = 25
     prerequisites: List[str] = []
     learning_objectives: List[str] = []
+    key_concepts: List[str] = []
     status: str = "not_started"  # not_started, learning, completed, needs_revision
     mastery_score: float = 0.0
     confidence_score: float = 0.0
@@ -102,6 +105,7 @@ class TopicDetailResponse(BaseModel):
     estimated_minutes: int
     prerequisites: List[str] = []
     learning_objectives: List[str] = []
+    key_concepts: List[str] = []
     status: str  # not_started, learning, completed, needs_revision
     mastery_score: float = 0.0
     confidence_score: float = 0.0
@@ -205,6 +209,17 @@ class HomeDashboardResponse(BaseModel):
     revision_due_count: int = 0
     is_new_learner: bool = True
     insights: List[str] = []
+    # Dynamic Schedule & Backlog Tracking
+    target_deadline: Optional[date] = None
+    days_remaining: int = 0
+    schedule_status: str = "ON_TRACK"  # ON_TRACK, BEHIND_SCHEDULE, AHEAD_OF_SCHEDULE
+    backlog_count: int = 0
+    daily_instructions: Optional[str] = None
+    today_target_topic_title: Optional[str] = None
+    today_target_topic_id: Optional[str] = None
+    today_key_concepts: List[str] = []
+    today_estimated_minutes: int = 30
+    daily_commitment_minutes: int = 30
 
 
 class AreaMasteryItem(BaseModel):

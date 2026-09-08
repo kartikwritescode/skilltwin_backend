@@ -35,3 +35,5 @@ Thumbs.db
 
 # Logs
 *.log
+android/app/google-services.json
+lib/firebase_options.dart

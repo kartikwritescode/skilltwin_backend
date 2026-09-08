@@ -113,6 +113,7 @@ class TopicInteractionService:
             estimated_minutes=topic.estimated_minutes,
             prerequisites=topic.prerequisites or [],
             learning_objectives=topic.learning_objectives or [],
+            key_concepts=(topic.metadata_json or {}).get("key_concepts", []) if hasattr(topic, "metadata_json") else [],
             status=progress.status,
             mastery_score=progress.mastery_score,
             confidence_score=progress.confidence_score,

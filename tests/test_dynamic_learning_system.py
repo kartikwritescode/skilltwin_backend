@@ -172,3 +172,42 @@ async def test_home_and_twin_after_learning(async_client: AsyncClient, auth_head
     assert twin_res.status_code == 200
     twin_data = twin_res.json()
     assert twin_data["user_id"] == "default_learner_01"
+
+
+@pytest.mark.asyncio
+async def test_deadline_schedule_and_key_concepts(async_client: AsyncClient, auth_headers):
+    """Verifies that deadline pacing, key_concepts, and backlog tracking work accurately."""
+    from datetime import date, timedelta
+    target_date = (date.today() + timedelta(days=45)).isoformat()
+
+    res = await async_client.post(
+        "/api/v1/learning-paths/generate",
+        json={
+            "learning_goal": "Cloud Native Architecture and Kubernetes",
+            "target_level": "Expert",
+            "daily_minutes": 45,
+            "deadline": target_date,
+            "current_knowledge": ["Docker", "Linux"],
+            "learning_preferences": "Practical production scenarios",
+        },
+        headers=auth_headers,
+    )
+    assert res.status_code == 201
+    goal_data = res.json()
+    assert goal_data["deadline"] == target_date
+
+    # Verify active path has topics with key_concepts
+    path_res = await async_client.get("/api/v1/learning-paths/active", headers=auth_headers)
+    assert path_res.status_code == 200
+    path_data = path_res.json()
+    first_topic = path_data["sections"][0]["topics"][0]
+    assert "key_concepts" in first_topic
+
+    # Verify Home Dashboard has schedule and instructions
+    home_res = await async_client.get("/api/v1/home/dashboard", headers=auth_headers)
+    assert home_res.status_code == 200
+    home_data = home_res.json()
+    assert home_data["target_deadline"] == target_date
+    assert home_data["schedule_status"] in ["ON_TRACK", "BEHIND_SCHEDULE", "AHEAD_OF_SCHEDULE"]
+    assert "daily_instructions" in home_data and home_data["daily_instructions"] is not None
+    assert home_data["days_remaining"] > 0

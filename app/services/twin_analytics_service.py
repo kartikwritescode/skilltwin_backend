@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone, timedelta, date
 from typing import Optional, List, Dict, Any
 from app.repositories.dynamic_learning_repository import DynamicLearningRepository, dynamic_learning_repo
 from app.core.db_models import (
@@ -133,6 +133,78 @@ class TwinAnalyticsService:
         streak = self._calculate_streak(user_progress)
         is_new = completed_topics == 0 and total_minutes == 0
 
+        # -------------------------------------------------------------------
+        # Dynamic Schedule & Backlog Calculation
+        # -------------------------------------------------------------------
+        now_date = now.date()
+        target_deadline = goal.deadline
+        days_remaining = 30
+        days_total = 60
+
+        start_date = goal.created_at.date() if goal.created_at else now_date
+        days_elapsed = max(0, (now_date - start_date).days)
+
+        if target_deadline:
+            diff_days = (target_deadline - now_date).days
+            days_remaining = max(0, diff_days)
+            diff_total = (target_deadline - start_date).days
+            days_total = max(1, diff_total)
+        else:
+            days_total = max(30, days_elapsed + 30)
+            days_remaining = max(0, days_total - days_elapsed)
+
+        # Expected topics completed by today according to linear deadline pacing
+        if total_topics > 0:
+            expected_ratio = min(1.0, (days_elapsed + 1) / float(days_total))
+            expected_topics = int(round(expected_ratio * total_topics))
+        else:
+            expected_topics = 0
+
+        backlog_count = max(0, expected_topics - completed_topics)
+
+        # Schedule status
+        if completed_topics >= total_topics and total_topics > 0:
+            schedule_status = "COMPLETED"
+        elif backlog_count > 0:
+            schedule_status = "BEHIND_SCHEDULE"
+        elif completed_topics > expected_topics:
+            schedule_status = "AHEAD_OF_SCHEDULE"
+        else:
+            schedule_status = "ON_TRACK"
+
+        # Today's target topic & key concepts
+        today_topic_title = current_topic.title if current_topic else None
+        today_topic_id = current_topic.id if current_topic else None
+        today_meta = current_topic.metadata_json if current_topic and hasattr(current_topic, "metadata_json") and isinstance(current_topic.metadata_json, dict) else {}
+        today_key_concepts = today_meta.get("key_concepts", []) if today_meta else []
+        today_est_minutes = current_topic.estimated_minutes if current_topic else (goal.daily_minutes or 30)
+
+        # Concrete daily instructions based on schedule status and backlog
+        deadline_display = target_deadline.strftime("%b %d, %Y") if target_deadline else "your target date"
+        daily_mins = goal.daily_minutes or 30
+
+        if schedule_status == "BEHIND_SCHEDULE":
+            daily_instructions = (
+                f"⚠️ Backlog Alert: You are {backlog_count} topic(s) behind schedule to finish by {deadline_display}. "
+                f"Today's Mission: Focus {daily_mins} mins on '{today_topic_title or 'next topic'}' to prevent your backlog from growing. "
+                f"Spend an extra 15 mins reviewing yesterday's missed concept to recover your velocity!"
+            )
+        elif schedule_status == "AHEAD_OF_SCHEDULE":
+            daily_instructions = (
+                f"🚀 Ahead of Schedule: You are moving faster than your target deadline ({deadline_display})! "
+                f"Today's Mission: Dive into '{today_topic_title or 'advanced topic'}' (Est. {today_est_minutes}m) to solidify your lead."
+            )
+        elif schedule_status == "COMPLETED":
+            daily_instructions = (
+                f"🎉 Course Completed! You have completed all milestones for {goal.title}. "
+                f"Continue daily spaced revision and review weak areas to maintain long-term retention."
+            )
+        else:
+            daily_instructions = (
+                f"🎯 On Track: {days_remaining} day(s) remaining until {deadline_display}. "
+                f"Today's Mission: Complete '{today_topic_title or 'today\'s topic'}' (Est. {today_est_minutes}m) in your allocated {daily_mins} mins/day."
+            )
+
         # Synthesize Next Action
         if revision_due_count > 0:
             next_title = f"Spaced Retrieval: {weak_areas[0] if weak_areas else 'Review Queue'}"
@@ -177,6 +249,16 @@ class TwinAnalyticsService:
                 f"Mastery tracks verified practice proofs. Keep answering questions to build your Cognitive Twin.",
                 f"Goal: {goal.title} ({goal.target_level})",
             ],
+            target_deadline=target_deadline,
+            days_remaining=days_remaining,
+            schedule_status=schedule_status,
+            backlog_count=backlog_count,
+            daily_instructions=daily_instructions,
+            today_target_topic_title=today_topic_title,
+            today_target_topic_id=today_topic_id,
+            today_key_concepts=today_key_concepts,
+            today_estimated_minutes=today_est_minutes,
+            daily_commitment_minutes=daily_mins,
         )
 
     # ---------------------------------------------------------------------------

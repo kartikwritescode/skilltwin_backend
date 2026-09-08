@@ -1,6 +1,6 @@
 import uuid
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
 from typing import Optional, List, Dict, Any
 from pydantic import BaseModel, Field
 from app.repositories.dynamic_learning_repository import DynamicLearningRepository, dynamic_learning_repo
@@ -33,6 +33,7 @@ class GeneratedTopicItem(BaseModel):
     estimated_minutes: int = 25
     prerequisites: List[str] = Field(default_factory=list)
     learning_objectives: List[str] = Field(default_factory=list)
+    key_concepts: List[str] = Field(default_factory=list)
     status: str = "not_started"
 
 
@@ -94,7 +95,7 @@ class LearningPathService:
             user_id=user_id,
             title=goal_text,
             description=f"Goal: {goal_text} | Level: {target_lvl}" + (f" ({custom_tgt})" if custom_tgt else ""),
-            deadline=None,
+            deadline=request.deadline,
             current_level=target_lvl.lower(),
             target_level=target_lvl,
             custom_target=custom_tgt,
@@ -105,7 +106,7 @@ class LearningPathService:
             target_benchmark=custom_tgt or f"Achieve verified {target_lvl} mastery",
         )
         await self.repo.save_goal(goal)
-        logger.info(f"Created goal {goal_id} for user {user_id}: '{goal_text}' ({target_lvl})")
+        logger.info(f"Created goal {goal_id} for user {user_id}: '{goal_text}' ({target_lvl}, deadline: {request.deadline})")
 
         # 2. Generate and Persist Learning Path
         path = await self.generate_learning_path(
@@ -114,6 +115,7 @@ class LearningPathService:
             learning_goal=goal_text,
             target_level=target_lvl,
             custom_target=custom_tgt,
+            deadline=request.deadline,
             current_knowledge=request.current_knowledge,
             daily_minutes=request.daily_minutes,
             learning_preferences=request.learning_preferences,
@@ -128,6 +130,7 @@ class LearningPathService:
             target_level=goal.target_level,
             custom_target=goal.custom_target,
             daily_minutes=goal.daily_minutes,
+            deadline=goal.deadline,
             current_knowledge=request.current_knowledge,
             status=goal.status,
             active_path_id=path.id if path else None,
@@ -147,6 +150,7 @@ class LearningPathService:
         learning_goal: str,
         target_level: str,
         custom_target: Optional[str] = None,
+        deadline: Optional[date] = None,
         current_knowledge: Optional[List[str]] = None,
         daily_minutes: int = 30,
         learning_preferences: Optional[str] = None,
@@ -159,13 +163,27 @@ class LearningPathService:
             logger.info(f"Returning existing active path {existing_path.id} for goal {goal_id}")
             return existing_path
 
+        # Calculate deadline pacing & total study capacity
+        days_until_deadline = 60
+        deadline_str = "Flexible (approx. 8-10 weeks)"
+        if deadline:
+            today = datetime.now(timezone.utc).date()
+            diff_days = (deadline - today).days
+            if diff_days > 0:
+                days_until_deadline = diff_days
+                deadline_str = f"{deadline.strftime('%b %d, %Y')} ({diff_days} days remaining)"
+
+        total_capacity_hours = round((days_until_deadline * daily_minutes) / 60.0, 1)
+
         # 1. Build prompt from versioned template
         prompt_str = lp_prompt.USER_PROMPT_TEMPLATE.format(
             learning_goal=learning_goal,
             target_level=target_level,
             custom_target=custom_target or "Comprehensive applied competence",
-            current_knowledge=", ".join(current_knowledge) if current_knowledge else "None specified",
+            target_deadline=deadline_str,
             available_time=f"{daily_minutes} minutes/day",
+            total_capacity_hours=f"{total_capacity_hours} hours total",
+            current_knowledge=", ".join(current_knowledge) if current_knowledge else "None specified",
             learning_preferences=learning_preferences or "Practical, concept-first, project-oriented",
             strengths=strengths or "Motivated learner",
             weaknesses=weaknesses or "New to advanced architecture",
@@ -197,8 +215,8 @@ class LearningPathService:
             title=plan.title or f"{learning_goal} Mastery Path",
             description=plan.description or f"Structured learning journey for {learning_goal}",
             target_level=target_level,
-            estimated_duration=plan.estimated_duration or "8 weeks",
-            version=1,
+            estimated_duration=plan.estimated_duration or f"{max(2, days_until_deadline // 7)} weeks",
+            version=2,
             status="ACTIVE",
             generation_status="READY",
             progress=0.0,
@@ -234,6 +252,7 @@ class LearningPathService:
                     estimated_minutes=top.estimated_minutes or 25,
                     prerequisites=top.prerequisites or [],
                     learning_objectives=top.learning_objectives or [f"Understand and apply {top.title}"],
+                    metadata_json={"key_concepts": top.key_concepts or []},
                 )
                 topic_models.append(top_model)
 
@@ -306,6 +325,9 @@ class LearningPathService:
                 if status == "completed":
                     completed_topics += 1
 
+                top_meta = top.metadata_json if hasattr(top, "metadata_json") and isinstance(top.metadata_json, dict) else {}
+                key_concepts = top_meta.get("key_concepts", [])
+
                 topic_responses.append(
                     LearningTopicResponse(
                         id=top.id,
@@ -317,6 +339,7 @@ class LearningPathService:
                         estimated_minutes=top.estimated_minutes,
                         prerequisites=top.prerequisites or [],
                         learning_objectives=top.learning_objectives or [],
+                        key_concepts=key_concepts,
                         status=status,
                         mastery_score=mastery,
                         confidence_score=confidence,
@@ -372,6 +395,7 @@ class LearningPathService:
     ) -> GeneratedHierarchicalPath:
         clean_goal = goal.strip()
         lvl = level.capitalize()
+        is_expert = lvl == "Expert"
         is_fullstack = "full stack" in clean_goal.lower() or "fullstack" in clean_goal.lower() or "web" in clean_goal.lower()
 
         if is_fullstack:
@@ -389,6 +413,7 @@ class LearningPathService:
                             estimated_minutes=30,
                             prerequisites=[],
                             learning_objectives=["Trace microtask vs macrotask execution order", "Prevent thread-blocking synchronous traps"],
+                            key_concepts=["Call Stack Execution", "Microtask Queue (Promises)", "Macrotask Queue (Timers/I/O)", "Event Loop Ticks", "async/await Sugar", "Thread Pool Offloading"],
                         ),
                         GeneratedTopicItem(
                             title="TypeScript Type Systems & Generic Contracts",
@@ -398,6 +423,7 @@ class LearningPathService:
                             estimated_minutes=35,
                             prerequisites=["Event Loop, Microtasks & Asynchronous Runtimes"],
                             learning_objectives=["Define compile-time type invariants", "Refactor JavaScript modules to strict TypeScript"],
+                            key_concepts=["Structural Subtyping", "Discriminated Unions", "Generics & Constraints", "Mapped & Conditional Types", "Strict Null Checks", "Type Narrowing"],
                         ),
                         GeneratedTopicItem(
                             title="DOM Rendering Pipeline & Browser Performance",
@@ -407,6 +433,7 @@ class LearningPathService:
                             estimated_minutes=30,
                             prerequisites=["TypeScript Type Systems & Generic Contracts"],
                             learning_objectives=["Profile browser frame rates and layouts", "Minimize unneeded layout thrashing"],
+                            key_concepts=["Critical Rendering Path", "Reflow vs Repaint", "GPU Layer Compositing", "Layout Thrashing", "Virtual DOM Reconciliation", "requestAnimationFrame"],
                         ),
                         GeneratedTopicItem(
                             title="Modern Package Management & Build Toolchains",
@@ -416,6 +443,7 @@ class LearningPathService:
                             estimated_minutes=25,
                             prerequisites=["DOM Rendering Pipeline & Browser Performance"],
                             learning_objectives=["Configure high-performance modern build pipelines", "Analyze production bundle sizes"],
+                            key_concepts=["ES Modules vs CommonJS", "Tree-Shaking Algorithms", "Rollup/Vite Chunker", "Dynamic Imports", "Source Maps", "Bundle Budget Analysis"],
                         ),
                     ],
                 ),
@@ -432,6 +460,7 @@ class LearningPathService:
                             estimated_minutes=35,
                             prerequisites=["DOM Rendering Pipeline & Browser Performance"],
                             learning_objectives=["Build predictable component hierarchies", "Eliminate unintended side-effects"],
+                            key_concepts=["Virtual DOM Diffing", "Component Mount/Unmount/Update", "Reactive Signals / Hooks", "Pure Render Functions", "State Colocation", "Derived State"],
                         ),
                         GeneratedTopicItem(
                             title="Global State Management & Cache Hydration",
@@ -441,6 +470,7 @@ class LearningPathService:
                             estimated_minutes=40,
                             prerequisites=["Component Lifecycles & Reactive State Machines"],
                             learning_objectives=["Implement normalized global state stores", "Synchronize remote entity caches"],
+                            key_concepts=["Single Source of Truth", "Normalized Entity Tables", "Optimistic Mutations", "Stale-While-Revalidate", "Cache Invalidation", "Hydration Mismatches"],
                         ),
                         GeneratedTopicItem(
                             title="Design Systems, Accessibility & Responsive Layouts",
@@ -450,6 +480,7 @@ class LearningPathService:
                             estimated_minutes=30,
                             prerequisites=["Component Lifecycles & Reactive State Machines"],
                             learning_objectives=["Construct fluid responsive interfaces", "Ensure WCAG 2.1 AA accessibility compliance"],
+                            key_concepts=["CSS Grid & Flexbox Mechanics", "Design Tokens & Themes", "WCAG 2.1 AA Contrast Ratios", "Screen Reader ARIA Roles", "Keyboard Focus Trapping", "Fluid Typography"],
                         ),
                         GeneratedTopicItem(
                             title="Client-Side Routing & Dynamic Code Splitting",
@@ -459,6 +490,7 @@ class LearningPathService:
                             estimated_minutes=30,
                             prerequisites=["Global State Management & Cache Hydration"],
                             learning_objectives=["Implement protected navigation hierarchies", "Configure lazy-loaded route boundaries"],
+                            key_concepts=["HTML5 History API", "Protected Route Guards", "Nested Layout Outlets", "Dynamic Import Boundaries", "Pre-fetching Strategies", "Route Error Boundaries"],
                         ),
                     ],
                 ),
@@ -475,6 +507,7 @@ class LearningPathService:
                             estimated_minutes=30,
                             prerequisites=[],
                             learning_objectives=["Design idempotent REST endpoints", "Leverage HTTP caching and ETag headers"],
+                            key_concepts=["TCP vs QUIC/UDP Runtimes", "TLS 1.3 Handshake Mechanics", "Idempotency Keys", "ETag & Conditional Requests", "HTTP Status Semantics", "Multiplexed Streams"],
                         ),
                         GeneratedTopicItem(
                             title="Layered Service Architecture & Middleware Pipelines",
@@ -484,6 +517,7 @@ class LearningPathService:
                             estimated_minutes=35,
                             prerequisites=["HTTP Protocols, Headers & Request Lifecycle"],
                             learning_objectives=["Structure decoupled enterprise backend services", "Intercept requests with validation middleware"],
+                            key_concepts=["Controller-Service-Repository Pattern", "Request Interceptor Chains", "Dependency Injection Containers", "Context Propagation", "Domain Logic Isolation", "Cross-Cutting Concerns"],
                         ),
                         GeneratedTopicItem(
                             title="Data Validation, Serialization & Error Contracts",
@@ -493,6 +527,7 @@ class LearningPathService:
                             estimated_minutes=30,
                             prerequisites=["Layered Service Architecture & Middleware Pipelines"],
                             learning_objectives=["Enforce strict input validation boundaries", "Return predictable structured error payloads"],
+                            key_concepts=["Schema Invariants Parsing", "Input Sanitization & Escaping", "RFC 7807 Problem Details", "Serialization Overheads", "Custom Error Hierarchies", "Fail-Fast Validation"],
                         ),
                         GeneratedTopicItem(
                             title="File Streaming, Multipart Uploads & Cloud Storage",
@@ -502,6 +537,7 @@ class LearningPathService:
                             estimated_minutes=35,
                             prerequisites=["Layered Service Architecture & Middleware Pipelines"],
                             learning_objectives=["Stream file uploads without memory leaks", "Issue secure presigned cloud upload URLs"],
+                            key_concepts=["Multipart MIME Encodings", "Stream Backpressure Buffering", "Presigned S3/GCS Upload URLs", "Chunked Transfer Encoding", "Temporary Memory Spilling", "Virus/Payload Validation"],
                         ),
                     ],
                 ),
