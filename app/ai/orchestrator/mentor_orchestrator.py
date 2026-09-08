@@ -86,15 +86,52 @@ Provide a concise title, pedagogical reasoning ('Why this action'), estimated mi
     ) -> Dict[str, Any]:
         logger.info(f"Orchestrating mentor chat reply for user {user_id}")
 
-        context_prompt = context.to_llm_prompt() if context else "No active goal context available."
+        # 1. Deterministic Input Guardrail Check (Zero LLM Token Cost)
+        from app.ai.guardrails.input_guardrails import input_guardrail
+
+        goal_title = context.goal_title if context else None
+        node_title = context.current_node_title if context else None
+        guardrail_result = input_guardrail.validate(
+            user_message=user_message,
+            active_goal_title=goal_title,
+            current_topic_title=node_title,
+        )
+
+        topic_label = node_title or "Current Milestone"
+        action_time = context.daily_minutes if context else 20
+
+        if not guardrail_result.is_safe:
+            logger.warning(
+                f"Input guardrail intercepted message for user {user_id}: "
+                f"reason={guardrail_result.rejection_reason}"
+            )
+            return {
+                "reply": guardrail_result.redirected_response,
+                "is_ai_generated": False,
+                "warning_message": "Pedagogical safety guardrail applied.",
+                "suggested_actions": [
+                    ActionRecommendation(
+                        action_type=ActionType.LEARN,
+                        title=f"Continue: {topic_label}",
+                        reason="Maintains focus on your verified curriculum path.",
+                        estimated_minutes=action_time,
+                        quick_action_label="Resume",
+                    )
+                ],
+            }
+
+        # 2. Compact RAG context dossier (<120 tokens)
+        rag_context = context.to_rag_dossier() if context else "[LEARNER RAG DOSSIER]\nNo active goal context available."
         prompt = f"""
-LEARNER CONTEXT:
-{context_prompt}
+<LEARNER_CONTEXT>
+{rag_context}
+</LEARNER_CONTEXT>
 
-LEARNER MESSAGE:
-{user_message}
+<USER_QUERY>
+{guardrail_result.sanitized_input}
+</USER_QUERY>
 
-Respond as SkillTwin personal mentor. Concise, encouraging, and actionable.
+Respond strictly as the SkillTwin personal mentor. Concise, empathetic, and actionable. Ground all explanations in the learner's active topic, current mastery level, and known cognitive gaps.
 """.strip()
 
         reply_text = await self.llm_provider.generate_text(
@@ -128,9 +165,9 @@ Respond as SkillTwin personal mentor. Concise, encouraging, and actionable.
             "suggested_actions": [
                 ActionRecommendation(
                     action_type=ActionType.LEARN,
-                    title="Continue Current Roadmap Node",
-                    reason="Maintains momentum along your primary milestone.",
-                    estimated_minutes=25,
+                    title=f"Continue: {topic_label}",
+                    reason=f"Solidifies your understanding of {topic_label}.",
+                    estimated_minutes=action_time,
                     quick_action_label="Resume",
                 )
             ],

@@ -24,18 +24,38 @@ class MentorContext:
     user_id: str
     goal_id: Optional[str] = None
     goal_title: Optional[str] = None
+    target_level: Optional[str] = None
     goal_progress: int = 0
     daily_minutes: int = 30
+    current_module: Optional[str] = None
     current_node_id: Optional[str] = None
     current_node_title: Optional[str] = None
     current_concept_id: Optional[str] = None
     current_concept_mastery: float = 0.0
     current_concept_confidence: float = 0.0
     current_evidence_count: int = 0
+    current_key_concepts: List[str] = field(default_factory=list)
     prerequisites: List[PrerequisiteSummary] = field(default_factory=list)
     active_misconceptions: List[str] = field(default_factory=list)
     due_retention_items: List[Dict[str, Any]] = field(default_factory=list)
     recent_session_proofs: List[Dict[str, Any]] = field(default_factory=list)
+
+    def to_rag_dossier(self) -> str:
+        """
+        Formats an ultra-compact, high-density RAG context block (<120 tokens).
+        Guarantees zero-drift personalization at minimal token expenditure.
+        """
+        kc_str = ", ".join(self.current_key_concepts[:5]) if self.current_key_concepts else "Core invariants"
+        misc_str = ", ".join(self.active_misconceptions[:2]) if self.active_misconceptions else "None detected"
+        return f"""
+[LEARNER RAG DOSSIER]
+Active Goal: {self.goal_title or 'General Mastery'} ({self.target_level or 'Beginner'}) | Overall Progress: {self.goal_progress}%
+Current Module: {self.current_module or 'Core Foundations'}
+Active Topic Milestone: {self.current_node_title or 'General Practice'} (Current Mastery: {int(self.current_concept_mastery)}%)
+Target Key Concepts: {kc_str}
+Known Cognitive Gaps: {misc_str}
+Daily Budget: {self.daily_minutes} mins/day
+""".strip()
 
     def to_llm_prompt(self) -> str:
         """Formats tightly budgeted, token-efficient context for the LLM."""
@@ -58,16 +78,15 @@ class MentorContext:
 
         return f"""
 TARGET GOAL:
-Title: {self.goal_title or 'General Practice'}
+Title: {self.goal_title or 'General Practice'} ({self.target_level or 'Beginner'})
 Overall Progress: {self.goal_progress}%
 Daily Target: {self.daily_minutes} minutes
 
 CURRENT MILESTONE NODE:
+Module: {self.current_module or 'Foundations'}
 Title: {self.current_node_title or 'None active'}
-Concept ID: {self.current_concept_id or 'N/A'}
 Current Concept Mastery: {self.current_concept_mastery}%
-Current Confidence: {self.current_concept_confidence}%
-Verified Evidence Count: {self.current_evidence_count}
+Key Concepts: {', '.join(self.current_key_concepts) or 'Foundational mechanics'}
 
 PREREQUISITE STATE:
 {prereq_lines}
@@ -77,9 +96,6 @@ ACTIVE MISCONCEPTIONS:
 
 RETENTION / MEMORY DECAY RISKS:
 {retention_lines}
-
-RECENT EVIDENCE PROOFS:
-{recent_lines}
 """.strip()
 
 
@@ -105,43 +121,88 @@ class MentorContextBuilder:
         self.revision_repo = revision_repo
         self.session_repo = session_repo
 
-    async def build_context(self, user_id: str) -> MentorContext:
+    async def build_context(
+        self,
+        user_id: str,
+        client_context: Optional[Dict[str, Any]] = None,
+    ) -> MentorContext:
         logger.debug(f"Building selective mentor context for learner: {user_id}")
 
         context = MentorContext(user_id=user_id)
 
-        # 1. Fetch active goal
+        # 1. First attempt to load from live dynamic learning path
+        try:
+            from app.services.learning_path_service import learning_path_service
+            path_resp = await learning_path_service.get_active_path_response(user_id)
+            if path_resp:
+                context.goal_id = path_resp.goal_id
+                context.goal_title = path_resp.title
+                context.target_level = path_resp.target_level
+                context.goal_progress = int(path_resp.progress * 100)
+
+                active_found = False
+                for sec in path_resp.sections:
+                    for top in sec.topics:
+                        if top.status in ("learning", "in_progress"):
+                            context.current_node_id = top.id
+                            context.current_node_title = top.title
+                            context.current_module = sec.title
+                            context.current_key_concepts = top.key_concepts
+                            context.current_concept_mastery = top.mastery_score
+                            active_found = True
+                            break
+                    if active_found:
+                        break
+
+                if not active_found and path_resp.sections:
+                    for sec in path_resp.sections:
+                        for top in sec.topics:
+                            if top.status != "completed":
+                                context.current_node_id = top.id
+                                context.current_node_title = top.title
+                                context.current_module = sec.title
+                                context.current_key_concepts = top.key_concepts
+                                context.current_concept_mastery = top.mastery_score
+                                active_found = True
+                                break
+                        if active_found:
+                            break
+        except Exception as e:
+            logger.debug(f"Learning path lookup in context builder: {e}")
+
+        # 2. Fetch active goal if not already populated
         active_goal = await self.goal_repo.get_active_goal_for_user(user_id)
         if active_goal:
-            context.goal_id = active_goal.id
-            context.goal_title = active_goal.title
+            context.goal_id = context.goal_id or active_goal.id
+            context.goal_title = context.goal_title or active_goal.title
             context.daily_minutes = active_goal.daily_minutes
+            context.target_level = context.target_level or getattr(active_goal, "target_level", getattr(active_goal, "current_level", "Beginner"))
 
-            # 2. Fetch journey and locate active milestone node
-            journey = await self.journey_repo.get_by_goal_id(active_goal.id)
-            if journey:
-                context.goal_progress = journey.progress
-                current_node = next(
-                    (n for n in journey.nodes if n.state == NodeState.CURRENT),
-                    None
-                )
-                if not current_node:
+            # Fallback to in-memory journey if learning path was absent
+            if not context.current_node_title:
+                journey = await self.journey_repo.get_by_goal_id(active_goal.id)
+                if journey:
+                    context.goal_progress = journey.progress
                     current_node = next(
-                        (n for n in journey.nodes if n.state == NodeState.AVAILABLE),
-                        journey.nodes[0] if journey.nodes else None
+                        (n for n in journey.nodes if n.state == NodeState.CURRENT),
+                        None
                     )
+                    if not current_node:
+                        current_node = next(
+                            (n for n in journey.nodes if n.state == NodeState.AVAILABLE),
+                            journey.nodes[0] if journey.nodes else None
+                        )
 
-                if current_node:
-                    context.current_node_id = current_node.id
-                    context.current_node_title = current_node.title
-                    context.current_concept_id = current_node.concept_id
+                    if current_node:
+                        context.current_node_id = current_node.id
+                        context.current_node_title = current_node.title
+                        context.current_concept_id = current_node.concept_id
 
-                    # 3. Fetch learner twin state for current concept
-                    state = await self.learner_repo.get_concept_state(user_id, current_node.concept_id)
-                    if state:
-                        context.current_concept_mastery = state.mastery
-                        context.current_concept_confidence = state.confidence
-                        context.current_evidence_count = state.evidence_count
+                        state = await self.learner_repo.get_concept_state(user_id, current_node.concept_id)
+                        if state:
+                            context.current_concept_mastery = state.mastery
+                            context.current_concept_confidence = state.confidence
+                            context.current_evidence_count = state.evidence_count
 
                     # 4. Check prerequisites for current node
                     for prereq_node_id in current_node.prerequisites:

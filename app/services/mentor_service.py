@@ -47,7 +47,7 @@ class MentorService:
         await self.mentor_repo.save(user_msg)
 
         # 2. Build selective context
-        context = await self.ctx_builder.build_context(user_id)
+        context = await self.ctx_builder.build_context(user_id, client_context=request.context)
 
         # 3. Generate contextual mentor reply via Orchestrator
         ai_result = await self.orchestrator.generate_chat_response(

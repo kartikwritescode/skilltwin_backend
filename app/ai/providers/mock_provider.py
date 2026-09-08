@@ -50,27 +50,41 @@ class MockLLMProvider(LLMProvider):
         goal_match = ""
         milestone_match = ""
         misc_match = ""
+        key_concepts_match = ""
         user_msg = ""
 
-        if "learner message:" in p_lower:
+        if "<user_query>" in p_lower:
+            parts = prompt.split("<USER_QUERY>")
+            if len(parts) > 1:
+                user_msg = parts[1].split("</USER_QUERY>")[0].strip()
+        elif "learner message:" in p_lower:
             parts = prompt.split("LEARNER MESSAGE:")
             if len(parts) > 1:
                 user_msg = parts[1].split("\n\n")[0].strip()
 
-        if "title:" in p_lower:
-            for line in prompt.split("\n"):
-                if line.strip().lower().startswith("title:"):
-                    if not goal_match:
-                        goal_match = line.split(":", 1)[1].strip()
-                    elif not milestone_match:
-                        milestone_match = line.split(":", 1)[1].strip()
-                elif "active misconceptions:" in line.lower():
-                    misc_match = line.split(":", 1)[1].strip()
+        for line in prompt.split("\n"):
+            line_str = line.strip()
+            line_low = line_str.lower()
+            if line_low.startswith("active goal:"):
+                goal_match = line_str.split(":", 1)[1].split("|")[0].strip()
+            elif line_low.startswith("active topic milestone:"):
+                milestone_match = line_str.split(":", 1)[1].split("(")[0].strip()
+            elif line_low.startswith("target key concepts:"):
+                key_concepts_match = line_str.split(":", 1)[1].strip()
+            elif line_low.startswith("known cognitive gaps:"):
+                misc_match = line_str.split(":", 1)[1].strip()
+            elif line_low.startswith("title:"):
+                if not goal_match:
+                    goal_match = line_str.split(":", 1)[1].strip()
+                elif not milestone_match:
+                    milestone_match = line_str.split(":", 1)[1].strip()
+            elif "active misconceptions:" in line_low:
+                misc_match = line_str.split(":", 1)[1].strip()
 
         # Generate intelligent contextual responses based on user query
         u_lower = user_msg.lower()
 
-        if "why this concept" in u_lower or "why" in u_lower and "now" in u_lower:
+        if "why this concept" in u_lower or ("why" in u_lower and "now" in u_lower):
             topic = milestone_match or goal_match or "this foundational milestone"
             return (
                 f"We are prioritizing **{topic}** today because cognitive evidence shows that jumping ahead "
@@ -105,17 +119,11 @@ class MockLLMProvider(LLMProvider):
                 "handlers on stream listeners, and confirm cancelation on disposal."
             )
 
-        if "machine learning" in u_lower or "ml" in u_lower or "gradient" in u_lower or "neural" in u_lower:
-            return (
-                "In machine learning, geometric intuition is paramount. Always link the algebraic expression "
-                "(like matrix transformations or loss gradients) directly to its physical impact on the loss surface. "
-                "If the optimization stalls, inspect your learning rate schedule and gradient magnitudes first."
-            )
-
-        # General dynamic pedagogical reply
+        # General dynamic pedagogical reply grounded in learner's topic
         topic_ref = milestone_match or goal_match or "your active learning objective"
+        concepts_note = f" focusing on **{key_concepts_match}**," if key_concepts_match and key_concepts_match.lower() != "core invariants" else ""
         return (
-            f"Here is your focused mentor strategy for **{topic_ref}**: break down the target problem into smaller invariant "
+            f"Here is your focused mentor strategy for **{topic_ref}**:{concepts_note} break down the target problem into smaller invariant "
             f"properties, implement and articulate the core mechanism first, and verify with boundary test cases before "
             f"moving forward."
         )
