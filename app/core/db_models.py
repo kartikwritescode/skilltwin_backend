@@ -15,7 +15,7 @@ from sqlalchemy import (
     Index,
 )
 from sqlalchemy.types import TypeDecorator, CHAR
-from sqlalchemy.dialects.postgresql import UUID as PG_UUID
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID, ENUM as PG_ENUM
 from sqlalchemy.orm import relationship, declarative_base
 
 class GUID(TypeDecorator):
@@ -56,6 +56,33 @@ class GUID(TypeDecorator):
             return value
         return str(value)
 
+
+class GoalStatusType(TypeDecorator):
+    """Handles PostgreSQL custom enum goal_status and SQLite String."""
+    impl = String
+    cache_ok = True
+
+    def load_dialect_impl(self, dialect):
+        if dialect.name == "postgresql":
+            return dialect.type_descriptor(
+                PG_ENUM(
+                    "ACTIVE", "PAUSED", "COMPLETED", "ARCHIVED",
+                    name="goal_status",
+                    create_type=False,
+                )
+            )
+        return dialect.type_descriptor(String())
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return "ACTIVE"
+        return str(value).upper()
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return None
+        return str(value).upper()
+
 Base = declarative_base()
 
 
@@ -90,7 +117,7 @@ class GoalModel(Base):
     existing_knowledge = Column(Text, nullable=True)
     constraints = Column(JSON, default=list)
     daily_minutes = Column(Integer, default=30)
-    status = Column(String, default="ACTIVE", index=True)
+    status = Column(GoalStatusType(), default="ACTIVE", index=True)
     target_benchmark = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), default=utcnow)
     updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
