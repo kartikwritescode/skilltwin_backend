@@ -8,6 +8,7 @@ from sqlalchemy import (
     Integer,
     Boolean,
     DateTime,
+    Date,
     Text,
     ForeignKey,
     JSON,
@@ -82,7 +83,7 @@ class GoalModel(Base):
     user_id = Column(GUID(), ForeignKey("profiles.id", ondelete="CASCADE"), nullable=False, index=True)
     title = Column(String, nullable=False)
     description = Column(Text, nullable=True)
-    deadline = Column(String, nullable=True)
+    deadline = Column(Date, nullable=True)
     current_level = Column(String, default="intermediate")
     target_level = Column(String, default="Intermediate")
     custom_target = Column(String, nullable=True)
