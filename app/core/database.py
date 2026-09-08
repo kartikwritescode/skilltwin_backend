@@ -22,6 +22,8 @@ def _create_engine(url: str):
         # Crucial for Supabase transaction pooler / pgbouncer (port 6543)
         connect_args["statement_cache_size"] = 0
         connect_args["prepared_statement_cache_size"] = 0
+        if "localhost" not in db_url and "127.0.0.1" not in db_url:
+            connect_args["ssl"] = "require"
 
     new_engine = create_async_engine(
         db_url,
