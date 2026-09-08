@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime, timezone
 from typing import Optional, List, Dict, Any
-from sqlalchemy import select, update, delete, and_, desc, cast, String
+from sqlalchemy import select, update, delete, and_, desc, cast, String, text
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import AsyncSessionLocal
 from app.core.db_models import (
@@ -25,12 +25,29 @@ class DynamicLearningRepository:
     topics, learner progress, practice questions, and cognitive twin metrics.
     """
 
+    async def _ensure_profile_exists(self, session: AsyncSession, user_id: Any) -> None:
+        """
+        Ensures a corresponding row exists in the profiles table for the given user_id
+        to satisfy foreign key constraints before saving goals or paths.
+        """
+        if not user_id:
+            return
+        try:
+            async with session.begin_nested():
+                await session.execute(
+                    text("INSERT INTO profiles (id, display_name) VALUES (:id, 'Learner') ON CONFLICT (id) DO NOTHING"),
+                    {"id": str(user_id)}
+                )
+        except Exception as e:
+            logger.warning(f"Could not auto-ensure profile for user {user_id}: {e}")
+
     # ---------------------------------------------------------------------------
     # Learning Goals
     # ---------------------------------------------------------------------------
 
     async def save_goal(self, goal: GoalModel) -> GoalModel:
         async with AsyncSessionLocal() as session:
+            await self._ensure_profile_exists(session, goal.user_id)
             session.add(goal)
             await session.commit()
             await session.refresh(goal)
@@ -58,6 +75,7 @@ class DynamicLearningRepository:
 
     async def save_path(self, path: LearningPathModel) -> LearningPathModel:
         async with AsyncSessionLocal() as session:
+            await self._ensure_profile_exists(session, path.user_id)
             session.add(path)
             await session.commit()
             await session.refresh(path)
@@ -158,6 +176,7 @@ class DynamicLearningRepository:
             if existing:
                 return existing
 
+            await self._ensure_profile_exists(session, user_id)
             progress = LearnerTopicProgressModel(
                 id=str(uuid.uuid4()),
                 user_id=user_id,
@@ -177,6 +196,7 @@ class DynamicLearningRepository:
 
     async def save_topic_progress(self, progress: LearnerTopicProgressModel) -> LearnerTopicProgressModel:
         async with AsyncSessionLocal() as session:
+            await self._ensure_profile_exists(session, progress.user_id)
             session.add(progress)
             await session.commit()
             await session.refresh(progress)
@@ -246,6 +266,7 @@ class DynamicLearningRepository:
 
     async def save_twin_metrics(self, metrics: TwinMetricsModel) -> TwinMetricsModel:
         async with AsyncSessionLocal() as session:
+            await self._ensure_profile_exists(session, metrics.user_id)
             session.add(metrics)
             await session.commit()
             await session.refresh(metrics)
