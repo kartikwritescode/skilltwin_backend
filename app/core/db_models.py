@@ -20,27 +20,35 @@ from sqlalchemy.orm import relationship, declarative_base
 class GUID(TypeDecorator):
     """Platform-independent GUID type.
     Uses PostgreSQL UUID type on postgresql dialect, CHAR(36) on sqlite.
-    Safely coerces non-hex strings to deterministic UUID5 for postgresql.
+    Returns native uuid.UUID for asyncpg bind params on PostgreSQL.
     """
     impl = CHAR(36)
     cache_ok = True
 
     def load_dialect_impl(self, dialect):
         if dialect.name == 'postgresql':
-            return dialect.type_descriptor(PG_UUID(as_uuid=False))
+            return dialect.type_descriptor(PG_UUID(as_uuid=True))
         return dialect.type_descriptor(CHAR(36))
 
     def process_bind_param(self, value, dialect):
         if value is None:
             return value
-        if isinstance(value, uuid.UUID):
-            return str(value)
-        try:
-            return str(uuid.UUID(str(value)))
-        except (ValueError, AttributeError):
-            if dialect.name == 'postgresql':
-                return str(uuid.uuid5(uuid.NAMESPACE_DNS, str(value)))
-            return str(value)
+        if dialect.name == 'postgresql':
+            # asyncpg requires native uuid.UUID objects for UUID columns
+            if isinstance(value, uuid.UUID):
+                return value
+            try:
+                return uuid.UUID(str(value))
+            except (ValueError, AttributeError):
+                return uuid.uuid5(uuid.NAMESPACE_DNS, str(value))
+        else:
+            # SQLite: store as string
+            if isinstance(value, uuid.UUID):
+                return str(value)
+            try:
+                return str(uuid.UUID(str(value)))
+            except (ValueError, AttributeError):
+                return str(value)
 
     def process_result_value(self, value, dialect):
         if value is None:
@@ -90,9 +98,9 @@ class GoalModel(Base):
 class JourneyModel(Base):
     __tablename__ = "journeys"
 
-    id = Column(String, primary_key=True, default=lambda: f"jrn_{uuid.uuid4().hex[:10]}")
-    goal_id = Column(String, ForeignKey("goals.id", ondelete="CASCADE"), nullable=False, index=True)
-    user_id = Column(String, nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    goal_id = Column(GUID(), ForeignKey("goals.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id = Column(GUID(), nullable=False, index=True)
     title = Column(String, nullable=False)
     version = Column(Integer, default=1)
     status = Column(String, default="ACTIVE")
