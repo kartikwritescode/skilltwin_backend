@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime, timezone
 from typing import Optional, List, Dict, Any
-from sqlalchemy import select, update, delete, and_, desc
+from sqlalchemy import select, update, delete, and_, desc, cast, String
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import AsyncSessionLocal
 from app.core.db_models import (
@@ -46,7 +46,7 @@ class DynamicLearningRepository:
         async with AsyncSessionLocal() as session:
             stmt = (
                 select(GoalModel)
-                .where(and_(GoalModel.user_id == user_id, GoalModel.status == "ACTIVE"))
+                .where(and_(GoalModel.user_id == user_id, cast(GoalModel.status, String) == "ACTIVE"))
                 .order_by(desc(GoalModel.created_at))
             )
             result = await session.execute(stmt)
@@ -79,7 +79,7 @@ class DynamicLearningRepository:
         async with AsyncSessionLocal() as session:
             stmt = (
                 select(LearningPathModel)
-                .where(and_(LearningPathModel.user_id == user_id, LearningPathModel.status == "ACTIVE"))
+                .where(and_(LearningPathModel.user_id == user_id, cast(LearningPathModel.status, String) == "ACTIVE"))
                 .order_by(desc(LearningPathModel.created_at))
             )
             result = await session.execute(stmt)
@@ -159,7 +159,7 @@ class DynamicLearningRepository:
                 return existing
 
             progress = LearnerTopicProgressModel(
-                id=f"ltp_{uuid.uuid4().hex[:10]}",
+                id=str(uuid.uuid4()),
                 user_id=user_id,
                 topic_id=topic_id,
                 status="not_started",

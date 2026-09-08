@@ -88,7 +88,7 @@ class LearningPathService:
         custom_tgt = request.custom_target.strip() if request.custom_target else None
 
         # 1. Persist Goal in Database
-        goal_id = f"goal_{uuid.uuid4().hex[:10]}"
+        goal_id = str(uuid.uuid4())
         goal = GoalModel(
             id=goal_id,
             user_id=user_id,
@@ -189,7 +189,7 @@ class LearningPathService:
             plan = self._generate_fallback_curriculum(learning_goal, target_level, custom_target)
 
         # 3. Normalize & Persist to Database
-        path_id = f"lp_{uuid.uuid4().hex[:10]}"
+        path_id = str(uuid.uuid4())
         path = LearningPathModel(
             id=path_id,
             goal_id=goal_id,
@@ -211,7 +211,7 @@ class LearningPathService:
 
         is_first_topic = True
         for s_idx, sec in enumerate(plan.sections):
-            sec_id = f"sec_{uuid.uuid4().hex[:10]}"
+            sec_id = str(uuid.uuid4())
             sec_model = LearningSectionModel(
                 id=sec_id,
                 path_id=path.id,
@@ -222,7 +222,7 @@ class LearningPathService:
             section_models.append(sec_model)
 
             for t_idx, top in enumerate(sec.topics):
-                top_id = f"top_{uuid.uuid4().hex[:10]}"
+                top_id = str(uuid.uuid4())
                 top_model = LearningTopicModel(
                     id=top_id,
                     section_id=sec_id,
@@ -240,7 +240,7 @@ class LearningPathService:
                 # First topic starts as "learning", others as "not_started"
                 initial_status = "learning" if is_first_topic else "not_started"
                 progress_model = LearnerTopicProgressModel(
-                    id=f"ltp_{uuid.uuid4().hex[:10]}",
+                    id=str(uuid.uuid4()),
                     user_id=user_id,
                     topic_id=top_id,
                     status=initial_status,

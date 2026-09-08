@@ -49,12 +49,24 @@ async def init_db():
 
     async def _apply_column_migrations(conn):
         from sqlalchemy import text
-        for col_sql in [
-            "ALTER TABLE goals ADD COLUMN target_level TEXT DEFAULT 'Intermediate'",
-            "ALTER TABLE goals ADD COLUMN custom_target TEXT",
-        ]:
+        is_sqlite = "sqlite" in str(conn.engine.url)
+        migrations = [
+            ("goals", "target_level", "TEXT DEFAULT 'Intermediate'"),
+            ("goals", "custom_target", "TEXT"),
+            ("goals", "target_benchmark", "TEXT"),
+            ("learning_paths", "metadata", "TEXT DEFAULT '{}'"),
+            ("learning_sections", "metadata", "TEXT DEFAULT '{}'"),
+            ("learning_topics", "metadata", "TEXT DEFAULT '{}'"),
+            ("learner_topic_progress", "metadata", "TEXT DEFAULT '{}'"),
+            ("topic_questions", "metadata", "TEXT DEFAULT '{}'"),
+        ]
+        for tbl, col, col_def in migrations:
+            if is_sqlite:
+                sql = f"ALTER TABLE {tbl} ADD COLUMN {col} {col_def}"
+            else:
+                sql = f"ALTER TABLE {tbl} ADD COLUMN IF NOT EXISTS {col} {col_def}"
             try:
-                await conn.execute(text(col_sql))
+                await conn.execute(text(sql))
             except Exception:
                 pass
 

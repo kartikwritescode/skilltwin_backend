@@ -76,6 +76,35 @@ def create_application() -> FastAPI:
     # Exception Handlers
     application.add_exception_handler(SkillTwinException, domain_exception_handler)
 
+    @application.exception_handler(Exception)
+    async def global_exception_handler(request: Request, exc: Exception):
+        err_str = str(exc).lower()
+        if "429" in err_str or "quota" in err_str or "resource_exhausted" in err_str or "rate limit" in err_str:
+            logger.warning(f"AI API quota exhausted: {exc}")
+            return JSONResponse(
+                status_code=429,
+                content={
+                    "error": {
+                        "code": "QUOTA_EXCEEDED",
+                        "message": "AI API usage limit reached (quota exceeded). Please check your Gemini API key or try again later.",
+                        "details": {"error": str(exc)},
+                    }
+                },
+            )
+
+        import traceback
+        logger.error(f"Unhandled server error on {request.method} {request.url.path}: {exc}\n{traceback.format_exc()}")
+        return JSONResponse(
+            status_code=500,
+            content={
+                "error": {
+                    "code": "INTERNAL_SERVER_ERROR",
+                    "message": "Internal server error occurred.",
+                    "details": {"error": str(exc) if settings.DEBUG else "Please contact support."},
+                }
+            },
+        )
+
     # Root Health Check Endpoint
     @application.get("/health", response_model=HealthResponse, tags=["Health"], summary="Root Health Check")
     async def root_health():

@@ -13,7 +13,39 @@ from sqlalchemy import (
     JSON,
     Index,
 )
+from sqlalchemy.types import TypeDecorator, CHAR
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import relationship, declarative_base
+
+class GUID(TypeDecorator):
+    """Platform-independent GUID type.
+    Uses PostgreSQL UUID type on postgresql dialect, CHAR(36) on sqlite.
+    Safely coerces non-hex strings to deterministic UUID5 for postgresql.
+    """
+    impl = CHAR(36)
+    cache_ok = True
+
+    def load_dialect_impl(self, dialect):
+        if dialect.name == 'postgresql':
+            return dialect.type_descriptor(PG_UUID(as_uuid=False))
+        return dialect.type_descriptor(CHAR(36))
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return value
+        if isinstance(value, uuid.UUID):
+            return str(value)
+        try:
+            return str(uuid.UUID(str(value)))
+        except (ValueError, AttributeError):
+            if dialect.name == 'postgresql':
+                return str(uuid.uuid5(uuid.NAMESPACE_DNS, str(value)))
+            return str(value)
+
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return value
+        return str(value)
 
 Base = declarative_base()
 
@@ -25,7 +57,7 @@ def utcnow():
 class ProfileModel(Base):
     __tablename__ = "profiles"
 
-    id = Column(String, primary_key=True)
+    id = Column(GUID(), primary_key=True)
     display_name = Column(String, nullable=True)
     email = Column(String, nullable=True)
     timezone = Column(String, default="UTC")
@@ -38,8 +70,8 @@ class ProfileModel(Base):
 class GoalModel(Base):
     __tablename__ = "goals"
 
-    id = Column(String, primary_key=True, default=lambda: f"goal_{uuid.uuid4().hex[:10]}")
-    user_id = Column(String, ForeignKey("profiles.id", ondelete="CASCADE"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(GUID(), ForeignKey("profiles.id", ondelete="CASCADE"), nullable=False, index=True)
     title = Column(String, nullable=False)
     description = Column(Text, nullable=True)
     deadline = Column(String, nullable=True)
@@ -277,9 +309,9 @@ class ReviewItemModel(Base):
 class LearningPathModel(Base):
     __tablename__ = "learning_paths"
 
-    id = Column(String, primary_key=True, default=lambda: f"lp_{uuid.uuid4().hex[:10]}")
-    goal_id = Column(String, nullable=False, index=True)
-    user_id = Column(String, nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    goal_id = Column(GUID(), nullable=False, index=True)
+    user_id = Column(GUID(), nullable=False, index=True)
     title = Column(String, nullable=False)
     description = Column(Text, nullable=True)
     target_level = Column(String, default="Intermediate")
@@ -289,7 +321,7 @@ class LearningPathModel(Base):
     generation_status = Column(String, default="READY")  # PENDING, PROCESSING, READY, FAILED
     generation_error = Column(Text, nullable=True)
     progress = Column(Float, default=0.0)
-    metadata_json = Column(JSON, default=dict)
+    metadata_json = Column("metadata", JSON, default=dict)
     created_at = Column(DateTime(timezone=True), default=utcnow)
     updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
 
@@ -297,12 +329,12 @@ class LearningPathModel(Base):
 class LearningSectionModel(Base):
     __tablename__ = "learning_sections"
 
-    id = Column(String, primary_key=True, default=lambda: f"sec_{uuid.uuid4().hex[:10]}")
-    path_id = Column(String, ForeignKey("learning_paths.id", ondelete="CASCADE"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    path_id = Column(GUID(), ForeignKey("learning_paths.id", ondelete="CASCADE"), nullable=False, index=True)
     title = Column(String, nullable=False)
     description = Column(Text, nullable=True)
     order_index = Column(Integer, nullable=False)
-    metadata_json = Column(JSON, default=dict)
+    metadata_json = Column("metadata", JSON, default=dict)
     created_at = Column(DateTime(timezone=True), default=utcnow)
     updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
 
@@ -310,8 +342,8 @@ class LearningSectionModel(Base):
 class LearningTopicModel(Base):
     __tablename__ = "learning_topics"
 
-    id = Column(String, primary_key=True, default=lambda: f"top_{uuid.uuid4().hex[:10]}")
-    section_id = Column(String, ForeignKey("learning_sections.id", ondelete="CASCADE"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    section_id = Column(GUID(), ForeignKey("learning_sections.id", ondelete="CASCADE"), nullable=False, index=True)
     title = Column(String, nullable=False)
     description = Column(Text, nullable=True)
     order_index = Column(Integer, nullable=False)
@@ -319,7 +351,7 @@ class LearningTopicModel(Base):
     estimated_minutes = Column(Integer, default=25)
     prerequisites = Column(JSON, default=list)
     learning_objectives = Column(JSON, default=list)
-    metadata_json = Column(JSON, default=dict)
+    metadata_json = Column("metadata", JSON, default=dict)
     created_at = Column(DateTime(timezone=True), default=utcnow)
     updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
 
@@ -327,18 +359,18 @@ class LearningTopicModel(Base):
 class TopicDependencyModel(Base):
     __tablename__ = "topic_dependencies"
 
-    id = Column(String, primary_key=True, default=lambda: f"td_{uuid.uuid4().hex[:10]}")
-    source_topic_id = Column(String, ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
-    target_topic_id = Column(String, ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    source_topic_id = Column(GUID(), ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
+    target_topic_id = Column(GUID(), ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
     dependency_type = Column(String, default="prerequisite")
 
 
 class LearnerTopicProgressModel(Base):
     __tablename__ = "learner_topic_progress"
 
-    id = Column(String, primary_key=True, default=lambda: f"ltp_{uuid.uuid4().hex[:10]}")
-    user_id = Column(String, nullable=False, index=True)
-    topic_id = Column(String, ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(GUID(), nullable=False, index=True)
+    topic_id = Column(GUID(), ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
     status = Column(String, default="not_started")  # not_started, learning, completed, needs_revision
     mastery_score = Column(Float, default=0.0)
     confidence_score = Column(Float, default=0.0)
@@ -349,7 +381,7 @@ class LearnerTopicProgressModel(Base):
     completed_at = Column(DateTime(timezone=True), nullable=True)
     last_accessed_at = Column(DateTime(timezone=True), default=utcnow)
     next_revision_at = Column(DateTime(timezone=True), nullable=True)
-    metadata_json = Column(JSON, default=dict)
+    metadata_json = Column("metadata", JSON, default=dict)
     created_at = Column(DateTime(timezone=True), default=utcnow)
     updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
 
@@ -361,25 +393,25 @@ class LearnerTopicProgressModel(Base):
 class TopicQuestionModel(Base):
     __tablename__ = "topic_questions"
 
-    id = Column(String, primary_key=True, default=lambda: f"tq_{uuid.uuid4().hex[:10]}")
-    topic_id = Column(String, ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    topic_id = Column(GUID(), ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
     question_type = Column(String, default="mcq")  # mcq, true_false, short_answer, scenario, code_fix, interview
     prompt = Column(Text, nullable=False)
     options = Column(JSON, default=list)
     correct_answer = Column(Text, nullable=False)
     explanation = Column(Text, nullable=False)
     difficulty = Column(String, default="medium")
-    metadata_json = Column(JSON, default=dict)
+    metadata_json = Column("metadata", JSON, default=dict)
     created_at = Column(DateTime(timezone=True), default=utcnow)
 
 
 class QuestionAttemptModel(Base):
     __tablename__ = "question_attempts"
 
-    id = Column(String, primary_key=True, default=lambda: f"qa_{uuid.uuid4().hex[:10]}")
-    user_id = Column(String, nullable=False, index=True)
-    question_id = Column(String, ForeignKey("topic_questions.id", ondelete="CASCADE"), nullable=False, index=True)
-    topic_id = Column(String, nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(GUID(), nullable=False, index=True)
+    question_id = Column(GUID(), ForeignKey("topic_questions.id", ondelete="CASCADE"), nullable=False, index=True)
+    topic_id = Column(GUID(), nullable=False, index=True)
     user_answer = Column(Text, nullable=False)
     is_correct = Column(Boolean, nullable=False)
     score = Column(Float, default=0.0)
@@ -390,9 +422,9 @@ class QuestionAttemptModel(Base):
 class TopicExplanationCacheModel(Base):
     __tablename__ = "topic_explanations_cache"
 
-    id = Column(String, primary_key=True, default=lambda: f"tec_{uuid.uuid4().hex[:10]}")
-    topic_id = Column(String, ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
-    user_id = Column(String, nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    topic_id = Column(GUID(), ForeignKey("learning_topics.id", ondelete="CASCADE"), nullable=False, index=True)
+    user_id = Column(GUID(), nullable=False, index=True)
     content = Column(Text, nullable=False)
     prompt_version = Column(String, default="v1")
     created_at = Column(DateTime(timezone=True), default=utcnow)
@@ -405,8 +437,8 @@ class TopicExplanationCacheModel(Base):
 class TwinMetricsModel(Base):
     __tablename__ = "twin_metrics"
 
-    id = Column(String, primary_key=True, default=lambda: f"tm_{uuid.uuid4().hex[:10]}")
-    user_id = Column(String, nullable=False, unique=True, index=True)
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(GUID(), nullable=False, unique=True, index=True)
     overall_mastery = Column(Float, default=0.0)
     current_level = Column(String, default="Beginner")
     strongest_areas = Column(JSON, default=list)

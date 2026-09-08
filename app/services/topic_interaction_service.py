@@ -275,7 +275,7 @@ class TopicInteractionService:
 
         # 4. Cache in Database
         cache_entry = TopicExplanationCacheModel(
-            id=f"tec_{uuid.uuid4().hex[:10]}",
+            id=str(uuid.uuid4()),
             topic_id=topic_id,
             user_id=user_id,
             content=content,
@@ -358,7 +358,7 @@ class TopicInteractionService:
         if generated_raw and generated_raw.questions:
             for item in generated_raw.questions:
                 q_model = TopicQuestionModel(
-                    id=f"tq_{uuid.uuid4().hex[:10]}",
+                    id=str(uuid.uuid4()),
                     topic_id=topic_id,
                     question_type=item.get("question_type", "mcq"),
                     prompt=item.get("prompt", f"Explain {topic.title}"),
@@ -445,7 +445,7 @@ class TopicInteractionService:
             total_points += points
 
             attempt = QuestionAttemptModel(
-                id=f"qa_{uuid.uuid4().hex[:10]}",
+                id=str(uuid.uuid4()),
                 user_id=user_id,
                 question_id=q.id,
                 topic_id=topic_id,
@@ -649,7 +649,7 @@ def execute_workflow(payload: dict) -> bool:
     def _generate_fallback_questions(self, topic: LearningTopicModel) -> List[TopicQuestionModel]:
         return [
             TopicQuestionModel(
-                id=f"tq_{uuid.uuid4().hex[:10]}",
+                id=str(uuid.uuid4()),
                 topic_id=topic.id,
                 question_type="mcq",
                 prompt=f"What is the primary architectural purpose of {topic.title}?",
@@ -664,7 +664,7 @@ def execute_workflow(payload: dict) -> bool:
                 difficulty="medium",
             ),
             TopicQuestionModel(
-                id=f"tq_{uuid.uuid4().hex[:10]}",
+                id=str(uuid.uuid4()),
                 topic_id=topic.id,
                 question_type="true_false",
                 prompt=f"True or False: In production applications, {topic.title} can safely assume all caller inputs are pre-validated.",
@@ -674,7 +674,7 @@ def execute_workflow(payload: dict) -> bool:
                 difficulty="medium",
             ),
             TopicQuestionModel(
-                id=f"tq_{uuid.uuid4().hex[:10]}",
+                id=str(uuid.uuid4()),
                 topic_id=topic.id,
                 question_type="scenario",
                 prompt=f"Scenario: A high-throughput API using {topic.title} experiences sporadic 500 errors under heavy concurrent load. What is the most probable root cause?",
