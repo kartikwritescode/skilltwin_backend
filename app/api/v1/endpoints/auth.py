@@ -119,7 +119,10 @@ async def get_me(current_user: CurrentUser = Depends(get_current_user)):
     return await user_service.get_or_create_profile(user_id=current_user.user_id, email=current_user.email)
 
 
+from app.repositories.dynamic_learning_repository import dynamic_learning_repo
+
 @router.get("/onboarding-status", summary="Check Onboarding Status")
 async def onboarding_status(current_user: CurrentUser = Depends(get_current_user)):
-    """Checks if the user has completed onboarding."""
-    return {"is_onboarded": True}
+    """Checks if the user has completed onboarding by checking for an active learning path."""
+    active_path = await dynamic_learning_repo.get_active_path_for_user(current_user.user_id)
+    return {"is_onboarded": active_path is not None}

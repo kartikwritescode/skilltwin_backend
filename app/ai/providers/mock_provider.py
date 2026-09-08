@@ -547,6 +547,93 @@ class MockLLMProvider(LLMProvider):
                     growth_areas=["Explore cross-domain transfer to tree traversal and memoization."],
                 )  # type: ignore
 
+        elif response_schema.__name__ == "GeneratedHierarchicalPath":
+            from app.services.learning_path_service import (
+                GeneratedHierarchicalPath,
+                GeneratedSectionItem,
+                GeneratedTopicItem,
+            )
+            goal_match = "Mastery Path"
+            for line in prompt.split("\n"):
+                if "Target Goal:" in line or "learning goal:" in line.lower():
+                    goal_match = line.split(":")[-1].strip()
+                    break
+
+            return GeneratedHierarchicalPath(
+                title=f"{goal_match} Curriculum",
+                description=f"Personalized pedagogical learning path for {goal_match}.",
+                target_level="Intermediate",
+                estimated_duration="6-8 weeks",
+                sections=[
+                    GeneratedSectionItem(
+                        title="Foundations & Core Principles",
+                        description="Fundamental concepts and structural groundwork.",
+                        order_index=1,
+                        topics=[
+                            GeneratedTopicItem(
+                                title="Core Mechanics & Architecture",
+                                description="Comprehensive introduction to fundamentals and execution models.",
+                                order_index=1,
+                                difficulty="beginner",
+                                estimated_minutes=25,
+                                prerequisites=[],
+                                learning_objectives=["Understand core system mechanics", "Identify structural components"],
+                            ),
+                            GeneratedTopicItem(
+                                title="Data Flow & Lifecycle Invariants",
+                                description="Managing state mutations, lifecycles, and boundary invariants.",
+                                order_index=2,
+                                difficulty="beginner",
+                                estimated_minutes=30,
+                                prerequisites=["Core Mechanics & Architecture"],
+                                learning_objectives=["Track state transitions", "Implement robust boundary checks"],
+                            ),
+                        ],
+                    ),
+                    GeneratedSectionItem(
+                        title="Practical Implementation & Idioms",
+                        description="Applied problem solving, clean patterns, and best practices.",
+                        order_index=2,
+                        topics=[
+                            GeneratedTopicItem(
+                                title="Idiomatic Patterns & Modular Composition",
+                                description="Constructing clean, modular, and maintainable implementations.",
+                                order_index=1,
+                                difficulty="intermediate",
+                                estimated_minutes=35,
+                                prerequisites=["Data Flow & Lifecycle Invariants"],
+                                learning_objectives=["Apply idiomatic design patterns", "Decouple modular concerns"],
+                            ),
+                            GeneratedTopicItem(
+                                title="Error Handling & Edge Invariants",
+                                description="Defensive coding, resilience patterns, and failure containment.",
+                                order_index=2,
+                                difficulty="intermediate",
+                                estimated_minutes=30,
+                                prerequisites=["Idiomatic Patterns & Modular Composition"],
+                                learning_objectives=["Implement robust recovery mechanisms", "Handle edge boundary states"],
+                            ),
+                        ],
+                    ),
+                    GeneratedSectionItem(
+                        title="Advanced Techniques & Optimization",
+                        description="Deep dive into performance, concurrency, and real-world architectures.",
+                        order_index=3,
+                        topics=[
+                            GeneratedTopicItem(
+                                title="Performance Profiling & Scalability",
+                                description="Profiling resource consumption, caching strategies, and efficiency.",
+                                order_index=1,
+                                difficulty="advanced",
+                                estimated_minutes=40,
+                                prerequisites=["Error Handling & Edge Invariants"],
+                                learning_objectives=["Profile and optimize critical paths", "Eliminate resource bottlenecks"],
+                            ),
+                        ],
+                    ),
+                ],
+            )  # type: ignore
+
         # Fallback dummy initialization for arbitrary Pydantic models
         try:
             return response_schema.model_validate({})

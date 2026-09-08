@@ -23,12 +23,12 @@ class GeminiLLMProvider(LLMProvider):
     def __init__(
         self,
         api_key: str,
-        model: str = "gemini-1.5-flash",
+        model: str = "gemini-3.1-flash-lite",
         fallback: Optional[LLMProvider] = None,
     ):
         self.api_key = api_key
-        # Clean model name (e.g. ensure 'gemini-1.5-flash' format)
-        self.model = model.replace("models/", "") if model else "gemini-1.5-flash"
+        # Clean model name (e.g. ensure 'gemini-3.1-flash-lite' format)
+        self.model = model.replace("models/", "") if model else "gemini-3.1-flash-lite"
         self._fallback = fallback or MockLLMProvider()
         self.last_status: str = "active"
         self.last_error_detail: Optional[str] = None
@@ -168,40 +168,46 @@ CRITICAL: Return ONLY a valid JSON object strictly matching this schema:
                 "parts": [{"text": system_prompt}],
             }
 
-        try:
-            async with httpx.AsyncClient(timeout=30.0) as client:
-                res = await client.post(url, json=payload)
-                if res.status_code == 200:
-                    data = res.json()
-                    candidates = data.get("candidates", [])
-                    if candidates:
-                        parts = candidates[0].get("content", {}).get("parts", [])
-                        if parts:
-                            raw_json = parts[0].get("text", "").strip()
-                            # Strip markdown backticks if present
-                            clean_json = re.sub(r"^```json\s*", "", raw_json, flags=re.IGNORECASE)
-                            clean_json = re.sub(r"```$", "", clean_json.strip())
-                            self.last_status = "active"
-                            self.last_error_detail = None
-                            return response_schema.model_validate_json(clean_json)
-                elif res.status_code == 429:
-                    self.last_status = "quota_exhausted"
-                    self.last_error_detail = "Google Gemini Free Tier quota exceeded (HTTP 429). Offline pedagogical intelligence active."
-                    logger.warning(f"Gemini API quota exhausted (429): {res.text[:150]}")
-                elif res.status_code == 404:
-                    self.last_status = "model_not_found"
-                    self.last_error_detail = f"Gemini model '{self.model}' not found (HTTP 404)."
-                    logger.warning(f"Gemini model 404: {res.text[:150]}")
-                else:
-                    self.last_status = f"http_{res.status_code}"
-                    self.last_error_detail = f"Gemini API error {res.status_code}: {res.text[:100]}"
-                    logger.warning(
-                        f"Gemini generate_structured returned {res.status_code}: {res.text[:150]}, using fallback."
-                    )
-        except Exception as e:
-            self.last_status = "connection_error"
-            self.last_error_detail = f"Gemini API error: {str(e)[:100]}"
-            logger.error(f"Gemini API structured parse error: {e}, using fallback.")
+        candidate_models = [self.model]
+        if "gemini-3.1-flash-lite" not in candidate_models:
+            candidate_models.append("gemini-3.1-flash-lite")
+        if "gemini-flash-latest" not in candidate_models:
+            candidate_models.append("gemini-flash-latest")
+
+        for try_model in candidate_models:
+            url = f"{GEMINI_BASE_URL}/models/{try_model}:generateContent?key={self.api_key}"
+            try:
+                async with httpx.AsyncClient(timeout=45.0) as client:
+                    res = await client.post(url, json=payload)
+                    if res.status_code == 200:
+                        data = res.json()
+                        candidates = data.get("candidates", [])
+                        if candidates:
+                            parts = candidates[0].get("content", {}).get("parts", [])
+                            if parts:
+                                raw_json = parts[0].get("text", "").strip()
+                                # Strip markdown backticks if present
+                                clean_json = re.sub(r"^```json\s*", "", raw_json, flags=re.IGNORECASE)
+                                clean_json = re.sub(r"```$", "", clean_json.strip())
+                                self.last_status = "active"
+                                self.last_error_detail = None
+                                return response_schema.model_validate_json(clean_json)
+                    elif res.status_code == 429:
+                        self.last_status = "quota_exhausted"
+                        self.last_error_detail = "Google Gemini Free Tier quota exceeded (HTTP 429). Offline pedagogical intelligence active."
+                        logger.warning(f"Gemini API quota exhausted (429) on {try_model}: {res.text[:150]}")
+                        break
+                    elif res.status_code in [404, 503]:
+                        logger.warning(f"Gemini model '{try_model}' returned {res.status_code}, trying alternate model if available...")
+                        continue
+                    else:
+                        self.last_status = f"http_{res.status_code}"
+                        self.last_error_detail = f"Gemini API error {res.status_code}: {res.text[:100]}"
+                        logger.warning(
+                            f"Gemini generate_structured returned {res.status_code} on {try_model}: {res.text[:150]}"
+                        )
+            except Exception as e:
+                logger.warning(f"Gemini API error on {try_model}: {e}")
 
         return await self._fallback.generate_structured(
             prompt=prompt,

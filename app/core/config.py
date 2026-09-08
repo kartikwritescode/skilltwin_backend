@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     LLM_PROVIDER: str = Field(default="gemini", description="Selected LLM provider (mock, openai, gemini, ollama)")
     LLM_API_KEY: str = Field(default="placeholder-api-key", description="API key for active LLM provider")
     GEMINI_API_KEY: Optional[str] = Field(default=None, description="Gemini API key alias")
-    LLM_MODEL: str = Field(default="gemini-3.6-flash", description="Model identifier for generative tasks")
+    LLM_MODEL: str = Field(default="gemini-3.1-flash-lite", description="Model identifier for generative tasks")
     GEMINI_MODEL: Optional[str] = Field(default=None, description="Gemini model alias")
     EMBEDDING_MODEL: str = Field(default="text-embedding-004", description="Model identifier for vector embeddings")
 
