@@ -93,14 +93,17 @@ def create_application() -> FastAPI:
             )
 
         import traceback
-        logger.error(f"Unhandled server error on {request.method} {request.url.path}: {exc}\n{traceback.format_exc()}")
+        tb_str = traceback.format_exc()
+        logger.error(f"Unhandled server error on {request.method} {request.url.path}: {exc}\n{tb_str}")
+        # Always include error type and truncated message for diagnostics
+        error_summary = f"{type(exc).__name__}: {str(exc)[:300]}"
         return JSONResponse(
             status_code=500,
             content={
                 "error": {
                     "code": "INTERNAL_SERVER_ERROR",
-                    "message": "Internal server error occurred.",
-                    "details": {"error": str(exc) if settings.DEBUG else "Please contact support."},
+                    "message": error_summary,
+                    "details": {"traceback": tb_str[-500:]} if settings.DEBUG else {},
                 }
             },
         )
