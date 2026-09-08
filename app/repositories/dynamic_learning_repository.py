@@ -264,6 +264,18 @@ class DynamicLearningRepository:
             await session.refresh(progress)
             return progress
 
+    async def save_multiple_topic_progress(
+        self,
+        progress_list: List[LearnerTopicProgressModel],
+    ) -> None:
+        if not progress_list:
+            return
+        async with AsyncSessionLocal() as session:
+            await self._ensure_profile_exists(session, progress_list[0].user_id)
+            for p in progress_list:
+                session.add(p)
+            await session.commit()
+
     async def list_progress_for_user(self, user_id: str) -> List[LearnerTopicProgressModel]:
         async with AsyncSessionLocal() as session:
             stmt = select(LearnerTopicProgressModel).where(LearnerTopicProgressModel.user_id == user_id)

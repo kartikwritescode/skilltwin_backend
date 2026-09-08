@@ -208,6 +208,7 @@ class LearningPathService:
 
         section_models: List[LearningSectionModel] = []
         topic_models: List[LearningTopicModel] = []
+        progress_models: List[LearnerTopicProgressModel] = []
 
         is_first_topic = True
         for s_idx, sec in enumerate(plan.sections):
@@ -251,11 +252,16 @@ class LearningPathService:
                     attempts=0,
                     started_at=datetime.now(timezone.utc) if is_first_topic else None,
                 )
-                await self.repo.save_topic_progress(progress_model)
+                progress_models.append(progress_model)
                 is_first_topic = False
 
+        # 1. First persist sections and topics so topic foreign keys exist in DB
         await self.repo.save_sections_and_topics(section_models, topic_models)
         logger.info(f"Persisted learning path {path_id} with {len(section_models)} sections and {len(topic_models)} topics.")
+
+        # 2. Persist initial topic progress for all topics in batch
+        await self.repo.save_multiple_topic_progress(progress_models)
+        logger.info(f"Persisted initial progress for {len(progress_models)} topics.")
         return path
 
     # ---------------------------------------------------------------------------
