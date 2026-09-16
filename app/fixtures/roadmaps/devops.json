@@ -1,0 +1,520 @@
+{
+  "slug": "devops",
+  "title": "DevOps Engineer",
+  "domain": "DevOps & Cloud Infrastructure",
+  "target_role": "Senior DevOps / Platform Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "devops",
+    "kubernetes",
+    "docker",
+    "terraform",
+    "linux",
+    "ci/cd",
+    "cloud",
+    "aws",
+    "observability"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_devops_linux_fundamentals_shell",
+      "concept_id": "concept_devops_linux_fundamentals_shell",
+      "title": "Linux Administration & Bash Scripting",
+      "subtitle": "File systems, permissions, processes, systemd, bash automation, pipe redirection",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Manage Linux system processes and user permissions securely",
+        "Write robust bash automation scripts with error handling (set -euo pipefail)"
+      ],
+      "feynman_prompts": [
+        "Why should production bash scripts always begin with 'set -euo pipefail'?"
+      ],
+      "key_misconceptions": [
+        "Running production scripts as root without least-privilege service accounts"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_networking_dns_ssh",
+      "concept_id": "concept_devops_networking_dns_ssh",
+      "title": "Networking Fundamentals: DNS, SSH & Firewalls",
+      "subtitle": "TCP/IP, DNS records (A, CNAME, TXT), SSH key pairs, iptables/ufw firewalls, NAT",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devops_linux_fundamentals_shell"
+      ],
+      "learning_objectives": [
+        "Configure passwordless SSH authentication and troubleshoot connection failures",
+        "Manage DNS records and configure host-level firewall rules"
+      ],
+      "feynman_prompts": [
+        "How does asymmetric cryptography secure SSH connections without transmitting private keys?"
+      ],
+      "key_misconceptions": [
+        "Leaving SSH password authentication enabled on public internet-facing servers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_git_automation_workflows",
+      "concept_id": "concept_devops_git_automation_workflows",
+      "title": "Git Workflows & Trunk-Based Development",
+      "subtitle": "Git branching models, merge vs rebase, git hooks, commit signing with GPG",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devops_linux_fundamentals_shell"
+      ],
+      "learning_objectives": [
+        "Implement trunk-based development with short-lived feature branches",
+        "Automate local pre-commit verification using Git hooks"
+      ],
+      "feynman_prompts": [
+        "Why does trunk-based development lead to faster release cadence than long-lived GitFlow branches?"
+      ],
+      "key_misconceptions": [
+        "Maintaining long-lived divergent feature branches that result in merge hell"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_docker_containerization_mechanics",
+      "concept_id": "concept_devops_docker_containerization_mechanics",
+      "title": "Docker Containerization & Linux Namespaces",
+      "subtitle": "Linux namespaces, cgroups, Dockerfile instructions, layer caching, image optimization",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devops_linux_fundamentals_shell"
+      ],
+      "learning_objectives": [
+        "Explain how Linux namespaces and cgroups isolate container processes",
+        "Author optimized multi-stage Dockerfiles that maximize build cache efficiency"
+      ],
+      "feynman_prompts": [
+        "Explain the technical difference between a virtual machine (hypervisor) and a Docker container (namespaces/cgroups)."
+      ],
+      "key_misconceptions": [
+        "Thinking containers are full virtual machines running separate guest OS kernels"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_docker_compose_multi_container",
+      "concept_id": "concept_devops_docker_compose_multi_container",
+      "title": "Multi-Container Orchestration with Docker Compose",
+      "subtitle": "Compose specifications, container networking, volumes, environment variables",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "beginner",
+      "order": 5,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devops_docker_containerization_mechanics"
+      ],
+      "learning_objectives": [
+        "Orchestrate multi-tier local environments (web, api, database, cache) with Docker Compose",
+        "Manage persistent volume storage and custom bridge networks"
+      ],
+      "feynman_prompts": [
+        "How does Docker Compose DNS resolution enable containers to communicate by service name?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding container IP addresses instead of using Docker internal service discovery"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_ci_cd_github_actions",
+      "concept_id": "concept_devops_ci_cd_github_actions",
+      "title": "CI/CD Pipelines with GitHub Actions",
+      "subtitle": "Workflows, runners, jobs, steps, environment secrets, matrix builds, caching dependencies",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devops_git_automation_workflows"
+      ],
+      "learning_objectives": [
+        "Build automated continuous integration pipelines testing PRs on every commit",
+        "Configure dependency caching to cut pipeline execution times"
+      ],
+      "feynman_prompts": [
+        "What is the fundamental purpose of Continuous Integration (CI) in modern software delivery?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding cloud deployment credentials directly into workflow YAML files instead of encrypted secrets"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_kubernetes_core_architecture",
+      "concept_id": "concept_devops_kubernetes_core_architecture",
+      "title": "Kubernetes Architecture & Core Concepts",
+      "subtitle": "Control plane, kubelet, API server, etcd, Pods, Deployments, ReplicaSets",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devops_docker_containerization_mechanics"
+      ],
+      "learning_objectives": [
+        "Explain how the Kubernetes control plane reconciles desired state against actual state",
+        "Deploy containerized applications declaratively using Pods and Deployments"
+      ],
+      "feynman_prompts": [
+        "Explain the role of etcd in a Kubernetes cluster and why its high availability is vital."
+      ],
+      "key_misconceptions": [
+        "Deploying raw individual Pods directly instead of using managed Deployments"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_kubernetes_networking_services",
+      "concept_id": "concept_devops_kubernetes_networking_services",
+      "title": "Kubernetes Networking, Services & Ingress",
+      "subtitle": "ClusterIP, NodePort, LoadBalancer, Ingress controllers, Ingress routing, cert-manager",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devops_kubernetes_core_architecture"
+      ],
+      "learning_objectives": [
+        "Route internal service traffic using ClusterIP and external traffic using Ingress",
+        "Automate TLS certificate issuance and renewal with cert-manager and Let's Encrypt"
+      ],
+      "feynman_prompts": [
+        "Explain how a Kubernetes ClusterIP Service load balances traffic across multiple backend Pods."
+      ],
+      "key_misconceptions": [
+        "Exposing internal backend databases directly to the public internet via NodePort"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_kubernetes_storage_configmaps",
+      "concept_id": "concept_devops_kubernetes_storage_configmaps",
+      "title": "Kubernetes Storage & Configuration",
+      "subtitle": "ConfigMaps, Secrets, PersistentVolumes, PersistentVolumeClaims, StorageClasses",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devops_kubernetes_core_architecture"
+      ],
+      "learning_objectives": [
+        "Decouple application configuration using ConfigMaps and encrypted Secrets",
+        "Provision dynamic cloud storage using PersistentVolumeClaims and StorageClasses"
+      ],
+      "feynman_prompts": [
+        "Why should application configuration be injected via ConfigMaps rather than baked into container images?"
+      ],
+      "key_misconceptions": [
+        "Storing plain base64-encoded Kubernetes Secrets in public Git repositories"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_infrastructure_as_code_terraform",
+      "concept_id": "concept_devops_infrastructure_as_code_terraform",
+      "title": "Infrastructure as Code (IaC) with Terraform",
+      "subtitle": "HCL syntax, providers, resources, variables, state management, terraform plan/apply",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devops_networking_dns_ssh"
+      ],
+      "learning_objectives": [
+        "Provision cloud infrastructure declaratively using Terraform and HCL",
+        "Manage remote state locking securely using S3 and DynamoDB"
+      ],
+      "feynman_prompts": [
+        "Why is Terraform state locking essential when multiple engineers collaborate on infrastructure?"
+      ],
+      "key_misconceptions": [
+        "Manually modifying cloud resources in the web console, causing state drift"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_terraform_modules_environments",
+      "concept_id": "concept_devops_terraform_modules_environments",
+      "title": "Terraform Modules & Multi-Environment Deployments",
+      "subtitle": "Reusable modules, outputs, remote backends, dev/staging/prod workspace separation",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devops_infrastructure_as_code_terraform"
+      ],
+      "learning_objectives": [
+        "Author reusable, parameterized Terraform modules following industry best practices",
+        "Manage separated environments (dev, staging, prod) with isolated state files"
+      ],
+      "feynman_prompts": [
+        "How do Terraform modules enforce DRY (Don't Repeat Yourself) principles in infrastructure?"
+      ],
+      "key_misconceptions": [
+        "Sharing a single Terraform state file across development and production environments"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_cloud_architecture_aws_gcp",
+      "concept_id": "concept_devops_cloud_architecture_aws_gcp",
+      "title": "Cloud Infrastructure: VPC, Compute & IAM",
+      "subtitle": "VPCs, public/private subnets, NAT gateways, security groups, IAM least privilege",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devops_infrastructure_as_code_terraform"
+      ],
+      "learning_objectives": [
+        "Architect secure Virtual Private Clouds (VPC) with isolated private database subnets",
+        "Enforce strict least-privilege IAM policies for compute services and users"
+      ],
+      "feynman_prompts": [
+        "Why should production database instances always reside in private subnets with no public IPs?"
+      ],
+      "key_misconceptions": [
+        "Assigning broad administrator permissions (AdministratorAccess) to service accounts"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_observability_prometheus_grafana",
+      "concept_id": "concept_devops_observability_prometheus_grafana",
+      "title": "Observability: Metrics with Prometheus & Grafana",
+      "subtitle": "Time-series metrics, PromQL, exporters, Grafana dashboards, alerting rules",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devops_kubernetes_core_architecture"
+      ],
+      "learning_objectives": [
+        "Instrument systems and extract metrics using node-exporter and Prometheus",
+        "Design informative Grafana dashboards and configure multi-channel alerting rules"
+      ],
+      "feynman_prompts": [
+        "What are the Four Golden Signals of monitoring (Latency, Traffic, Errors, Saturation)?"
+      ],
+      "key_misconceptions": [
+        "Setting up threshold alerts without clear runbooks, resulting in alert fatigue"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_centralized_logging_loki_elk",
+      "concept_id": "concept_devops_centralized_logging_loki_elk",
+      "title": "Centralized Logging: Loki & ELK Stack",
+      "subtitle": "Log aggregation, FluentBit, Promtail, Grafana Loki, structured log queries",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devops_observability_prometheus_grafana"
+      ],
+      "learning_objectives": [
+        "Collect and aggregate container logs across cluster nodes using FluentBit/Promtail",
+        "Query logs with LogQL and correlate log messages with Prometheus metric spikes"
+      ],
+      "feynman_prompts": [
+        "Why is log aggregation essential in distributed multi-pod Kubernetes clusters?"
+      ],
+      "key_misconceptions": [
+        "SSHing into individual nodes to view raw log files during production outages"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_site_reliability_slo_sli",
+      "concept_id": "concept_devops_site_reliability_slo_sli",
+      "title": "Site Reliability Engineering: SLIs, SLOs & Error Budgets",
+      "subtitle": "Service Level Indicators (SLIs), Service Level Objectives (SLOs), error budgets, blameless postmortems",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devops_observability_prometheus_grafana"
+      ],
+      "learning_objectives": [
+        "Define measurable SLIs and realistic SLO targets for production services",
+        "Manage release velocity using error budgets and conduct blameless postmortems"
+      ],
+      "feynman_prompts": [
+        "How does an error budget balance innovation velocity against system reliability?"
+      ],
+      "key_misconceptions": [
+        "Treating 100% uptime as an SLO, creating prohibitive costs and stifling feature releases"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_secret_management_vault",
+      "concept_id": "concept_devops_secret_management_vault",
+      "title": "Secret Management with HashiCorp Vault",
+      "subtitle": "Dynamic secrets, encryption-as-a-service, Vault agent injector in Kubernetes, secret rotation",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devops_cloud_architecture_aws_gcp"
+      ],
+      "learning_objectives": [
+        "Inject dynamic credentials into Kubernetes Pods securely using HashiCorp Vault",
+        "Enforce automatic secret rotation policies across cloud infrastructure"
+      ],
+      "feynman_prompts": [
+        "Why are dynamic, short-lived secrets safer than long-lived static credentials?"
+      ],
+      "key_misconceptions": [
+        "Storing long-lived database passwords in static configuration files"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_gitops_continuous_delivery_argocd",
+      "concept_id": "concept_devops_gitops_continuous_delivery_argocd",
+      "title": "GitOps & Declarative Delivery with ArgoCD",
+      "subtitle": "GitOps principles, ArgoCD, declarative sync, automated drift detection, rollbacks",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devops_kubernetes_networking_services"
+      ],
+      "learning_objectives": [
+        "Implement GitOps continuous delivery where Git is the single source of truth",
+        "Automate cluster deployment synchronization and handle one-click rollbacks with ArgoCD"
+      ],
+      "feynman_prompts": [
+        "Explain how GitOps eliminates manual kubectl deployments and prevents configuration drift."
+      ],
+      "key_misconceptions": [
+        "Modifying live cluster resources using kubectl directly, bypassing Git version control"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devops_disaster_recovery_backup_dr",
+      "concept_id": "concept_devops_disaster_recovery_backup_dr",
+      "title": "Disaster Recovery, High Availability & Chaos Engineering",
+      "subtitle": "Multi-region failover, automated backups, RTO/RPO metrics, chaos engineering principles",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 18,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devops_cloud_architecture_aws_gcp"
+      ],
+      "learning_objectives": [
+        "Calculate Recovery Time Objective (RTO) and Recovery Point Objective (RPO) for critical services",
+        "Test system resilience and fault-tolerance using chaos engineering experiments"
+      ],
+      "feynman_prompts": [
+        "What is the difference between RTO (how fast you recover) and RPO (how much data you lose)?"
+      ],
+      "key_misconceptions": [
+        "Assuming backups work without conducting scheduled disaster recovery restore tests"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_devops",
+  "description": "Master DevOps Engineer with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "DevOps Engineer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "DevOps Engineer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "DevOps Engineer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "DevOps Engineer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "DevOps Engineer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

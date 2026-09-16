@@ -1,0 +1,515 @@
+{
+  "id": "roadmap_qa",
+  "slug": "qa",
+  "title": "QA & Quality Engineer",
+  "description": "End-to-end quality engineering: testing principles, test pyramid, boundary analysis, exploratory charters, API testing with Postman, Playwright web automation, k6 load testing, and CI/CD orchestration.",
+  "category": "Engineering Quality",
+  "difficulty_level": "intermediate",
+  "estimated_hours": 85,
+  "tags": [
+    "qa",
+    "testing",
+    "playwright",
+    "postman",
+    "test-automation",
+    "performance-testing",
+    "k6"
+  ],
+  "phases": [
+    {
+      "title": "QA Foundations & Manual Mastery",
+      "tier": "foundation",
+      "focus": "Testing Principles, Test Pyramid, Black/White-Box Design, Exploratory Testing & Bug Reporting",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Test Automation Core",
+      "tier": "core",
+      "focus": "Postman API Testing, Playwright E2E, Page Object Model, CI/CD Pipelines & Test Data Management",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Specialized & Non-Functional Testing",
+      "tier": "advanced",
+      "focus": "Appium Mobile Testing, k6 Performance Testing, Security/OWASP, a11y & Pact Contracts",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Quality Engineering Strategy",
+      "tier": "capstone",
+      "focus": "Shift-Left QA Strategy, Defect Escape Rate, and Full-Stack Framework Capstone",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_qa_qa_fundamentals_principles",
+      "concept_id": "concept_qa_qa_fundamentals_principles",
+      "title": "QA Foundations & Testing Principles",
+      "subtitle": "7 testing principles, verification vs validation, bug lifecycle, defect severity vs priority",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Apply the 7 core testing principles (e.g. testing shows presence of defects, pesticide paradox)",
+        "Classify reported bugs accurately by severity (impact) and priority (urgency)"
+      ],
+      "feynman_prompts": [
+        "Explain the difference between verification ('are we building the product right?') and validation ('are we building the right product?')."
+      ],
+      "key_misconceptions": [
+        "Believing that exhaustive testing is possible for non-trivial software"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_test_pyramid_strategy",
+      "concept_id": "concept_qa_test_pyramid_strategy",
+      "title": "The Test Pyramid & Test Levels",
+      "subtitle": "Unit, integration, component, API, E2E testing, manual vs automated balance, test coverage",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_qa_qa_fundamentals_principles"
+      ],
+      "learning_objectives": [
+        "Structure test suites in accordance with the Test Pyramid to ensure speed and reliability",
+        "Determine when a test should be written at the unit, API, or UI level"
+      ],
+      "feynman_prompts": [
+        "Why does an inverted testing pyramid ('ice cream cone') lead to slow, brittle test suites?"
+      ],
+      "key_misconceptions": [
+        "Relying exclusively on end-to-end UI tests to catch low-level calculation bugs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_test_design_techniques",
+      "concept_id": "concept_qa_test_design_techniques",
+      "title": "Black-Box & White-Box Test Design Techniques",
+      "subtitle": "Equivalence partitioning, boundary value analysis (BVA), decision tables, state transition testing",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_qa_qa_fundamentals_principles"
+      ],
+      "learning_objectives": [
+        "Design optimal test cases using 2-point and 3-point Boundary Value Analysis",
+        "Construct decision tables to test complex combinations of business rules"
+      ],
+      "feynman_prompts": [
+        "Why is Boundary Value Analysis more likely to uncover bugs than testing arbitrary middle values?"
+      ],
+      "key_misconceptions": [
+        "Writing dozens of redundant test cases covering the exact same equivalence partition"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_exploratory_testing_heuristics",
+      "concept_id": "concept_qa_exploratory_testing_heuristics",
+      "title": "Exploratory Testing & Heuristic Charters",
+      "subtitle": "Session-based testing, bug hunting charters, SFDIPOT heuristic, tour heuristics",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_qa_test_design_techniques"
+      ],
+      "learning_objectives": [
+        "Execute time-boxed exploratory testing sessions using defined mission charters",
+        "Apply James Bach's SFDIPOT heuristic to systematically explore system dimensions"
+      ],
+      "feynman_prompts": [
+        "How does structured exploratory testing differ from random, aimless 'ad-hoc' testing?"
+      ],
+      "key_misconceptions": [
+        "Treating exploratory testing as unplanned guessing without notes or charters"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_bug_reporting_triage",
+      "concept_id": "concept_qa_bug_reporting_triage",
+      "title": "High-Impact Bug Reporting & Triage",
+      "subtitle": "Reproduction steps, expected vs actual, logs, network traces, isolation, triage meetings",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 5,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_qa_test_design_techniques"
+      ],
+      "learning_objectives": [
+        "Author crystal-clear, minimal reproduction steps with attached network traces and logs",
+        "Isolate edge cases to identify the exact minimal triggering condition"
+      ],
+      "feynman_prompts": [
+        "What makes a bug report easy for an engineer to reproduce and fix immediately?"
+      ],
+      "key_misconceptions": [
+        "Filing vague bug reports like 'Checkout doesn't work' without device, logs, or steps"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_api_testing_postman",
+      "concept_id": "concept_qa_api_testing_postman",
+      "title": "API Testing with Postman & Newman",
+      "subtitle": "HTTP methods, status codes, assertion scripts, collections, environment variables, Newman CLI",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_qa_test_design_techniques"
+      ],
+      "learning_objectives": [
+        "Build automated API test suites validating JSON schemas, status codes, and response times",
+        "Execute Postman collections headlessly in CI pipelines using Newman"
+      ],
+      "feynman_prompts": [
+        "Why is API testing faster and more reliable than UI-based end-to-end testing?"
+      ],
+      "key_misconceptions": [
+        "Validating only HTTP status 200 without asserting response payload schemas and business values"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_web_automation_playwright",
+      "concept_id": "concept_qa_web_automation_playwright",
+      "title": "Web Automation with Playwright",
+      "subtitle": "Locators, auto-waiting, fixtures, page object model (POM), headless execution, trace viewer",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_qa_api_testing_postman"
+      ],
+      "learning_objectives": [
+        "Write resilient web end-to-end test cases using modern Playwright locators",
+        "Debug flaky tests using the Playwright Trace Viewer and recorded network steps"
+      ],
+      "feynman_prompts": [
+        "Why are Playwright's role-based locators and auto-waiting superior to hardcoded sleep delays?"
+      ],
+      "key_misconceptions": [
+        "Sprinkling hardcoded `time.sleep(5000)` calls throughout test scripts to fix timing flakiness"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_test_automation_patterns_pom",
+      "concept_id": "concept_qa_test_automation_patterns_pom",
+      "title": "Test Automation Architecture & Page Object Model",
+      "subtitle": "Page Object Model (POM), Screenplay pattern, DRY assertions, clean abstraction layers",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_qa_web_automation_playwright"
+      ],
+      "learning_objectives": [
+        "Implement the Page Object Model to cleanly decouple test logic from UI selectors",
+        "Maintain modular, scalable automation frameworks that resist UI redesign breakage"
+      ],
+      "feynman_prompts": [
+        "How does Page Object Model prevent updating hundreds of tests when a button selector changes?"
+      ],
+      "key_misconceptions": [
+        "Writing raw element selectors and click actions directly inside test verification functions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_ci_cd_test_orchestration",
+      "concept_id": "concept_qa_ci_cd_test_orchestration",
+      "title": "Continuous Testing & CI/CD Orchestration",
+      "subtitle": "GitHub Actions, test parallelization, sharding, test reporting, handling flaky tests",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_qa_web_automation_playwright"
+      ],
+      "learning_objectives": [
+        "Integrate automated test execution into GitHub Actions pull request workflows",
+        "Configure test sharding and parallel execution to reduce CI feedback time below 10 minutes"
+      ],
+      "feynman_prompts": [
+        "What strategies prevent flaky tests from blocking pull request merges in CI?"
+      ],
+      "key_misconceptions": [
+        "Ignoring intermittent CI test failures as 'just flakiness' rather than investigating root causes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_test_data_management_mocking",
+      "concept_id": "concept_qa_test_data_management_mocking",
+      "title": "Test Data Management, Mocking & Virtualization",
+      "subtitle": "Faker, test databases, database seeding, WireMock, mocking third-party APIs, isolation",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_qa_api_testing_postman"
+      ],
+      "learning_objectives": [
+        "Seed isolated test database states before executing test suites",
+        "Mock third-party payment gateways and external APIs using WireMock or MSW"
+      ],
+      "feynman_prompts": [
+        "Why should tests generate their own dynamic test data rather than relying on shared static accounts?"
+      ],
+      "key_misconceptions": [
+        "Sharing a single static test user across concurrent automated test runs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_mobile_testing_appium",
+      "concept_id": "concept_qa_mobile_testing_appium",
+      "title": "Mobile App Testing Fundamentals & Appium",
+      "subtitle": "Mobile gestures, device fragmentation, Appium architecture, testing iOS & Android builds",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_qa_web_automation_playwright"
+      ],
+      "learning_objectives": [
+        "Automate mobile UI test flows on real and virtual devices using Appium",
+        "Test platform-specific mobile edge cases (network drops, backgrounding, push notifications)"
+      ],
+      "feynman_prompts": [
+        "How do mobile automation timing challenges differ from web browser automation?"
+      ],
+      "key_misconceptions": [
+        "Testing mobile apps exclusively in desktop browser emulators instead of real mobile runtimes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_performance_load_testing_k6",
+      "concept_id": "concept_qa_performance_load_testing_k6",
+      "title": "Performance & Load Testing with k6",
+      "subtitle": "Virtual users (VUs), latency percentiles (p95, p99), stress testing, spike testing, soak testing",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_qa_api_testing_postman"
+      ],
+      "learning_objectives": [
+        "Write load testing scripts simulating thousands of concurrent users in k6",
+        "Analyze p95 and p99 latency thresholds under peak load conditions"
+      ],
+      "feynman_prompts": [
+        "Why are average response times misleading when evaluating system performance under load?"
+      ],
+      "key_misconceptions": [
+        "Running load tests against production databases without rate limits or cleanup procedures"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_security_testing_fundamentals",
+      "concept_id": "concept_qa_security_testing_fundamentals",
+      "title": "Security Testing Basics (OWASP Top 10)",
+      "subtitle": "SQL injection, XSS, CSRF, auth bypass, automated security scanning (ZAP, Snyk)",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_qa_api_testing_postman"
+      ],
+      "learning_objectives": [
+        "Test endpoints for common vulnerabilities like SQL injection, IDOR, and XSS",
+        "Integrate OWASP ZAP automated dynamic vulnerability scanning into staging pipelines"
+      ],
+      "feynman_prompts": [
+        "What is Insecure Direct Object Reference (IDOR) and how do you test for it?"
+      ],
+      "key_misconceptions": [
+        "Assuming that client-side form validation provides adequate application security"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_accessibility_testing_a11y",
+      "concept_id": "concept_qa_accessibility_testing_a11y",
+      "title": "Automated & Manual Accessibility Testing (a11y)",
+      "subtitle": "Axe-core, screen readers (NVDA, VoiceOver), color contrast, keyboard tab navigation",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_qa_web_automation_playwright"
+      ],
+      "learning_objectives": [
+        "Integrate axe-core automated accessibility audits into Playwright E2E suites",
+        "Perform manual screen reader audits verifying semantic labels and focus management"
+      ],
+      "feynman_prompts": [
+        "Why can automated a11y tools like axe-core catch only ~30-40% of accessibility issues?"
+      ],
+      "key_misconceptions": [
+        "Assuming passing automated axe checks means an application is fully accessible"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_contract_testing_pact",
+      "concept_id": "concept_qa_contract_testing_pact",
+      "title": "Contract Testing for Microservices (Pact)",
+      "subtitle": "Consumer-driven contract testing, Pact framework, broker verification, avoiding E2E hell",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_qa_api_testing_postman"
+      ],
+      "learning_objectives": [
+        "Implement consumer-driven contracts using Pact to ensure API compatibility across teams",
+        "Prevent breaking API schema changes in microservices without heavy integration environments"
+      ],
+      "feynman_prompts": [
+        "How does contract testing provide confidence without spinning up dozens of dependent microservices?"
+      ],
+      "key_misconceptions": [
+        "Deploying breaking API changes to staging and relying on slow E2E tests to detect them"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_chaos_engineering_resilience",
+      "concept_id": "concept_qa_chaos_engineering_resilience",
+      "title": "Resilience & Chaos Testing Fundamentals",
+      "subtitle": "Fault injection, network latency injection, Chaos Mesh, graceful degradation testing",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "niche",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_qa_performance_load_testing_k6"
+      ],
+      "learning_objectives": [
+        "Simulate infrastructure failures (dropped packets, database latency) to test graceful recovery",
+        "Verify that the frontend displays helpful fallback states when downstream services fail"
+      ],
+      "feynman_prompts": [
+        "Why is testing for system failure resilience just as important as testing happy paths?"
+      ],
+      "key_misconceptions": [
+        "Assuming redundant servers guarantee zero downtime without actively testing failovers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_qa_strategy_metrics",
+      "concept_id": "concept_qa_qa_strategy_metrics",
+      "title": "QA Strategy, Metrics & Quality Engineering Leadership",
+      "subtitle": "Shift-left testing, defect escape rate, mean time to detect (MTTD), establishing quality culture",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_qa_ci_cd_test_orchestration"
+      ],
+      "learning_objectives": [
+        "Lead an engineering organization from manual gatekeeping to proactive Quality Engineering",
+        "Track and reduce Defect Escape Rate while accelerating deployment velocity"
+      ],
+      "feynman_prompts": [
+        "Why is shifting testing 'left' into development cheaper than finding bugs in QA staging?"
+      ],
+      "key_misconceptions": [
+        "Viewing QA as an isolated department responsible for all bugs rather than an engineering-wide quality culture"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_qa_test_automation_framework_capstone",
+      "concept_id": "concept_qa_test_automation_framework_capstone",
+      "title": "Full-Stack Test Automation Framework Capstone",
+      "subtitle": "Architecting an enterprise-grade framework: CI, parallel execution, reporting, Slack alerts",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_qa_qa_strategy_metrics",
+        "concept_qa_test_automation_patterns_pom"
+      ],
+      "learning_objectives": [
+        "Architect and deploy an enterprise test framework incorporating API, E2E, reporting, and CI",
+        "Implement auto-healing locators and automated test failure diagnostics with Slack alerts"
+      ],
+      "feynman_prompts": [
+        "What makes an automated test suite maintainable over a multi-year enterprise lifecycle?"
+      ],
+      "key_misconceptions": [
+        "Building overly complex, custom in-house automation engines instead of standard industry tools"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior QA & Quality Engineer"
+}

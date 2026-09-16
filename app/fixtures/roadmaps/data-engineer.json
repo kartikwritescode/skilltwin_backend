@@ -1,0 +1,519 @@
+{
+  "slug": "data-engineer",
+  "title": "Data Engineer",
+  "domain": "Data Engineering",
+  "target_role": "Senior Data Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "data-engineering",
+    "spark",
+    "kafka",
+    "airflow",
+    "sql",
+    "snowflake",
+    "delta-lake",
+    "python"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_data-engineer_python_data_engineering",
+      "concept_id": "concept_data-engineer_python_data_engineering",
+      "title": "Python & Advanced Data Structures for Pipelines",
+      "subtitle": "Memory management, generators, collections (deque, defaultdict), multiprocessing, typing",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Stream multi-gigabyte datasets without memory crashes using Python generators",
+        "Leverage multiprocessing to parallelize CPU-intensive data transformations"
+      ],
+      "feynman_prompts": [
+        "Why do Python generators consume constant memory regardless of stream size?"
+      ],
+      "key_misconceptions": [
+        "Loading entire multi-gigabyte CSV files into memory with a single read() call"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_sql_analytical_warehousing",
+      "concept_id": "concept_data-engineer_sql_analytical_warehousing",
+      "title": "Advanced SQL & Analytical Data Warehousing",
+      "subtitle": "Window functions, partitioning, star schemas, dimensional modeling, surrogate keys",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-engineer_python_data_engineering"
+      ],
+      "learning_objectives": [
+        "Design star schema warehouse models with fact and dimension tables",
+        "Author high-throughput window queries for customer lifecycle tracking"
+      ],
+      "feynman_prompts": [
+        "Why are surrogate integer keys preferred over natural keys in data warehouses?"
+      ],
+      "key_misconceptions": [
+        "Querying production transactional databases directly for heavy analytical batch reports"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_distributed_systems_data_intro",
+      "concept_id": "concept_data-engineer_distributed_systems_data_intro",
+      "title": "Distributed Systems Theory for Data Engineers",
+      "subtitle": "CAP theorem, horizontal partitioning, data skew, network shuffle, master-worker architecture",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-engineer_sql_analytical_warehousing"
+      ],
+      "learning_objectives": [
+        "Analyze how distributed file systems (HDFS, S3) store and replicate data blocks",
+        "Identify and diagnose data skew where a single worker process takes 10x longer"
+      ],
+      "feynman_prompts": [
+        "What is network shuffle in distributed computing and why is it the most expensive bottleneck?"
+      ],
+      "key_misconceptions": [
+        "Assuming distributed processing is always faster than single-node processing for small datasets (< 10GB)"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_apache_spark_foundations",
+      "concept_id": "concept_data-engineer_apache_spark_foundations",
+      "title": "Apache Spark Core Architecture & RDDs",
+      "subtitle": "Driver, executors, cluster manager, DAG execution engine, narrow vs wide transformations",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-engineer_distributed_systems_data_intro"
+      ],
+      "learning_objectives": [
+        "Explain how Apache Spark's catalyst optimizer compiles transformations into execution DAGs",
+        "Differentiate narrow transformations (map, filter) from wide transformations (groupBy, join)"
+      ],
+      "feynman_prompts": [
+        "Why do wide transformations require network shuffle while narrow transformations do not?"
+      ],
+      "key_misconceptions": [
+        "Calling count() or collect() repeatedly in Spark loops, triggering repeated DAG re-executions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_pyspark_dataframes_transformations",
+      "concept_id": "concept_data-engineer_pyspark_dataframes_transformations",
+      "title": "PySpark DataFrames & Spark SQL",
+      "subtitle": "DataFrames, schemas, column expressions, UDFs, caching, explain plan analysis",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-engineer_apache_spark_foundations"
+      ],
+      "learning_objectives": [
+        "Execute large-scale distributed data transformations using PySpark DataFrames",
+        "Avoid Python serialization bottlenecks by using native PySpark functions instead of custom UDFs"
+      ],
+      "feynman_prompts": [
+        "Why are Python UDFs in PySpark significantly slower than native Spark SQL expressions?"
+      ],
+      "key_misconceptions": [
+        "Using collect() on a billion-row DataFrame, crashing the Spark driver node with an OOM"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_spark_performance_optimization",
+      "concept_id": "concept_data-engineer_spark_performance_optimization",
+      "title": "Spark Performance Optimization & Shuffling",
+      "subtitle": "Data skew, salt keys, broadcast joins, partition sizing, dynamic allocation",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 6,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-engineer_pyspark_dataframes_transformations"
+      ],
+      "learning_objectives": [
+        "Eliminate out-of-memory errors caused by data skew using salt keys",
+        "Accelerate lookup joins by broadcasting small dimension tables to all executors"
+      ],
+      "feynman_prompts": [
+        "How does a broadcast hash join eliminate expensive network shuffling?"
+      ],
+      "key_misconceptions": [
+        "Broadcasting a massive multi-gigabyte table, causing executor out-of-memory crashes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_data_lakes_formats_parquet",
+      "concept_id": "concept_data-engineer_data_lakes_formats_parquet",
+      "title": "Storage Formats & Data Lakes: Parquet & ORC",
+      "subtitle": "Columnar storage, row groups, dictionary encoding, snappy compression, metadata statistics",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-engineer_pyspark_dataframes_transformations"
+      ],
+      "learning_objectives": [
+        "Store petabyte-scale data efficiently using columnar Apache Parquet format",
+        "Leverage parquet column metadata statistics to achieve high-speed partition pruning"
+      ],
+      "feynman_prompts": [
+        "How does columnar storage allow queries selecting 2 out of 100 columns to read 98% less data?"
+      ],
+      "key_misconceptions": [
+        "Storing multi-terabyte analytical data lakes as uncompressed raw CSV or JSON files"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_lakehouse_delta_lake_iceberg",
+      "concept_id": "concept_data-engineer_lakehouse_delta_lake_iceberg",
+      "title": "Lakehouse Architecture: Delta Lake & Apache Iceberg",
+      "subtitle": "ACID transactions on object storage, time travel, schema evolution, compaction (vacuum)",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 8,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-engineer_data_lakes_formats_parquet"
+      ],
+      "learning_objectives": [
+        "Implement ACID transactions on cloud object storage using Delta Lake or Apache Iceberg",
+        "Execute historical audit queries using lakehouse time travel and restore features"
+      ],
+      "feynman_prompts": [
+        "How does the transaction log (Delta Log / Iceberg metadata) enable ACID guarantees on S3?"
+      ],
+      "key_misconceptions": [
+        "Allowing millions of tiny files to accumulate in the lakehouse without compaction (the small file problem)"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_workflow_orchestration_airflow",
+      "concept_id": "concept_data-engineer_workflow_orchestration_airflow",
+      "title": "Workflow Orchestration with Apache Airflow",
+      "subtitle": "DAGs, operators, sensors, task dependencies, retries, XComs, connection management",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-engineer_python_data_engineering"
+      ],
+      "learning_objectives": [
+        "Author robust data pipeline DAGs in Apache Airflow with automated retries and alerting",
+        "Design idempotent pipeline tasks that can be safely re-run without duplicating data"
+      ],
+      "feynman_prompts": [
+        "Why must every task in an Airflow pipeline be strictly idempotent?"
+      ],
+      "key_misconceptions": [
+        "Passing massive multi-gigabyte datasets through Airflow XComs instead of object storage pointers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_cloud_data_warehouses_snowflake",
+      "concept_id": "concept_data-engineer_cloud_data_warehouses_snowflake",
+      "title": "Cloud Data Warehouses: Snowflake & BigQuery",
+      "subtitle": "Virtual warehouses, clustering keys, micro-partitions, external stages, zero-copy cloning",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-engineer_sql_analytical_warehousing"
+      ],
+      "learning_objectives": [
+        "Configure compute right-sizing and auto-suspend in Snowflake to optimize costs",
+        "Load data from cloud object storage stages using high-performance COPY commands"
+      ],
+      "feynman_prompts": [
+        "How does the separation of storage and compute in Snowflake enable independent scaling?"
+      ],
+      "key_misconceptions": [
+        "Leaving large virtual warehouses running 24/7 with zero active queries"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_dbt_data_transformations",
+      "concept_id": "concept_data-engineer_dbt_data_transformations",
+      "title": "Modern Data Transformations with dbt",
+      "subtitle": "dbt models, ref(), sources, tests, documentation, incremental models, lineage graphs",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-engineer_cloud_data_warehouses_snowflake"
+      ],
+      "learning_objectives": [
+        "Build modular, version-controlled analytical models using dbt (Data Build Tool)",
+        "Implement incremental models that process only new or modified raw data"
+      ],
+      "feynman_prompts": [
+        "How does dbt transform data in-warehouse (ELT) instead of legacy out-of-warehouse ETL?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding raw database and table names instead of using the dbt {{ source() }} and {{ ref() }} macros"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_data_quality_testing",
+      "concept_id": "concept_data-engineer_data_quality_testing",
+      "title": "Data Quality Testing & Great Expectations",
+      "subtitle": "Schema validation, null checks, uniqueness, anomaly tests, automated pipeline alerting",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_data-engineer_dbt_data_transformations"
+      ],
+      "learning_objectives": [
+        "Enforce automated data quality contracts using Great Expectations or dbt tests",
+        "Halt downstream pipeline execution automatically when critical data quality checks fail"
+      ],
+      "feynman_prompts": [
+        "Why should data quality checks run automatically before transforming data into production marts?"
+      ],
+      "key_misconceptions": [
+        "Discovering data corruption only after executive dashboards display broken numbers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_streaming_foundations_kafka",
+      "concept_id": "concept_data-engineer_streaming_foundations_kafka",
+      "title": "Streaming Fundamentals & Apache Kafka",
+      "subtitle": "Topics, partitions, producers, consumers, offsets, consumer lag, message retention",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-engineer_distributed_systems_data_intro"
+      ],
+      "learning_objectives": [
+        "Publish and consume high-throughput event streams with Apache Kafka",
+        "Monitor and mitigate consumer lag to prevent real-time pipeline delays"
+      ],
+      "feynman_prompts": [
+        "Explain how Kafka partitions provide horizontal write scalability and ordered processing."
+      ],
+      "key_misconceptions": [
+        "Setting up Kafka topics with only 1 partition, creating an inescapable throughput bottleneck"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_stream_processing_spark_streaming",
+      "concept_id": "concept_data-engineer_stream_processing_spark_streaming",
+      "title": "Stream Processing: Spark Structured Streaming & Flink",
+      "subtitle": "Micro-batching vs continuous processing, watermarks, event time vs processing time, windowing",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-engineer_streaming_foundations_kafka"
+      ],
+      "learning_objectives": [
+        "Process live streaming events using Spark Structured Streaming or Apache Flink",
+        "Handle out-of-order and late-arriving events accurately using watermarking"
+      ],
+      "feynman_prompts": [
+        "What is the fundamental difference between Event Time and Processing Time in stream analytics?"
+      ],
+      "key_misconceptions": [
+        "Assuming streaming systems never receive late data, leading to incorrect aggregation metrics"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_cdc_data_ingestion",
+      "concept_id": "concept_data-engineer_cdc_data_ingestion",
+      "title": "Change Data Capture (CDC) & Debezium",
+      "subtitle": "Database transaction logs (WAL/binlog), Debezium, streaming database mutations to Kafka",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-engineer_streaming_foundations_kafka"
+      ],
+      "learning_objectives": [
+        "Stream real-time database row mutations directly to Kafka using Debezium CDC",
+        "Achieve zero-impact data ingestion without querying source production databases"
+      ],
+      "feynman_prompts": [
+        "Why is log-based Change Data Capture (CDC) vastly superior to periodic query polling?"
+      ],
+      "key_misconceptions": [
+        "Polling transactional databases with SELECT queries every 5 seconds, causing CPU spikes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_data_governance_lineage_catalog",
+      "concept_id": "concept_data-engineer_data_governance_lineage_catalog",
+      "title": "Data Governance, Cataloging & Data Lineage",
+      "subtitle": "Data catalogs (DataHub, OpenMetadata), metadata ingestion, column-level lineage, GDPR compliance",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_data-engineer_dbt_data_transformations"
+      ],
+      "learning_objectives": [
+        "Trace end-to-end column-level data lineage from source API to final executive dashboard",
+        "Automate metadata cataloging so data scientists can discover trusted enterprise datasets"
+      ],
+      "feynman_prompts": [
+        "Why is automated data lineage essential for complying with GDPR 'Right to be Forgotten' requests?"
+      ],
+      "key_misconceptions": [
+        "Documenting data dictionaries in static Excel files that become outdated within a week"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_dataops_cicd_infrastructure",
+      "concept_id": "concept_data-engineer_dataops_cicd_infrastructure",
+      "title": "DataOps: CI/CD & Infrastructure as Code for Data",
+      "subtitle": "Terraform for data infrastructure, automated dbt testing in PRs, isolated dev environments",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-engineer_dbt_data_transformations"
+      ],
+      "learning_objectives": [
+        "Automate dbt model testing and schema validation on Git pull requests",
+        "Provision reproducible cloud data warehouses and storage buckets with Terraform"
+      ],
+      "feynman_prompts": [
+        "How does DataOps apply DevOps software engineering best practices to data pipelines?"
+      ],
+      "key_misconceptions": [
+        "Testing data transformation logic directly in the production data warehouse"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-engineer_data_pipeline_monitoring_finops",
+      "concept_id": "concept_data-engineer_data_pipeline_monitoring_finops",
+      "title": "Data Pipeline Monitoring & Warehouse FinOps",
+      "subtitle": "Pipeline SLA alerts, compute cost attribution, query cost profiling, data downtime reduction",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-engineer_cloud_data_warehouses_snowflake"
+      ],
+      "learning_objectives": [
+        "Profile and eliminate runaway analytical queries that trigger massive cloud warehouse bills",
+        "Establish pipeline SLA monitors alerting on stalled jobs before business stakeholders notice"
+      ],
+      "feynman_prompts": [
+        "Why is monitoring data warehouse query consumption essential for cloud FinOps cost governance?"
+      ],
+      "key_misconceptions": [
+        "Ignoring queries that trigger petabyte-scale un-partitioned table scans every 10 minutes"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_data-engineer",
+  "description": "Master Data Engineer with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Data Engineer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Data Engineer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Data Engineer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Data Engineer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Data Engineer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

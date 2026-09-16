@@ -1,0 +1,572 @@
+{
+  "slug": "fullstack_web",
+  "title": "Full Stack Developer",
+  "domain": "Full-Stack Web Development",
+  "target_role": "Senior Full Stack Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "fullstack",
+    "frontend",
+    "backend",
+    "react",
+    "nodejs",
+    "typescript",
+    "sql",
+    "docker",
+    "api"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_fullstack_web_web_foundations",
+      "concept_id": "concept_fullstack_web_web_foundations",
+      "title": "Semantic Web Foundations & Modern CSS",
+      "subtitle": "HTML5 structure, accessibility (a11y), CSS Box Model, Flexbox and Grid layouts",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Structure accessible semantic HTML markup",
+        "Build responsive layouts using CSS Flexbox and Grid"
+      ],
+      "feynman_prompts": [
+        "Why is semantic HTML critical for assistive technologies and search engine indexing?"
+      ],
+      "key_misconceptions": [
+        "Using non-semantic <div> elements for all layout and interaction buttons"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_js_async_core",
+      "concept_id": "concept_fullstack_web_js_async_core",
+      "title": "Modern JavaScript & Asynchronous Foundations",
+      "subtitle": "ES6+ syntax, closures, event loop, Promises, async/await, Fetch API",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_web_foundations"
+      ],
+      "learning_objectives": [
+        "Write clean asynchronous code using Promises and async/await",
+        "Handle network requests and responses using the native Fetch API"
+      ],
+      "feynman_prompts": [
+        "How does the JavaScript event loop handle non-blocking asynchronous I/O?"
+      ],
+      "key_misconceptions": [
+        "Mutating shared object state unexpectedly across asynchronous functions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_fullstack_typescript",
+      "concept_id": "concept_fullstack_web_fullstack_typescript",
+      "title": "Full-Stack TypeScript Development",
+      "subtitle": "Type system, interfaces, generics, shared types between client and server",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_js_async_core"
+      ],
+      "learning_objectives": [
+        "Define shared data contracts (DTOs) used by both frontend and backend",
+        "Enforce strict type checking to eliminate runtime null/undefined crashes"
+      ],
+      "feynman_prompts": [
+        "What are the advantages of end-to-end type safety across the frontend and backend?"
+      ],
+      "key_misconceptions": [
+        "Using 'any' as a quick bypass for TypeScript compiler errors"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_react_ui_arch",
+      "concept_id": "concept_fullstack_web_react_ui_arch",
+      "title": "React Component & State Architecture",
+      "subtitle": "JSX, component decomposition, useState, useEffect, custom hooks",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_fullstack_typescript"
+      ],
+      "learning_objectives": [
+        "Build modular component hierarchies following unidirectional data flow",
+        "Manage component state and side effects with custom hooks"
+      ],
+      "feynman_prompts": [
+        "Why must React state updates be treated as immutable?"
+      ],
+      "key_misconceptions": [
+        "Directly mutating state variables instead of using setter functions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_backend_apis",
+      "concept_id": "concept_fullstack_web_backend_apis",
+      "title": "Backend API Development with Node / Python",
+      "subtitle": "Server architecture, Express/FastAPI, routing, request validation, middleware",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_js_async_core"
+      ],
+      "learning_objectives": [
+        "Implement structured REST API routes with request validation middleware",
+        "Handle errors gracefully and return standardized HTTP error responses"
+      ],
+      "feynman_prompts": [
+        "Why should API route controllers delegate business logic to separate service layers?"
+      ],
+      "key_misconceptions": [
+        "Putting all database queries and business logic inside the route handler"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_database_sql_design",
+      "concept_id": "concept_fullstack_web_database_sql_design",
+      "title": "Relational Database Design & SQL",
+      "subtitle": "PostgreSQL schema design, primary/foreign keys, joins, normalization, transactions",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_backend_apis"
+      ],
+      "learning_objectives": [
+        "Design normalized relational database schemas with data integrity rules",
+        "Execute complex SQL queries with joins, groupings, and transactions"
+      ],
+      "feynman_prompts": [
+        "Explain the difference between primary keys, foreign keys, and unique indexes."
+      ],
+      "key_misconceptions": [
+        "Storing unstructured JSON strings in relational tables where foreign keys should be used"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_orm_migrations",
+      "concept_id": "concept_fullstack_web_orm_migrations",
+      "title": "ORMs & Schema Migrations",
+      "subtitle": "Prisma / SQLAlchemy, data modeling, versioned migrations, query optimization",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_database_sql_design"
+      ],
+      "learning_objectives": [
+        "Define application data models and execute automated schema migrations",
+        "Detect and resolve N+1 query performance issues using eager loading"
+      ],
+      "feynman_prompts": [
+        "What is the N+1 query problem and how does eager loading prevent it?"
+      ],
+      "key_misconceptions": [
+        "Running destructive schema migrations directly against production databases without testing"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_authentication_security",
+      "concept_id": "concept_fullstack_web_authentication_security",
+      "title": "Full-Stack Authentication & Session Management",
+      "subtitle": "JWT tokens, HTTP-only secure cookies, password hashing with bcrypt, CSRF protection",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_orm_migrations"
+      ],
+      "learning_objectives": [
+        "Implement secure user authentication using HTTP-only cookies and JWTs",
+        "Hash user passwords securely using bcrypt with work factors"
+      ],
+      "feynman_prompts": [
+        "Why are HTTP-only cookies safer for storing auth tokens than browser localStorage?"
+      ],
+      "key_misconceptions": [
+        "Storing sensitive auth tokens in localStorage where they are vulnerable to XSS attacks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_tanstack_query_sync",
+      "concept_id": "concept_fullstack_web_tanstack_query_sync",
+      "title": "Client Data Fetching & Caching with TanStack Query",
+      "subtitle": "Server cache synchronization, optimistic updates, query invalidation, error handling",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_react_ui_arch"
+      ],
+      "learning_objectives": [
+        "Synchronize client UI with remote server data using declarative query hooks",
+        "Implement optimistic updates to make UI feel instant during mutations"
+      ],
+      "feynman_prompts": [
+        "Why is it an anti-pattern to copy server response data into local client state stores?"
+      ],
+      "key_misconceptions": [
+        "Refetching data manually using useEffect on every render"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_nextjs_fullstack",
+      "concept_id": "concept_fullstack_web_nextjs_fullstack",
+      "title": "Full-Stack Web Frameworks: Next.js App Router",
+      "subtitle": "Server Components, Client Components, SSR, SSG, Server Actions, route handlers",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_fullstack_web_tanstack_query_sync"
+      ],
+      "learning_objectives": [
+        "Leverage React Server Components (RSC) to reduce client JavaScript bundle sizes",
+        "Build fullstack features using Server Actions with automatic revalidation"
+      ],
+      "feynman_prompts": [
+        "What is the difference between a Server Component and a Client Component in Next.js?"
+      ],
+      "key_misconceptions": [
+        "Marking every component with 'use client' and losing the benefits of server rendering"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_redis_caching_fullstack",
+      "concept_id": "concept_fullstack_web_redis_caching_fullstack",
+      "title": "Caching & Performance with Redis",
+      "subtitle": "In-memory caching, Cache-Aside pattern, session stores, rate limiting",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_backend_apis"
+      ],
+      "learning_objectives": [
+        "Accelerate slow database queries by implementing Cache-Aside with Redis",
+        "Protect backend API endpoints against abuse using Redis rate limiters"
+      ],
+      "feynman_prompts": [
+        "Explain how the Cache-Aside pattern handles cache misses and cache updates."
+      ],
+      "key_misconceptions": [
+        "Caching data infinitely without setting appropriate Time-To-Live (TTL) expirations"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_docker_fullstack",
+      "concept_id": "concept_fullstack_web_docker_fullstack",
+      "title": "Docker Containerization for Full-Stack Apps",
+      "subtitle": "Dockerfiles, multi-stage builds, docker-compose for app + db + redis",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_nextjs_fullstack"
+      ],
+      "learning_objectives": [
+        "Containerize frontend and backend applications using multi-stage Dockerfiles",
+        "Orchestrate full local development environments with Docker Compose"
+      ],
+      "feynman_prompts": [
+        "Why are multi-stage Docker builds recommended for production web applications?"
+      ],
+      "key_misconceptions": [
+        "Including local node_modules or secret .env files inside Docker images"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_testing_unit_integration",
+      "concept_id": "concept_fullstack_web_testing_unit_integration",
+      "title": "Full-Stack Automated Testing",
+      "subtitle": "Vitest/Jest for unit tests, React Testing Library, API integration tests, Playwright E2E",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_fullstack_web_docker_fullstack"
+      ],
+      "learning_objectives": [
+        "Write comprehensive unit tests for business logic and component behavior",
+        "Automate end-to-end user workflows using Playwright cross-browser tests"
+      ],
+      "feynman_prompts": [
+        "Why does testing user behavior by accessible role create more durable tests than testing implementation details?"
+      ],
+      "key_misconceptions": [
+        "Testing trivial implementation details like internal state variable names"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_owasp_web_security",
+      "concept_id": "concept_fullstack_web_owasp_web_security",
+      "title": "Full-Stack Web Security: OWASP Top 10",
+      "subtitle": "XSS sanitization, SQL injection prevention, CORS, Content Security Policy, rate limiting",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_authentication_security"
+      ],
+      "learning_objectives": [
+        "Sanitize user input and enforce strict Content Security Policy headers",
+        "Prevent injection vulnerabilities and validate cross-origin resource sharing"
+      ],
+      "feynman_prompts": [
+        "What is Cross-Site Scripting (XSS) and how does output encoding prevent it?"
+      ],
+      "key_misconceptions": [
+        "Assuming frontend validation is sufficient to prevent malicious database attacks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_cicd_cloud_deployment",
+      "concept_id": "concept_fullstack_web_cicd_cloud_deployment",
+      "title": "CI/CD & Cloud Deployment Pipelines",
+      "subtitle": "GitHub Actions, automated test workflows, Vercel/Render/AWS deployment, zero-downtime deploys",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_testing_unit_integration"
+      ],
+      "learning_objectives": [
+        "Automate build and test pipelines using GitHub Actions workflows",
+        "Deploy fullstack applications to cloud platforms with environment configurations"
+      ],
+      "feynman_prompts": [
+        "Why is continuous integration (CI) essential for maintaining code quality in teams?"
+      ],
+      "key_misconceptions": [
+        "Deploying unverified code directly to production without automated test verification"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_observability_error_tracking",
+      "concept_id": "concept_fullstack_web_observability_error_tracking",
+      "title": "Observability, Structured Logging & Error Tracking",
+      "subtitle": "Structured JSON logging, Sentry error monitoring, health checks, performance metrics",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_cicd_cloud_deployment"
+      ],
+      "learning_objectives": [
+        "Capture and trace production runtime errors with context using Sentry",
+        "Instrument API response latency metrics and liveness health checks"
+      ],
+      "feynman_prompts": [
+        "Why are correlation IDs necessary when tracing errors across client and server logs?"
+      ],
+      "key_misconceptions": [
+        "Using console.log() statements in production code without structured context"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_graphql_api_contracts",
+      "concept_id": "concept_fullstack_web_graphql_api_contracts",
+      "title": "GraphQL APIs & Schema Federation",
+      "subtitle": "GraphQL schemas, queries, mutations, resolvers, DataLoader for N+1 batching",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_backend_apis"
+      ],
+      "learning_objectives": [
+        "Design GraphQL APIs providing precise client data fetching without overfetching",
+        "Prevent N+1 database queries using DataLoader batching"
+      ],
+      "feynman_prompts": [
+        "How does GraphQL DataLoader batch multiple field resolver queries into a single database SQL query?"
+      ],
+      "key_misconceptions": [
+        "Permitting arbitrary unbounded nested GraphQL queries in production without query complexity limits"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_websockets_notifications",
+      "concept_id": "concept_fullstack_web_websockets_notifications",
+      "title": "Real-Time Push & WebSocket Notifications",
+      "subtitle": "WebSockets, Socket.io, pub/sub presence channels, reconnection handling",
+      "phase": "Advanced",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_fullstack_web_react_ui_arch"
+      ],
+      "learning_objectives": [
+        "Implement live chat and collaborative updates using WebSockets",
+        "Handle connection drops gracefully with reconnection backoff"
+      ],
+      "feynman_prompts": [
+        "When should you choose WebSockets over Server-Sent Events for client notifications?"
+      ],
+      "key_misconceptions": [
+        "Holding open un-authenticated WebSocket connections indefinitely"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_system_design_fundamentals",
+      "concept_id": "concept_fullstack_web_system_design_fundamentals",
+      "title": "System Design & Distributed Data Patterns",
+      "subtitle": "Horizontal scaling, read replicas, database sharding, CAP theorem, CDN edge caching",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 19,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_fullstack_web_redis_caching_fullstack"
+      ],
+      "learning_objectives": [
+        "Design high-availability systems with read-replica database routing",
+        "Evaluate CAP theorem trade-offs for distributed web applications"
+      ],
+      "feynman_prompts": [
+        "Why is asynchronous read-replica replication subject to replication lag?"
+      ],
+      "key_misconceptions": [
+        "Attempting to shard databases prematurely before vertical and index optimizations"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_fullstack_web_cloud_storage_cdn",
+      "concept_id": "concept_fullstack_web_cloud_storage_cdn",
+      "title": "Cloud Object Storage & CDN Asset Delivery",
+      "subtitle": "AWS S3 / Cloudflare R2, presigned upload URLs, CDN caching, image optimization",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 20,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_fullstack_web_docker_fullstack"
+      ],
+      "learning_objectives": [
+        "Upload large user files directly to S3 using secure presigned URLs",
+        "Distribute static assets and optimized images via CDN edge caches"
+      ],
+      "feynman_prompts": [
+        "Why should large file uploads bypass backend web servers using presigned cloud URLs?"
+      ],
+      "key_misconceptions": [
+        "Buffering 500MB file uploads in backend server memory before writing to disk"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_fullstack_web",
+  "description": "Master Full Stack Developer with an industry-standard, comprehensive curriculum spanning 20 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Full Stack Developer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Full Stack Developer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Full Stack Developer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Full Stack Developer - Production",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Full Stack Developer - Advanced",
+      "estimated_weeks": 3
+    }
+  ]
+}

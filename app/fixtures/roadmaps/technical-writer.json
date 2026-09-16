@@ -1,0 +1,517 @@
+{
+  "id": "roadmap_technical_writer",
+  "slug": "technical-writer",
+  "title": "Technical Writer",
+  "description": "Professional technical communication: plain language, Diátaxis framework, docs-as-code, OpenAPI specs, SDK guides, style guides, automated linting, and content strategy.",
+  "category": "Developer Experience",
+  "difficulty_level": "intermediate",
+  "estimated_hours": 85,
+  "tags": [
+    "technical-writing",
+    "docs-as-code",
+    "diataxis",
+    "openapi",
+    "documentation",
+    "vale"
+  ],
+  "phases": [
+    {
+      "title": "Writing & Docs-as-Code Foundations",
+      "tier": "foundation",
+      "focus": "Plain Language Principles, Diátaxis Framework, Markdown & Static Site Generators",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core Technical Documentation",
+      "tier": "core",
+      "focus": "Information Architecture, OpenAPI Specs, Code Samples, Quickstarts & Style Guides",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Advanced Automation & Formats",
+      "tier": "advanced",
+      "focus": "Automated Linting, Diagrams, Release Notes, Analytics & Docstring Synchronization",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Content Strategy & Portfolio",
+      "tier": "capstone",
+      "focus": "Doc Strategy, Team Leadership, Support Deflection ROI, and Portfolio Defense",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_technical-writer_technical_writing_principles",
+      "concept_id": "concept_technical-writer_technical_writing_principles",
+      "title": "Technical Writing Principles & Plain Language",
+      "subtitle": "Clarity, brevity, active voice, audience analysis, eliminating jargon, readability scores",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Rewrite complex, convoluted technical paragraphs into clear, active-voice instructions",
+        "Calculate Flesch-Kincaid readability scores to ensure appropriate audience comprehension"
+      ],
+      "feynman_prompts": [
+        "Why is active voice ('Run the command') clearer in documentation than passive voice ('The command should be run')?"
+      ],
+      "key_misconceptions": [
+        "Assuming that using dense, academic jargon makes technical documentation appear more authoritative"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_diataxis_framework",
+      "concept_id": "concept_technical-writer_diataxis_framework",
+      "title": "The Diátaxis Framework for Documentation",
+      "subtitle": "Tutorials (learning), How-To Guides (problem-solving), Reference (information), Explanation (understanding)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_technical-writer_technical_writing_principles"
+      ],
+      "learning_objectives": [
+        "Classify technical content into the 4 distinct Diátaxis quadrants",
+        "Structure tutorials strictly for learning without confusing them with comprehensive reference specs"
+      ],
+      "feynman_prompts": [
+        "Explain why mixing theoretical explanation into a step-by-step how-to guide frustrates users."
+      ],
+      "key_misconceptions": [
+        "Writing an all-in-one document that tries to teach, explain architecture, and list API specs all at once"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_markdown_git_docs_as_code",
+      "concept_id": "concept_technical-writer_markdown_git_docs_as_code",
+      "title": "Docs-as-Code: Markdown, Git & Version Control",
+      "subtitle": "Markdown syntax, Git branching, pull request reviews, docs-as-code philosophy",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_technical-writer_technical_writing_principles"
+      ],
+      "learning_objectives": [
+        "Manage documentation in GitHub repositories alongside source code",
+        "Review technical documentation pull requests with inline suggestions and formatting checks"
+      ],
+      "feynman_prompts": [
+        "What are the key benefits of treating documentation with the same version control as code?"
+      ],
+      "key_misconceptions": [
+        "Keeping documentation in isolated Google Docs or wikis disconnected from engineering release cycles"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_static_site_generators",
+      "concept_id": "concept_technical-writer_static_site_generators",
+      "title": "Static Site Generators & Documentation Platforms",
+      "subtitle": "Docusaurus, VitePress, MkDocs, Mintlify, configuration, themes, search indexing (Algolia)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_technical-writer_markdown_git_docs_as_code"
+      ],
+      "learning_objectives": [
+        "Deploy a responsive documentation portal using Docusaurus or MkDocs",
+        "Integrate Algolia DocSearch to enable fast, full-text documentation search"
+      ],
+      "feynman_prompts": [
+        "How do modern static site generators optimize documentation performance and SEO?"
+      ],
+      "key_misconceptions": [
+        "Relying on unsearchable, non-responsive PDF manuals for developer documentation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_information_architecture_docs",
+      "concept_id": "concept_technical-writer_information_architecture_docs",
+      "title": "Documentation Information Architecture & Navigation",
+      "subtitle": "Navigation hierarchies, sidebars, breadcrumbs, search discoverability, landing pages",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_technical-writer_diataxis_framework",
+        "concept_technical-writer_static_site_generators"
+      ],
+      "learning_objectives": [
+        "Design multi-level documentation navigation that surfaces answers in under 3 clicks",
+        "Craft documentation landing pages that guide users by intent and skill level"
+      ],
+      "feynman_prompts": [
+        "Why is deep nesting (more than 3 levels) an anti-pattern in documentation sidebars?"
+      ],
+      "key_misconceptions": [
+        "Organizing documentation chapters around internal company engineering modules rather than user tasks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_api_documentation_openapi",
+      "concept_id": "concept_technical-writer_api_documentation_openapi",
+      "title": "REST API Documentation & OpenAPI/Swagger",
+      "subtitle": "OpenAPI 3.1 specifications, endpoint documentation, request/response schemas, error codes",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_technical-writer_markdown_git_docs_as_code"
+      ],
+      "learning_objectives": [
+        "Write comprehensive OpenAPI 3.1 YAML specifications for REST endpoints",
+        "Document request parameters, JSON body schemas, and explicit HTTP error response codes"
+      ],
+      "feynman_prompts": [
+        "Why must API documentation provide realistic error response payloads alongside 200 OK examples?"
+      ],
+      "key_misconceptions": [
+        "Documenting only the 200 OK happy path while leaving authentication and validation errors undocumented"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_code_examples_sdk_guides",
+      "concept_id": "concept_technical-writer_code_examples_sdk_guides",
+      "title": "Code Samples, SDK Guides & Multi-Language Snippets",
+      "subtitle": "Multi-language code tabs, runnable snippets, verifying code accuracy, sandbox embeds",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_technical-writer_api_documentation_openapi"
+      ],
+      "learning_objectives": [
+        "Write idiomatic code samples across Python, JavaScript, and cURL",
+        "Integrate interactive code sandboxes (StackBlitz, CodeSandbox) into documentation guides"
+      ],
+      "feynman_prompts": [
+        "Why must code samples in documentation use idiomatic patterns for each specific target language?"
+      ],
+      "key_misconceptions": [
+        "Using placeholder pseudo-code that fails to run when copied into a developer's terminal"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_quickstarts_tutorials",
+      "concept_id": "concept_technical-writer_quickstarts_tutorials",
+      "title": "Quickstart Guides & Hands-on Tutorials",
+      "subtitle": "Time-to-hello-world, prerequisites, progressive disclosure, post-completion next steps",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_technical-writer_diataxis_framework",
+        "concept_technical-writer_code_examples_sdk_guides"
+      ],
+      "learning_objectives": [
+        "Author a 5-minute quickstart guide taking a user from zero to working deployment",
+        "Clearly define hardware/software prerequisites before the first instructional step"
+      ],
+      "feynman_prompts": [
+        "What makes a quickstart guide successful compared to an in-depth reference manual?"
+      ],
+      "key_misconceptions": [
+        "Assuming the reader already has dependencies installed without explicitly stating requirements"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_style_guides_governance",
+      "concept_id": "concept_technical-writer_style_guides_governance",
+      "title": "Style Guides & Documentation Standards",
+      "subtitle": "Google Developer Documentation Style Guide, Microsoft Manual of Style, terminology glossaries",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_technical-writer_technical_writing_principles"
+      ],
+      "learning_objectives": [
+        "Apply the Google Developer Documentation Style Guide to enforce grammatical consistency",
+        "Create and maintain a project-wide terminology glossary to eliminate conflicting terms"
+      ],
+      "feynman_prompts": [
+        "Why is consistent capitalization and terminology essential across a multi-author documentation suite?"
+      ],
+      "key_misconceptions": [
+        "Using multiple synonymous terms (e.g. 'delete', 'remove', 'purge') interchangeably for the same action"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_automated_testing_linters",
+      "concept_id": "concept_technical-writer_automated_testing_linters",
+      "title": "Documentation Testing & Automation (CI/CD)",
+      "subtitle": "Vale prose linter, markdownlint, broken link checkers, automated code sample testing",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_technical-writer_markdown_git_docs_as_code",
+        "concept_technical-writer_style_guides_governance"
+      ],
+      "learning_objectives": [
+        "Configure Vale prose linter rules in GitHub Actions to catch style and voice violations",
+        "Automate broken link validation and code sample execution during PR builds"
+      ],
+      "feynman_prompts": [
+        "How does automated prose linting protect editorial quality across distributed open-source teams?"
+      ],
+      "key_misconceptions": [
+        "Treating documentation review purely as a manual proofreading chore"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_visual_communication_diagrams",
+      "concept_id": "concept_technical-writer_visual_communication_diagrams",
+      "title": "Technical Diagramming & Visual Explanations",
+      "subtitle": "Mermaid.js, PlantUML, architectural diagrams, sequence diagrams, annotated screenshots",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_technical-writer_diataxis_framework"
+      ],
+      "learning_objectives": [
+        "Render dynamic sequence diagrams and architecture maps using text-based Mermaid.js",
+        "Annotate UI screenshots with callout numbers that correspond to step-by-step instructions"
+      ],
+      "feynman_prompts": [
+        "Why are text-based diagrams (like Mermaid) superior to static PNG exports in docs-as-code repos?"
+      ],
+      "key_misconceptions": [
+        "Embedding uncompressed, full-screen raw screenshots that quickly become outdated after minor UI changes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_release_notes_changelogs",
+      "concept_id": "concept_technical-writer_release_notes_changelogs",
+      "title": "Release Notes, Changelogs & Deprecation Notices",
+      "subtitle": "Keep a Changelog standard, SemVer communication, breaking change migration guides",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_technical-writer_style_guides_governance"
+      ],
+      "learning_objectives": [
+        "Curate user-centric release notes following the Keep a Changelog specification",
+        "Write clear deprecation notices with explicit migration steps and deprecation timelines"
+      ],
+      "feynman_prompts": [
+        "How do user-facing release notes differ from raw git commit logs?"
+      ],
+      "key_misconceptions": [
+        "Copying raw Git commit hashes and commit messages directly into customer release notes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_analytics_user_feedback_docs",
+      "concept_id": "concept_technical-writer_analytics_user_feedback_docs",
+      "title": "Documentation Analytics & Continuous Improvement",
+      "subtitle": "Was this page helpful? widgets, search analytics, drop-off analysis, docs user testing",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_technical-writer_static_site_generators"
+      ],
+      "learning_objectives": [
+        "Analyze search query logs to identify documentation gaps and missing content",
+        "Gather actionable user sentiment through page-level feedback widgets and support ticket trends"
+      ],
+      "feynman_prompts": [
+        "What does a high volume of searches yielding zero results tell a technical writer?"
+      ],
+      "key_misconceptions": [
+        "Publishing documentation and never reviewing whether users actually find it helpful"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_sdk_reference_generators",
+      "concept_id": "concept_technical-writer_sdk_reference_generators",
+      "title": "Automated Reference Generation (TypeDoc, Sphinx, godoc)",
+      "subtitle": "Extracting code comments to docs, docstrings (JSDoc, PEP 257), automated synchronization",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_technical-writer_automated_testing_linters",
+        "concept_technical-writer_code_examples_sdk_guides"
+      ],
+      "learning_objectives": [
+        "Generate comprehensive API reference documentation directly from typed source code docstrings",
+        "Set up automated pipelines that synchronize reference docs on every version release tag"
+      ],
+      "feynman_prompts": [
+        "Why is code-level docstring generation ideal for reference docs but terrible for conceptual guides?"
+      ],
+      "key_misconceptions": [
+        "Relying exclusively on auto-generated reference docs and ignoring conceptual tutorials"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_localization_internationalization",
+      "concept_id": "concept_technical-writer_localization_internationalization",
+      "title": "Localization (l10n) & Writing for Global Readers",
+      "subtitle": "Translating technical content, Crowdin/Transifex integration, avoiding idioms, cultural neutrality",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "niche",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_technical-writer_technical_writing_principles"
+      ],
+      "learning_objectives": [
+        "Write culturally neutral English that machine translation engines can accurately parse",
+        "Manage continuous localization pipelines with translation management systems"
+      ],
+      "feynman_prompts": [
+        "Why do colloquial idioms and slang create catastrophic errors during technical translation?"
+      ],
+      "key_misconceptions": [
+        "Assuming literal word-for-word translation works without contextual localization"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_enterprise_compliance_documentation",
+      "concept_id": "concept_technical-writer_enterprise_compliance_documentation",
+      "title": "Enterprise Security & Compliance Documentation",
+      "subtitle": "SOC 2 documentation, audit readiness, disaster recovery runbooks, SLA documentation",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_technical-writer_information_architecture_docs"
+      ],
+      "learning_objectives": [
+        "Draft enterprise security whitepapers and compliance architecture specifications",
+        "Create disaster recovery and operational runbooks for enterprise IT administrators"
+      ],
+      "feynman_prompts": [
+        "What makes runbook documentation different from general consumer documentation?"
+      ],
+      "key_misconceptions": [
+        "Writing ambiguous runbook steps that leave engineers guessing during a midnight production outage"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_doc_strategy_team_leadership",
+      "concept_id": "concept_technical-writer_doc_strategy_team_leadership",
+      "title": "Documentation Strategy, KPIs & Team Leadership",
+      "subtitle": "Content audits, calculating doc ROI, reducing support ticket deflection, staffing writers",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_technical-writer_analytics_user_feedback_docs"
+      ],
+      "learning_objectives": [
+        "Perform holistic documentation inventory audits identifying redundant and outdated pages",
+        "Correlate documentation improvements with reductions in customer support ticket volume"
+      ],
+      "feynman_prompts": [
+        "How do you demonstrate the monetary return on investment of hiring full-time technical writers?"
+      ],
+      "key_misconceptions": [
+        "Viewing documentation as a low-priority final task to squeeze in right before shipping code"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_technical-writer_portfolio_technical_writing",
+      "concept_id": "concept_technical-writer_portfolio_technical_writing",
+      "title": "Technical Writing Portfolio & Editorial Review",
+      "subtitle": "Sample selection, showing editing before-and-afters, complex topic breakdowns",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_technical-writer_doc_strategy_team_leadership"
+      ],
+      "learning_objectives": [
+        "Assemble a diverse technical writing portfolio showcasing tutorials, API specs, and architectures",
+        "Demonstrate editorial before-and-after improvements and content strategy outcomes"
+      ],
+      "feynman_prompts": [
+        "Why is explaining your audience analysis and editorial decisions critical in a writing portfolio?"
+      ],
+      "key_misconceptions": [
+        "Submitting confidential proprietary documentation samples without redaction or permission"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior Technical Writer"
+}

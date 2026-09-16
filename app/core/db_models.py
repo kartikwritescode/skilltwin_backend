@@ -503,3 +503,52 @@ class TwinMetricsModel(Base):
     insights = Column(JSON, default=list)
     created_at = Column(DateTime(timezone=True), default=utcnow)
     updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+
+class CanonicalRoadmapModel(Base):
+    __tablename__ = "canonical_roadmaps"
+
+    id = Column(String, primary_key=True)  # e.g. "roadmap_flutter_mobile"
+    slug = Column(String, nullable=False, unique=True, index=True)
+    title = Column(String, nullable=False)
+    description = Column(Text, nullable=False)
+    domain = Column(String, default="Software Engineering", index=True)
+    target_role = Column(String, nullable=True)
+    difficulty_baseline = Column(String, default="Beginner")
+    tags = Column(JSON, default=list)  # list of keywords/aliases
+    embedding = Column(JSON, default=list)  # 768-dim list of floats (text-embedding-004)
+    total_nodes = Column(Integer, default=0)
+    estimated_hours = Column(Float, default=0.0)
+    is_active = Column(Boolean, default=True)
+    version = Column(Integer, default=1)
+    metadata_json = Column(JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    nodes = relationship("CanonicalNodeModel", back_populates="roadmap", cascade="all, delete-orphan", order_by="CanonicalNodeModel.order")
+
+
+class CanonicalNodeModel(Base):
+    __tablename__ = "canonical_nodes"
+
+    id = Column(String, primary_key=True)  # e.g. "cnode_flutter_widget_tree"
+    roadmap_id = Column(String, ForeignKey("canonical_roadmaps.id", ondelete="CASCADE"), nullable=False, index=True)
+    concept_id = Column(String, nullable=False, index=True)
+    title = Column(String, nullable=False)
+    subtitle = Column(Text, nullable=True)
+    phase = Column(String, default="Core")  # Foundations, Core, Practice, Advanced, Mastery
+    tier = Column(String, default="intermediate")  # foundation, intermediate, advanced
+    importance = Column(String, default="essential")  # essential, recommended, advanced, niche
+    difficulty = Column(String, default="intermediate")  # beginner, intermediate, advanced, expert
+    order = Column(Integer, nullable=False)
+    estimated_minutes = Column(Integer, default=25)
+    prerequisites = Column(JSON, default=list)  # list of concept_ids or node_ids
+    learning_objectives = Column(JSON, default=list)
+    feynman_prompts = Column(JSON, default=list)
+    key_misconceptions = Column(JSON, default=list)
+    recommended_resources = Column(JSON, default=list)
+    metadata_json = Column(JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+
+    roadmap = relationship("CanonicalRoadmapModel", back_populates="nodes")
+

@@ -1,0 +1,519 @@
+{
+  "slug": "postgresql",
+  "title": "PostgreSQL Developer",
+  "domain": "Database Engineering",
+  "target_role": "Senior PostgreSQL DBA / Database Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "postgresql",
+    "sql",
+    "database",
+    "indexing",
+    "mvcc",
+    "query-optimization",
+    "pgbouncer",
+    "dba"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_postgresql_pg_architecture_processes",
+      "concept_id": "concept_postgresql_pg_architecture_processes",
+      "title": "PostgreSQL Architecture & Memory Model",
+      "subtitle": "Postmaster, client backends, shared memory (shared_buffers, wal_buffers), work_mem, maintenance_work_mem",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Explain the role of shared_buffers and OS page cache in PostgreSQL read operations",
+        "Configure work_mem appropriately for complex sorting and hash join queries"
+      ],
+      "feynman_prompts": [
+        "Why does setting work_mem too high risk out-of-memory (OOM) crashes on high-connection servers?"
+      ],
+      "key_misconceptions": [
+        "Setting shared_buffers to 90% of system RAM, starving the OS page cache"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_sql_ddl_data_types",
+      "concept_id": "concept_postgresql_sql_ddl_data_types",
+      "title": "PostgreSQL Advanced Data Types & Schema DDL",
+      "subtitle": "Numeric, text, UUID, TIMESTAMP WITH TIME ZONE, JSONB, arrays, custom domain constraints",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_postgresql_pg_architecture_processes"
+      ],
+      "learning_objectives": [
+        "Choose optimal data types for performance (UUIDv7 vs serial, TIMESTAMPTZ vs TIMESTAMP)",
+        "Enforce database-level data integrity using CHECK and EXCLUDE constraints"
+      ],
+      "feynman_prompts": [
+        "Why should timestamps always be stored as TIMESTAMP WITH TIME ZONE in production databases?"
+      ],
+      "key_misconceptions": [
+        "Using VARCHAR(255) arbitrarily when PostgreSQL treats TEXT with equal performance"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_joins_aggregations_grouping",
+      "concept_id": "concept_postgresql_joins_aggregations_grouping",
+      "title": "Complex Joins, Aggregations & Grouping Sets",
+      "subtitle": "Nested loop, hash join, merge join, GROUP BY, ROLLUP, CUBE, GROUPING SETS",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_postgresql_sql_ddl_data_types"
+      ],
+      "learning_objectives": [
+        "Write complex analytical queries using GROUPING SETS, ROLLUP, and CUBE",
+        "Predict when the PostgreSQL optimizer chooses Hash Joins vs Nested Loops vs Merge Joins"
+      ],
+      "feynman_prompts": [
+        "Explain the difference between a Hash Join and a Nested Loop join in PostgreSQL query execution."
+      ],
+      "key_misconceptions": [
+        "Writing CROSS JOINs unintentionally due to missing join predicate conditions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_window_functions_analytical",
+      "concept_id": "concept_postgresql_window_functions_analytical",
+      "title": "Analytical SQL: Window Functions Mastery",
+      "subtitle": "OVER(), PARTITION BY, ORDER BY, ROW_NUMBER(), RANK(), DENSE_RANK(), LAG(), LEAD(), rolling averages",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_postgresql_joins_aggregations_grouping"
+      ],
+      "learning_objectives": [
+        "Calculate moving averages, running totals, and period-over-period growth with window functions",
+        "De-duplicate records and assign sequential row numbers within grouped partitions"
+      ],
+      "feynman_prompts": [
+        "How do window functions calculate aggregates without collapsing rows like GROUP BY does?"
+      ],
+      "key_misconceptions": [
+        "Attempting to filter window function results in the WHERE clause instead of using a CTE or subquery"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_common_table_expressions_recursive",
+      "concept_id": "concept_postgresql_common_table_expressions_recursive",
+      "title": "Common Table Expressions (CTEs) & Recursive SQL",
+      "subtitle": "WITH queries, materialized vs inlined CTEs, recursive CTEs for hierarchical tree traversal",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_postgresql_window_functions_analytical"
+      ],
+      "learning_objectives": [
+        "Traverse hierarchical organizational charts and graph structures using recursive CTEs",
+        "Structure multi-stage queries cleanly using readability-enhancing WITH clauses"
+      ],
+      "feynman_prompts": [
+        "How does a recursive CTE evaluate its anchor member and recursive member until termination?"
+      ],
+      "key_misconceptions": [
+        "Writing recursive CTEs without termination conditions, resulting in infinite query loops"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_jsonb_unstructured_data",
+      "concept_id": "concept_postgresql_jsonb_unstructured_data",
+      "title": "JSONB Document Modeling & GIN Indexing",
+      "subtitle": "JSON vs JSONB, jsonb operators (->, ->>, @>, ?), GIN indexes, indexing specific JSON paths",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_postgresql_sql_ddl_data_types"
+      ],
+      "learning_objectives": [
+        "Store and query semi-structured JSON documents with high performance using JSONB",
+        "Accelerate JSONB containment (@>) queries using Generalized Inverted Indexes (GIN)"
+      ],
+      "feynman_prompts": [
+        "Why is JSONB significantly faster to query than plain JSON in PostgreSQL?"
+      ],
+      "key_misconceptions": [
+        "Overusing JSONB for deeply relational entity models where foreign keys should be used"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_btree_indexing_internals",
+      "concept_id": "concept_postgresql_btree_indexing_internals",
+      "title": "B-Tree Indexing Mechanics & Leftmost Prefix Rule",
+      "subtitle": "B-Tree page structure, root/branch/leaf pages, composite indexes, index-only scans, include columns",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_postgresql_sql_ddl_data_types"
+      ],
+      "learning_objectives": [
+        "Design composite B-Tree indexes adhering to the leftmost prefix rule and query selectivity",
+        "Enable high-speed Index-Only Scans by adding non-key columns using the INCLUDE clause"
+      ],
+      "feynman_prompts": [
+        "Why does an index on (last_name, first_name) speed up searches for last_name but NOT first_name alone?"
+      ],
+      "key_misconceptions": [
+        "Creating single-column indexes on every table column and expecting composite queries to be fast"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_query_planning_explain_analyze",
+      "concept_id": "concept_postgresql_query_planning_explain_analyze",
+      "title": "Query Optimization with EXPLAIN (ANALYZE, BUFFERS)",
+      "subtitle": "Cost estimation, actual vs estimated rows, seq scans, index scans, bitmap index scans, buffers",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_postgresql_btree_indexing_internals"
+      ],
+      "learning_objectives": [
+        "Diagnose slow queries using EXPLAIN (ANALYZE, BUFFERS) and identify missing index opportunities",
+        "Resolve discrepancies between estimated rows and actual rows by refreshing table statistics"
+      ],
+      "feynman_prompts": [
+        "Why does a large discrepancy between estimated and actual rows cause the planner to pick suboptimal join strategies?"
+      ],
+      "key_misconceptions": [
+        "Running EXPLAIN without ANALYZE and assuming estimated costs equal real-world wall-clock latency"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_specialized_indexes_gin_gist",
+      "concept_id": "concept_postgresql_specialized_indexes_gin_gist",
+      "title": "Specialized Indexes: GIN, GiST, BRIN & Partial Indexes",
+      "subtitle": "GIN for arrays/text, GiST for geometry/ranges, BRIN for massive append-only timeseries, partial indexes",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_postgresql_btree_indexing_internals"
+      ],
+      "learning_objectives": [
+        "Index massive billion-row append-only time-series tables efficiently using lightweight BRIN indexes",
+        "Reduce index storage overhead by 90% using conditional partial indexes (WHERE is_active = true)"
+      ],
+      "feynman_prompts": [
+        "Why are BRIN indexes exceptionally tiny and fast for sorted time-series data compared to B-Trees?"
+      ],
+      "key_misconceptions": [
+        "Building standard B-Tree indexes on large text documents instead of using full-text GIN indexes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_concurrency_mvcc_isolation",
+      "concept_id": "concept_postgresql_concurrency_mvcc_isolation",
+      "title": "Multi-Version Concurrency Control (MVCC) & Isolation",
+      "subtitle": "Tuple versions (xmin, xmax), vacuuming dead tuples, Read Committed, Repeatable Read, Serializable",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_postgresql_pg_architecture_processes"
+      ],
+      "learning_objectives": [
+        "Explain how MVCC allows readers to never block writers and writers to never block readers",
+        "Prevent non-repeatable reads and serialization anomalies using appropriate isolation levels"
+      ],
+      "feynman_prompts": [
+        "How does PostgreSQL MVCC mark updated rows as deleted tuples rather than overwriting in place?"
+      ],
+      "key_misconceptions": [
+        "Assuming that UPDATE statements overwrite existing table disk space directly without generating dead tuples"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_vacuum_autovacuum_tuning",
+      "concept_id": "concept_postgresql_vacuum_autovacuum_tuning",
+      "title": "VACUUM, Autovacuum Architecture & Bloat Prevention",
+      "subtitle": "Dead tuple cleanup, page freezing, transaction ID wraparound, autovacuum worker tuning, pg_stat_activity",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_postgresql_concurrency_mvcc_isolation"
+      ],
+      "learning_objectives": [
+        "Tune autovacuum settings (vacuum_scale_factor, cost_limit) to prevent crippling table bloat",
+        "Monitor and mitigate database-wide transaction ID (txid) wraparound emergencies"
+      ],
+      "feynman_prompts": [
+        "Why does disabling autovacuum inevitably lead to database outage due to transaction ID wraparound?"
+      ],
+      "key_misconceptions": [
+        "Running manual VACUUM FULL during peak production hours, locking tables exclusively"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_table_partitioning_declarative",
+      "concept_id": "concept_postgresql_table_partitioning_declarative",
+      "title": "Declarative Table Partitioning (Range, List, Hash)",
+      "subtitle": "Declarative partitioning, PARTITION BY RANGE, partition pruning, maintenance automation, pg_partman",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_postgresql_sql_ddl_data_types"
+      ],
+      "learning_objectives": [
+        "Partition massive multi-million row event tables by timestamp range (monthly/daily partitions)",
+        "Verify that queries benefit from automated partition pruning during execution"
+      ],
+      "feynman_prompts": [
+        "How does partition pruning eliminate entire disk partitions from scan plans during query execution?"
+      ],
+      "key_misconceptions": [
+        "Partitioning small tables with under 100,000 rows, adding query overhead without performance gain"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_stored_procedures_plpgsql",
+      "concept_id": "concept_postgresql_stored_procedures_plpgsql",
+      "title": "Stored Procedures, Functions & Triggers in PL/pgSQL",
+      "subtitle": "CREATE FUNCTION vs PROCEDURE, transactional control inside procedures, BEFORE/AFTER triggers",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_postgresql_sql_ddl_data_types"
+      ],
+      "learning_objectives": [
+        "Write high-performance procedural business logic using PL/pgSQL functions and triggers",
+        "Audit table mutations automatically by authoring AFTER INSERT OR UPDATE triggers"
+      ],
+      "feynman_prompts": [
+        "What is the fundamental difference between a PostgreSQL FUNCTION and a PROCEDURE with respect to transactions?"
+      ],
+      "key_misconceptions": [
+        "Putting complex application domain business logic inside triggers where it becomes invisible and hard to debug"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_connection_pooling_pgbouncer",
+      "concept_id": "concept_postgresql_connection_pooling_pgbouncer",
+      "title": "Connection Pooling with PgBouncer",
+      "subtitle": "Session pooling, transaction pooling, connection overhead, max_connections tuning, auth types",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_postgresql_pg_architecture_processes"
+      ],
+      "learning_objectives": [
+        "Deploy PgBouncer in transaction pooling mode to support 10,000+ concurrent client connections",
+        "Configure application connection pool recycling and server connection limits"
+      ],
+      "feynman_prompts": [
+        "Why does each direct PostgreSQL backend process consume significant RAM and fork overhead?"
+      ],
+      "key_misconceptions": [
+        "Using prepared statements with PgBouncer transaction pooling without enabling appropriate protocol support"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_full_text_search_tsvector",
+      "concept_id": "concept_postgresql_full_text_search_tsvector",
+      "title": "PostgreSQL Full-Text Search (tsvector & tsquery)",
+      "subtitle": "to_tsvector, to_tsquery, English dictionaries, stemming, GIN text indexing, websearch_to_tsquery",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 15,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_postgresql_specialized_indexes_gin_gist"
+      ],
+      "learning_objectives": [
+        "Build fast, typo-tolerant full-text search engines natively within PostgreSQL using tsvector",
+        "Rank search results by relevance using ts_rank and ts_rank_cd"
+      ],
+      "feynman_prompts": [
+        "How does linguistic stemming in tsvector allow searches for 'run' to match 'running' and 'ran'?"
+      ],
+      "key_misconceptions": [
+        "Using slow, un-indexed LIKE '%keyword%' wildcards for user text search queries"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_replication_high_availability",
+      "concept_id": "concept_postgresql_replication_high_availability",
+      "title": "Physical & Logical Replication (HA Clusters)",
+      "subtitle": "Streaming replication, write-ahead logs (WAL), replication slots, Patroni HA, failover automation",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_postgresql_pg_architecture_processes"
+      ],
+      "learning_objectives": [
+        "Deploy streaming replication with hot standby read replicas across availability zones",
+        "Automate PostgreSQL primary failover and leader election using Patroni and etcd"
+      ],
+      "feynman_prompts": [
+        "What is the difference between physical streaming replication (byte-for-byte) and logical replication?"
+      ],
+      "key_misconceptions": [
+        "Creating replication slots without active standbys, causing WAL disk exhaustion on the primary server"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_backup_pitr_wal_archiving",
+      "concept_id": "concept_postgresql_backup_pitr_wal_archiving",
+      "title": "Backup, WAL Archiving & Point-In-Time Recovery (PITR)",
+      "subtitle": "pg_dump vs pg_basebackup, WAL archiving to S3, continuous archiving, Point-In-Time Recovery",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_postgresql_replication_high_availability"
+      ],
+      "learning_objectives": [
+        "Configure continuous WAL archiving and restore a production database to an exact second in time",
+        "Execute automated daily physical backups with pgBackRest or WAL-G"
+      ],
+      "feynman_prompts": [
+        "Why is Point-In-Time Recovery (PITR) capable of recovering data up to the second before an accidental DROP TABLE?"
+      ],
+      "key_misconceptions": [
+        "Relying exclusively on logical pg_dump backups for multi-terabyte production databases"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_postgresql_database_security_rls",
+      "concept_id": "concept_postgresql_database_security_rls",
+      "title": "Database Security, Hardening & Row-Level Security (RLS)",
+      "subtitle": "pg_hba.conf, SSL connections, role inheritance, Row-Level Security (RLS) policies, pgcrypto",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_postgresql_sql_ddl_data_types"
+      ],
+      "learning_objectives": [
+        "Isolate multi-tenant data securely using PostgreSQL Row-Level Security (RLS) policies",
+        "Enforce TLS encrypted connections and least-privilege role permissions via pg_hba.conf"
+      ],
+      "feynman_prompts": [
+        "How does Row-Level Security enforce tenant data isolation directly at the database engine level?"
+      ],
+      "key_misconceptions": [
+        "Granting the public database application user SUPERUSER permissions"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_postgresql",
+  "description": "Master PostgreSQL Developer with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "PostgreSQL Developer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "PostgreSQL Developer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "PostgreSQL Developer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "PostgreSQL Developer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "PostgreSQL Developer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

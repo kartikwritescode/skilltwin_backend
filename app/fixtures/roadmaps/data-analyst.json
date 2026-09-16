@@ -1,0 +1,519 @@
+{
+  "slug": "data-analyst",
+  "title": "Data Analyst",
+  "domain": "Data Analytics",
+  "target_role": "Senior Data Analyst",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "data-analyst",
+    "sql",
+    "excel",
+    "python",
+    "pandas",
+    "tableau",
+    "power-bi",
+    "statistics"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_data-analyst_excel_advanced_modeling",
+      "concept_id": "concept_data-analyst_excel_advanced_modeling",
+      "title": "Excel Advanced Data Modeling & Pivot Tables",
+      "subtitle": "XLOOKUP, INDEX/MATCH, nested IFs, dynamic arrays, Power Query, Pivot Charts",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Clean and reshape messy tabular datasets using Excel Power Query",
+        "Perform dynamic lookups and build summary financial models with XLOOKUP"
+      ],
+      "feynman_prompts": [
+        "Why is XLOOKUP superior to legacy VLOOKUP in performance and column flexibility?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding static calculation values into spreadsheets instead of dynamic formulas"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_sql_querying_aggregations",
+      "concept_id": "concept_data-analyst_sql_querying_aggregations",
+      "title": "SQL Querying & Basic Aggregations",
+      "subtitle": "SELECT, WHERE, GROUP BY, HAVING, ORDER BY, aggregate functions (COUNT, SUM, AVG)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_data-analyst_excel_advanced_modeling"
+      ],
+      "learning_objectives": [
+        "Extract and filter business data from relational databases using SQL",
+        "Calculate aggregated KPIs across customer and transaction segments"
+      ],
+      "feynman_prompts": [
+        "Explain the fundamental difference between WHERE (row filter) and HAVING (aggregate filter)."
+      ],
+      "key_misconceptions": [
+        "Using WHERE to filter on aggregate functions like SUM(sales) > 1000"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_sql_joins_relational_models",
+      "concept_id": "concept_data-analyst_sql_joins_relational_models",
+      "title": "Relational Joins & Data Normalization",
+      "subtitle": "INNER, LEFT, RIGHT, FULL OUTER joins, primary/foreign keys, entity relationships",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-analyst_sql_querying_aggregations"
+      ],
+      "learning_objectives": [
+        "Join multi-table customer and order datasets without creating Cartesian duplicates",
+        "Audit data integrity and identify orphaned records using LEFT JOIN with IS NULL"
+      ],
+      "feynman_prompts": [
+        "How does a Cartesian product (CROSS JOIN) occur when join conditions are omitted?"
+      ],
+      "key_misconceptions": [
+        "Assuming a LEFT JOIN always returns the exact same row count as the left table even when right table keys are duplicated"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_sql_window_functions_ctes",
+      "concept_id": "concept_data-analyst_sql_window_functions_ctes",
+      "title": "Advanced SQL: Window Functions & CTEs",
+      "subtitle": "ROW_NUMBER, RANK, DENSE_RANK, LEAD, LAG, running totals, modular CTEs",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-analyst_sql_joins_relational_models"
+      ],
+      "learning_objectives": [
+        "Calculate period-over-period percentage growth using LAG and LEAD functions",
+        "Segment customers into quartile revenue tiers using NTILE and window partitions"
+      ],
+      "feynman_prompts": [
+        "Why are Common Table Expressions (CTEs) preferred over deeply nested subqueries for readability?"
+      ],
+      "key_misconceptions": [
+        "Filtering window function results in the WHERE clause instead of using an outer query"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_python_data_fundamentals",
+      "concept_id": "concept_data-analyst_python_data_fundamentals",
+      "title": "Python Programming for Data Analytics",
+      "subtitle": "Data types, lists, dictionaries, list comprehensions, writing functions, Jupyter notebooks",
+      "phase": "Core",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 5,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_data-analyst_sql_querying_aggregations"
+      ],
+      "learning_objectives": [
+        "Write clean, reusable Python scripts to automate repetitive analytical tasks",
+        "Manipulate key-value datasets and parse JSON API responses using dictionaries"
+      ],
+      "feynman_prompts": [
+        "How do Python dictionaries provide fast O(1) key-based lookups compared to lists?"
+      ],
+      "key_misconceptions": [
+        "Using nested for-loops for dataset filtering when list comprehensions are cleaner"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_numpy_numerical_computing",
+      "concept_id": "concept_data-analyst_numpy_numerical_computing",
+      "title": "Numerical Computing with NumPy",
+      "subtitle": "NumPy arrays, vectorized operations, broadcasting, array slicing, mathematical operations",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_data-analyst_python_data_fundamentals"
+      ],
+      "learning_objectives": [
+        "Perform high-speed vectorized calculations across million-row numeric arrays",
+        "Leverage NumPy array broadcasting to perform arithmetic on mismatched dimensions"
+      ],
+      "feynman_prompts": [
+        "Why are vectorized NumPy operations 50x faster than traditional Python for-loops?"
+      ],
+      "key_misconceptions": [
+        "Iterating through NumPy arrays with Python loops instead of vectorized methods"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_pandas_data_wrangling",
+      "concept_id": "concept_data-analyst_pandas_data_wrangling",
+      "title": "Data Wrangling & Cleaning with Pandas",
+      "subtitle": "DataFrames, Series, filtering, groupby, handling missing values (dropna, fillna), merges",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-analyst_numpy_numerical_computing"
+      ],
+      "learning_objectives": [
+        "Clean messy real-world datasets: handle nulls, parse dates, and remove duplicates",
+        "Aggregate multi-dimensional data using groupby and agg with custom metrics"
+      ],
+      "feynman_prompts": [
+        "What is the difference between inplace=True and reassigning DataFrame operations?"
+      ],
+      "key_misconceptions": [
+        "Chain-indexing DataFrames (df['col'][0] = 5) triggering SettingWithCopyWarning"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_exploratory_data_analysis",
+      "concept_id": "concept_data-analyst_exploratory_data_analysis",
+      "title": "Exploratory Data Analysis (EDA) Techniques",
+      "subtitle": "Summary statistics, skewness, outlier detection (IQR, z-score), correlation matrices",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-analyst_pandas_data_wrangling"
+      ],
+      "learning_objectives": [
+        "Uncover hidden trends, anomalies, and distributions across new datasets",
+        "Detect and handle data outliers using Interquartile Range (IQR) filtering"
+      ],
+      "feynman_prompts": [
+        "Why can extreme outliers severely distort the arithmetic mean while leaving the median unaffected?"
+      ],
+      "key_misconceptions": [
+        "Assuming correlation between two variables implies a direct causal relationship"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_data_visualization_seaborn",
+      "concept_id": "concept_data-analyst_data_visualization_seaborn",
+      "title": "Data Visualization: Matplotlib & Seaborn",
+      "subtitle": "Scatter plots, histograms, box plots, heatmaps, aesthetic design, color theory",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_data-analyst_exploratory_data_analysis"
+      ],
+      "learning_objectives": [
+        "Design intuitive, publication-quality statistical charts using Seaborn",
+        "Select appropriate visualization types for continuous vs categorical comparisons"
+      ],
+      "feynman_prompts": [
+        "Why is a box plot superior to a bar chart when presenting skewed distributions?"
+      ],
+      "key_misconceptions": [
+        "Using 3D pie charts that distort visual proportion and mislead audiences"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_business_metrics_kpi_modeling",
+      "concept_id": "concept_data-analyst_business_metrics_kpi_modeling",
+      "title": "Business Metrics, Unit Economics & KPI Frameworks",
+      "subtitle": "CAC, LTV, Churn rate, Retention cohorts, Net Promoter Score (NPS), conversion funnels",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-analyst_exploratory_data_analysis"
+      ],
+      "learning_objectives": [
+        "Model customer lifetime value (LTV) and customer acquisition cost (CAC) ratios",
+        "Perform cohort analysis to track retention decay across monthly user cohorts"
+      ],
+      "feynman_prompts": [
+        "Why is an LTV:CAC ratio below 3:1 an indicator of unsustainable marketing spend?"
+      ],
+      "key_misconceptions": [
+        "Confusing active monthly users with retained high-intent paying customers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_power_bi_data_modeling",
+      "concept_id": "concept_data-analyst_power_bi_data_modeling",
+      "title": "Power BI: Data Modeling & Star Schema",
+      "subtitle": "Power BI Desktop, star schema vs snowflake schema, relationships (1:*), fact vs dimension tables",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-analyst_sql_joins_relational_models"
+      ],
+      "learning_objectives": [
+        "Architect clean Star Schema dimensional models optimized for fast DAX queries",
+        "Configure one-to-many relationships and bidirectional cross-filtering safely"
+      ],
+      "feynman_prompts": [
+        "Why is a Star Schema significantly faster for analytical reporting than a normalized 3NF schema?"
+      ],
+      "key_misconceptions": [
+        "Enabling bidirectional cross-filtering globally, creating ambiguous query paths"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_power_bi_dax_measures",
+      "concept_id": "concept_data-analyst_power_bi_dax_measures",
+      "title": "DAX Calculations & Time Intelligence in Power BI",
+      "subtitle": "Calculated columns vs measures, CALCULATE(), FILTER(), ALL(), YTD, YoY growth",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-analyst_power_bi_data_modeling"
+      ],
+      "learning_objectives": [
+        "Author dynamic DAX measures calculating Year-over-Year (YoY) revenue growth",
+        "Master context transition and modify filter contexts using CALCULATE() and ALL()"
+      ],
+      "feynman_prompts": [
+        "Explain the fundamental difference between a calculated column (row context) and a measure (filter context) in DAX."
+      ],
+      "key_misconceptions": [
+        "Creating calculated columns for simple aggregations, bloating memory consumption"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_tableau_interactive_dashboards",
+      "concept_id": "concept_data-analyst_tableau_interactive_dashboards",
+      "title": "Tableau Visual Analytics & Interactive Dashboards",
+      "subtitle": "Tableau Desktop, pills (discrete vs continuous), parameters, LOD expressions (FIXED, INCLUDE)",
+      "phase": "Advanced",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-analyst_data_visualization_seaborn"
+      ],
+      "learning_objectives": [
+        "Build interactive executive dashboards with cross-filtering actions and parameters",
+        "Solve complex multi-level aggregations using Level of Detail (LOD) expressions"
+      ],
+      "feynman_prompts": [
+        "What is the difference between green pills (continuous) and blue pills (discrete) in Tableau?"
+      ],
+      "key_misconceptions": [
+        "Overcrowding dashboards with 15 disconnected charts without a clear visual hierarchy"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_statistical_hypothesis_testing",
+      "concept_id": "concept_data-analyst_statistical_hypothesis_testing",
+      "title": "Applied Statistics & Hypothesis Testing",
+      "subtitle": "Normal distribution, p-values, t-tests, ANOVA, Chi-Square, confidence intervals",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_data-analyst_exploratory_data_analysis"
+      ],
+      "learning_objectives": [
+        "Determine statistical significance of observed metrics using two-sample t-tests",
+        "Interpret p-values and confidence intervals accurately to guide executive decisions"
+      ],
+      "feynman_prompts": [
+        "Why does a p-value < 0.05 not guarantee that a tested business intervention has practical business impact?"
+      ],
+      "key_misconceptions": [
+        "Accepting the null hypothesis without verifying sample size and statistical power"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_ab_testing_experimentation",
+      "concept_id": "concept_data-analyst_ab_testing_experimentation",
+      "title": "A/B Testing & Product Experimentation Analysis",
+      "subtitle": "Sample size calculation, minimum detectable effect (MDE), type I/II errors, novelty effect",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-analyst_statistical_hypothesis_testing"
+      ],
+      "learning_objectives": [
+        "Design scientifically sound A/B tests with appropriate sample size and duration",
+        "Detect and mitigate statistical pitfalls like the peeking problem and novelty bias"
+      ],
+      "feynman_prompts": [
+        "Why does checking A/B test results daily and stopping early inflate false positive rates (peeking problem)?"
+      ],
+      "key_misconceptions": [
+        "Declaring a test variation winning after 2 days without accounting for day-of-week seasonality"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_data_storytelling_executive_presentation",
+      "concept_id": "concept_data-analyst_data_storytelling_executive_presentation",
+      "title": "Data Storytelling & Executive Presentations",
+      "subtitle": "Audience empathy, narrative arcs, pyramid principle, slide design, framing insights",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_data-analyst_business_metrics_kpi_modeling"
+      ],
+      "learning_objectives": [
+        "Translate complex statistical findings into actionable executive business recommendations",
+        "Structure presentations using the Pyramid Principle (recommendation first, then supporting evidence)"
+      ],
+      "feynman_prompts": [
+        "Why do executive decision-makers care about business impact rather than technical methodology?"
+      ],
+      "key_misconceptions": [
+        "Presenting 50 raw data tables to executives without a clear 'So What?' narrative"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_automated_reporting_pipelines",
+      "concept_id": "concept_data-analyst_automated_reporting_pipelines",
+      "title": "Automated Reporting & ETL Pipelines",
+      "subtitle": "Scheduled Python scripts, email reporting, database writes, basic airflow scheduling",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_data-analyst_pandas_data_wrangling"
+      ],
+      "learning_objectives": [
+        "Automate daily executive KPI reporting delivered via Slack or email using Python",
+        "Export clean aggregated data tables into analytical data warehouses on schedule"
+      ],
+      "feynman_prompts": [
+        "Why is automated report generation superior to manual weekly spreadsheet export routines?"
+      ],
+      "key_misconceptions": [
+        "Building mission-critical reports that require manual copy-pasting every Monday morning"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_data-analyst_data_governance_ethics",
+      "concept_id": "concept_data-analyst_data_governance_ethics",
+      "title": "Data Governance, Privacy & Ethics",
+      "subtitle": "GDPR, data anonymization, PII protection, data quality frameworks, ethical AI metrics",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 18,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_data-analyst_business_metrics_kpi_modeling"
+      ],
+      "learning_objectives": [
+        "Ensure analytical datasets comply with privacy regulations (GDPR, CCPA)",
+        "Implement data masking and anonymization techniques to safeguard customer PII"
+      ],
+      "feynman_prompts": [
+        "Why is anonymizing customer identifiers essential before sharing datasets across teams?"
+      ],
+      "key_misconceptions": [
+        "Storing unencrypted customer personal data (emails, credit cards) in ad-hoc analytical spreadsheets"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_data-analyst",
+  "description": "Master Data Analyst with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Data Analyst - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Data Analyst - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Data Analyst - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Data Analyst - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Data Analyst - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

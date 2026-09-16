@@ -1,0 +1,519 @@
+{
+  "slug": "ios",
+  "title": "iOS Developer",
+  "domain": "Mobile Development",
+  "target_role": "Senior iOS Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "ios",
+    "swift",
+    "swiftui",
+    "mobile",
+    "swiftdata",
+    "combine",
+    "apple",
+    "app store"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_ios_swift_language_core",
+      "concept_id": "concept_ios_swift_language_core",
+      "title": "Swift Language Fundamentals & Type System",
+      "subtitle": "Optionals, optional binding, guard, value types (structs) vs reference types (classes)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Leverage Swift optionals and guard statements to write crash-free code",
+        "Choose appropriately between value types (structs) and reference types (classes)"
+      ],
+      "feynman_prompts": [
+        "Why does Swift prefer structs (value semantics) over classes (reference semantics) for data models?"
+      ],
+      "key_misconceptions": [
+        "Force-unwrapping optionals with ! instead of using if-let or guard-let"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_protocols_generics",
+      "concept_id": "concept_ios_protocols_generics",
+      "title": "Protocols & Protocol-Oriented Programming",
+      "subtitle": "Protocols, protocol extensions, associated types, generics, type constraints",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_swift_language_core"
+      ],
+      "learning_objectives": [
+        "Design flexible architectures using Protocol-Oriented Programming (POP)",
+        "Implement generic algorithms and reusable data structures with type constraints"
+      ],
+      "feynman_prompts": [
+        "How does Protocol-Oriented Programming differ from traditional single-inheritance OOP?"
+      ],
+      "key_misconceptions": [
+        "Using heavy class inheritance hierarchies instead of composable protocols"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_swift_memory_arc",
+      "concept_id": "concept_ios_swift_memory_arc",
+      "title": "Memory Management & ARC Mechanics",
+      "subtitle": "Automatic Reference Counting (ARC), strong, weak, and unowned references, retain cycles",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_swift_language_core"
+      ],
+      "learning_objectives": [
+        "Identify and eliminate retain cycles between closures and view controllers",
+        "Use [weak self] capture lists safely to prevent memory leaks"
+      ],
+      "feynman_prompts": [
+        "Explain how a retain cycle occurs when a closure captures self strongly."
+      ],
+      "key_misconceptions": [
+        "Using [unowned self] when an object can outlive the closure, causing runtime memory crashes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_swiftui_declarative_ui",
+      "concept_id": "concept_ios_swiftui_declarative_ui",
+      "title": "SwiftUI: Declarative UI & Layout System",
+      "subtitle": "Views, modifiers, VStack, HStack, ZStack, List, LazyVStack, view composition",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_swift_language_core"
+      ],
+      "learning_objectives": [
+        "Build modern declarative user interfaces using SwiftUI view hierarchies",
+        "Design performant scrollable lists using List and LazyVStack"
+      ],
+      "feynman_prompts": [
+        "How does SwiftUI declarative view rendering differ from imperative UIKit layout?"
+      ],
+      "key_misconceptions": [
+        "Building monolithic 500-line body properties instead of decomposing into small reusable subviews"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_swiftui_state_management",
+      "concept_id": "concept_ios_swiftui_state_management",
+      "title": "SwiftUI State & Observation Framework",
+      "subtitle": "@State, @Binding, @Observable, @Environment, unidirectional data flow",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_swiftui_declarative_ui"
+      ],
+      "learning_objectives": [
+        "Manage local and shared reactive state using the modern @Observable macro",
+        "Pass read-write state bindings down view hierarchies with @Binding"
+      ],
+      "feynman_prompts": [
+        "What is the difference between @State (local view ownership) and @Binding (two-way reference)?"
+      ],
+      "key_misconceptions": [
+        "Creating global singletons for view-specific transient state"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_swiftui_navigation_stack",
+      "concept_id": "concept_ios_swiftui_navigation_stack",
+      "title": "Navigation & Deep Linking with NavigationStack",
+      "subtitle": "NavigationStack, navigationDestination, path binding, deep linking",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_ios_swiftui_state_management"
+      ],
+      "learning_objectives": [
+        "Implement programmatic navigation using NavigationPath and type-safe destinations",
+        "Handle universal deep links to route directly into specific view destinations"
+      ],
+      "feynman_prompts": [
+        "How does NavigationPath enable programmatic multi-step pop and push transitions?"
+      ],
+      "key_misconceptions": [
+        "Relying on deprecated NavigationView instead of modern NavigationStack"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_swift_concurrency_async",
+      "concept_id": "concept_ios_swift_concurrency_async",
+      "title": "Modern Swift Concurrency: async/await & Actors",
+      "subtitle": "async/await, Task, TaskGroup, MainActor, thread-safe data isolation with Actors",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ios_protocols_generics"
+      ],
+      "learning_objectives": [
+        "Write structured asynchronous code using modern Swift async/await",
+        "Protect mutable state against data races using Actors and MainActor"
+      ],
+      "feynman_prompts": [
+        "Why does Swift compile-time actor isolation eliminate race conditions without manual mutex locks?"
+      ],
+      "key_misconceptions": [
+        "Executing heavy background data processing on @MainActor, freezing the UI"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_networking_urlsession_decodable",
+      "concept_id": "concept_ios_networking_urlsession_decodable",
+      "title": "Networking: URLSession & Codable Serialization",
+      "subtitle": "URLSession, Codable, Decodable, async data fetching, error handling",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_swift_concurrency_async"
+      ],
+      "learning_objectives": [
+        "Fetch remote API data asynchronously using URLSession and modern async/await",
+        "Deserialize nested JSON responses into strongly-typed Swift models using Decodable"
+      ],
+      "feynman_prompts": [
+        "How does the Codable protocol automate JSON parsing with compile-time type safety?"
+      ],
+      "key_misconceptions": [
+        "Parsing raw JSON dictionaries manually without type-safe Codable models"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_swiftdata_core_data",
+      "concept_id": "concept_ios_swiftdata_core_data",
+      "title": "Local Persistence: SwiftData & Core Data",
+      "subtitle": "SwiftData @Model, ModelContext, queries with @Query, relationships, migrations",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_swiftui_state_management"
+      ],
+      "learning_objectives": [
+        "Persist structured application data offline using the modern SwiftData framework",
+        "Define model relationships and perform efficient predicate queries with @Query"
+      ],
+      "feynman_prompts": [
+        "How does SwiftData leverage Swift macros to simplify schema definitions compared to legacy Core Data?"
+      ],
+      "key_misconceptions": [
+        "Mutating ModelContext data on background threads without proper actor isolation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_uikit_interoperability",
+      "concept_id": "concept_ios_uikit_interoperability",
+      "title": "UIKit Interoperability in SwiftUI",
+      "subtitle": "UIViewRepresentable, UIViewControllerRepresentable, Coordinator pattern",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_ios_swiftui_declarative_ui"
+      ],
+      "learning_objectives": [
+        "Bridge legacy UIKit components into modern SwiftUI view hierarchies",
+        "Manage delegate callbacks and two-way communication using Coordinators"
+      ],
+      "feynman_prompts": [
+        "Why is the Coordinator pattern necessary when wrapping UIKit views with delegates in SwiftUI?"
+      ],
+      "key_misconceptions": [
+        "Re-creating expensive UIKit view instances on every SwiftUI body re-evaluation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_clean_architecture_ios",
+      "concept_id": "concept_ios_clean_architecture_ios",
+      "title": "iOS Architecture: MVVM & Clean Architecture",
+      "subtitle": "MVVM pattern, view models, domain interactor use cases, repository abstractions",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ios_networking_urlsession_decodable"
+      ],
+      "learning_objectives": [
+        "Decouple UI views from business logic and data sources using MVVM",
+        "Write testable view models with mocked repository protocols"
+      ],
+      "feynman_prompts": [
+        "Why should SwiftUI Views contain zero networking or database persistence logic?"
+      ],
+      "key_misconceptions": [
+        "Making direct network URLSession requests inside SwiftUI view body computed properties"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_xctest_unit_testing",
+      "concept_id": "concept_ios_xctest_unit_testing",
+      "title": "Automated Testing: XCTest & View Model Verification",
+      "subtitle": "XCTestCase, expectation, mocking protocols, testing async code, code coverage",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_clean_architecture_ios"
+      ],
+      "learning_objectives": [
+        "Write deterministic unit tests for business logic and ViewModels using XCTest",
+        "Test asynchronous methods safely using expectation(description:) and async testing"
+      ],
+      "feynman_prompts": [
+        "Why is protocol-based dependency injection essential for mocking dependencies in XCTest?"
+      ],
+      "key_misconceptions": [
+        "Writing unit tests that depend on real live network responses, leading to flaky CI runs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_xctest_ui_testing",
+      "concept_id": "concept_ios_xctest_ui_testing",
+      "title": "UI Testing & Accessibility Auditing",
+      "subtitle": "XCUIApplication, accessibilityIdentifier, UI assertions, automated user flows",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_swiftui_declarative_ui"
+      ],
+      "learning_objectives": [
+        "Automate user journey testing across screens using XCUIApplication",
+        "Assign accessibilityIdentifiers to enable reliable UI element querying"
+      ],
+      "feynman_prompts": [
+        "Why are accessibilityIdentifiers superior to localized UI text for automated UI testing?"
+      ],
+      "key_misconceptions": [
+        "Querying UI test elements by user-visible text that breaks when localizing into other languages"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_instruments_performance",
+      "concept_id": "concept_ios_instruments_performance",
+      "title": "Performance Optimization with Instruments",
+      "subtitle": "Xcode Instruments, Time Profiler, Allocations, Leaks, view body churn",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "advanced",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ios_swift_memory_arc"
+      ],
+      "learning_objectives": [
+        "Identify CPU bottlenecks and main thread hangs using Xcode Time Profiler",
+        "Pinpoint memory retain cycles and allocation leaks using the Leaks instrument"
+      ],
+      "feynman_prompts": [
+        "How do you identify which SwiftUI views are undergoing unnecessary re-evaluation churn?"
+      ],
+      "key_misconceptions": [
+        "Assuming that code running smoothly in the Xcode Simulator will run at 60/120fps on physical devices"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_keychain_ios_security",
+      "concept_id": "concept_ios_keychain_ios_security",
+      "title": "iOS Security & Keychain Services",
+      "subtitle": "Keychain Services, LocalAuthentication (Face ID / Touch ID), certificate pinning",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_networking_urlsession_decodable"
+      ],
+      "learning_objectives": [
+        "Store sensitive user tokens and private credentials securely in the iOS Keychain",
+        "Protect app access using biometric Face ID / Touch ID authentication"
+      ],
+      "feynman_prompts": [
+        "Why is UserDefaults insecure for storing auth tokens, and why is Keychain required?"
+      ],
+      "key_misconceptions": [
+        "Storing auth tokens and API keys in plain text inside UserDefaults"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_app_extensions_widgets",
+      "concept_id": "concept_ios_app_extensions_widgets",
+      "title": "App Extensions & WidgetKit",
+      "subtitle": "WidgetKit, TimelineProvider, dynamic widgets, App Groups for shared data",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_swiftdata_core_data"
+      ],
+      "learning_objectives": [
+        "Build glanceable iOS Home Screen widgets using WidgetKit and TimelineProvider",
+        "Share data between the main app and widget extensions using App Groups"
+      ],
+      "feynman_prompts": [
+        "How does TimelineProvider schedule widget updates without running continuously in the background?"
+      ],
+      "key_misconceptions": [
+        "Attempting to execute network calls directly in widget view rendering instead of the timeline provider"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_spm_modularization",
+      "concept_id": "concept_ios_spm_modularization",
+      "title": "Swift Package Manager & Modular Architecture",
+      "subtitle": "Swift Package Manager (SPM), multi-package architecture, build time reduction",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_clean_architecture_ios"
+      ],
+      "learning_objectives": [
+        "Decompose monolithic iOS applications into lightweight Swift Packages",
+        "Enforce strict module boundaries and dramatically improve incremental build times"
+      ],
+      "feynman_prompts": [
+        "What are the modularity benefits of managing local feature modules via Swift Package Manager?"
+      ],
+      "key_misconceptions": [
+        "Creating circular dependencies between Swift Packages"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ios_app_store_testflight",
+      "concept_id": "concept_ios_app_store_testflight",
+      "title": "CI/CD & App Store Distribution",
+      "subtitle": "Fastlane, TestFlight distribution, App Store Connect, signing certificates & provisioning",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ios_spm_modularization"
+      ],
+      "learning_objectives": [
+        "Automate build signing and TestFlight deployment using Fastlane pipelines",
+        "Configure App Store metadata, screenshots, and privacy nutrition labels"
+      ],
+      "feynman_prompts": [
+        "Why is automated code signing (Fastlane Match) critical when collaborating on iOS teams?"
+      ],
+      "key_misconceptions": [
+        "Manually managing development provisioning profiles on individual team laptops"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_ios",
+  "description": "Master iOS Developer with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "iOS Developer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "iOS Developer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "iOS Developer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "iOS Developer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "iOS Developer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

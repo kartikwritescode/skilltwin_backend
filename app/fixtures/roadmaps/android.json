@@ -1,0 +1,519 @@
+{
+  "slug": "android",
+  "title": "Android Developer",
+  "domain": "Mobile Development",
+  "target_role": "Senior Android Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "android",
+    "kotlin",
+    "jetpack compose",
+    "mobile",
+    "coroutines",
+    "hilt",
+    "room",
+    "architecture"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_android_kotlin_basics",
+      "concept_id": "concept_android_kotlin_basics",
+      "title": "Kotlin Language Fundamentals & Idioms",
+      "subtitle": "Variables, null safety, data classes, extension functions, lambdas, smart casts",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Leverage Kotlin null safety (?., ?:, !!) to eliminate NullPointerExceptions",
+        "Write expressive code using extension functions, lambdas, and data classes"
+      ],
+      "feynman_prompts": [
+        "How does Kotlin's compile-time null safety guarantee zero NullPointerExceptions at runtime?"
+      ],
+      "key_misconceptions": [
+        "Overusing the !! force-unwrap operator, reintroducing crash risks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_coroutines_flows",
+      "concept_id": "concept_android_coroutines_flows",
+      "title": "Kotlin Coroutines & Reactive Flows",
+      "subtitle": "Coroutines, dispatchers (Main, IO, Default), viewModelScope, StateFlow vs SharedFlow",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_kotlin_basics"
+      ],
+      "learning_objectives": [
+        "Execute background asynchronous operations without blocking the main UI thread",
+        "Stream reactive state updates using StateFlow and SharedFlow"
+      ],
+      "feynman_prompts": [
+        "Explain the difference between Dispatchers.Main and Dispatchers.IO in Android."
+      ],
+      "key_misconceptions": [
+        "Launching long-running network or database calls on Dispatchers.Main, freezing the UI"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_lifecycles_viewmodel",
+      "concept_id": "concept_android_lifecycles_viewmodel",
+      "title": "Android Architecture & Lifecycle Mechanics",
+      "subtitle": "Activity & Fragment lifecycle, ViewModel, SavedStateHandle, process death",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_kotlin_basics"
+      ],
+      "learning_objectives": [
+        "Manage screen rotation and configuration changes safely using ViewModel",
+        "Restore UI state across system process death with SavedStateHandle"
+      ],
+      "feynman_prompts": [
+        "Why does ViewModel survive device configuration changes (rotations) while Activities are destroyed?"
+      ],
+      "key_misconceptions": [
+        "Storing Activity Context references inside ViewModels, causing permanent memory leaks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_jetpack_compose_ui",
+      "concept_id": "concept_android_jetpack_compose_ui",
+      "title": "Jetpack Compose: Declarative UI Foundations",
+      "subtitle": "Composables, modifier system, Row, Column, Box, LazyColumn for dynamic lists",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_lifecycles_viewmodel"
+      ],
+      "learning_objectives": [
+        "Build modern declarative Android user interfaces with Jetpack Compose",
+        "Implement performant scrollable lists with LazyColumn and itemsIndexed"
+      ],
+      "feynman_prompts": [
+        "How does declarative UI in Compose differ from the legacy imperative XML View system?"
+      ],
+      "key_misconceptions": [
+        "Creating un-memoized heavy objects inside composable functions that re-execute on every recomposition"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_compose_state",
+      "concept_id": "concept_android_compose_state",
+      "title": "Compose State & Recomposition Optimization",
+      "subtitle": "remember, mutableStateOf, derivedStateOf, recomposition scopes, state hoisting",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_jetpack_compose_ui"
+      ],
+      "learning_objectives": [
+        "Manage unidirectional data flow with state hoisting in composables",
+        "Optimize performance by minimizing unnecessary recompositions using derivedStateOf"
+      ],
+      "feynman_prompts": [
+        "Explain why state hoisting makes composables reusable, testable, and previewable."
+      ],
+      "key_misconceptions": [
+        "Mutating standard Kotlin variables directly, expecting Compose to detect changes without mutableStateOf"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_navigation_compose",
+      "concept_id": "concept_android_navigation_compose",
+      "title": "Jetpack Navigation & Deep Linking",
+      "subtitle": "Navigation Compose, NavHost, type-safe route arguments, deep link handling",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_android_compose_state"
+      ],
+      "learning_objectives": [
+        "Configure type-safe navigation graphs and handle screen back stacks cleanly",
+        "Handle incoming deep links and route directly into nested application screens"
+      ],
+      "feynman_prompts": [
+        "How does Navigation Compose maintain separate ViewModel instances per destination back stack entry?"
+      ],
+      "key_misconceptions": [
+        "Passing complex large objects through navigation arguments instead of passing unique IDs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_hilt_di",
+      "concept_id": "concept_android_hilt_di",
+      "title": "Dependency Injection with Hilt",
+      "subtitle": "@HiltAndroidApp, @AndroidEntryPoint, @Inject, @Module, scopes (@Singleton, @ViewModelScoped)",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_lifecycles_viewmodel"
+      ],
+      "learning_objectives": [
+        "Decouple application components using compile-time dependency injection with Hilt",
+        "Scope dependencies accurately to ViewModels and application lifecycles"
+      ],
+      "feynman_prompts": [
+        "Why is dependency injection essential for writing unit tests in Android applications?"
+      ],
+      "key_misconceptions": [
+        "Injecting Activity-scoped dependencies into Singleton services, causing memory leaks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_room_sqlite",
+      "concept_id": "concept_android_room_sqlite",
+      "title": "Offline Persistence with Room Database",
+      "subtitle": "Entities, DAOs, RoomDatabase, type converters, migrations, reactive Flow queries",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_hilt_di"
+      ],
+      "learning_objectives": [
+        "Persist structured application data offline using Room SQLite abstractions",
+        "Observe real-time database changes reactively using Kotlin Flows"
+      ],
+      "feynman_prompts": [
+        "Why should Room database queries always be executed off the main thread?"
+      ],
+      "key_misconceptions": [
+        "Accessing Room database instances synchronously on the main thread, causing ANR crashes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_retrofit_networking",
+      "concept_id": "concept_android_retrofit_networking",
+      "title": "Networking: Retrofit, OkHttp & Serialization",
+      "subtitle": "Retrofit interfaces, OkHttp interceptors, Kotlinx.serialization, error handling",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_hilt_di"
+      ],
+      "learning_objectives": [
+        "Define clean REST API interfaces and deserialize JSON payloads",
+        "Implement OkHttp interceptors for auth token injection and retry policies"
+      ],
+      "feynman_prompts": [
+        "How do OkHttp interceptors enable centralized authentication header management?"
+      ],
+      "key_misconceptions": [
+        "Parsing JSON payloads manually inside UI composables"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_workmanager_tasks",
+      "concept_id": "concept_android_workmanager_tasks",
+      "title": "Background Work with WorkManager",
+      "subtitle": "PeriodicWorkRequest, OneTimeWorkRequest, constraints (network, battery), chaining tasks",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_android_room_sqlite"
+      ],
+      "learning_objectives": [
+        "Schedule guaranteed background synchronization tasks that survive device reboots",
+        "Enforce battery and network constraints on background workers"
+      ],
+      "feynman_prompts": [
+        "Why is WorkManager preferred for deferrable guaranteed work over Foreground Services?"
+      ],
+      "key_misconceptions": [
+        "Using raw background threads for tasks that must complete even if the app process is terminated"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_material3_theming",
+      "concept_id": "concept_android_material3_theming",
+      "title": "Material Design 3 & Dynamic Theming",
+      "subtitle": "Material 3 design tokens, dynamic color, typography, shape schemes, dark mode",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "beginner",
+      "order": 11,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_android_compose_state"
+      ],
+      "learning_objectives": [
+        "Implement Material Design 3 dynamic theming adapting to Android 12+ wallpaper colors",
+        "Support seamless light and dark mode switching with high accessibility contrast"
+      ],
+      "feynman_prompts": [
+        "How does Material Design 3 dynamic color generation work on modern Android devices?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding static hex color codes directly into composable UI widgets"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_clean_architecture_mvvm",
+      "concept_id": "concept_android_clean_architecture_mvvm",
+      "title": "Clean Architecture & MVVM Repository Pattern",
+      "subtitle": "Presentation, Domain (Use Cases), Data layers, repository pattern, boundary separation",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_android_retrofit_networking"
+      ],
+      "learning_objectives": [
+        "Structure enterprise Android codebases into Clean Architecture layers",
+        "Encapsulate complex multi-source business logic inside reusable Use Cases / Interactors"
+      ],
+      "feynman_prompts": [
+        "Why should the Domain layer have zero dependencies on Android framework classes (android.*)?"
+      ],
+      "key_misconceptions": [
+        "Calling repository database methods directly from UI composable functions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_unit_testing_viewmodel",
+      "concept_id": "concept_android_unit_testing_viewmodel",
+      "title": "Android Unit Testing: ViewModels & Use Cases",
+      "subtitle": "JUnit5, Mockk, kotlinx-coroutines-test, TestDispatcher, Turbine for Flows",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_clean_architecture_mvvm"
+      ],
+      "learning_objectives": [
+        "Write fast deterministic unit tests for ViewModels using TestDispatcher",
+        "Test reactive StateFlow emissions deterministically with Turbine"
+      ],
+      "feynman_prompts": [
+        "Why is StandardTestDispatcher necessary to control virtual time in coroutine unit tests?"
+      ],
+      "key_misconceptions": [
+        "Running unit tests against real live network endpoints"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_compose_ui_testing",
+      "concept_id": "concept_android_compose_ui_testing",
+      "title": "Compose UI & End-to-End Testing",
+      "subtitle": "createComposeRule, onNodeWithText, performClick, SemanticsNode assertions",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_compose_state"
+      ],
+      "learning_objectives": [
+        "Write automated UI tests that verify composable hierarchy behavior",
+        "Assert semantics node states and simulate user tap and text input flows"
+      ],
+      "feynman_prompts": [
+        "How do Compose semantic properties allow testing UI without relying on fragile view IDs?"
+      ],
+      "key_misconceptions": [
+        "Testing internal implementation state instead of visible user UI elements"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_performance_leakcanary",
+      "concept_id": "concept_android_performance_leakcanary",
+      "title": "Performance Profiling & Memory Leak Detection",
+      "subtitle": "Android Profiler, LeakCanary, baseline profiles, frame drops (jank), memory allocations",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "advanced",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_android_clean_architecture_mvvm"
+      ],
+      "learning_objectives": [
+        "Detect and eliminate memory leaks using LeakCanary",
+        "Analyze jank and slow frames using Android Studio CPU & Memory Profilers"
+      ],
+      "feynman_prompts": [
+        "How do static Activity context references cause out-of-memory (OOM) crashes in Android?"
+      ],
+      "key_misconceptions": [
+        "Ignoring memory allocation churn inside LazyColumn item composables"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_security_keystore",
+      "concept_id": "concept_android_security_keystore",
+      "title": "Android Security & Keystore Encryption",
+      "subtitle": "Android Keystore, EncryptedSharedPreferences, biometric prompt, certificate pinning",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_retrofit_networking"
+      ],
+      "learning_objectives": [
+        "Store sensitive API tokens securely using hardware-backed Android Keystore",
+        "Implement biometric authentication prompts for sensitive user actions"
+      ],
+      "feynman_prompts": [
+        "Why is hardware-backed Keystore storage immune to extraction even on rooted devices?"
+      ],
+      "key_misconceptions": [
+        "Storing unencrypted API keys or auth tokens in standard SharedPreferences"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_multi_module_architecture",
+      "concept_id": "concept_android_multi_module_architecture",
+      "title": "Multi-Module Android Architecture",
+      "subtitle": "Feature modules, core modules, api/impl separation, build time optimization",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "advanced",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_android_clean_architecture_mvvm"
+      ],
+      "learning_objectives": [
+        "Decompose monolithic Android apps into decoupled Gradle feature modules",
+        "Improve incremental build times and enforce strict architectural boundaries"
+      ],
+      "feynman_prompts": [
+        "What are the benefits of decoupling feature modules using an api/impl module pattern?"
+      ],
+      "key_misconceptions": [
+        "Creating circular dependencies between Gradle feature modules"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_android_play_store_publishing",
+      "concept_id": "concept_android_play_store_publishing",
+      "title": "ProGuard, R8 & Google Play Deployment",
+      "subtitle": "R8 code shrinking, obfuscation rules, App Bundles (.aab), Google Play Console",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_android_multi_module_architecture"
+      ],
+      "learning_objectives": [
+        "Configure R8 ProGuard rules to shrink and obfuscate production APKs safely",
+        "Generate signed Android App Bundles (.aab) and prepare Play Store releases"
+      ],
+      "feynman_prompts": [
+        "Why is code obfuscation and resource shrinking critical before shipping production Android apps?"
+      ],
+      "key_misconceptions": [
+        "Disabling R8 minification to avoid fixing keep rules, shipping bloated and reverse-engineerable apps"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_android",
+  "description": "Master Android Developer with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Android Developer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Android Developer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Android Developer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Android Developer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Android Developer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

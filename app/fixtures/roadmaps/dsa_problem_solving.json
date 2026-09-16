@@ -1,0 +1,517 @@
+{
+  "id": "roadmap_dsa_problem_solving",
+  "slug": "dsa_problem_solving",
+  "title": "Data Structures & Algorithms (Problem Solving)",
+  "description": "Rigorous mastery of DSA patterns for software engineering interviews: Big-O, two-pointers, sliding window, fast/slow pointers, monotonic stacks, backtracking, binary search, trees, graphs, 1D/2D dynamic programming, and tries.",
+  "category": "Computer Science & Problem Solving",
+  "difficulty_level": "intermediate",
+  "estimated_hours": 90,
+  "tags": [
+    "dsa",
+    "algorithms",
+    "data-structures",
+    "dynamic-programming",
+    "graphs",
+    "leetcode",
+    "problem-solving"
+  ],
+  "phases": [
+    {
+      "title": "Complexity & Linear Data Structures",
+      "tier": "foundation",
+      "focus": "Big-O Analysis, Two-Pointers, Sliding Window, Linked Lists & Monotonic Stacks",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Trees, Recursion & Core Algorithms",
+      "tier": "core",
+      "focus": "Backtracking, Hash Tables, Advanced Binary Search, Trees/BFS/DFS & Heaps",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Graphs, DP & Advanced Structures",
+      "tier": "advanced",
+      "focus": "Shortest Paths, 1D & 2D Dynamic Programming, Intervals, Tries & Disjoint Set Union",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Mastery & Technical Interview Capstone",
+      "tier": "capstone",
+      "focus": "Pattern Recognition Taxonomy, Space-Time Trade-offs & Timed Interview Mastery",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_dsa_problem_solving_complexity_analysis_big_o",
+      "concept_id": "concept_dsa_problem_solving_complexity_analysis_big_o",
+      "title": "Complexity Analysis & Big-O Foundations",
+      "subtitle": "Time vs Space complexity, asymptotic analysis (O, Omega, Theta), amortized analysis, recursion tree",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Calculate exact Big-O time and space complexity for iterative and recursive algorithms",
+        "Analyze amortized time complexity for dynamic arrays and hash tables"
+      ],
+      "feynman_prompts": [
+        "Explain the difference between O(1) amortized insertion and O(N) worst-case insertion in a dynamic array."
+      ],
+      "key_misconceptions": [
+        "Assuming that fewer lines of code automatically equals faster Big-O execution time"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_arrays_two_pointers",
+      "concept_id": "concept_dsa_problem_solving_arrays_two_pointers",
+      "title": "Arrays, Strings & Two-Pointer Techniques",
+      "subtitle": "Opposite-direction pointers, same-direction pointers, palindrome verification, trapped rainwater, in-place swaps",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_dsa_problem_solving_complexity_analysis_big_o"
+      ],
+      "learning_objectives": [
+        "Apply two-pointer patterns to solve search and partition problems in O(N) time and O(1) space",
+        "Solve classic problems: Two Sum II, Container With Most Water, In-place Duplicate Removal"
+      ],
+      "feynman_prompts": [
+        "Why is the two-pointer approach optimal for sorted array target search compared to nested loops?"
+      ],
+      "key_misconceptions": [
+        "Allocating extra array memory when an in-place two-pointer swap is achievable"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_sliding_window_prefix_sums",
+      "concept_id": "concept_dsa_problem_solving_sliding_window_prefix_sums",
+      "title": "Sliding Window & Prefix Sum Patterns",
+      "subtitle": "Fixed-size window, dynamic-size window, subarray sum equals K, longest substring without repeats",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_dsa_problem_solving_arrays_two_pointers"
+      ],
+      "learning_objectives": [
+        "Maintain running window state to solve dynamic contiguous subarray and substring problems",
+        "Precompute prefix sum arrays to answer range sum queries in O(1) time"
+      ],
+      "feynman_prompts": [
+        "Explain how the sliding window technique reduces an O(N^2) brute-force check to O(N) linear time."
+      ],
+      "key_misconceptions": [
+        "Recomputing entire window sums from scratch instead of adding incoming and subtracting outgoing elements"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_linked_lists_fast_slow",
+      "concept_id": "concept_dsa_problem_solving_linked_lists_fast_slow",
+      "title": "Linked Lists & Fast/Slow Pointer Pattern",
+      "subtitle": "Singly/doubly linked lists, cycle detection (Floyd's algorithm), middle of list, list reversal",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_dsa_problem_solving_complexity_analysis_big_o"
+      ],
+      "learning_objectives": [
+        "Reverse singly and doubly linked lists iteratively and recursively in O(1) auxiliary space",
+        "Detect cycles and locate cycle entry points using Floyd's Tortoise and Hare algorithm"
+      ],
+      "feynman_prompts": [
+        "Why does Floyd's fast/slow pointer algorithm guarantee meeting inside a cycle?"
+      ],
+      "key_misconceptions": [
+        "Losing reference pointers during node swaps, causing memory leaks or infinite loops"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_stacks_queues_monotonic",
+      "concept_id": "concept_dsa_problem_solving_stacks_queues_monotonic",
+      "title": "Stacks, Queues & Monotonic Stack Patterns",
+      "subtitle": "LIFO/FIFO mechanics, parentheses matching, monotonic increasing/decreasing stacks, next greater element",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_dsa_problem_solving_linked_lists_fast_slow"
+      ],
+      "learning_objectives": [
+        "Utilize monotonic stacks to find Next Greater Element and Largest Rectangle in Histogram in O(N)",
+        "Implement queue functionality using two stacks with amortized O(1) operations"
+      ],
+      "feynman_prompts": [
+        "Explain how a monotonic stack maintains sorted order while finding nearest greater elements."
+      ],
+      "key_misconceptions": [
+        "Using nested loops to search for next greater elements, resulting in O(N^2) timeouts"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_recursion_backtracking",
+      "concept_id": "concept_dsa_problem_solving_recursion_backtracking",
+      "title": "Recursion & Combinatorial Backtracking",
+      "subtitle": "Recursion stack, call frames, permutations, subsets, combination sum, N-Queens, pruning state trees",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_dsa_problem_solving_stacks_queues_monotonic"
+      ],
+      "learning_objectives": [
+        "Model problem search spaces as state trees and prune invalid search paths early",
+        "Generate all permutations, subsets, and combinations with correct backtracking state restoration"
+      ],
+      "feynman_prompts": [
+        "What is backtracking state restoration and why must changes be undone after the recursive call?"
+      ],
+      "key_misconceptions": [
+        "Passing copies of large arrays at every recursion step instead of backtracking in-place"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_hashing_collision_resolution",
+      "concept_id": "concept_dsa_problem_solving_hashing_collision_resolution",
+      "title": "Hash Tables & Hash Map Optimization",
+      "subtitle": "Hash functions, collision resolution (chaining vs open addressing), load factor, amortized lookup",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 7,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_dsa_problem_solving_complexity_analysis_big_o"
+      ],
+      "learning_objectives": [
+        "Analyze how hash table resizing and load factor impact amortized O(1) operations",
+        "Leverage hash maps and sets for frequency counting and O(1) membership lookups"
+      ],
+      "feynman_prompts": [
+        "What happens to hash table performance when a bad hash function produces frequent collisions?"
+      ],
+      "key_misconceptions": [
+        "Assuming hash table operations are strictly O(1) in the worst-case (they degrade to O(N))"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_binary_search_advanced",
+      "concept_id": "concept_dsa_problem_solving_binary_search_advanced",
+      "title": "Binary Search & Search Space Reduction",
+      "subtitle": "Binary search template, search in rotated sorted array, binary search on answer space (Koko eating bananas)",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_dsa_problem_solving_arrays_two_pointers"
+      ],
+      "learning_objectives": [
+        "Apply binary search templates avoiding off-by-one errors (left <= right vs left < right)",
+        "Solve optimization problems using binary search on answer spaces (monotonic feasibility functions)"
+      ],
+      "feynman_prompts": [
+        "How do you recognize when a problem can be solved by binary search on the answer space?"
+      ],
+      "key_misconceptions": [
+        "Calculating midpoint using `(left + right) / 2` which can cause integer overflow in languages like C++/Java"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_trees_binary_search_trees",
+      "concept_id": "concept_dsa_problem_solving_trees_binary_search_trees",
+      "title": "Binary Trees & Tree Traversals (DFS / BFS)",
+      "subtitle": "Pre/in/post-order traversals, level-order BFS, BST properties, Lowest Common Ancestor (LCA), diameter",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_dsa_problem_solving_recursion_backtracking"
+      ],
+      "learning_objectives": [
+        "Implement iterative and recursive DFS and queue-based BFS level-order traversals",
+        "Validate binary search trees and find lowest common ancestors in O(H) time"
+      ],
+      "feynman_prompts": [
+        "Why does an in-order traversal of a Binary Search Tree always yield values in sorted order?"
+      ],
+      "key_misconceptions": [
+        "Confusing binary trees with binary search trees"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_heaps_priority_queues",
+      "concept_id": "concept_dsa_problem_solving_heaps_priority_queues",
+      "title": "Heaps & Priority Queues (Top-K Patterns)",
+      "subtitle": "Min-heap vs max-heap, heapify, finding Kth largest, median of a data stream, merge K sorted lists",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_dsa_problem_solving_trees_binary_search_trees"
+      ],
+      "learning_objectives": [
+        "Solve Top-K frequent elements and streaming median problems in O(N log K) time",
+        "Construct heaps from raw arrays in O(N) linear time using bottom-up heapify"
+      ],
+      "feynman_prompts": [
+        "Why does building a heap take O(N) time while inserting N elements one-by-one takes O(N log N)?"
+      ],
+      "key_misconceptions": [
+        "Sorting an entire array of N elements in O(N log N) when only top K elements are needed"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_graphs_traversals_bfs_dfs",
+      "concept_id": "concept_dsa_problem_solving_graphs_traversals_bfs_dfs",
+      "title": "Graph Foundations & Traversals (BFS / DFS)",
+      "subtitle": "Adjacency matrix vs list, connected components, cycle detection in directed/undirected graphs, bipartite graphs",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_dsa_problem_solving_trees_binary_search_trees"
+      ],
+      "learning_objectives": [
+        "Traverse directed and undirected graphs using BFS and DFS while tracking visited states",
+        "Detect cycles in directed graphs using 3-color DFS (unvisited, visiting, visited)"
+      ],
+      "feynman_prompts": [
+        "What happens if you forget to mark nodes as visited during graph BFS or DFS?"
+      ],
+      "key_misconceptions": [
+        "Assuming graphs are always connected or acyclic without checking"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_graph_algorithms_shortest_path",
+      "concept_id": "concept_dsa_problem_solving_graph_algorithms_shortest_path",
+      "title": "Shortest Paths & Topological Sort",
+      "subtitle": "Dijkstra's algorithm, Kahn's algorithm (topological sort), course schedule, Bellman-Ford basics",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_dsa_problem_solving_graphs_traversals_bfs_dfs",
+        "concept_dsa_problem_solving_heaps_priority_queues"
+      ],
+      "learning_objectives": [
+        "Implement Dijkstra's algorithm with a priority queue to find shortest paths in weighted graphs",
+        "Detect dependency cycles and establish build orders using Kahn's topological sort"
+      ],
+      "feynman_prompts": [
+        "Why does Dijkstra's algorithm fail when edges have negative weights?"
+      ],
+      "key_misconceptions": [
+        "Attempting to use simple BFS to find shortest paths on graphs with varying edge weights"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_dynamic_programming_1d",
+      "concept_id": "concept_dsa_problem_solving_dynamic_programming_1d",
+      "title": "Dynamic Programming: 1D Memoization & Tabulation",
+      "subtitle": "Optimal substructure, overlapping subproblems, top-down memoization vs bottom-up tabulation, space optimization",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_dsa_problem_solving_recursion_backtracking"
+      ],
+      "learning_objectives": [
+        "Identify optimal substructure and overlapping subproblems in recursive formulations",
+        "Transition from exponential recursion to linear O(N) DP with O(1) space optimization (Climbing Stairs, House Robber)"
+      ],
+      "feynman_prompts": [
+        "Explain how memoization eliminates redundant recursive recalculations."
+      ],
+      "key_misconceptions": [
+        "Memorizing solutions without writing down the explicit mathematical recurrence relation first"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_dynamic_programming_2d",
+      "concept_id": "concept_dsa_problem_solving_dynamic_programming_2d",
+      "title": "Dynamic Programming: 2D Grids & Strings",
+      "subtitle": "Grid paths, Longest Common Subsequence (LCS), Edit Distance, 0/1 Knapsack, unbounded knapsack",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 40,
+      "prerequisites": [
+        "concept_dsa_problem_solving_dynamic_programming_1d"
+      ],
+      "learning_objectives": [
+        "Solve 2D grid pathfinding and string edit distance problems using 2D tabulation matrices",
+        "Optimize 2D dynamic programming memory consumption from O(M*N) to O(N) rolling arrays"
+      ],
+      "feynman_prompts": [
+        "Walk through the recurrence relation for Edit Distance (Insert, Delete, Replace)."
+      ],
+      "key_misconceptions": [
+        "Mixing up row and column indices when referencing prior subproblem states"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_intervals_greedy_algorithms",
+      "concept_id": "concept_dsa_problem_solving_intervals_greedy_algorithms",
+      "title": "Interval Scheduling & Greedy Algorithms",
+      "subtitle": "Interval merging, meeting rooms, non-overlapping intervals, greedy choice property vs DP",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_dsa_problem_solving_arrays_two_pointers"
+      ],
+      "learning_objectives": [
+        "Sort intervals by start or end times to solve interval overlap and consolidation problems",
+        "Determine when a greedy local choice guarantees global optimality versus when DP is required"
+      ],
+      "feynman_prompts": [
+        "Why must intervals be sorted by end time in the activity selection greedy algorithm?"
+      ],
+      "key_misconceptions": [
+        "Assuming a greedy algorithm works without proving the greedy-choice property"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_trie_string_matching",
+      "concept_id": "concept_dsa_problem_solving_trie_string_matching",
+      "title": "Trie (Prefix Tree) & String Matching",
+      "subtitle": "Trie node architecture, insert/search/startsWith, autocomplete, Word Search II, KMP overview",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_dsa_problem_solving_trees_binary_search_trees"
+      ],
+      "learning_objectives": [
+        "Build prefix trees (Trie) supporting O(L) prefix search, auto-completion, and wildcard matching",
+        "Combine Tries with backtracking DFS to solve multi-word grid search problems efficiently"
+      ],
+      "feynman_prompts": [
+        "Why is a Trie faster than a hash set for prefix queries like 'startsWith(str)'?"
+      ],
+      "key_misconceptions": [
+        "Creating unindexed string slices repeatedly, resulting in severe memory allocation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_union_find_disjoint_sets",
+      "concept_id": "concept_dsa_problem_solving_union_find_disjoint_sets",
+      "title": "Disjoint Set Union (DSU) & Union-Find",
+      "subtitle": "Find with path compression, Union by rank/size, Kruskal's Minimum Spanning Tree, redundant connections",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_dsa_problem_solving_graphs_traversals_bfs_dfs"
+      ],
+      "learning_objectives": [
+        "Implement Disjoint Set Union with path compression and union by rank achieving near O(1) alpha(N)",
+        "Detect redundant graph connections and find Minimum Spanning Trees using Kruskal's algorithm"
+      ],
+      "feynman_prompts": [
+        "Explain how path compression flattens the tree during find operations to achieve amortized O(1)."
+      ],
+      "key_misconceptions": [
+        "Performing naive union operations without tracking tree rank, creating degenerate O(N) linked lists"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_dsa_problem_solving_dsa_mastery_capstone",
+      "concept_id": "concept_dsa_problem_solving_dsa_mastery_capstone",
+      "title": "Advanced Problem-Solving Strategy & Interview Mastery",
+      "subtitle": "Pattern recognition taxonomy, space-time trade-offs, edge-case checklist, mock interview performance",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 40,
+      "prerequisites": [
+        "concept_dsa_problem_solving_dynamic_programming_2d",
+        "concept_dsa_problem_solving_union_find_disjoint_sets",
+        "concept_dsa_problem_solving_graph_algorithms_shortest_path"
+      ],
+      "learning_objectives": [
+        "Rapidly categorize unseen problems into core algorithmic patterns within 3 minutes",
+        "Write clean, bug-free, production-quality code under timed interview pressure with full test verification"
+      ],
+      "feynman_prompts": [
+        "How do you systematically debug a failing test case during a live coding technical interview?"
+      ],
+      "key_misconceptions": [
+        "Jumping immediately into writing code before dry-running edge cases and stating complexity"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior Data Structures & Algorithms (Problem Solving)"
+}

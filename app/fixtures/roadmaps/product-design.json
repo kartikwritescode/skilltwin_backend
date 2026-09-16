@@ -1,0 +1,517 @@
+{
+  "id": "roadmap_product_design",
+  "slug": "product-design",
+  "title": "Product Designer",
+  "description": "Master modern digital product design from design thinking, typography, and design systems to high-fidelity prototyping, user research, DesignOps, and executive strategy.",
+  "category": "Design & Product",
+  "difficulty_level": "intermediate",
+  "estimated_hours": 85,
+  "tags": [
+    "figma",
+    "design-systems",
+    "ux-design",
+    "prototyping",
+    "designops",
+    "accessibility"
+  ],
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundation",
+      "focus": "Design Thinking, Visual Hierarchy, Typography, Color & Figma Mastery",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core Product Design",
+      "tier": "core",
+      "focus": "Design Systems, Low-Fi Wireframing, User Research, Interaction & Mobile Patterns",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Advanced Systems & Strategy",
+      "tier": "advanced",
+      "focus": "Developer Handoff, DesignOps, Quantitative Analytics, Enterprise & AI UX",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Mastery & Executive Impact",
+      "tier": "capstone",
+      "focus": "Design Strategy, ROI Alignment, and Portfolio Case Study Storytelling",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_product-design_design_thinking_foundations",
+      "concept_id": "concept_product-design_design_thinking_foundations",
+      "title": "Design Thinking & Problem Framing",
+      "subtitle": "Empathize, Define, Ideate, Prototype, Test, double diamond model",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Apply the Double Diamond framework to diverge on problem space and converge on solutions",
+        "Formulate clear 'How Might We' (HMW) statements"
+      ],
+      "feynman_prompts": [
+        "Explain the Double Diamond design process to a non-designer."
+      ],
+      "key_misconceptions": [
+        "Jumping immediately into visual solutions before deeply framing the core user problem"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_visual_hierarchy_typography",
+      "concept_id": "concept_product-design_visual_hierarchy_typography",
+      "title": "Visual Hierarchy, Typography & Layout",
+      "subtitle": "Scale, contrast, whitespace, modular type scales, vertical rhythm, 8pt grid",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_product-design_design_thinking_foundations"
+      ],
+      "learning_objectives": [
+        "Establish visual hierarchy using contrast, scale, and typographic pairing",
+        "Implement an 8-point spatial grid system across screen layouts"
+      ],
+      "feynman_prompts": [
+        "How does whitespace guide a user's eye more effectively than lines and borders?"
+      ],
+      "key_misconceptions": [
+        "Treating whitespace as empty wasted space rather than an active design element"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_color_theory_accessibility",
+      "concept_id": "concept_product-design_color_theory_accessibility",
+      "title": "Color Systems & Accessibility (WCAG)",
+      "subtitle": "Color psychology, HSL palettes, semantic tokens, WCAG 2.1 AA/AAA contrast ratios",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_product-design_visual_hierarchy_typography"
+      ],
+      "learning_objectives": [
+        "Construct accessible light and dark mode palettes with proper contrast ratios",
+        "Define semantic color tokens (surface, primary, error, success)"
+      ],
+      "feynman_prompts": [
+        "Why is using color alone insufficient to convey state or error in UI?"
+      ],
+      "key_misconceptions": [
+        "Assuming that attractive color palettes automatically satisfy accessibility requirements"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_figma_mastery",
+      "concept_id": "concept_product-design_figma_mastery",
+      "title": "Figma Fundamentals & Auto Layout",
+      "subtitle": "Frames vs groups, constraints, Auto Layout v5, component properties, variants",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-design_visual_hierarchy_typography"
+      ],
+      "learning_objectives": [
+        "Build fully responsive UI components utilizing nested Auto Layout",
+        "Configure component properties, variants, and boolean toggles"
+      ],
+      "feynman_prompts": [
+        "Explain how Auto Layout mirrors CSS Flexbox in web development."
+      ],
+      "key_misconceptions": [
+        "Using manual absolute positioning and groups instead of responsive Auto Layout"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_design_systems_tokens",
+      "concept_id": "concept_product-design_design_systems_tokens",
+      "title": "Design Systems & Design Tokens",
+      "subtitle": "Atomic design (atoms, molecules, organisms), design tokens, naming conventions, versioning",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-design_figma_mastery",
+        "concept_product-design_color_theory_accessibility"
+      ],
+      "learning_objectives": [
+        "Structure a scalable design system using Atomic Design hierarchy",
+        "Define and export platform-agnostic design tokens (JSON/CSS/Variables)"
+      ],
+      "feynman_prompts": [
+        "What is the role of design tokens in bridging Figma components with production frontend code?"
+      ],
+      "key_misconceptions": [
+        "Viewing a design system as merely a UI component sticker sheet rather than living infrastructure"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_wireframing_lofi",
+      "concept_id": "concept_product-design_wireframing_lofi",
+      "title": "Information Architecture & Low-Fidelity Wireframing",
+      "subtitle": "Site maps, user flows, content hierarchy, rapid grayscale wireframing",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 6,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_product-design_design_thinking_foundations"
+      ],
+      "learning_objectives": [
+        "Map complex multi-step application flows using standardized flow diagrams",
+        "Produce clear low-fidelity wireframes that focus on structure over decoration"
+      ],
+      "feynman_prompts": [
+        "Why should low-fidelity wireframes avoid color and detailed typography?"
+      ],
+      "key_misconceptions": [
+        "Designing high-fidelity screens before validating user flow and information architecture"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_user_research_discovery",
+      "concept_id": "concept_product-design_user_research_discovery",
+      "title": "User Research & Generative Discovery",
+      "subtitle": "1:1 user interviews, surveys, affinity mapping, empathy maps, journey mapping",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-design_wireframing_lofi"
+      ],
+      "learning_objectives": [
+        "Conduct unbiased generative user interviews without leading questions",
+        "Synthesize qualitative interview notes into affinity clusters and persona archetypes"
+      ],
+      "feynman_prompts": [
+        "Why are 'Would you buy this?' survey questions notoriously unreliable in user research?"
+      ],
+      "key_misconceptions": [
+        "Confusing what users say they want with their actual observed underlying behaviors"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_interaction_design_patterns",
+      "concept_id": "concept_product-design_interaction_design_patterns",
+      "title": "Interaction Design & UI Patterns",
+      "subtitle": "Affordances, signifiers, mental models, navigation paradigms, input forms",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-design_figma_mastery",
+        "concept_product-design_wireframing_lofi"
+      ],
+      "learning_objectives": [
+        "Choose optimal navigation patterns (tabs, drawers, breadcrumbs) based on content depth",
+        "Design intuitive form validation and progressive disclosure workflows"
+      ],
+      "feynman_prompts": [
+        "What is the difference between an affordance and a signifier in digital UI?"
+      ],
+      "key_misconceptions": [
+        "Reinventing standard UI patterns (like form inputs or checkboxes) at the expense of usability"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_microinteractions_motion",
+      "concept_id": "concept_product-design_microinteractions_motion",
+      "title": "Micro-Interactions & UI Motion Principles",
+      "subtitle": "Easing curves, choreography, duration, feedback states, Lottie animations",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-design_interaction_design_patterns"
+      ],
+      "learning_objectives": [
+        "Design meaningful micro-interactions that provide instant system feedback",
+        "Specify cubic-bezier easing curves and animation timing for developers"
+      ],
+      "feynman_prompts": [
+        "How does UI motion convey spatial relationships between screens?"
+      ],
+      "key_misconceptions": [
+        "Adding excessive, slow decorative animations that hinder task completion speed"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_prototyping_usability",
+      "concept_id": "concept_product-design_prototyping_usability",
+      "title": "Interactive Prototyping & Usability Testing",
+      "subtitle": "Interactive Figma prototypes, smart animate, task-based usability testing, think-aloud protocol",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_product-design_microinteractions_motion",
+        "concept_product-design_user_research_discovery"
+      ],
+      "learning_objectives": [
+        "Build high-fidelity prototypes with realistic variables and micro-interactions",
+        "Facilitate unmoderated and moderated usability testing using think-aloud method"
+      ],
+      "feynman_prompts": [
+        "How do you differentiate a usability issue from a visual preference during testing?"
+      ],
+      "key_misconceptions": [
+        "Defending your design during a usability test instead of observing where the user struggles"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_mobile_responsive_patterns",
+      "concept_id": "concept_product-design_mobile_responsive_patterns",
+      "title": "Mobile App UI & Responsive Web Patterns",
+      "subtitle": "iOS Human Interface Guidelines (HIG), Android Material Design 3, touch targets, gestures",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-design_interaction_design_patterns"
+      ],
+      "learning_objectives": [
+        "Design native mobile experiences respecting iOS and Android platform conventions",
+        "Ensure all interactive tap targets exceed 48x48dp minimum requirements"
+      ],
+      "feynman_prompts": [
+        "Explain the key differences in navigation paradigms between iOS and Android."
+      ],
+      "key_misconceptions": [
+        "Treating mobile design as merely shrinking desktop screens down without native ergonomics"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_developer_handoff",
+      "concept_id": "concept_product-design_developer_handoff",
+      "title": "Design-to-Code Developer Handoff & Specs",
+      "subtitle": "Inspect mode, redlining, edge cases, responsive breakpoints, token documentation",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_product-design_design_systems_tokens",
+        "concept_product-design_figma_mastery"
+      ],
+      "learning_objectives": [
+        "Document empty states, error states, and extreme text length edge cases for engineers",
+        "Conduct design QA sessions on staging builds to catch visual regressions"
+      ],
+      "feynman_prompts": [
+        "Why is documenting edge cases (like 500-char names or network failure) critical during handoff?"
+      ],
+      "key_misconceptions": [
+        "Handing off only happy-path static mockups without responsive rules or error states"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_data_driven_design",
+      "concept_id": "concept_product-design_data_driven_design",
+      "title": "Product Analytics & Quantitative UX Metrics",
+      "subtitle": "SUS (System Usability Scale), CES, NPS, funnels, heatmaps, A/B testing visuals",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-design_prototyping_usability"
+      ],
+      "learning_objectives": [
+        "Evaluate usability quantitative scores (SUS, SEQ) alongside qualitative findings",
+        "Formulate design hypotheses for split-testing UI conversion funnels"
+      ],
+      "feynman_prompts": [
+        "Explain the complementary relationship between qualitative interviews and quantitative telemetry."
+      ],
+      "key_misconceptions": [
+        "Relying purely on A/B testing without understanding why users behaved that way"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_design_ops_governance",
+      "concept_id": "concept_product-design_design_ops_governance",
+      "title": "DesignOps & System Governance at Scale",
+      "subtitle": "Component library contribution models, deprecation lifecycles, cross-team design parity",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_product-design_developer_handoff"
+      ],
+      "learning_objectives": [
+        "Manage design system version releases without breaking downstream consumer files",
+        "Establish contribution guidelines for cross-functional design updates"
+      ],
+      "feynman_prompts": [
+        "How does DesignOps prevent design systems from becoming stale and abandoned?"
+      ],
+      "key_misconceptions": [
+        "Assuming a design system is static once built rather than an evolving product"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_enterprise_ux_complex_systems",
+      "concept_id": "concept_product-design_enterprise_ux_complex_systems",
+      "title": "Enterprise UX & Data-Dense Dashboards",
+      "subtitle": "Tables, filters, bulk actions, data visualization, role-based interfaces",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_product-design_interaction_design_patterns"
+      ],
+      "learning_objectives": [
+        "Design complex data tables with column customization, sorting, and pagination",
+        "Display multi-dimensional analytical charts while maintaining cognitive clarity"
+      ],
+      "feynman_prompts": [
+        "How do user workflows differ in consumer apps versus enterprise productivity tools?"
+      ],
+      "key_misconceptions": [
+        "Over-simplifying enterprise dashboards by hiding critical operational data under endless clicks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_ai_ux_patterns",
+      "concept_id": "concept_product-design_ai_ux_patterns",
+      "title": "Designing for AI & LLM Interfaces",
+      "subtitle": "Chat vs canvas, prompt suggestions, latency skeletons, confidence scores, human-in-the-loop",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-design_interaction_design_patterns"
+      ],
+      "learning_objectives": [
+        "Design generative AI interfaces that convey probabilistic results and hallucination warnings",
+        "Implement streaming token text states and graceful failure fallbacks"
+      ],
+      "feynman_prompts": [
+        "How do you establish user trust in non-deterministic AI application outputs?"
+      ],
+      "key_misconceptions": [
+        "Treating AI as a magic black box without giving users controls to inspect or edit output"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_design_strategy_business",
+      "concept_id": "concept_product-design_design_strategy_business",
+      "title": "Product Design Strategy & Business Impact",
+      "subtitle": "Design ROI, monetization UX, onboarding funnels, stakeholder alignment",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_product-design_data_driven_design"
+      ],
+      "learning_objectives": [
+        "Tie design improvements directly to business metrics (retention, CAC, ARPU)",
+        "Present design decisions persuasively to C-suite and engineering leaders"
+      ],
+      "feynman_prompts": [
+        "How do you justify redesigning a legacy technical workflow to executive stakeholders?"
+      ],
+      "key_misconceptions": [
+        "Arguing for design changes based on aesthetic taste rather than user and business impact"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-design_portfolio_case_study",
+      "concept_id": "concept_product-design_portfolio_case_study",
+      "title": "Portfolio Presentation & Case Study Storytelling",
+      "subtitle": "Problem-solution-impact storytelling, design rationale, trade-off presentation",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-design_design_strategy_business"
+      ],
+      "learning_objectives": [
+        "Structure comprehensive case studies highlighting research, iterations, and metrics",
+        "Articulate design trade-offs and team collaboration effectively in interviews"
+      ],
+      "feynman_prompts": [
+        "Why is showing discarded iterations more impressive in a portfolio than only polished mockups?"
+      ],
+      "key_misconceptions": [
+        "Presenting a portfolio as a gallery of final Dribbble shots without problem context or metrics"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior Product Designer"
+}

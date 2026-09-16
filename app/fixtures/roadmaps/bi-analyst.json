@@ -1,0 +1,519 @@
+{
+  "slug": "bi-analyst",
+  "title": "BI Analyst",
+  "domain": "Business Intelligence",
+  "target_role": "Senior Business Intelligence Analyst",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "bi-analyst",
+    "power-bi",
+    "tableau",
+    "dax",
+    "sql",
+    "kpis",
+    "dashboards",
+    "data-warehousing"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_bi-analyst_bi_fundamentals_kpis",
+      "concept_id": "concept_bi-analyst_bi_fundamentals_kpis",
+      "title": "Business Intelligence Foundations & Strategy",
+      "subtitle": "BI lifecycle, executive KPIs, translating business questions into metrics, data literacy",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Define leading vs lagging KPIs for commercial business units",
+        "Conduct stakeholder discovery interviews to identify core decision bottlenecks"
+      ],
+      "feynman_prompts": [
+        "What is the difference between a leading indicator and a lagging indicator in business metrics?"
+      ],
+      "key_misconceptions": [
+        "Measuring vanity metrics (total page views) instead of actionable business value drivers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_relational_dimensional_modeling",
+      "concept_id": "concept_bi-analyst_relational_dimensional_modeling",
+      "title": "Dimensional Modeling: Fact & Dimension Tables",
+      "subtitle": "Kimball methodology, star schema, snowflake schema, slowly changing dimensions (SCD)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_bi-analyst_bi_fundamentals_kpis"
+      ],
+      "learning_objectives": [
+        "Design enterprise dimensional models separating business events (facts) from context (dimensions)",
+        "Implement Slowly Changing Dimensions (SCD Type 1 vs Type 2) to preserve historical data"
+      ],
+      "feynman_prompts": [
+        "Why does a Star Schema dramatically outperform a normalized 3NF schema for BI reporting?"
+      ],
+      "key_misconceptions": [
+        "Joining transactional tables directly in BI dashboards without dimensional modeling"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_sql_bi_aggregations",
+      "concept_id": "concept_bi-analyst_sql_bi_aggregations",
+      "title": "Advanced SQL for Business Intelligence",
+      "subtitle": "Aggregations, window functions, conditional CASE WHEN expressions, CTEs, self-joins",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_bi-analyst_relational_dimensional_modeling"
+      ],
+      "learning_objectives": [
+        "Write complex analytical SQL calculating customer retention and churn rates",
+        "Structure clean, modular queries using Common Table Expressions (CTEs)"
+      ],
+      "feynman_prompts": [
+        "How do window functions allow calculating percentage contribution to total without self-joins?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding date filters in SQL queries instead of using dynamic parameter functions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_data_warehousing_concepts",
+      "concept_id": "concept_bi-analyst_data_warehousing_concepts",
+      "title": "Data Warehousing Fundamentals (Snowflake/BigQuery)",
+      "subtitle": "Cloud data warehouses, columnar storage, compute/storage separation, partitioning, clustering",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_bi-analyst_sql_bi_aggregations"
+      ],
+      "learning_objectives": [
+        "Analyze how columnar storage optimizes analytical scan queries across terabytes of data",
+        "Configure table partitioning and clustering keys to minimize query scan costs"
+      ],
+      "feynman_prompts": [
+        "Why is columnar storage 100x more efficient for analytical aggregations than row-oriented storage?"
+      ],
+      "key_misconceptions": [
+        "Running SELECT * queries across billion-row partitioned tables without partition filters"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_power_bi_architecture",
+      "concept_id": "concept_bi-analyst_power_bi_architecture",
+      "title": "Power BI: Architecture & Service Ecosystem",
+      "subtitle": "Power BI Desktop, Power BI Service, workspaces, deployment pipelines, app publishing",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 5,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_bi-analyst_relational_dimensional_modeling"
+      ],
+      "learning_objectives": [
+        "Manage Power BI development lifecycles across Dev, Test, and Prod workspaces",
+        "Publish and distribute secure Power BI Apps to enterprise organizational units"
+      ],
+      "feynman_prompts": [
+        "Why should business users consume reports via Power BI Apps rather than editing workspaces directly?"
+      ],
+      "key_misconceptions": [
+        "Giving read/write workspace access to 500 business consumers, risking accidental deletions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_power_bi_data_transformation",
+      "concept_id": "concept_bi-analyst_power_bi_data_transformation",
+      "title": "Power Query (M Language) ETL & Transformation",
+      "subtitle": "Extract, Transform, Load (ETL), data profiling, merging, unpivoting columns, M formulas",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_bi-analyst_power_bi_architecture"
+      ],
+      "learning_objectives": [
+        "Transform un-pivoted monthly spreadsheet data into normalized tabular formats",
+        "Optimize data load performance by leveraging query folding to push operations to the database"
+      ],
+      "feynman_prompts": [
+        "What is Query Folding in Power Query and why is it critical for data refresh performance?"
+      ],
+      "key_misconceptions": [
+        "Performing row-by-row transformations in Power Query that break query folding"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_dax_foundations_measures",
+      "concept_id": "concept_bi-analyst_dax_foundations_measures",
+      "title": "DAX Foundations: Context Transition & Measures",
+      "subtitle": "Row context, filter context, calculated columns vs explicit measures, SUMX, CALCULATE",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_bi-analyst_power_bi_data_transformation"
+      ],
+      "learning_objectives": [
+        "Author performant explicit DAX measures adhering to filter context rules",
+        "Modify filter contexts dynamically using CALCULATE() and FILTER()"
+      ],
+      "feynman_prompts": [
+        "Explain the fundamental difference between row context and filter context in DAX."
+      ],
+      "key_misconceptions": [
+        "Creating dozens of calculated columns that consume gigabytes of model RAM instead of using measures"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_dax_time_intelligence",
+      "concept_id": "concept_bi-analyst_dax_time_intelligence",
+      "title": "Advanced DAX: Time Intelligence & Cohorts",
+      "subtitle": "DATEADD, DATESYTD, SAMEPERIODLASTYEAR, custom 4-4-5 fiscal calendars, cohort retention",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 8,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_bi-analyst_dax_foundations_measures"
+      ],
+      "learning_objectives": [
+        "Build robust Year-to-Date (YTD) and Year-over-Year (YoY) variance measures",
+        "Support complex enterprise fiscal calendars that don't match standard Gregorian years"
+      ],
+      "feynman_prompts": [
+        "Why is a dedicated contiguous Date Dimension table mandatory for DAX time intelligence to work?"
+      ],
+      "key_misconceptions": [
+        "Relying on auto-generated Power BI date hierarchies that bloat model file size"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_tableau_architecture_data_sources",
+      "concept_id": "concept_bi-analyst_tableau_architecture_data_sources",
+      "title": "Tableau Desktop: Architecture & Data Relationships",
+      "subtitle": "Tableau Desktop, hyper extracts vs live connections, relationships (noodles) vs joins",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_bi-analyst_relational_dimensional_modeling"
+      ],
+      "learning_objectives": [
+        "Model flexible data sources using Tableau's logical layer relationships",
+        "Optimize workbook performance by creating scheduled Hyper data extracts"
+      ],
+      "feynman_prompts": [
+        "What is the architectural difference between a live database connection and a Hyper extract in Tableau?"
+      ],
+      "key_misconceptions": [
+        "Using live database connections against slow transactional databases for high-traffic dashboards"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_tableau_advanced_calculations",
+      "concept_id": "concept_bi-analyst_tableau_advanced_calculations",
+      "title": "Tableau Advanced Analytics & LOD Expressions",
+      "subtitle": "Calculated fields, Table Calculations (Direction, Scope), FIXED, INCLUDE, EXCLUDE LODs",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_bi-analyst_tableau_architecture_data_sources"
+      ],
+      "learning_objectives": [
+        "Compute cohort benchmarks using FIXED Level of Detail (LOD) expressions",
+        "Configure complex multi-pass table calculations with customized addressing and partitioning"
+      ],
+      "feynman_prompts": [
+        "Explain how a FIXED LOD expression computes values independently of the visualization's dimensions."
+      ],
+      "key_misconceptions": [
+        "Confusing Table Calculations (computed on client view data) with basic row-level calculations"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_executive_dashboard_design",
+      "concept_id": "concept_bi-analyst_executive_dashboard_design",
+      "title": "Executive Dashboard UX & Information Architecture",
+      "subtitle": "Visual hierarchy, cognitive load, Z-pattern layout, typography, actionable alert widgets",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 11,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_bi-analyst_power_bi_architecture"
+      ],
+      "learning_objectives": [
+        "Design intuitive C-suite executive dashboards that communicate status in under 5 seconds",
+        "Structure information architecture so users can drill down from macro KPI to micro transaction"
+      ],
+      "feynman_prompts": [
+        "Why should an executive dashboard present high-level summary KPIs at the top before details?"
+      ],
+      "key_misconceptions": [
+        "Using 10 different clashing colors across charts instead of consistent semantic color coding"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_bi_data_governance_security",
+      "concept_id": "concept_bi-analyst_bi_data_governance_security",
+      "title": "BI Governance: Row-Level Security (RLS) & Compliance",
+      "subtitle": "Static RLS, dynamic RLS with USERPRINCIPALNAME(), sensitivity labels, data lineage",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_bi-analyst_power_bi_architecture"
+      ],
+      "learning_objectives": [
+        "Enforce dynamic Row-Level Security (RLS) ensuring regional managers only see their own sales",
+        "Track end-to-end data lineage from source database to executive KPI cards"
+      ],
+      "feynman_prompts": [
+        "How does dynamic Row-Level Security restrict data visibility without creating duplicate reports?"
+      ],
+      "key_misconceptions": [
+        "Creating 50 separate copies of a report for 50 regions instead of implementing dynamic RLS"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_automated_refresh_gateways",
+      "concept_id": "concept_bi-analyst_automated_refresh_gateways",
+      "title": "Data Refresh Automation & On-Premises Gateways",
+      "subtitle": "Enterprise gateways, personal gateways, scheduled refresh, incremental refresh policies",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_bi-analyst_power_bi_architecture"
+      ],
+      "learning_objectives": [
+        "Configure high-availability On-Premises Data Gateways connecting cloud BI to internal databases",
+        "Set up incremental data refresh policies that process only new or modified partition data"
+      ],
+      "feynman_prompts": [
+        "Why is incremental refresh essential for multi-hundred-million-row datasets in Power BI?"
+      ],
+      "key_misconceptions": [
+        "Running full historical data refreshes every hour, causing gateway timeouts and database load"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_financial_operational_reporting",
+      "concept_id": "concept_bi-analyst_financial_operational_reporting",
+      "title": "Financial & Operational Modeling for BI",
+      "subtitle": "P&L statement modeling, variance analysis (Actual vs Budget vs Forecast), waterfall charts",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_bi-analyst_dax_time_intelligence"
+      ],
+      "learning_objectives": [
+        "Model dynamic Profit & Loss (P&L) statements with custom subtotal and EBITDA rows",
+        "Visualize budget variance and margin leakage using waterfall charts"
+      ],
+      "feynman_prompts": [
+        "How do you model irregular financial statement line items that don't fit standard relational schemas?"
+      ],
+      "key_misconceptions": [
+        "Attempting to build P&L reports without establishing parent-child account hierarchies"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_predictive_analytics_bi",
+      "concept_id": "concept_bi-analyst_predictive_analytics_bi",
+      "title": "Predictive Analytics & Forecasting in BI",
+      "subtitle": "Time-series forecasting, trend lines, anomaly detection, clustering, what-if parameters",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 15,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_bi-analyst_dax_foundations_measures"
+      ],
+      "learning_objectives": [
+        "Add automated statistical forecasting and confidence intervals to trend charts",
+        "Enable interactive sensitivity analysis using dynamic what-if parameters"
+      ],
+      "feynman_prompts": [
+        "How does automated anomaly detection flag unexpected drops in daily transaction volume?"
+      ],
+      "key_misconceptions": [
+        "Presenting linear regression forecasts as guarantees without explaining confidence bounds"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_stakeholder_management_discovery",
+      "concept_id": "concept_bi-analyst_stakeholder_management_discovery",
+      "title": "Stakeholder Discovery & Requirement Scoping",
+      "subtitle": "User interviews, requirements gathering, mockups, prototype validation, change management",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 16,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_bi-analyst_bi_fundamentals_kpis"
+      ],
+      "learning_objectives": [
+        "Lead effective requirement gathering sessions with non-technical business stakeholders",
+        "Translate ambiguous requests ('I need visibility into sales') into structured metric specs"
+      ],
+      "feynman_prompts": [
+        "Why is showing low-fidelity dashboard wireframes essential before writing SQL or building models?"
+      ],
+      "key_misconceptions": [
+        "Building a finished dashboard over 6 weeks without showing interim drafts to the requesting stakeholder"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_self_service_bi_enablement",
+      "concept_id": "concept_bi-analyst_self_service_bi_enablement",
+      "title": "Self-Service BI Strategy & Center of Excellence",
+      "subtitle": "Curated shared semantic models, certified datasets, training business analysts, COE guidelines",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_bi-analyst_bi_data_governance_security"
+      ],
+      "learning_objectives": [
+        "Publish certified enterprise semantic models empowering business analysts to build self-service reports",
+        "Establish BI Center of Excellence (COE) guidelines preventing duplicate metric definitions"
+      ],
+      "feynman_prompts": [
+        "Why are certified centralized semantic models critical to maintain a 'single source of truth'?"
+      ],
+      "key_misconceptions": [
+        "Allowing 10 departments to write 10 conflicting definitions of 'monthly revenue' in siloed spreadsheets"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_bi-analyst_delivering_actionable_insights",
+      "concept_id": "concept_bi-analyst_delivering_actionable_insights",
+      "title": "Decision Support: From Data to Action",
+      "subtitle": "Insight synthesis, root-cause analysis, executive presentation delivery, tracking ROI of BI",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_bi-analyst_stakeholder_management_discovery"
+      ],
+      "learning_objectives": [
+        "Synthesize dashboard metrics into concise, high-impact weekly executive summaries",
+        "Measure and communicate the tangible business ROI and cost savings generated by BI initiatives"
+      ],
+      "feynman_prompts": [
+        "Why is pointing out an anomaly useless to a business leader without proposing a root cause and next step?"
+      ],
+      "key_misconceptions": [
+        "Delivering data dumps without answering the fundamental business question: 'What should we do now?'"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_bi-analyst",
+  "description": "Master BI Analyst with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "BI Analyst - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "BI Analyst - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "BI Analyst - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "BI Analyst - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "BI Analyst - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

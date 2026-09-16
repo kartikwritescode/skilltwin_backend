@@ -19,6 +19,10 @@ from app.ai.providers.factory import get_llm_provider
 from app.schemas.journeys import JourneyResponse, JourneyNodeResponse
 from app.core.exceptions import EntityNotFoundError
 from app.core.logging import logger
+from app.services.canonical_roadmap_service import (
+    CanonicalRoadmapService,
+    canonical_roadmap_service,
+)
 
 
 class JourneyService:
@@ -38,10 +42,12 @@ class JourneyService:
         journey_repo: JourneyRepository = journey_repository,
         concept_repo: ConceptRepository = concept_repository,
         orchestrator: Optional[MentorOrchestrator] = None,
+        canonical_service: Optional[CanonicalRoadmapService] = None,
     ):
         self.journey_repo = journey_repo
         self.concept_repo = concept_repo
         self.orchestrator = orchestrator or MentorOrchestrator(get_llm_provider())
+        self.canonical_service = canonical_service or canonical_roadmap_service
 
     async def create_journey(self, goal: Goal) -> Journey:
         """Alias for creating initial journey record for a goal."""
@@ -80,57 +86,83 @@ class JourneyService:
             journey.generation_status = GenerationStatus.PROCESSING
             await self.journey_repo.save(journey)
 
-            plan = await self.orchestrator.generate_journey_plan(
+            journey_nodes: List[JourneyNode] = []
+
+            # 1. Check for Canonical Technology Roadmap match via Semantic Embedding Search
+            canonical_match = await self.canonical_service.find_matching_roadmap(
                 goal_title=goal.title,
                 goal_description=goal.description,
-                current_level=goal.current_level,
-                daily_minutes=goal.daily_minutes,
                 target_benchmark=goal.target_benchmark,
+                threshold=0.72,
             )
 
-            journey_nodes: List[JourneyNode] = []
-            order_to_id: Dict[int, str] = {}
-
-            # Phase 1: Create nodes with assigned IDs
-            for idx, n in enumerate(plan.nodes):
-                node_id = f"node_{uuid.uuid4().hex[:8]}"
-                order_to_id[n.order] = node_id
-
-                concept_id = f"concept_{n.concept_name}"
-                existing_concept = await self.concept_repo.get_by_id(concept_id)
-                if not existing_concept:
-                    await self.concept_repo.save(
-                        Concept(
-                            id=concept_id,
-                            name=n.title,
-                            description=n.description,
-                            domain="Software Engineering",
-                        )
-                    )
-
-                # Determine initial state: First node is CURRENT, rest start LOCKED
-                initial_state = NodeState.CURRENT if idx == 0 else NodeState.LOCKED
-                initial_prereqs = [order_to_id[n.order - 1]] if idx > 0 and (n.order - 1) in order_to_id else []
-
-                pos_x = round(0.5 + 0.32 * math.sin(idx * 1.5), 3)
-                pos_y = round(float(idx * 140.0), 1)
-
-                journey_node = JourneyNode(
-                    id=node_id,
-                    journey_id=journey_id,
-                    concept_id=concept_id,
-                    title=n.title,
-                    subtitle=n.description,
-                    phase=n.phase,
-                    order=idx + 1,
-                    state=initial_state,
-                    progress=0,
-                    prerequisites=initial_prereqs,
-                    estimated_minutes=n.estimated_minutes,
-                    position_x=pos_x,
-                    position_y=pos_y,
+            if canonical_match:
+                matched_roadmap, sim_score = canonical_match
+                logger.info(
+                    f"Fast-tracking journey '{journey_id}' via Canonical Roadmap '{matched_roadmap.title}' "
+                    f"(similarity: {sim_score:.3f}). 0 LLM generation tokens consumed."
                 )
-                journey_nodes.append(journey_node)
+                journey_nodes = self.canonical_service.tailor_roadmap_to_nodes(
+                    roadmap=matched_roadmap,
+                    journey_id=journey_id,
+                    current_level=goal.current_level,
+                    daily_minutes=goal.daily_minutes,
+                )
+            else:
+                logger.info(
+                    f"No canonical roadmap matched above threshold for goal '{goal.title}'. "
+                    f"Synthesizing dynamic journey via Gemini Orchestrator."
+                )
+                plan = await self.orchestrator.generate_journey_plan(
+                    goal_title=goal.title,
+                    goal_description=goal.description,
+                    current_level=goal.current_level,
+                    daily_minutes=goal.daily_minutes,
+                    target_benchmark=goal.target_benchmark,
+                )
+
+                order_to_id: Dict[int, str] = {}
+
+                # Phase 1: Create nodes with assigned IDs
+                for idx, n in enumerate(plan.nodes):
+                    node_id = f"node_{uuid.uuid4().hex[:8]}"
+                    order_to_id[n.order] = node_id
+
+                    concept_id = f"concept_{n.concept_name}"
+                    existing_concept = await self.concept_repo.get_by_id(concept_id)
+                    if not existing_concept:
+                        await self.concept_repo.save(
+                            Concept(
+                                id=concept_id,
+                                name=n.title,
+                                description=n.description,
+                                domain="Software Engineering",
+                            )
+                        )
+
+                    # Determine initial state: First node is CURRENT, rest start LOCKED
+                    initial_state = NodeState.CURRENT if idx == 0 else NodeState.LOCKED
+                    initial_prereqs = [order_to_id[n.order - 1]] if idx > 0 and (n.order - 1) in order_to_id else []
+
+                    pos_x = round(0.5 + 0.32 * math.sin(idx * 1.5), 3)
+                    pos_y = round(float(idx * 140.0), 1)
+
+                    journey_node = JourneyNode(
+                        id=node_id,
+                        journey_id=journey_id,
+                        concept_id=concept_id,
+                        title=n.title,
+                        subtitle=n.description,
+                        phase=n.phase,
+                        order=idx + 1,
+                        state=initial_state,
+                        progress=0,
+                        prerequisites=initial_prereqs,
+                        estimated_minutes=n.estimated_minutes,
+                        position_x=pos_x,
+                        position_y=pos_y,
+                    )
+                    journey_nodes.append(journey_node)
 
             journey.title = goal.title
             journey.nodes = journey_nodes

@@ -1,0 +1,520 @@
+{
+  "id": "roadmap_blockchain",
+  "slug": "blockchain",
+  "title": "Blockchain Developer",
+  "description": "Comprehensive curriculum covering cryptography, EVM architecture, Solidity, ERC standards, Foundry, Web3 frontends, smart contract security, DeFi protocols, L2 rollups, and zero-knowledge proofs.",
+  "category": "Web3 & Blockchain",
+  "difficulty_level": "advanced",
+  "estimated_hours": 90,
+  "tags": [
+    "blockchain",
+    "ethereum",
+    "solidity",
+    "evm",
+    "smart-contracts",
+    "defi",
+    "web3",
+    "foundry"
+  ],
+  "phases": [
+    {
+      "title": "Cryptographic & EVM Foundations",
+      "tier": "foundation",
+      "focus": "Cryptography, Merkle Trees, Consensus (PoW/PoS), EVM Gas & State Mechanics",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Smart Contract Core & Tooling",
+      "tier": "core",
+      "focus": "Solidity, ERC Tokens, Foundry/Hardhat, Web3 Frontends & Reentrancy Security",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "DeFi, Oracles & Scaling",
+      "tier": "advanced",
+      "focus": "AMMs, Chainlink Oracles, Layer 2 Rollups, ZKPs, Subgraphs & Smart Contract Auditing",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Governance, MEV & Protocol Capstone",
+      "tier": "capstone",
+      "focus": "DAOs, Multi-Sig Security, MEV Searchers, and Production DApp Launch",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_blockchain_cryptography_foundations",
+      "concept_id": "concept_blockchain_cryptography_foundations",
+      "title": "Cryptographic Foundations of Blockchains",
+      "subtitle": "Cryptographic hashes (SHA-256, Keccak-256), public-key cryptography (secp256k1), digital signatures",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Explain how asymmetric key pairs (private/public key) enable trustless digital signatures",
+        "Analyze cryptographic collision resistance and one-way hash properties"
+      ],
+      "feynman_prompts": [
+        "Explain how digital signatures verify the sender without revealing the private key."
+      ],
+      "key_misconceptions": [
+        "Assuming blockchain encryption hides transaction amounts by default (public blockchains are transparent)"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_distributed_ledger_merkle",
+      "concept_id": "concept_blockchain_distributed_ledger_merkle",
+      "title": "Distributed Ledgers & Merkle Trees",
+      "subtitle": "Blocks, headers, Merkle roots, SPV proofs, transaction immutability, peer-to-peer gossip",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_blockchain_cryptography_foundations"
+      ],
+      "learning_objectives": [
+        "Construct a Merkle tree and generate lightweight cryptographic proofs of inclusion",
+        "Explain how peer-to-peer gossip networks propagate transactions without a central coordinator"
+      ],
+      "feynman_prompts": [
+        "Why does tampering with a transaction in an early block invalidate all subsequent block hashes?"
+      ],
+      "key_misconceptions": [
+        "Believing a Merkle tree stores the entire database rather than cryptographic verification fingerprints"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_consensus_mechanisms",
+      "concept_id": "concept_blockchain_consensus_mechanisms",
+      "title": "Consensus Mechanisms (PoW, PoS & BFT)",
+      "subtitle": "Proof of Work (difficulty adjustment, 51% attack), Proof of Stake (slashing, validators, finality), BFT",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_blockchain_distributed_ledger_merkle"
+      ],
+      "learning_objectives": [
+        "Contrast the resource incentives of Proof of Work with Proof of Stake slashing conditions",
+        "Explain Byzantine Fault Tolerance (BFT) and the 2/3 validator consensus requirement"
+      ],
+      "feynman_prompts": [
+        "What prevents a rich validator from reversing transactions in Proof of Stake?"
+      ],
+      "key_misconceptions": [
+        "Assuming Proof of Stake has zero environmental or financial security cost"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_ethereum_evm_architecture",
+      "concept_id": "concept_blockchain_ethereum_evm_architecture",
+      "title": "Ethereum & EVM Architecture",
+      "subtitle": "EVM state machine, gas mechanics, opcodes, memory vs storage vs calldata, account model vs UTXO",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_blockchain_consensus_mechanisms"
+      ],
+      "learning_objectives": [
+        "Model Ethereum state transitions, account nonce management, and gas calculation",
+        "Distinguish EVM memory (ephemeral) from storage (persistent, expensive) and calldata (read-only)"
+      ],
+      "feynman_prompts": [
+        "Why is writing to EVM storage significantly more expensive in gas than reading from memory?"
+      ],
+      "key_misconceptions": [
+        "Confusing Bitcoin's UTXO model with Ethereum's account-based state model"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_solidity_fundamentals",
+      "concept_id": "concept_blockchain_solidity_fundamentals",
+      "title": "Solidity Smart Contract Fundamentals",
+      "subtitle": "Data types, mappings, structs, modifiers, visibility (public, external, internal, private), constructors",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_blockchain_ethereum_evm_architecture"
+      ],
+      "learning_objectives": [
+        "Write clean Solidity smart contracts with proper visibility modifiers and custom error types",
+        "Manage contract state variables and enforce access control with custom modifiers"
+      ],
+      "feynman_prompts": [
+        "Explain why custom errors (`error Unauthorized()`) save gas compared to `require(..., 'string')`."
+      ],
+      "key_misconceptions": [
+        "Assuming `private` variables in Solidity cannot be read by anyone (all blockchain data is public)"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_token_standards_erc",
+      "concept_id": "concept_blockchain_token_standards_erc",
+      "title": "ERC Token Standards (ERC-20, ERC-721, ERC-1155)",
+      "subtitle": "ERC-20 fungible tokens, ERC-721 non-fungible tokens, ERC-1155 multi-tokens, safeTransferFrom, approvals",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_blockchain_solidity_fundamentals"
+      ],
+      "learning_objectives": [
+        "Implement secure ERC-20 and ERC-721 tokens utilizing OpenZeppelin contracts",
+        "Safely handle token approval mechanics and prevent allowance race conditions"
+      ],
+      "feynman_prompts": [
+        "Why is the standard `approve` and `transferFrom` two-step pattern required for smart contract interaction?"
+      ],
+      "key_misconceptions": [
+        "Assuming transferring NFTs is fundamentally different from updating a mapping index"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_hardhat_foundry_toolchain",
+      "concept_id": "concept_blockchain_hardhat_foundry_toolchain",
+      "title": "Development Toolchains: Foundry & Hardhat",
+      "subtitle": "Forge, Anvil, Cast, Solidity-based testing, fuzz testing, deployment scripts, gas profiling",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_blockchain_solidity_fundamentals"
+      ],
+      "learning_objectives": [
+        "Write fast unit and fuzz tests in Foundry using native Solidity",
+        "Profile contract gas consumption and simulate deployments against local Anvil forks"
+      ],
+      "feynman_prompts": [
+        "Why is fuzz testing in Foundry superior to hardcoded unit test assertions for math edge cases?"
+      ],
+      "key_misconceptions": [
+        "Deploying smart contracts to mainnet without extensive local test suite simulation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_web3_frontend_integration",
+      "concept_id": "concept_blockchain_web3_frontend_integration",
+      "title": "Web3 Frontend Integration (viem, wagmi, ethers)",
+      "subtitle": "Wallet connection (MetaMask, WalletConnect), provider vs signer, ABI encoding, transaction receipts",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_blockchain_token_standards_erc"
+      ],
+      "learning_objectives": [
+        "Connect modern frontend apps to Ethereum nodes using viem and wagmi React hooks",
+        "Handle pending transaction states, gas estimations, and user signature rejections gracefully"
+      ],
+      "feynman_prompts": [
+        "Explain the difference between a read-only node call (`eth_call`) and a state-modifying transaction (`eth_sendRawTransaction`)."
+      ],
+      "key_misconceptions": [
+        "Assuming transaction submission guarantees immediate state confirmation without waiting for block receipts"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_smart_contract_security",
+      "concept_id": "concept_blockchain_smart_contract_security",
+      "title": "Smart Contract Security & Attack Vectors",
+      "subtitle": "Reentrancy attacks, integer overflow, flash loan exploits, frontrunning/MEV, access control flaws",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 9,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_blockchain_solidity_fundamentals",
+        "concept_blockchain_hardhat_foundry_toolchain"
+      ],
+      "learning_objectives": [
+        "Identify and remediate reentrancy vulnerabilities using Checks-Effects-Interactions and ReentrancyGuard",
+        "Protect contracts against sandwich attacks and frontrunning price manipulations"
+      ],
+      "feynman_prompts": [
+        "Walk through how the classic DAO reentrancy exploit worked line by line."
+      ],
+      "key_misconceptions": [
+        "Believing that using modern Solidity >=0.8 automatic overflow checks solves all security vulnerabilities"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_defi_primitives_amms",
+      "concept_id": "concept_blockchain_defi_primitives_amms",
+      "title": "DeFi Primitives: AMMs & Lending Protocols",
+      "subtitle": "Automated Market Makers (x*y=k), liquidity pools, impermanent loss, collateralized lending, liquidations",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_blockchain_token_standards_erc",
+        "concept_blockchain_smart_contract_security"
+      ],
+      "learning_objectives": [
+        "Deconstruct the constant product formula (x * y = k) used by Uniswap v2",
+        "Calculate impermanent loss and model collateralization ratios for decentralized lending"
+      ],
+      "feynman_prompts": [
+        "Explain why impermanent loss occurs for liquidity providers when prices diverge."
+      ],
+      "key_misconceptions": [
+        "Assuming automated market makers have zero slippage for large orders"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_oracles_chainlink",
+      "concept_id": "concept_blockchain_oracles_chainlink",
+      "title": "Decentralized Oracles & Chainlink",
+      "subtitle": "The Oracle problem, Chainlink price feeds, VRF (verifiable random function), CCIP, staleness checks",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_blockchain_defi_primitives_amms"
+      ],
+      "learning_objectives": [
+        "Integrate Chainlink price feeds with heartbeat and round staleness validation checks",
+        "Generate provably fair random numbers in smart contracts using Chainlink VRF v2"
+      ],
+      "feynman_prompts": [
+        "Why cannot a smart contract make a direct HTTP request to fetch an off-chain stock price?"
+      ],
+      "key_misconceptions": [
+        "Failing to validate price feed round timestamp, leading to stale pricing exploits"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_layer2_rollups_scaling",
+      "concept_id": "concept_blockchain_layer2_rollups_scaling",
+      "title": "Layer 2 Scaling: Optimistic & ZK Rollups",
+      "subtitle": "State bloat, Optimistic Rollups (Arbitrum, Optimism, fraud proofs), ZK-Rollups (Starknet, zkSync, validity proofs)",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_blockchain_ethereum_evm_architecture"
+      ],
+      "learning_objectives": [
+        "Explain the architectural difference between fraud proofs (optimistic) and validity proofs (zero-knowledge)",
+        "Bridge assets and interact with smart contracts on Layer 2 networks"
+      ],
+      "feynman_prompts": [
+        "Why do Optimistic Rollups have a 7-day challenge window for mainnet withdrawals while ZK-Rollups do not?"
+      ],
+      "key_misconceptions": [
+        "Assuming Layer 2 networks operate as completely separate independent blockchains without L1 security"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_zero_knowledge_proofs",
+      "concept_id": "concept_blockchain_zero_knowledge_proofs",
+      "title": "Zero-Knowledge Proofs (ZKP) Fundamentals",
+      "subtitle": "zk-SNARKs, zk-STARKs, arithmetic circuits, Circom, non-interactive proofs, privacy & verification",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_blockchain_layer2_rollups_scaling"
+      ],
+      "learning_objectives": [
+        "Author basic arithmetic circuits in Circom to generate verifiable proofs of knowledge",
+        "Verify zero-knowledge proofs on-chain inside a Solidity smart contract"
+      ],
+      "feynman_prompts": [
+        "Explain how a zero-knowledge proof proves knowledge of a secret without revealing the secret."
+      ],
+      "key_misconceptions": [
+        "Confusing zero-knowledge data privacy with data encryption"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_decentralized_storage_indexing",
+      "concept_id": "concept_blockchain_decentralized_storage_indexing",
+      "title": "Decentralized Storage & Indexing (IPFS, The Graph)",
+      "subtitle": "IPFS content addressing (CIDs), Pinata/Filecoin, GraphQL subgraphs, indexing event logs",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_blockchain_web3_frontend_integration"
+      ],
+      "learning_objectives": [
+        "Deploy Subgraphs on The Graph protocol to index and query contract event logs via GraphQL",
+        "Host metadata and immutable assets on IPFS using content identifiers (CIDs)"
+      ],
+      "feynman_prompts": [
+        "Why is querying contract state via a Graph indexer thousands of times faster than direct RPC node calls?"
+      ],
+      "key_misconceptions": [
+        "Storing large files or images directly on-chain inside EVM smart contract storage"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_smart_contract_auditing",
+      "concept_id": "concept_blockchain_smart_contract_auditing",
+      "title": "Smart Contract Auditing & Static Analysis",
+      "subtitle": "Slither, Mythril, Certora formal verification, manual audit methodology, creating audit reports",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_blockchain_smart_contract_security"
+      ],
+      "learning_objectives": [
+        "Run static analysis tools (Slither, Mythril) in CI to detect vulnerabilities pre-deployment",
+        "Perform rigorous manual security code audits documenting vulnerability severity and remediation"
+      ],
+      "feynman_prompts": [
+        "What types of logical flaws can human manual auditing catch that automated scanners miss?"
+      ],
+      "key_misconceptions": [
+        "Assuming a 100% clean Slither static analysis run guarantees a contract is hack-proof"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_daos_governance_multisig",
+      "concept_id": "concept_blockchain_daos_governance_multisig",
+      "title": "DAOs, Governance & Multi-Sig Infrastructure",
+      "subtitle": "Safe (Gnosis Safe), timelocks, Governor contracts, quorum, voting weight, proposal lifecycles",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_blockchain_token_standards_erc"
+      ],
+      "learning_objectives": [
+        "Deploy multi-signature treasury vaults using Safe and establish secure sign-off thresholds",
+        "Implement on-chain governance workflows with timelock delays to prevent flash loan hijacking"
+      ],
+      "feynman_prompts": [
+        "Why must on-chain governance proposals enforce an immutable timelock delay before execution?"
+      ],
+      "key_misconceptions": [
+        "Allowing immediate execution of governance proposals without timelock protection"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_mev_flashbots_architecture",
+      "concept_id": "concept_blockchain_mev_flashbots_architecture",
+      "title": "MEV (Maximal Extractable Value) & Flashbots",
+      "subtitle": "Searchers, builders, proposers, sandwich attacks, private mempools, Flashbots Protect, MEV-Boost",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "recommended",
+      "difficulty": "expert",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_blockchain_defi_primitives_amms",
+        "concept_blockchain_smart_contract_security"
+      ],
+      "learning_objectives": [
+        "Explain the MEV supply chain from searchers identifying arbitrage to block builders and validators",
+        "Protect user transactions from predatory frontrunning using private RPC endpoints and MEV-Boost"
+      ],
+      "feynman_prompts": [
+        "How do searchers use private mempools to execute atomic risk-free DEX arbitrage?"
+      ],
+      "key_misconceptions": [
+        "Assuming miners/validators only order transactions purely by gas fee timestamp"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_blockchain_web3_dapp_capstone",
+      "concept_id": "concept_blockchain_web3_dapp_capstone",
+      "title": "Full-Stack Web3 DApp Production Capstone",
+      "subtitle": "End-to-end dApp: audited smart contracts, L2 deployment, subgraph indexing, wagmi UI, Safe treasury",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 40,
+      "prerequisites": [
+        "concept_blockchain_web3_frontend_integration",
+        "concept_blockchain_smart_contract_security",
+        "concept_blockchain_decentralized_storage_indexing"
+      ],
+      "learning_objectives": [
+        "Architect and deploy an enterprise-grade decentralized protocol with multi-sig administration",
+        "Integrate automated CI testing, gas profiling, subgraph indexing, and production Web3 UI"
+      ],
+      "feynman_prompts": [
+        "What are the critical deployment checklist steps required before releasing contracts to Ethereum mainnet?"
+      ],
+      "key_misconceptions": [
+        "Failing to renounce ownership or transfer admin keys to a multi-sig vault post-deployment"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior Blockchain Developer"
+}

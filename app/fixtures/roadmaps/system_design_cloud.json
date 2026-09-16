@@ -1,0 +1,518 @@
+{
+  "slug": "system_design_cloud",
+  "title": "System Design & Cloud",
+  "domain": "Systems Architecture",
+  "target_role": "Principal Systems Architect",
+  "difficulty_baseline": "Intermediate",
+  "tags": [
+    "system-design",
+    "scalability",
+    "cloud",
+    "distributed-systems",
+    "microservices",
+    "caching",
+    "kafka"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_system_design_cloud_scalability_foundations",
+      "concept_id": "concept_system_design_cloud_scalability_foundations",
+      "title": "Scalability Fundamentals: Vertical vs Horizontal Scaling",
+      "subtitle": "Scale-up vs scale-out, stateful vs stateless servers, latency vs throughput, bottlenecks",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Analyze application bottlenecks and choose between vertical and horizontal scaling strategies",
+        "Design completely stateless web application tiers capable of dynamic auto-scaling"
+      ],
+      "feynman_prompts": [
+        "Why is designing servers to be stateless essential before horizontal auto-scaling can function?"
+      ],
+      "key_misconceptions": [
+        "Storing user session data in server local memory, preventing horizontal scaling"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_load_balancing_reverse_proxies",
+      "concept_id": "concept_system_design_cloud_load_balancing_reverse_proxies",
+      "title": "Load Balancing & Traffic Distribution",
+      "subtitle": "Layer 4 vs Layer 7 load balancing, round-robin, least connections, IP hash, reverse proxies, health checks",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_system_design_cloud_scalability_foundations"
+      ],
+      "learning_objectives": [
+        "Distribute incoming traffic across server fleets using Layer 7 load balancers",
+        "Configure active health checks and implement graceful connection draining during server rollouts"
+      ],
+      "feynman_prompts": [
+        "What is the functional difference between Layer 4 (TCP) and Layer 7 (HTTP) load balancing?"
+      ],
+      "key_misconceptions": [
+        "Relying on DNS round-robin alone for load balancing without health checks or failover"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_database_replication_scaling",
+      "concept_id": "concept_system_design_cloud_database_replication_scaling",
+      "title": "Database Scaling: Read Replicas & Connection Pooling",
+      "subtitle": "Primary-replica topology, read/write splitting, replication lag, connection poolers (PgBouncer)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_system_design_cloud_scalability_foundations"
+      ],
+      "learning_objectives": [
+        "Route read queries to read replicas while directing writes strictly to the primary database",
+        "Handle replication lag anomalies where a user writes data and reads stale replica data immediately"
+      ],
+      "feynman_prompts": [
+        "How does replication lag cause 'read-your-own-writes' consistency anomalies for users?"
+      ],
+      "key_misconceptions": [
+        "Sending all read and write queries to the primary database when 95% of traffic is read-only"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_caching_strategies_redis",
+      "concept_id": "concept_system_design_cloud_caching_strategies_redis",
+      "title": "Distributed Caching Strategies: Redis & Memcached",
+      "subtitle": "Cache-Aside, Write-Through, Write-Behind, TTL, cache invalidation, cache stampede (thundering herd)",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_system_design_cloud_database_replication_scaling"
+      ],
+      "learning_objectives": [
+        "Implement the Cache-Aside pattern to reduce database query load by 90%",
+        "Mitigate cache stampede (thundering herd) using probabilistic early expiration or mutex locks"
+      ],
+      "feynman_prompts": [
+        "What are the trade-offs between Cache-Aside and Write-Through caching patterns?"
+      ],
+      "key_misconceptions": [
+        "Treating distributed caches as persistent authoritative storage without backing databases"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_cdn_edge_caching",
+      "concept_id": "concept_system_design_cloud_cdn_edge_caching",
+      "title": "Content Delivery Networks (CDNs) & Edge Caching",
+      "subtitle": "Edge points of presence (PoP), static vs dynamic asset caching, Cache-Control headers, stale-while-revalidate",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_system_design_cloud_caching_strategies_redis"
+      ],
+      "learning_objectives": [
+        "Accelerate global asset delivery and reduce origin load by configuring CDN edge caching",
+        "Implement optimal Cache-Control headers, ETags, and stale-while-revalidate directives"
+      ],
+      "feynman_prompts": [
+        "How do CDNs reduce network latency for geographically distributed end users?"
+      ],
+      "key_misconceptions": [
+        "Caching user-specific private data on public CDN edge nodes without Cache-Control: private"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_database_sharding_partitioning",
+      "concept_id": "concept_system_design_cloud_database_sharding_partitioning",
+      "title": "Database Sharding & Horizontal Data Partitioning",
+      "subtitle": "Horizontal sharding, shard keys, range vs hash-based sharding, re-sharding challenges, cross-shard joins",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 6,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_system_design_cloud_database_replication_scaling"
+      ],
+      "learning_objectives": [
+        "Select optimal shard keys that distribute data and traffic evenly without hotspots",
+        "Analyze the operational complexity and trade-offs of cross-shard joins and distributed transactions"
+      ],
+      "feynman_prompts": [
+        "Why does picking a monotonically increasing shard key (like timestamp) cause write hotspots?"
+      ],
+      "key_misconceptions": [
+        "Sharding databases prematurely before exhausting index, caching, and read-replica scaling options"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_cap_theorem_pacelc",
+      "concept_id": "concept_system_design_cloud_cap_theorem_pacelc",
+      "title": "Distributed Systems Theory: CAP & PACELC Theorems",
+      "subtitle": "Consistency, Availability, Partition Tolerance, Eventual Consistency, PACELC model",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_system_design_cloud_database_sharding_partitioning"
+      ],
+      "learning_objectives": [
+        "Evaluate distributed system trade-offs between strong consistency (CP) and high availability (AP)",
+        "Apply the PACELC theorem to analyze latency vs consistency trade-offs when no partition exists"
+      ],
+      "feynman_prompts": [
+        "Why does the CAP theorem state that in the presence of a network partition, a system must choose between C and A?"
+      ],
+      "key_misconceptions": [
+        "Assuming a distributed system can achieve 100% strong consistency and 100% availability during network splits"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_consistent_hashing",
+      "concept_id": "concept_system_design_cloud_consistent_hashing",
+      "title": "Consistent Hashing & Distributed Ring Topologies",
+      "subtitle": "Hash ring, virtual nodes, rehashing overhead, distributed key distribution (DynamoDB, Cassandra)",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_system_design_cloud_cap_theorem_pacelc"
+      ],
+      "learning_objectives": [
+        "Distribute keys across a dynamically scaling cache cluster using consistent hashing rings",
+        "Mitigate hotspot imbalances on the hash ring by implementing virtual nodes (vnodes)"
+      ],
+      "feynman_prompts": [
+        "Why does traditional modulo hashing (hash(key) % N) fail catastrophically when a cache server is added or removed?"
+      ],
+      "key_misconceptions": [
+        "Using naive modulo hashing for distributed cache clusters that resize dynamically"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_asynchronous_messaging_queues",
+      "concept_id": "concept_system_design_cloud_asynchronous_messaging_queues",
+      "title": "Message Queues & Asynchronous Processing",
+      "subtitle": "Message queues (RabbitMQ, SQS), point-to-point, task retries, exponential backoff, dead-letter queues",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_system_design_cloud_scalability_foundations"
+      ],
+      "learning_objectives": [
+        "Decouple synchronous HTTP request handling by offloading heavy work to background message queues",
+        "Handle message processing failures gracefully using exponential backoff and dead-letter queues"
+      ],
+      "feynman_prompts": [
+        "Why is decoupling via message queues critical for protecting backend systems against bursty traffic spikes?"
+      ],
+      "key_misconceptions": [
+        "Processing long-running multi-second tasks inside the user's synchronous HTTP request thread"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_event_driven_streaming_kafka",
+      "concept_id": "concept_system_design_cloud_event_driven_streaming_kafka",
+      "title": "Event-Driven Architecture & Streaming with Kafka",
+      "subtitle": "Event streams, Apache Kafka, topics, partitions, consumer groups, offset management, event ordering",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_system_design_cloud_asynchronous_messaging_queues"
+      ],
+      "learning_objectives": [
+        "Architect scalable event-driven systems using publish/subscribe event streams in Apache Kafka",
+        "Guarantee in-order event processing within specific entities using Kafka partition keys"
+      ],
+      "feynman_prompts": [
+        "How do Kafka consumer groups enable parallel processing of partition streams without duplicate consumption?"
+      ],
+      "key_misconceptions": [
+        "Assuming Kafka guarantees global ordering across all partitions instead of per-partition ordering"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_rate_limiting_throttling",
+      "concept_id": "concept_system_design_cloud_rate_limiting_throttling",
+      "title": "Distributed Rate Limiting & Throttling Algorithms",
+      "subtitle": "Token bucket, leaky bucket, fixed window, sliding window log, sliding window counter, Redis rate limiters",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_system_design_cloud_caching_strategies_redis"
+      ],
+      "learning_objectives": [
+        "Protect public APIs against abuse and DDoS using Redis sliding window rate limiters",
+        "Compare the memory efficiency and burst tolerance of Token Bucket vs Sliding Window Counter"
+      ],
+      "feynman_prompts": [
+        "How does the Token Bucket algorithm handle sudden bursts of traffic while enforcing average rates?"
+      ],
+      "key_misconceptions": [
+        "Implementing naive in-memory rate limiting that fails when applications scale across multiple server instances"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_distributed_unique_ids",
+      "concept_id": "concept_system_design_cloud_distributed_unique_ids",
+      "title": "Distributed Unique ID Generation (Snowflake / UUIDv7)",
+      "subtitle": "UUIDv4 random vs UUIDv7 time-ordered, Twitter Snowflake ID generation, 64-bit integer IDs",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_system_design_cloud_database_sharding_partitioning"
+      ],
+      "learning_objectives": [
+        "Generate globally unique, time-sortable 64-bit IDs at high concurrency using Snowflake architecture",
+        "Optimize database B-Tree index locality using time-ordered UUIDv7 instead of random UUIDv4"
+      ],
+      "feynman_prompts": [
+        "Why does inserting random UUIDv4 primary keys cause catastrophic B-Tree index fragmentation at scale?"
+      ],
+      "key_misconceptions": [
+        "Relying on single centralized database auto-increment IDs in distributed multi-region databases"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_microservices_api_gateways",
+      "concept_id": "concept_system_design_cloud_microservices_api_gateways",
+      "title": "Microservices Architecture & API Gateways",
+      "subtitle": "Service decomposition, API Gateways (Kong, Envoy), routing, authentication offload, service mesh",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_system_design_cloud_load_balancing_reverse_proxies"
+      ],
+      "learning_objectives": [
+        "Decompose monolithic architectures into bounded context microservices",
+        "Centralize cross-cutting concerns (authentication, TLS termination, rate limiting) at the API Gateway"
+      ],
+      "feynman_prompts": [
+        "Why should an API Gateway handle perimeter authentication rather than duplicating auth logic in every microservice?"
+      ],
+      "key_misconceptions": [
+        "Creating distributed monoliths where every microservice requires synchronous REST calls to 10 others"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_distributed_transactions_saga",
+      "concept_id": "concept_system_design_cloud_distributed_transactions_saga",
+      "title": "Distributed Transactions & The Saga Pattern",
+      "subtitle": "Two-Phase Commit (2PC) limitations, Saga pattern (Choreography vs Orchestration), compensating transactions",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_system_design_cloud_event_driven_streaming_kafka"
+      ],
+      "learning_objectives": [
+        "Maintain data consistency across distributed microservice databases using the Saga pattern",
+        "Design and execute idempotent compensating transactions when a distributed step fails"
+      ],
+      "feynman_prompts": [
+        "Why is Two-Phase Commit (2PC) an anti-pattern in modern cloud architectures due to blocking locks?"
+      ],
+      "key_misconceptions": [
+        "Assuming traditional ACID transactions can span across separate microservice database boundaries"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_circuit_breakers_resilience",
+      "concept_id": "concept_system_design_cloud_circuit_breakers_resilience",
+      "title": "System Resilience: Circuit Breakers & Bulkheads",
+      "subtitle": "Cascading failures, Circuit Breaker pattern (Closed, Open, Half-Open), bulkheads, timeout budgets",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_system_design_cloud_microservices_api_gateways"
+      ],
+      "learning_objectives": [
+        "Prevent cascading system collapse using Circuit Breakers that fail fast during dependency outages",
+        "Isolate critical resource pools using the Bulkhead pattern to prevent resource exhaustion"
+      ],
+      "feynman_prompts": [
+        "Explain the state transitions of a Circuit Breaker: Closed -> Open -> Half-Open -> Closed."
+      ],
+      "key_misconceptions": [
+        "Retrying failed dependency requests infinitely with zero delay, amplifying downstream outages (retry storm)"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_cloud_storage_blobs",
+      "concept_id": "concept_system_design_cloud_cloud_storage_blobs",
+      "title": "Cloud Object Storage & Media Pipelines",
+      "subtitle": "Block vs file vs object storage, Amazon S3, presigned upload URLs, multipart uploads, lifecycle policies",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_system_design_cloud_caching_strategies_redis"
+      ],
+      "learning_objectives": [
+        "Architect scalable file upload systems using secure client-side S3 presigned URLs",
+        "Manage storage costs effectively using automated object lifecycle transitions to cold storage"
+      ],
+      "feynman_prompts": [
+        "Why is object storage (S3) dramatically more scalable and cost-effective than block storage for media assets?"
+      ],
+      "key_misconceptions": [
+        "Uploading multi-gigabyte video files directly through application server memory"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_distributed_tracing_telemetry",
+      "concept_id": "concept_system_design_cloud_distributed_tracing_telemetry",
+      "title": "Distributed Tracing & System Observability",
+      "subtitle": "OpenTelemetry, trace IDs, span contexts, distributed trace propagation, latency heatmaps",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_system_design_cloud_microservices_api_gateways"
+      ],
+      "learning_objectives": [
+        "Track end-to-end user request flows across 20+ microservice boundaries using OpenTelemetry trace IDs",
+        "Diagnose distributed tail latency bottlenecks (p99 latency) using distributed spans"
+      ],
+      "feynman_prompts": [
+        "How do distributed trace contexts propagate across HTTP and gRPC network boundaries using W3C headers?"
+      ],
+      "key_misconceptions": [
+        "Relying on isolated server log files without correlation IDs when debugging distributed failures"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_system_design_cloud_disaster_recovery_multi_region",
+      "concept_id": "concept_system_design_cloud_disaster_recovery_multi_region",
+      "title": "Disaster Recovery & Multi-Region Cloud Architecture",
+      "subtitle": "Active-Passive (Pilot Light, Warm Standby), Active-Active multi-region, DNS failover (Route 53)",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 18,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_system_design_cloud_database_replication_scaling"
+      ],
+      "learning_objectives": [
+        "Architect multi-region cloud deployment topologies with automated Route 53 health-check failover",
+        "Balance the extreme cost and complexity of Active-Active systems against business RTO/RPO requirements"
+      ],
+      "feynman_prompts": [
+        "What are the severe distributed data conflict challenges (split-brain) inherent in multi-region Active-Active setups?"
+      ],
+      "key_misconceptions": [
+        "Assuming multi-region deployments are trivial without solving multi-master database write conflicts"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_system_design_cloud",
+  "description": "Master System Design & Cloud with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "System Design & Cloud - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "System Design & Cloud - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "System Design & Cloud - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "System Design & Cloud - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "System Design & Cloud - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

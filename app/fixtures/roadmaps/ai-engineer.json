@@ -1,0 +1,520 @@
+{
+  "slug": "ai-engineer",
+  "title": "AI Engineer",
+  "domain": "Artificial Intelligence",
+  "target_role": "Senior AI / LLM Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "ai",
+    "llm",
+    "rag",
+    "agents",
+    "langchain",
+    "pytorch",
+    "embeddings",
+    "vector-db",
+    "prompt-engineering"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_ai-engineer_python_ai_foundations",
+      "concept_id": "concept_ai-engineer_python_ai_foundations",
+      "title": "Python & Numerical Foundations for AI",
+      "subtitle": "NumPy arrays, vector operations, matrix multiplication, broadcasting, PyTorch tensors",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Perform high-speed tensor operations and understand multi-dimensional array shapes",
+        "Implement basic linear algebra concepts (dot products, norms) in PyTorch"
+      ],
+      "feynman_prompts": [
+        "Why are tensor operations significantly faster when executed on GPUs compared to CPUs?"
+      ],
+      "key_misconceptions": [
+        "Reshaping tensors incorrectly, causing silent dimension mismatch errors"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_linear_algebra_probability_ai",
+      "concept_id": "concept_ai-engineer_linear_algebra_probability_ai",
+      "title": "Mathematics for AI: Linear Algebra & Probability",
+      "subtitle": "Vectors, matrices, eigenvalues, dot products, conditional probability, Bayes theorem",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-engineer_python_ai_foundations"
+      ],
+      "learning_objectives": [
+        "Calculate vector similarities using cosine similarity and dot product mathematics",
+        "Apply Bayes Theorem to update probability estimates based on observed evidence"
+      ],
+      "feynman_prompts": [
+        "How does cosine similarity measure semantic orientation independent of vector magnitude?"
+      ],
+      "key_misconceptions": [
+        "Confusing vector magnitude (length) with vector direction (semantic orientation)"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_neural_networks_backpropagation",
+      "concept_id": "concept_ai-engineer_neural_networks_backpropagation",
+      "title": "Neural Network Mechanics & Backpropagation",
+      "subtitle": "Perceptrons, activation functions (ReLU, GELU), loss functions, gradient descent, backpropagation",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-engineer_linear_algebra_probability_ai"
+      ],
+      "learning_objectives": [
+        "Explain how the chain rule enables backpropagation to update neural network weights",
+        "Select appropriate activation functions and loss functions for specific tasks"
+      ],
+      "feynman_prompts": [
+        "Explain how gradient descent minimizes loss by iteratively stepping in the opposite direction of the gradient."
+      ],
+      "key_misconceptions": [
+        "Thinking neural networks are magic black boxes rather than composed mathematical functions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_transformer_architecture_deep",
+      "concept_id": "concept_ai-engineer_transformer_architecture_deep",
+      "title": "The Transformer Architecture & Self-Attention",
+      "subtitle": "Tokens, embeddings, positional encoding, Scaled Dot-Product Attention, multi-head attention",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 4,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-engineer_neural_networks_backpropagation"
+      ],
+      "learning_objectives": [
+        "Explain step-by-step how Scaled Dot-Product Attention calculates attention weights",
+        "Differentiate encoder-only (BERT), decoder-only (GPT), and encoder-decoder (T5) models"
+      ],
+      "feynman_prompts": [
+        "Why is the self-attention mechanism computationally quadratic O(N^2) with respect to context length?"
+      ],
+      "key_misconceptions": [
+        "Assuming tokens correspond 1:1 with English words without understanding subword tokenization"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_llm_mechanics_sampling",
+      "concept_id": "concept_ai-engineer_llm_mechanics_sampling",
+      "title": "LLM Mechanics: Pre-training, Sampling & Inference",
+      "subtitle": "Autoregressive generation, next-token prediction, temperature, top-p (nucleus), top-k, KV-cache",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-engineer_transformer_architecture_deep"
+      ],
+      "learning_objectives": [
+        "Tune temperature and top-p sampling parameters to control model creativity vs determinism",
+        "Explain how the KV-cache dramatically accelerates autoregressive token generation"
+      ],
+      "feynman_prompts": [
+        "How does the Key-Value (KV) cache prevent redundant recomputation during text generation?"
+      ],
+      "key_misconceptions": [
+        "Setting temperature to 0 and expecting creative, varied conversational responses"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_prompt_engineering_systematic",
+      "concept_id": "concept_ai-engineer_prompt_engineering_systematic",
+      "title": "Systematic Prompt Engineering & In-Context Learning",
+      "subtitle": "System prompts, Few-Shot prompting, Chain-of-Thought (CoT), output schemas, prompt injection",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 6,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_ai-engineer_llm_mechanics_sampling"
+      ],
+      "learning_objectives": [
+        "Author robust system prompts that elicit structured, accurate LLM responses",
+        "Guide complex model reasoning using Few-Shot examples and Chain-of-Thought prompts"
+      ],
+      "feynman_prompts": [
+        "Why does Chain-of-Thought (CoT) prompting significantly improve multi-step reasoning accuracy?"
+      ],
+      "key_misconceptions": [
+        "Allowing raw user input directly into system prompts, exposing applications to prompt injection attacks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_structured_outputs_schemas",
+      "concept_id": "concept_ai-engineer_structured_outputs_schemas",
+      "title": "Structured LLM Outputs & Schema Enforcement",
+      "subtitle": "JSON mode, Pydantic schema validation, Instructor, function calling, constrained decoding",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-engineer_prompt_engineering_systematic"
+      ],
+      "learning_objectives": [
+        "Enforce strict JSON schema validation on LLM responses using Pydantic",
+        "Handle malformed or hallucinated JSON outputs with automatic schema retries"
+      ],
+      "feynman_prompts": [
+        "Why is grammar-constrained decoding superior to naive prompt asking for 'valid JSON'?"
+      ],
+      "key_misconceptions": [
+        "Parsing raw LLM text with regular expressions instead of enforcing strict JSON schemas"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_embeddings_vector_spaces",
+      "concept_id": "concept_ai-engineer_embeddings_vector_spaces",
+      "title": "Vector Embeddings & Semantic Search Mechanics",
+      "subtitle": "Embedding models (text-embedding-004), vector spaces, dimensionality, cosine distance",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-engineer_linear_algebra_probability_ai"
+      ],
+      "learning_objectives": [
+        "Generate text embeddings and compute semantic similarity across documents",
+        "Evaluate embedding model trade-offs between vector dimensions and search latency"
+      ],
+      "feynman_prompts": [
+        "Why can two sentences with completely different words have near-identical embedding vectors?"
+      ],
+      "key_misconceptions": [
+        "Using raw Euclidean distance instead of normalized cosine distance for semantic matching"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_vector_databases_indexing",
+      "concept_id": "concept_ai-engineer_vector_databases_indexing",
+      "title": "Vector Databases & Indexing Algorithms (HNSW / IVF)",
+      "subtitle": "Vector databases (Pinecone, Qdrant, pgvector), Approximate Nearest Neighbor (ANN), HNSW, filtering",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-engineer_embeddings_vector_spaces"
+      ],
+      "learning_objectives": [
+        "Deploy and query high-scale vector indexes using pgvector or Qdrant",
+        "Tune Hierarchical Navigable Small World (HNSW) parameters (M, efConstruction) for speed vs recall"
+      ],
+      "feynman_prompts": [
+        "How does HNSW achieve sub-linear Approximate Nearest Neighbor search across millions of vectors?"
+      ],
+      "key_misconceptions": [
+        "Performing brute-force exact cosine searches across millions of vectors in production"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_rag_architecture_chunking",
+      "concept_id": "concept_ai-engineer_rag_architecture_chunking",
+      "title": "Retrieval-Augmented Generation (RAG): Ingestion & Chunking",
+      "subtitle": "Document parsing (PDFs, Markdown), chunking strategies (recursive, semantic), overlap",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-engineer_vector_databases_indexing"
+      ],
+      "learning_objectives": [
+        "Design document ingestion pipelines with optimal chunk size and sliding overlap",
+        "Compare fixed-character chunking with semantic and structural markdown chunking"
+      ],
+      "feynman_prompts": [
+        "Why does setting chunk sizes too small destroy context while setting them too large dilutes embeddings?"
+      ],
+      "key_misconceptions": [
+        "Splitting documents by naive character counts that cut words and sentences in half"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_advanced_rag_reranking",
+      "concept_id": "concept_ai-engineer_advanced_rag_reranking",
+      "title": "Advanced RAG: Hybrid Search, Query Rewriting & Reranking",
+      "subtitle": "Hybrid search (BM25 + vector), Cross-Encoders / Cohere Rerank, query expansion, HyDE",
+      "phase": "Applied",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-engineer_rag_architecture_chunking"
+      ],
+      "learning_objectives": [
+        "Implement hybrid search combining dense semantic vectors with sparse BM25 keyword matching",
+        "Re-rank retrieved document candidates using a high-precision Cross-Encoder model"
+      ],
+      "feynman_prompts": [
+        "Why does hybrid search (semantic + keyword) solve the domain-specific vocabulary problem in RAG?"
+      ],
+      "key_misconceptions": [
+        "Relying exclusively on vector search for exact keyword queries like serial numbers or function names"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_ai_agents_tool_calling",
+      "concept_id": "concept_ai-engineer_ai_agents_tool_calling",
+      "title": "Autonomous AI Agents & Function / Tool Calling",
+      "subtitle": "Tool definitions, ReAct framework (Reason + Act), multi-step planning, error recovery",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-engineer_structured_outputs_schemas"
+      ],
+      "learning_objectives": [
+        "Build autonomous AI agents capable of calling external APIs and databases to answer queries",
+        "Implement the ReAct loop allowing agents to reason, execute tools, observe outputs, and self-correct"
+      ],
+      "feynman_prompts": [
+        "How does an AI model decide which tool to call based on tool descriptions and JSON schemas?"
+      ],
+      "key_misconceptions": [
+        "Giving agents unconstrained write permissions to production databases without human confirmation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_agentic_frameworks_langgraph",
+      "concept_id": "concept_ai-engineer_agentic_frameworks_langgraph",
+      "title": "Agentic Orchestration: LangChain & LangGraph",
+      "subtitle": "Stateful agent workflows, LangGraph cyclical graphs, human-in-the-loop, memory persistence",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-engineer_ai_agents_tool_calling"
+      ],
+      "learning_objectives": [
+        "Orchestrate complex multi-agent workflows using stateful cyclical graphs with LangGraph",
+        "Implement human-in-the-loop breakpoints for critical agent decisions"
+      ],
+      "feynman_prompts": [
+        "Why are cyclical state machines superior to simple linear chains for complex agent tasks?"
+      ],
+      "key_misconceptions": [
+        "Building fragile 1,000-line prompt chains instead of modular, stateful agent graphs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_fine_tuning_lora_qlora",
+      "concept_id": "concept_ai-engineer_fine_tuning_lora_qlora",
+      "title": "Fine-Tuning LLMs: PEFT, LoRA & QLoRA",
+      "subtitle": "Full fine-tuning vs Parameter-Efficient Fine-Tuning (PEFT), LoRA rank matrices, 4-bit quantization (QLoRA)",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-engineer_transformer_architecture_deep"
+      ],
+      "learning_objectives": [
+        "Fine-tune open-source LLMs (Llama 3, Mistral) on custom domain datasets using QLoRA",
+        "Evaluate when to use RAG vs Fine-Tuning (RAG for knowledge retrieval, Fine-Tuning for style/format)"
+      ],
+      "feynman_prompts": [
+        "Why does LoRA freeze base model weights and only train low-rank adapter matrices?"
+      ],
+      "key_misconceptions": [
+        "Attempting to use fine-tuning to inject fast-changing dynamic facts instead of using RAG"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_llm_evaluation_ragas",
+      "concept_id": "concept_ai-engineer_llm_evaluation_ragas",
+      "title": "LLM & RAG Evaluation Frameworks (Ragas / TruLens)",
+      "subtitle": "Faithfulness, answer relevance, context recall, context precision, LLM-as-a-Judge",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-engineer_advanced_rag_reranking"
+      ],
+      "learning_objectives": [
+        "Quantify RAG pipeline quality using automated metrics (Faithfulness, Context Precision)",
+        "Implement continuous evaluation suites using LLM-as-a-Judge with calibrated rubrics"
+      ],
+      "feynman_prompts": [
+        "What is Faithfulness in RAG evaluation and how does it detect model hallucinations?"
+      ],
+      "key_misconceptions": [
+        "Evaluating AI applications based on casual subjective impressions instead of automated test datasets"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_ai_safety_guardrails",
+      "concept_id": "concept_ai-engineer_ai_safety_guardrails",
+      "title": "AI Safety, Guardrails & Jailbreak Defense",
+      "subtitle": "NeMo Guardrails, Llama Guard, prompt injection defense, content moderation, PII scrubbing",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-engineer_prompt_engineering_systematic"
+      ],
+      "learning_objectives": [
+        "Implement input and output guardrails to detect and block prompt injection and jailbreaks",
+        "Scrub personal identifiable information (PII) from user queries before calling external LLMs"
+      ],
+      "feynman_prompts": [
+        "How do indirect prompt injection attacks compromise agents that read external web pages or emails?"
+      ],
+      "key_misconceptions": [
+        "Assuming system prompt instructions alone are sufficient to prevent determined jailbreak attacks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_llm_serving_vllm_ollama",
+      "concept_id": "concept_ai-engineer_llm_serving_vllm_ollama",
+      "title": "Production LLM Serving & Inference Optimization",
+      "subtitle": "vLLM, PagedAttention, continuous batching, quantization (AWQ, GGUF), Tensor Parallelism",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-engineer_llm_mechanics_sampling"
+      ],
+      "learning_objectives": [
+        "Deploy high-throughput open-source LLM inference servers using vLLM",
+        "Explain how PagedAttention eliminates memory fragmentation in GPU VRAM during serving"
+      ],
+      "feynman_prompts": [
+        "How does continuous batching achieve 10x higher serving throughput compared to static batching?"
+      ],
+      "key_misconceptions": [
+        "Deploying LLMs using basic HuggingFace pipeline() methods in production web servers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-engineer_llm_cost_latency_monitoring",
+      "concept_id": "concept_ai-engineer_llm_cost_latency_monitoring",
+      "title": "LLM Observability, Caching & Cost Engineering",
+      "subtitle": "Semantic caching (GPTCache), token usage tracking, LangSmith / OpenInference, fallback models",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_ai-engineer_structured_outputs_schemas"
+      ],
+      "learning_objectives": [
+        "Implement semantic caching to return sub-50ms responses for recurring user queries",
+        "Track real-time token spend and latency percentiles using LangSmith / OpenInference"
+      ],
+      "feynman_prompts": [
+        "How does semantic prompt caching save API token costs for common user inquiries?"
+      ],
+      "key_misconceptions": [
+        "Using expensive flagship models (e.g. Claude 3.5 Opus) for trivial classification tasks where small models suffice"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_ai-engineer",
+  "description": "Master AI Engineer with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "AI Engineer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "AI Engineer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "AI Engineer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "AI Engineer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "AI Engineer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

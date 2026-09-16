@@ -1,0 +1,515 @@
+{
+  "id": "roadmap_product_manager",
+  "slug": "product-manager",
+  "title": "Product Manager",
+  "description": "Master end-to-end product management: customer discovery, metrics, feature prioritization, PRDs, agile execution, unit economics, PLG, stakeholder influence, and product strategy.",
+  "category": "Design & Product",
+  "difficulty_level": "intermediate",
+  "estimated_hours": 90,
+  "tags": [
+    "product-management",
+    "agile",
+    "analytics",
+    "unit-economics",
+    "plg",
+    "strategy"
+  ],
+  "phases": [
+    {
+      "title": "Product Foundations",
+      "tier": "foundation",
+      "focus": "The PM Role, Continuous Discovery, Market Analysis & Customer Interviews",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Execution & Delivery",
+      "tier": "core",
+      "focus": "Metrics, Prioritization Frameworks, PRDs, Sprint Execution & Unit Economics",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Growth & Enterprise Scalability",
+      "tier": "advanced",
+      "focus": "Product-Led Growth, Stakeholder Influence, GTM Strategy & AI Product Management",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Strategy & Executive Leadership",
+      "tier": "capstone",
+      "focus": "Product Vision, Moats, Outcome Roadmaps, and Executive Communication",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_product-manager_pm_foundations",
+      "concept_id": "concept_product-manager_pm_foundations",
+      "title": "The Product Manager Role & Core Frameworks",
+      "subtitle": "PM vs PO vs EM vs PMM, product lifecycle, Venn diagram (business, tech, UX), MVP definition",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Differentiate product management responsibilities from project management and engineering",
+        "Define minimum viable products (MVP) focused on maximum validated learning"
+      ],
+      "feynman_prompts": [
+        "Explain the primary role of a Product Manager in one sentence."
+      ],
+      "key_misconceptions": [
+        "Assuming the PM is the 'CEO of the product' who issues orders to the team"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_product_discovery_problem_framing",
+      "concept_id": "concept_product-manager_product_discovery_problem_framing",
+      "title": "Product Discovery & Problem Framing",
+      "subtitle": "Customer problem vs solution trap, continuous discovery habits, Opportunity Solution Trees",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-manager_pm_foundations"
+      ],
+      "learning_objectives": [
+        "Construct Opportunity Solution Trees to link business outcomes to customer opportunities",
+        "Avoid the feature factory trap by validating problem severity before coding"
+      ],
+      "feynman_prompts": [
+        "What is the danger of jumping directly into feature specification without problem validation?"
+      ],
+      "key_misconceptions": [
+        "Accepting executive feature requests blindly without validating the underlying user need"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_market_competitive_analysis",
+      "concept_id": "concept_product-manager_market_competitive_analysis",
+      "title": "Market Sizing & Competitive Intelligence",
+      "subtitle": "TAM/SAM/SOM sizing, Porter's Five Forces, competitive positioning matrix, differentiation",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_product-manager_product_discovery_problem_framing"
+      ],
+      "learning_objectives": [
+        "Calculate realistic TAM, SAM, and SOM figures for a new market opportunity",
+        "Map direct and indirect competitors on a 2x2 differentiation matrix"
+      ],
+      "feynman_prompts": [
+        "Explain the difference between TAM (Total Addressable Market) and SOM (Serviceable Obtainable Market)."
+      ],
+      "key_misconceptions": [
+        "Assuming a market has no competitors because no existing tool does the exact same thing"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_user_research_interviews_pm",
+      "concept_id": "concept_product-manager_user_research_interviews_pm",
+      "title": "Customer Interviews & Insights for PMs",
+      "subtitle": "The Mom Test framework, Jobs-To-Be-Done (JTBD), uncovering unarticulated needs",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_product-manager_product_discovery_problem_framing"
+      ],
+      "learning_objectives": [
+        "Formulate Mom-Test-compliant questions that reveal past customer behavior",
+        "Structure customer needs into Jobs-To-Be-Done outcome statements"
+      ],
+      "feynman_prompts": [
+        "Why should you never ask customers 'Would you pay for a feature that does X?'"
+      ],
+      "key_misconceptions": [
+        "Taking customer feature suggestions literally instead of digging for their underlying pain point"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_product_metrics_north_star",
+      "concept_id": "concept_product-manager_product_metrics_north_star",
+      "title": "Product Metrics & The North Star Framework",
+      "subtitle": "North Star Metric (NSM), input metrics, Pirate Metrics (AARRR), leading vs lagging indicators",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-manager_pm_foundations"
+      ],
+      "learning_objectives": [
+        "Define an effective North Star Metric and 3-4 actionable leading input metrics",
+        "Deconstruct user journey telemetry using the AARRR (Pirate) funnel"
+      ],
+      "feynman_prompts": [
+        "Why is revenue usually a lagging indicator rather than an effective North Star Metric?"
+      ],
+      "key_misconceptions": [
+        "Tracking dozens of vanity metrics (pageviews, total signups) instead of actionable retention"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_prioritization_frameworks",
+      "concept_id": "concept_product-manager_prioritization_frameworks",
+      "title": "Feature Prioritization Frameworks",
+      "subtitle": "RICE (Reach, Impact, Confidence, Effort), MoSCoW, Kano Model, Cost of Delay",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_product-manager_product_metrics_north_star"
+      ],
+      "learning_objectives": [
+        "Score competing product initiatives objectively using the RICE scoring model",
+        "Categorize product capabilities into baseline, performance, and delighter features (Kano)"
+      ],
+      "feynman_prompts": [
+        "How do you determine 'Confidence' scoring in RICE to prevent subjective bias?"
+      ],
+      "key_misconceptions": [
+        "Using prioritization frameworks to justify a gut-feeling decision made beforehand"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_prd_user_stories_specs",
+      "concept_id": "concept_product-manager_prd_user_stories_specs",
+      "title": "PRDs, User Stories & Acceptance Criteria",
+      "subtitle": "Product Requirement Documents, epics, user stories, INVEST criteria, Gherkin acceptance criteria",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-manager_prioritization_frameworks"
+      ],
+      "learning_objectives": [
+        "Author clear, concise PRDs detailing problem, goals, out-of-scope items, and metrics",
+        "Write engineering-ready user stories with verifiable Gherkin acceptance criteria"
+      ],
+      "feynman_prompts": [
+        "What makes an acceptance criterion unambiguous for both engineering and QA?"
+      ],
+      "key_misconceptions": [
+        "Over-specifying technical implementation details in a PRD instead of user requirements and edge cases"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_agile_scrum_sprint_execution",
+      "concept_id": "concept_product-manager_agile_scrum_sprint_execution",
+      "title": "Agile, Scrum & Sprint Execution for PMs",
+      "subtitle": "Backlog grooming, sprint planning, daily standups, sprint reviews, managing tech debt",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_product-manager_prd_user_stories_specs"
+      ],
+      "learning_objectives": [
+        "Manage and groom a healthy product backlog prioritized by user and business value",
+        "Partner with engineering leads to allocate sprint capacity between features and technical debt"
+      ],
+      "feynman_prompts": [
+        "How should a PM handle scope creep discovered halfway through an active 2-week sprint?"
+      ],
+      "key_misconceptions": [
+        "Treating Agile as micro-managing engineers' daily hours rather than iterative value delivery"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_product_analytics_experimentation",
+      "concept_id": "concept_product-manager_product_analytics_experimentation",
+      "title": "Product Analytics & A/B Testing",
+      "subtitle": "Mixpanel/Amplitude cohort analysis, retention curves, hypothesis-driven experimentation",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_product-manager_product_metrics_north_star"
+      ],
+      "learning_objectives": [
+        "Analyze user cohort retention curves to evaluate product-market fit",
+        "Design and interpret A/B test experiments with statistical significance thresholds"
+      ],
+      "feynman_prompts": [
+        "What does a flattening cohort retention curve indicate about product-market fit?"
+      ],
+      "key_misconceptions": [
+        "Declaring an A/B test a success based on click rates while ignoring cannibalization on downstream conversion"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_unit_economics_pricing",
+      "concept_id": "concept_product-manager_unit_economics_pricing",
+      "title": "Unit Economics & Pricing Strategy",
+      "subtitle": "CAC, LTV, LTV:CAC ratio, payback period, churn (gross vs net), freemium vs free trial",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-manager_product_metrics_north_star"
+      ],
+      "learning_objectives": [
+        "Calculate Customer Acquisition Cost (CAC) and Customer Lifetime Value (LTV)",
+        "Evaluate SaaS pricing tiers (usage-based, seat-based, tiered feature gating)"
+      ],
+      "feynman_prompts": [
+        "Explain why an LTV:CAC ratio below 3:1 is dangerous for SaaS sustainability."
+      ],
+      "key_misconceptions": [
+        "Assuming that lowering prices is always the best strategy to increase conversion and retention"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_product_led_growth",
+      "concept_id": "concept_product-manager_product_led_growth",
+      "title": "Product-Led Growth (PLG) & Virality",
+      "subtitle": "Self-serve onboarding, time-to-value (TTV), virality coefficients (K-factor), expansion loops",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-manager_unit_economics_pricing"
+      ],
+      "learning_objectives": [
+        "Design self-serve onboarding funnels that minimize time-to-value (TTV)",
+        "Engineer virality loops and organic invite mechanisms into product workflows"
+      ],
+      "feynman_prompts": [
+        "What is 'time-to-value' and why is it the defining metric of product-led onboarding?"
+      ],
+      "key_misconceptions": [
+        "Forcing users through multi-screen registration wizards before showing any product value"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_stakeholder_management_influence",
+      "concept_id": "concept_product-manager_stakeholder_management_influence",
+      "title": "Stakeholder Management & Influencing Without Authority",
+      "subtitle": "Stakeholder mapping, executive alignment, navigating sales vs eng friction, saying 'No'",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-manager_agile_scrum_sprint_execution"
+      ],
+      "learning_objectives": [
+        "Navigate conflicting priorities across sales, marketing, engineering, and executives",
+        "Deliver principled, evidence-based 'No' responses while preserving relationships"
+      ],
+      "feynman_prompts": [
+        "How do you say 'No' to an urgent feature request from the enterprise sales team?"
+      ],
+      "key_misconceptions": [
+        "Saying 'Yes' to every stakeholder to avoid conflict, resulting in a fractured, unfocused product"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_go_to_market_strategy",
+      "concept_id": "concept_product-manager_go_to_market_strategy",
+      "title": "Go-To-Market (GTM) Strategy & Product Marketing",
+      "subtitle": "Positioning, messaging, launch tiers, cross-functional launch checklists, sales enablement",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-manager_unit_economics_pricing"
+      ],
+      "learning_objectives": [
+        "Create compelling product positioning statements and value propositions",
+        "Coordinate cross-functional GTM launch execution across sales, support, and marketing"
+      ],
+      "feynman_prompts": [
+        "What is the difference between product features and customer-centric value messaging?"
+      ],
+      "key_misconceptions": [
+        "Treating product launch as the end of the project rather than the beginning of adoption"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_technical_fluency_pm",
+      "concept_id": "concept_product-manager_technical_fluency_pm",
+      "title": "Technical Fluency for Product Managers",
+      "subtitle": "APIs, microservices, databases, caching, webhooks, technical debt trade-offs",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_product-manager_agile_scrum_sprint_execution"
+      ],
+      "learning_objectives": [
+        "Read API documentation and evaluate third-party integration technical feasibility",
+        "Have informed technical trade-off discussions regarding scalability vs delivery speed"
+      ],
+      "feynman_prompts": [
+        "Why is understanding API rate limits and async processing important for a non-coding PM?"
+      ],
+      "key_misconceptions": [
+        "Pretending to understand technical architecture instead of asking engineers clarifying questions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_enterprise_b2b_product_management",
+      "concept_id": "concept_product-manager_enterprise_b2b_product_management",
+      "title": "Enterprise B2B Product Management",
+      "subtitle": "Multi-tenant architecture, RBAC, SSO, compliance (SOC2/GDPR), procurement cycles",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_product-manager_stakeholder_management_influence"
+      ],
+      "learning_objectives": [
+        "Design enterprise administration features (Single Sign-On, Role-Based Access Control)",
+        "Navigate enterprise security questionnaires, compliance, and procurement timelines"
+      ],
+      "feynman_prompts": [
+        "How do buyer personas differ from user personas in enterprise B2B sales cycles?"
+      ],
+      "key_misconceptions": [
+        "Assuming the person purchasing enterprise software is the person who will use it daily"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_ai_product_management",
+      "concept_id": "concept_product-manager_ai_product_management",
+      "title": "AI Product Management & LLM Integration",
+      "subtitle": "Evaluating LLM capabilities, prompt evaluation, non-deterministic UX, evals & guardrails",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_product-manager_technical_fluency_pm"
+      ],
+      "learning_objectives": [
+        "Define evaluation metrics (precision, recall, ground truth accuracy) for AI features",
+        "Manage non-deterministic product edge cases and user trust boundaries"
+      ],
+      "feynman_prompts": [
+        "Why is deterministic software testing inadequate for evaluating LLM feature accuracy?"
+      ],
+      "key_misconceptions": [
+        "Treating AI as a plug-and-play feature without planning for latency, cost, and hallucination handling"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_product_strategy_vision",
+      "concept_id": "concept_product-manager_product_strategy_vision",
+      "title": "Product Strategy & Vision Formulation",
+      "subtitle": "Dhar/Gibson Biddle strategy models, Moats, DHM (Delight, Hard to copy, Margin-enhancing)",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_product-manager_market_competitive_analysis",
+        "concept_product-manager_product_metrics_north_star"
+      ],
+      "learning_objectives": [
+        "Draft a compelling 3-5 year product vision anchored in clear strategic pillars",
+        "Build defensible competitive moats (network effects, switching costs, brand)"
+      ],
+      "feynman_prompts": [
+        "What is the difference between an operational roadmap and a strategic product vision?"
+      ],
+      "key_misconceptions": [
+        "Treating a chronological feature list as a product strategy"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_product-manager_executive_communication_roadmap",
+      "concept_id": "concept_product-manager_executive_communication_roadmap",
+      "title": "Executive Communication & Dynamic Roadmapping",
+      "subtitle": "Outcome-based roadmaps (Now-Next-Later), QBRs, board presentations, crisis leadership",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_product-manager_product_strategy_vision",
+        "concept_product-manager_stakeholder_management_influence"
+      ],
+      "learning_objectives": [
+        "Structure theme- and outcome-based roadmaps instead of rigid feature timelines",
+        "Present quarterly business reviews (QBR) and strategic pivots to executive leadership"
+      ],
+      "feynman_prompts": [
+        "Why are 'Now-Next-Later' roadmaps superior to calendar-based Gantt charts in agile product teams?"
+      ],
+      "key_misconceptions": [
+        "Committing to exact calendar delivery dates 12 months in advance in high-uncertainty environments"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior Product Manager"
+}

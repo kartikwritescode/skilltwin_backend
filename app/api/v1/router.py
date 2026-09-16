@@ -16,6 +16,7 @@ from app.api.v1.endpoints import (
     learning_paths,
     topics,
     voice,
+    canonical_roadmaps,
 )
 
 api_router = APIRouter()
@@ -26,6 +27,7 @@ api_router.include_router(profile.router)
 api_router.include_router(twin.router)
 api_router.include_router(goals.router)
 api_router.include_router(journeys.router)
+api_router.include_router(canonical_roadmaps.router)
 api_router.include_router(learning_paths.router)
 api_router.include_router(topics.router)
 api_router.include_router(voice.router)
@@ -36,3 +38,4 @@ api_router.include_router(revision.router)
 api_router.include_router(resources.router)
 api_router.include_router(knowledge.router)
 api_router.include_router(teach.router)
+

@@ -1,0 +1,518 @@
+{
+  "id": "roadmap_server_side_game_developer",
+  "slug": "server-side-game-developer",
+  "title": "Server-Side Game Developer",
+  "description": "Master multiplayer backend engineering: authoritative game servers, low-latency UDP protocols, spatial partitioning, lag compensation, matchmaking, Agones Kubernetes orchestration, Redis state, and anti-cheat.",
+  "category": "Game Development",
+  "difficulty_level": "advanced",
+  "estimated_hours": 95,
+  "tags": [
+    "game-server",
+    "networking",
+    "udp",
+    "agones",
+    "kubernetes",
+    "matchmaking",
+    "anti-cheat",
+    "low-latency"
+  ],
+  "phases": [
+    {
+      "title": "Network & Physics Foundations",
+      "tier": "foundation",
+      "focus": "Dedicated Servers, Reliable UDP, Binary Delta Compression & Spatial Partitioning Grids",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "State Authority & Orchestration",
+      "tier": "core",
+      "focus": "Server Physics Reconciliation, Lag Rewind, Matchmaking MMR, Agones K8s & Redis Presence",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Anti-Cheat, Scale & LiveOps",
+      "tier": "advanced",
+      "focus": "Anti-Cheat Validation, In-Game Chat, Dynamic LiveOps, Telemetry & Headless Bot Testing",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Global Infrastructure Capstone",
+      "tier": "capstone",
+      "focus": "Zero-Downtime Fleets, Multi-Region Anycast Routing, and Multiplayer Backend Capstone",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_server-side-game-developer_game_server_foundations",
+      "concept_id": "concept_server-side-game-developer_game_server_foundations",
+      "title": "Server-Side Game Architecture Foundations",
+      "subtitle": "Dedicated vs listen servers, authoritative vs peer-to-peer, tick rates, fixed timestep updates",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Contrast dedicated authoritative server topologies with peer-to-peer lockstep models",
+        "Configure a deterministic server tick loop running at fixed simulation intervals (e.g. 64Hz)"
+      ],
+      "feynman_prompts": [
+        "Why do competitive multiplayer games always rely on dedicated authoritative servers?"
+      ],
+      "key_misconceptions": [
+        "Allowing game clients to execute authoritative game simulation logic"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_networking_udp_vs_tcp",
+      "concept_id": "concept_server-side-game-developer_networking_udp_vs_tcp",
+      "title": "Low-Latency Game Networking (UDP, TCP & WebSockets)",
+      "subtitle": "Transport protocols, UDP packet reliability layers, packet loss handling, header overhead, MTU",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_server-side-game-developer_game_server_foundations"
+      ],
+      "learning_objectives": [
+        "Build custom reliable-UDP sequencing and acknowledgment protocols over raw UDP sockets",
+        "Explain why TCP head-of-line blocking makes standard TCP unsuitable for fast-action games"
+      ],
+      "feynman_prompts": [
+        "What is Head-of-Line blocking in TCP and how does UDP avoid it?"
+      ],
+      "key_misconceptions": [
+        "Using HTTP REST APIs for real-time multiplayer combat synchronization"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_binary_serialization_protocols",
+      "concept_id": "concept_server-side-game-developer_binary_serialization_protocols",
+      "title": "Binary Serialization & Network Bandwidth Optimization",
+      "subtitle": "Bit packing, delta compression, Protobuf, FlatBuffers, quantization, bandwidth budgeting",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_server-side-game-developer_networking_udp_vs_tcp"
+      ],
+      "learning_objectives": [
+        "Quantize floating-point vector coordinates into compact integers to reduce packet payloads",
+        "Implement delta compression transmitting only mutated entity components per tick"
+      ],
+      "feynman_prompts": [
+        "Why is sending raw JSON over sockets unacceptable for high-frequency game server ticks?"
+      ],
+      "key_misconceptions": [
+        "Sending full entity transforms every tick instead of compressed delta states"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_spatial_partitioning_grids",
+      "concept_id": "concept_server-side-game-developer_spatial_partitioning_grids",
+      "title": "Spatial Partitioning & Area of Interest (AoI)",
+      "subtitle": "Grid hashing, quadtrees, octrees, area of interest management, entity filtering",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_server-side-game-developer_binary_serialization_protocols"
+      ],
+      "learning_objectives": [
+        "Implement 2D grid hashing and quadtrees to broadcast updates only to relevant nearby players",
+        "Filter out-of-vision server snapshots to reduce both server CPU and network egress"
+      ],
+      "feynman_prompts": [
+        "Explain how spatial hashing prevents an O(N^2) entity broadcast explosion in dense game worlds."
+      ],
+      "key_misconceptions": [
+        "Broadcasting every entity's position to every connected player across the entire map"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_authoritative_simulation_reconciliation",
+      "concept_id": "concept_server-side-game-developer_authoritative_simulation_reconciliation",
+      "title": "Server Authoritative Physics & Reconciliation",
+      "subtitle": "Simulating physics server-side, inputs queue, server tick snapshots, rollback reconciliation",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_server-side-game-developer_spatial_partitioning_grids"
+      ],
+      "learning_objectives": [
+        "Execute deterministic gameplay physics on the server decoupled from graphical rendering",
+        "Validate sequence numbers and generate authoritative state snapshots for client rollback"
+      ],
+      "feynman_prompts": [
+        "How does server authority prevent speed hacks and position teleportation cheats?"
+      ],
+      "key_misconceptions": [
+        "Simulating physics only on client machines and letting the server passively trust results"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_lag_compensation_rewind",
+      "concept_id": "concept_server-side-game-developer_lag_compensation_rewind",
+      "title": "Lag Compensation & Server Time-Rewind",
+      "subtitle": "Hit registration, server history buffer, rewinding player hitboxes, ping advantage mitigation",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 6,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_server-side-game-developer_authoritative_simulation_reconciliation"
+      ],
+      "learning_objectives": [
+        "Implement server-side lag compensation by rewinding target hitboxes to the client's fire timestamp",
+        "Cap maximum rewind thresholds to prevent extreme 'getting shot around walls' experiences"
+      ],
+      "feynman_prompts": [
+        "Explain step-by-step how an authoritative server validates a sniper hit from a 100ms ping player."
+      ],
+      "key_misconceptions": [
+        "Rewinding server history indefinitely, which penalizes low-ping players"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_matchmaking_rating_systems",
+      "concept_id": "concept_server-side-game-developer_matchmaking_rating_systems",
+      "title": "Matchmaking Systems & Skill Rating Algorithms",
+      "subtitle": "Elo, Glicko-2, TrueSkill, matchmaking queues, ticket expansion, ping vs skill balancing",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_server-side-game-developer_game_server_foundations"
+      ],
+      "learning_objectives": [
+        "Implement rating update algorithms (Elo/Glicko) and queue expansion rules",
+        "Balance queue wait times against latency and skill rating variance"
+      ],
+      "feynman_prompts": [
+        "Why do matchmaking systems gradually widen MMR search radius over queue wait duration?"
+      ],
+      "key_misconceptions": [
+        "Matching players strictly on level/playtime rather than latent skill rating"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_server_orchestration_agones",
+      "concept_id": "concept_server-side-game-developer_server_orchestration_agones",
+      "title": "Dedicated Game Server Orchestration (Agones & K8s)",
+      "subtitle": "Agones on Kubernetes, fleet scaling, game server lifecycles (Allocated, Ready, Shutdown)",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 8,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_server-side-game-developer_game_server_foundations"
+      ],
+      "learning_objectives": [
+        "Deploy containerized game server binaries on Kubernetes using Google Agones",
+        "Manage game server allocation requests from matchmakers without killing active matches"
+      ],
+      "feynman_prompts": [
+        "How does Agones prevent Kubernetes from terminating a container with an active 40-minute match?"
+      ],
+      "key_misconceptions": [
+        "Treating stateful dedicated game servers as stateless microservices"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_distributed_state_redis",
+      "concept_id": "concept_server-side-game-developer_distributed_state_redis",
+      "title": "Player Sessions & Ephemeral State with Redis",
+      "subtitle": "Presence tracking, active match routing, distributed locks, session tokens, heartbeat timeouts",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_server-side-game-developer_matchmaking_rating_systems"
+      ],
+      "learning_objectives": [
+        "Manage global player presence and active game server routing tables using Redis",
+        "Implement distributed locks and heartbeats to cleanly evict dropped player sessions"
+      ],
+      "feynman_prompts": [
+        "Why is an in-memory store like Redis required for matchmaking queues rather than relational DBs?"
+      ],
+      "key_misconceptions": [
+        "Relying on database polling every second to check player online status"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_game_economy_inventory_db",
+      "concept_id": "concept_server-side-game-developer_game_economy_inventory_db",
+      "title": "Player Inventories, Economy & Transactional Databases",
+      "subtitle": "ACID transactions, PostgreSQL, item minting, dupe glitch prevention, currency ledgers",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_server-side-game-developer_distributed_state_redis"
+      ],
+      "learning_objectives": [
+        "Design double-entry bookkeeping ledgers for virtual currencies preventing duplication glitches",
+        "Enforce strict database transactions with optimistic locking during item trades"
+      ],
+      "feynman_prompts": [
+        "Explain how asynchronous inventory saving can lead to item duplication during sudden server crashes."
+      ],
+      "key_misconceptions": [
+        "Modifying player inventory balances without strict database row locks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_anti_cheat_server_validation",
+      "concept_id": "concept_server-side-game-developer_anti_cheat_server_validation",
+      "title": "Anti-Cheat Architecture & Server-Side Heuristics",
+      "subtitle": "Heuristic anomaly detection, speed/teleport validation, aimbot statistical analysis, fog-of-war",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_server-side-game-developer_authoritative_simulation_reconciliation"
+      ],
+      "learning_objectives": [
+        "Implement server-side velocity clamping and geometric raycast validation to block wallhacks",
+        "Detect statistical anomalies in aimbot angular acceleration and impossible reaction times"
+      ],
+      "feynman_prompts": [
+        "Why is server-side validation the only foolproof defense against game memory manipulation?"
+      ],
+      "key_misconceptions": [
+        "Believing client-side anti-cheat software alone is enough to prevent cheating"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_chat_social_voice_backend",
+      "concept_id": "concept_server-side-game-developer_chat_social_voice_backend",
+      "title": "In-Game Chat, Social Graphs & Voice Services",
+      "subtitle": "Pub/Sub chat channels, profanity filtering, friend lists, party systems, WebRTC voice signaling",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_server-side-game-developer_distributed_state_redis"
+      ],
+      "learning_objectives": [
+        "Architect scalable real-time chat servers utilizing Redis Pub/Sub and Kafka",
+        "Manage party invites, presence notifications, and WebRTC voice channel handshakes"
+      ],
+      "feynman_prompts": [
+        "How do you route group voice packets efficiently without overloading the game simulation server?"
+      ],
+      "key_misconceptions": [
+        "Running audio encoding and voice streaming directly through the game tick server thread"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_dynamic_liveops_content",
+      "concept_id": "concept_server-side-game-developer_dynamic_liveops_content",
+      "title": "LiveOps, Dynamic Configuration & Content Delivery",
+      "subtitle": "Remote config, feature flags, hot patching game data, seasonal events, CDN asset bundles",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_server-side-game-developer_game_economy_inventory_db"
+      ],
+      "learning_objectives": [
+        "Build remote configuration systems to adjust weapon balance parameters without client updates",
+        "Distribute seasonal game asset bundles securely via global Content Delivery Networks (CDNs)"
+      ],
+      "feynman_prompts": [
+        "Why should game design balance parameters be dynamically configurable from the server?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding game balance values directly into compiled client executables"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_game_telemetry_analytics",
+      "concept_id": "concept_server-side-game-developer_game_telemetry_analytics",
+      "title": "Game Telemetry, Logging & Analytics at Scale",
+      "subtitle": "Event ingestion, Kafka, ClickHouse, kill heatmaps, retention funnels, combat balance telemetry",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_server-side-game-developer_dynamic_liveops_content"
+      ],
+      "learning_objectives": [
+        "Stream high-volume player gameplay telemetry events into Kafka and ClickHouse",
+        "Generate spatial heatmaps of player deaths and weapon usage to identify balance anomalies"
+      ],
+      "feynman_prompts": [
+        "Why is columnar storage (ClickHouse) optimal for analyzing billions of game telemetry events?"
+      ],
+      "key_misconceptions": [
+        "Logging high-frequency player movement events directly into the transactional inventory database"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_load_testing_bot_simulations",
+      "concept_id": "concept_server-side-game-developer_load_testing_bot_simulations",
+      "title": "Load Testing Game Servers with Headless Bots",
+      "subtitle": "Simulated virtual players, stress testing tick rates, simulating network jitter, benchmarking egress",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_server-side-game-developer_networking_udp_vs_tcp",
+        "concept_server-side-game-developer_server_orchestration_agones"
+      ],
+      "learning_objectives": [
+        "Build headless bot clients simulating hundreds of concurrent players firing and moving",
+        "Benchmark server CPU tick stability, memory allocation, and bandwidth under heavy combat"
+      ],
+      "feynman_prompts": [
+        "What metrics indicate that a game server tick loop is suffocating under load?"
+      ],
+      "key_misconceptions": [
+        "Testing server capacity with simple HTTP requests instead of realistic UDP socket simulations"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_zero_downtime_fleet_updates",
+      "concept_id": "concept_server-side-game-developer_zero_downtime_fleet_updates",
+      "title": "Fleet Rolling Updates & Zero-Downtime Deployments",
+      "subtitle": "Multi-version game client support, draining old fleets, Blue/Green game server migrations",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_server-side-game-developer_server_orchestration_agones"
+      ],
+      "learning_objectives": [
+        "Coordinate fleet updates allowing older game clients to finish matches while new versions deploy",
+        "Drain game server instances gracefully without disrupting active matches"
+      ],
+      "feynman_prompts": [
+        "How do you manage client-server version compatibility when deploying a hotfix patch?"
+      ],
+      "key_misconceptions": [
+        "Force-terminating running game instances during a fleet software update"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_multi_region_cloud_routing",
+      "concept_id": "concept_server-side-game-developer_multi_region_cloud_routing",
+      "title": "Global Multi-Region Architecture & Anycast Routing",
+      "subtitle": "Edge routing, Anycast, minimizing player RTT, cross-region matchmaking, DDoS mitigation",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_server-side-game-developer_server_orchestration_agones",
+        "concept_server-side-game-developer_matchmaking_rating_systems"
+      ],
+      "learning_objectives": [
+        "Deploy game server clusters across multiple global cloud regions with latency-based routing",
+        "Mitigate large-scale UDP amplification DDoS attacks targeting game server ports"
+      ],
+      "feynman_prompts": [
+        "How does Anycast DNS/BGP routing direct players to the closest physical server cluster?"
+      ],
+      "key_misconceptions": [
+        "Centralizing all dedicated servers in a single geographic data center for global players"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_server-side-game-developer_server_side_game_capstone",
+      "concept_id": "concept_server-side-game-developer_server_side_game_capstone",
+      "title": "Full Multiplayer Backend Architecture Capstone",
+      "subtitle": "Complete stack: matchmaking, Agones fleet, dedicated UDP server, Redis state, inventory DB & liveops",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 40,
+      "prerequisites": [
+        "concept_server-side-game-developer_multi_region_cloud_routing",
+        "concept_server-side-game-developer_anti_cheat_server_validation"
+      ],
+      "learning_objectives": [
+        "Architect and deploy a scalable, resilient backend infrastructure supporting real-time multiplayer games",
+        "Integrate automated matchmaking, container orchestration, server reconciliation, and telemetry pipelines"
+      ],
+      "feynman_prompts": [
+        "What are the key operational runbooks required for operating an online multiplayer game launch?"
+      ],
+      "key_misconceptions": [
+        "Launching an online game without capacity headroom, automated fleet scaling, or DDoS protection"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior Server-Side Game Developer"
+}

@@ -1,0 +1,520 @@
+{
+  "slug": "mlops",
+  "title": "MLOps Engineer",
+  "domain": "ML Infrastructure & Ops",
+  "target_role": "Senior MLOps Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "mlops",
+    "devops",
+    "kubeflow",
+    "mlflow",
+    "dvc",
+    "docker",
+    "triton",
+    "monitoring",
+    "cicd"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_mlops_software_engineering_for_ml",
+      "concept_id": "concept_mlops_software_engineering_for_ml",
+      "title": "Software Engineering Best Practices for ML Systems",
+      "subtitle": "Modular Python packaging, virtual environments, unit tests for data/models, type hints, linting",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Refactor notebook research code into modular, importable Python packages with type hints",
+        "Write unit tests for feature transformation functions and data validation"
+      ],
+      "feynman_prompts": [
+        "Why is shipping Jupyter notebooks directly to production an engineering anti-pattern?"
+      ],
+      "key_misconceptions": [
+        "Deploying untyped, untested notebook code with hardcoded local file paths directly to servers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_data_versioning_dvc",
+      "concept_id": "concept_mlops_data_versioning_dvc",
+      "title": "Data & Pipeline Versioning with DVC",
+      "subtitle": "Data Version Control (DVC), tracking large files on S3/GCS, .dvc files, reproducible pipelines",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_mlops_software_engineering_for_ml"
+      ],
+      "learning_objectives": [
+        "Version multi-gigabyte training datasets alongside code commits using Git and DVC",
+        "Configure remote cloud storage backends (S3, GCS) for centralized team dataset synchronization"
+      ],
+      "feynman_prompts": [
+        "How does DVC track multi-gigabyte data files in Git repositories without bloating Git storage?"
+      ],
+      "key_misconceptions": [
+        "Committing raw multi-gigabyte training datasets directly into Git repositories"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_experiment_tracking_mlflow",
+      "concept_id": "concept_mlops_experiment_tracking_mlflow",
+      "title": "Experiment Tracking & Model Registry with MLflow",
+      "subtitle": "Logging parameters, metrics, artifacts, MLflow Tracking Server, Model Registry lifecycle",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_mlops_data_versioning_dvc"
+      ],
+      "learning_objectives": [
+        "Log metrics, hyperparameters, and confusion matrix artifacts automatically during training runs",
+        "Manage model lifecycles through Staging, Production, and Archived states in the Model Registry"
+      ],
+      "feynman_prompts": [
+        "Why is a centralized Model Registry essential for tracking provenance and governing production releases?"
+      ],
+      "key_misconceptions": [
+        "Saving model weights as unversioned local pickle files on developer laptops"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_feature_stores_feast",
+      "concept_id": "concept_mlops_feature_stores_feast",
+      "title": "Feature Stores: Feast Architecture & Point-in-Time Joins",
+      "subtitle": "Online vs offline feature stores, point-in-time correct joins, feature definitions, preventing leakage",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_mlops_data_versioning_dvc"
+      ],
+      "learning_objectives": [
+        "Deploy and manage an open-source feature store using Feast",
+        "Execute point-in-time correct historical joins to eliminate feature leakage in training sets"
+      ],
+      "feynman_prompts": [
+        "What is train-serve skew and how do feature stores guarantee parity between training and inference features?"
+      ],
+      "key_misconceptions": [
+        "Re-implementing feature engineering in SQL for training and Python for serving, introducing logic mismatch"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_containerization_cuda_docker",
+      "concept_id": "concept_mlops_containerization_cuda_docker",
+      "title": "Containerization for Machine Learning & CUDA Support",
+      "subtitle": "Multi-stage Dockerfiles for ML, NVIDIA Container Toolkit, CUDA base images, non-root users",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_mlops_software_engineering_for_ml"
+      ],
+      "learning_objectives": [
+        "Build lightweight, reproducible container images with CUDA GPU acceleration support",
+        "Ensure consistent runtime execution across local workstations and cloud training clusters"
+      ],
+      "feynman_prompts": [
+        "Why must the NVIDIA Container Toolkit be installed on the host to expose GPUs inside Docker containers?"
+      ],
+      "key_misconceptions": [
+        "Building monolithic 15GB Docker images containing unnecessary build compilers and debug packages"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_ml_pipeline_orchestration_kubeflow",
+      "concept_id": "concept_mlops_ml_pipeline_orchestration_kubeflow",
+      "title": "ML Pipeline Orchestration: Kubeflow & Airflow",
+      "subtitle": "Containerized pipeline steps, Kubeflow Pipelines (KFP), components, DAG execution, caching",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_mlops_containerization_cuda_docker"
+      ],
+      "learning_objectives": [
+        "Author scalable, reusable ML training pipelines using Kubeflow Pipelines (KFP)",
+        "Configure pipeline task caching so unchanged data preparation steps are not re-executed"
+      ],
+      "feynman_prompts": [
+        "Why are containerized pipeline components superior to running monolithic scripts on a single VM?"
+      ],
+      "key_misconceptions": [
+        "Re-running expensive 10-hour data preprocessing steps every time a minor model hyperparameter changes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_automated_model_validation_gates",
+      "concept_id": "concept_mlops_automated_model_validation_gates",
+      "title": "Automated Model Validation & Quality Gates",
+      "subtitle": "Data schema validation, model regression tests, fairness & bias checks, performance thresholds",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_mlops_experiment_tracking_mlflow"
+      ],
+      "learning_objectives": [
+        "Implement automated CI quality gates that block deployment if challenger accuracy is lower than champion",
+        "Test models for algorithmic bias and demographic performance disparities before release"
+      ],
+      "feynman_prompts": [
+        "Why must automated model regression testing run before promoting a candidate model in the registry?"
+      ],
+      "key_misconceptions": [
+        "Deploying newly trained models directly to production without verifying performance against benchmark test sets"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_ci_cd_continuous_training",
+      "concept_id": "concept_mlops_ci_cd_continuous_training",
+      "title": "CI/CD & Continuous Training (CT) Pipelines",
+      "subtitle": "GitHub Actions for ML, automated training on data updates, automated model packaging, release gates",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_mlops_automated_model_validation_gates"
+      ],
+      "learning_objectives": [
+        "Build automated CI/CD pipelines that trigger model training when new verified data is ingested",
+        "Automate container image publishing and Model Registry updates via GitHub Actions"
+      ],
+      "feynman_prompts": [
+        "What is Continuous Training (CT) in MLOps and how does it extend traditional CI/CD?"
+      ],
+      "key_misconceptions": [
+        "Triggering manual multi-day retraining workflows ad-hoc only after users complain about degradation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_model_optimization_onnx_runtime",
+      "concept_id": "concept_mlops_model_optimization_onnx_runtime",
+      "title": "Model Packaging & Optimization with ONNX Runtime",
+      "subtitle": "ONNX export, graph optimization, ONNX Runtime execution providers (CPU, CUDA, TensorRT)",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_mlops_containerization_cuda_docker"
+      ],
+      "learning_objectives": [
+        "Export PyTorch and Scikit-Learn models to standardized ONNX representation",
+        "Benchmark inference latency and optimize compute graphs using ONNX Runtime"
+      ],
+      "feynman_prompts": [
+        "Why does the ONNX format decouple model training frameworks from inference serving platforms?"
+      ],
+      "key_misconceptions": [
+        "Deploying full PyTorch training environments to production servers just to run forward inference"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_triton_torchserve_model_serving",
+      "concept_id": "concept_mlops_triton_torchserve_model_serving",
+      "title": "Production Model Serving: Triton & TorchServe",
+      "subtitle": "Triton Inference Server, dynamic batching, multi-model concurrency, model repository",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_mlops_model_optimization_onnx_runtime"
+      ],
+      "learning_objectives": [
+        "Deploy enterprise model serving infrastructure using NVIDIA Triton Inference Server",
+        "Configure dynamic batching to maximize GPU utilization under high-throughput concurrent requests"
+      ],
+      "feynman_prompts": [
+        "How does dynamic batching in Triton aggregate individual incoming requests into a single GPU tensor batch?"
+      ],
+      "key_misconceptions": [
+        "Serving models with single-threaded Flask applications that handle one request at a time"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_realtime_apis_fastapi_grpc",
+      "concept_id": "concept_mlops_realtime_apis_fastapi_grpc",
+      "title": "Real-Time Inference APIs with FastAPI & gRPC",
+      "subtitle": "FastAPI endpoints, gRPC Protocol Buffers, request validation with Pydantic, health checks",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_mlops_triton_torchserve_model_serving"
+      ],
+      "learning_objectives": [
+        "Build high-performance REST and gRPC inference microservices with strict schema validation",
+        "Implement readiness and liveness health checks that monitor model loading state"
+      ],
+      "feynman_prompts": [
+        "Why is gRPC preferred over REST/JSON for low-latency internal microservice model inference?"
+      ],
+      "key_misconceptions": [
+        "Failing to implement readiness probes, routing live user traffic to servers before models finish loading into RAM"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_drift_monitoring_evidently",
+      "concept_id": "concept_mlops_drift_monitoring_evidently",
+      "title": "Continuous Monitoring: Data Drift & Concept Drift",
+      "subtitle": "Evidently AI, Evidently dashboards, Drift metrics (KS test, Wasserstein distance, PSI), alerting",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_mlops_realtime_apis_fastapi_grpc"
+      ],
+      "learning_objectives": [
+        "Detect statistical distribution changes in production feature inputs using Evidently AI",
+        "Configure automated Slack / PagerDuty alerts when population stability index (PSI) exceeds thresholds"
+      ],
+      "feynman_prompts": [
+        "How does data drift detection warn engineers of model degradation before ground-truth labels are available?"
+      ],
+      "key_misconceptions": [
+        "Assuming models maintain their benchmark accuracy indefinitely without monitoring live production distributions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_model_explainability_observability",
+      "concept_id": "concept_mlops_model_explainability_observability",
+      "title": "Production Model Observability & Explainability",
+      "subtitle": "Logging inference payloads, Prometheus latency metrics, OpenTelemetry, on-demand SHAP explanations",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_mlops_drift_monitoring_evidently"
+      ],
+      "learning_objectives": [
+        "Instrument production inference servers with Prometheus metrics (p99 latency, throughput, error rates)",
+        "Log production predictions and calculate on-demand SHAP explanations for audited decisions"
+      ],
+      "feynman_prompts": [
+        "Why is logging raw prediction inputs and outputs essential for post-incident model debugging?"
+      ],
+      "key_misconceptions": [
+        "Discarding live inference payloads, making it impossible to diagnose why a model made a disastrous prediction"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_automated_retraining_feedback_loops",
+      "concept_id": "concept_mlops_automated_retraining_feedback_loops",
+      "title": "Automated Retraining & Active Learning Loops",
+      "subtitle": "Drift-triggered retraining pipelines, active learning sample selection, human-in-the-loop annotation",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_mlops_drift_monitoring_evidently"
+      ],
+      "learning_objectives": [
+        "Trigger automated Kubeflow retraining pipelines when monitored drift metrics exceed critical levels",
+        "Select low-confidence production samples for priority human re-annotation (Active Learning)"
+      ],
+      "feynman_prompts": [
+        "How does active learning minimize data annotation costs by only labeling samples with high model uncertainty?"
+      ],
+      "key_misconceptions": [
+        "Blindly retraining models on uncurated live production outputs without quality filtering"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_deployment_canary_shadow_ab",
+      "concept_id": "concept_mlops_deployment_canary_shadow_ab",
+      "title": "Deployment Strategies: Shadow & Canary Deployments",
+      "subtitle": "Shadow traffic mirroring, canary rollouts, blue/green deployments, A/B testing live model variants",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_mlops_triton_torchserve_model_serving"
+      ],
+      "learning_objectives": [
+        "Mirror real production traffic to a new challenger model in shadow mode with zero user impact",
+        "Execute progressive canary rollouts (1% -> 10% -> 100%) with automated rollbacks on error spikes"
+      ],
+      "feynman_prompts": [
+        "Why is shadow traffic deployment the safest way to evaluate latency and stability before going live?"
+      ],
+      "key_misconceptions": [
+        "Switching 100% of production traffic to a newly trained model instantly without canary verification"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_infrastructure_finops_gpu_scaling",
+      "concept_id": "concept_mlops_infrastructure_finops_gpu_scaling",
+      "title": "Infrastructure FinOps & GPU Cluster Optimization",
+      "subtitle": "Cloud GPU cost management, spot/preemptible instances, KEDA event-driven autoscaling",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_mlops_triton_torchserve_model_serving"
+      ],
+      "learning_objectives": [
+        "Scale GPU inference clusters dynamically based on queue depth using KEDA",
+        "Execute distributed batch training jobs on discounted cloud spot instances with checkpointing"
+      ],
+      "feynman_prompts": [
+        "How does checkpointing enable fault-tolerant distributed training on preemptible spot instances?"
+      ],
+      "key_misconceptions": [
+        "Keeping expensive multi-GPU training instances running 24/7 after training jobs complete"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_model_governance_security_audit",
+      "concept_id": "concept_mlops_model_governance_security_audit",
+      "title": "Model Governance, Security & Lineage Auditing",
+      "subtitle": "Model Cards, cryptographic artifact hashes, model inversion attack defense, compliance audits",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_mlops_experiment_tracking_mlflow"
+      ],
+      "learning_objectives": [
+        "Generate comprehensive Model Cards documenting performance, intended use, and limitations",
+        "Protect model weights against theft and audit end-to-end lineage from raw data to deployed binary"
+      ],
+      "feynman_prompts": [
+        "Why are standardized Model Cards essential for regulatory compliance (e.g. EU AI Act)?"
+      ],
+      "key_misconceptions": [
+        "Deploying proprietary models without cryptographic checksum verification, risking tampering"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_mlops_edge_ai_embedded_deployment",
+      "concept_id": "concept_mlops_edge_ai_embedded_deployment",
+      "title": "Edge AI & Embedded Deployment (TensorRT / TFLite)",
+      "subtitle": "TensorRT, TensorFlow Lite, CoreML, quantization (FP16/INT8), edge hardware constraints",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 18,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_mlops_model_optimization_onnx_runtime"
+      ],
+      "learning_objectives": [
+        "Optimize and compile deep neural networks for edge execution using NVIDIA TensorRT",
+        "Deploy lightweight models to mobile and IoT devices under strict memory and thermal constraints"
+      ],
+      "feynman_prompts": [
+        "How does TensorRT layer fusion reduce memory bandwidth bottlenecks during edge inference?"
+      ],
+      "key_misconceptions": [
+        "Deploying un-quantized desktop deep learning models to low-power mobile devices, draining battery life"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_mlops",
+  "description": "Master MLOps Engineer with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "MLOps Engineer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "MLOps Engineer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "MLOps Engineer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "MLOps Engineer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "MLOps Engineer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

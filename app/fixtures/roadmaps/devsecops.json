@@ -1,0 +1,519 @@
+{
+  "slug": "devsecops",
+  "title": "DevSecOps Engineer",
+  "domain": "Security & Infrastructure",
+  "target_role": "Senior DevSecOps Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "devsecops",
+    "security",
+    "sast",
+    "dast",
+    "kubernetes",
+    "compliance",
+    "trivy",
+    "supply-chain"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_devsecops_security_threat_modeling",
+      "concept_id": "concept_devsecops_security_threat_modeling",
+      "title": "DevSecOps Fundamentals & Threat Modeling",
+      "subtitle": "CIA triad, STRIDE threat modeling, shift-left security, security champions model",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Apply STRIDE threat modeling to identify architectural vulnerabilities early",
+        "Integrate security requirements into early product sprint planning"
+      ],
+      "feynman_prompts": [
+        "How does 'shifting left' reduce the exponential cost of fixing security bugs in production?"
+      ],
+      "key_misconceptions": [
+        "Treating security as a blocking gate at the very end of the release cycle"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_secret_scanning_precommit",
+      "concept_id": "concept_devsecops_secret_scanning_precommit",
+      "title": "Secret Detection & Git Pre-Commit Hooks",
+      "subtitle": "TruffleHog, Gitleaks, pre-commit hooks, secret revocation, entropy analysis",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devsecops_security_threat_modeling"
+      ],
+      "learning_objectives": [
+        "Block accidental secret commits locally using automated pre-commit scanners",
+        "Execute enterprise Git repository scans for historical credential leaks"
+      ],
+      "feynman_prompts": [
+        "Why is deleting a leaked secret in a new commit insufficient to secure the credential?"
+      ],
+      "key_misconceptions": [
+        "Assuming private Git repositories are safe for storing hardcoded API credentials"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_sast_code_analysis",
+      "concept_id": "concept_devsecops_sast_code_analysis",
+      "title": "Static Application Security Testing (SAST)",
+      "subtitle": "Semgrep, SonarQube, abstract syntax tree (AST) rules, finding injection flaws",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devsecops_security_threat_modeling"
+      ],
+      "learning_objectives": [
+        "Automate static source code analysis in CI pipelines using Semgrep/SonarQube",
+        "Differentiate true positives from noise and author custom linting rules"
+      ],
+      "feynman_prompts": [
+        "How does SAST analyze code without executing it, and what are its limitations regarding runtime context?"
+      ],
+      "key_misconceptions": [
+        "Relying exclusively on SAST tools without performing dynamic or interactive testing"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_sca_dependency_vulnerabilities",
+      "concept_id": "concept_devsecops_sca_dependency_vulnerabilities",
+      "title": "Software Composition Analysis (SCA) & SBOM",
+      "subtitle": "Snyk, Dependabot, CVE tracking, CVSS severity scoring, Software Bill of Materials (SBOM)",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devsecops_sast_code_analysis"
+      ],
+      "learning_objectives": [
+        "Scan open-source third-party dependencies for known CVE vulnerabilities",
+        "Generate and verify CycloneDX Software Bill of Materials (SBOM) in CI"
+      ],
+      "feynman_prompts": [
+        "What is a transitive dependency vulnerability and why is it dangerous?"
+      ],
+      "key_misconceptions": [
+        "Ignoring CVE alerts with medium severity that can be chained into remote code execution"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_container_image_scanning",
+      "concept_id": "concept_devsecops_container_image_scanning",
+      "title": "Container Security & Vulnerability Scanning",
+      "subtitle": "Trivy, Grype, Docker base image hardening, rootless containers, distroless images",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devsecops_sca_dependency_vulnerabilities"
+      ],
+      "learning_objectives": [
+        "Scan Docker container images for OS-level and application CVEs using Trivy",
+        "Harden container images by adopting non-root users and minimal distroless bases"
+      ],
+      "feynman_prompts": [
+        "Why do distroless container images dramatically reduce an application's attack surface?"
+      ],
+      "key_misconceptions": [
+        "Using heavy full-OS base images (like ubuntu:latest) with package managers in production"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_dast_dynamic_scanning",
+      "concept_id": "concept_devsecops_dast_dynamic_scanning",
+      "title": "Dynamic Application Security Testing (DAST)",
+      "subtitle": "OWASP ZAP, DAST automation, active vs passive scans, API vulnerability probing",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devsecops_sast_code_analysis"
+      ],
+      "learning_objectives": [
+        "Automate dynamic web application vulnerability scanning against staging environments",
+        "Detect runtime vulnerabilities such as SQL injection and cross-site scripting (XSS)"
+      ],
+      "feynman_prompts": [
+        "How does DAST differ from SAST in detecting runtime authentication and session flaws?"
+      ],
+      "key_misconceptions": [
+        "Running destructive active DAST scans directly against live production customer databases"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_iac_security_scanning",
+      "concept_id": "concept_devsecops_iac_security_scanning",
+      "title": "Infrastructure as Code (IaC) Security & Misconfigurations",
+      "subtitle": "tfsec, Checkov, Kube-bench, CIS benchmarks, open security group detection",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devsecops_sast_code_analysis"
+      ],
+      "learning_objectives": [
+        "Scan Terraform configurations and Kubernetes manifests for security anti-patterns",
+        "Enforce CIS benchmarks on cloud infrastructure before provisioning"
+      ],
+      "feynman_prompts": [
+        "Why is preventing cloud misconfigurations in Terraform easier than fixing them after cloud deployment?"
+      ],
+      "key_misconceptions": [
+        "Allowing public 0.0.0.0/0 ingress access to cloud database instances"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_ci_security_gates",
+      "concept_id": "concept_devsecops_ci_security_gates",
+      "title": "Automated Security Quality Gates in CI/CD",
+      "subtitle": "GitHub Actions security workflows, SARIF reports, policy-as-code with OPA/Conftest",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devsecops_iac_security_scanning"
+      ],
+      "learning_objectives": [
+        "Implement automated build-breaking security gates for critical CVSS vulnerabilities",
+        "Centralize vulnerability reporting using standardized SARIF format in GitHub"
+      ],
+      "feynman_prompts": [
+        "How do automated security quality gates prevent known vulnerabilities from reaching production?"
+      ],
+      "key_misconceptions": [
+        "Allowing developers to bypass security pipeline failures without security team sign-off"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_k8s_rbac_admission_control",
+      "concept_id": "concept_devsecops_k8s_rbac_admission_control",
+      "title": "Kubernetes Hardening, RBAC & Admission Controllers",
+      "subtitle": "Kubernetes RBAC, ServiceAccounts, OPA Gatekeeper, Kyverno policy enforcement",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 9,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devsecops_iac_security_scanning"
+      ],
+      "learning_objectives": [
+        "Enforce strict Kubernetes RBAC policies adhering to least privilege",
+        "Block non-compliant Pods using Kyverno or OPA Gatekeeper admission controllers"
+      ],
+      "feynman_prompts": [
+        "Why should default ServiceAccounts never be granted cluster-admin permissions?"
+      ],
+      "key_misconceptions": [
+        "Granting developer Pods hostPath volume mounts that allow root filesystem escape"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_network_policies_service_mesh",
+      "concept_id": "concept_devsecops_network_policies_service_mesh",
+      "title": "Container Network Security & Micro-segmentation",
+      "subtitle": "Kubernetes NetworkPolicies, Calico, mTLS service mesh with Istio/Linkerd",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devsecops_k8s_rbac_admission_control"
+      ],
+      "learning_objectives": [
+        "Isolate sensitive database Pods using restrictive Kubernetes NetworkPolicies",
+        "Enforce mutual TLS (mTLS) encryption for all inter-service microservice communications"
+      ],
+      "feynman_prompts": [
+        "Why is default flat networking in Kubernetes a major lateral movement risk for attackers?"
+      ],
+      "key_misconceptions": [
+        "Assuming internal cluster traffic is safe without encrypting network communications via mTLS"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_cloud_security_cspm",
+      "concept_id": "concept_devsecops_cloud_security_cspm",
+      "title": "Cloud Security Posture Management (CSPM)",
+      "subtitle": "AWS Security Hub, GuardDuty, IAM credential auditing, least-privilege cloud roles",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devsecops_iac_security_scanning"
+      ],
+      "learning_objectives": [
+        "Audit cloud environments continuously for IAM privilege escalation vectors",
+        "Automate remediation of non-compliant cloud storage buckets and firewall rules"
+      ],
+      "feynman_prompts": [
+        "How do attackers exploit AWS IAM role privilege escalation to gain administrative control?"
+      ],
+      "key_misconceptions": [
+        "Generating long-lived static AWS access keys instead of using temporary IAM roles"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_runtime_security_falco",
+      "concept_id": "concept_devsecops_runtime_security_falco",
+      "title": "Runtime Container Security & Threat Detection with Falco",
+      "subtitle": "eBPF, Falco runtime rules, detecting shell spawns in containers, anomaly alerts",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devsecops_k8s_rbac_admission_control"
+      ],
+      "learning_objectives": [
+        "Detect and alert on unexpected runtime container behavior (shell execution, privilege escalation)",
+        "Leverage eBPF kernel instrumentation for non-intrusive container monitoring"
+      ],
+      "feynman_prompts": [
+        "How does Falco detect unauthorized command executions inside running production containers?"
+      ],
+      "key_misconceptions": [
+        "Assuming that building secure container images eliminates the need for runtime monitoring"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_zero_trust_architecture",
+      "concept_id": "concept_devsecops_zero_trust_architecture",
+      "title": "Zero Trust Architecture & Identity-Aware Proxies",
+      "subtitle": "Zero Trust principles (Never Trust, Always Verify), BeyondCorp, Cloudflare Access",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devsecops_cloud_security_cspm"
+      ],
+      "learning_objectives": [
+        "Design corporate and developer network access adhering to Zero Trust principles",
+        "Replace legacy perimeter VPNs with Identity-Aware Proxies and contextual MFA"
+      ],
+      "feynman_prompts": [
+        "Why is the traditional castle-and-moat network perimeter model obsolete for cloud environments?"
+      ],
+      "key_misconceptions": [
+        "Trusting internal network connections purely based on IP subnet location"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_supply_chain_security_cosign",
+      "concept_id": "concept_devsecops_supply_chain_security_cosign",
+      "title": "Software Supply Chain Security & Artifact Signing",
+      "subtitle": "SLSA framework, Sigstore / Cosign, cryptographic image signing, artifact provenance",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devsecops_ci_security_gates"
+      ],
+      "learning_objectives": [
+        "Sign production container images cryptographically using Sigstore / Cosign",
+        "Verify image provenance and cryptographic signatures at Kubernetes admission time"
+      ],
+      "feynman_prompts": [
+        "Why is artifact signing essential to defend against software supply chain attacks (e.g., SolarWinds)?"
+      ],
+      "key_misconceptions": [
+        "Pulling mutable container image tags like :latest without verifying cryptographic digests"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_compliance_soc2_iso",
+      "concept_id": "concept_devsecops_compliance_soc2_iso",
+      "title": "Compliance Automation: SOC2, ISO 27001 & HIPAA",
+      "subtitle": "Automated compliance evidence collection, Drata/Vanta integration, continuous audit",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devsecops_cloud_security_cspm"
+      ],
+      "learning_objectives": [
+        "Automate infrastructure compliance evidence gathering for SOC 2 Type II audits",
+        "Map technical cloud controls directly to ISO 27001 and HIPAA security standards"
+      ],
+      "feynman_prompts": [
+        "What is the difference between a SOC 2 Type I report (point in time) and Type II (operating effectiveness)?"
+      ],
+      "key_misconceptions": [
+        "Treating compliance as an annual manual screenshot-gathering exercise rather than continuous code"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_incident_response_forensics",
+      "concept_id": "concept_devsecops_incident_response_forensics",
+      "title": "Incident Response, Cloud Forensics & Postmortems",
+      "subtitle": "Incident classification, compromised instance isolation, memory dumps, blameless postmortems",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devsecops_runtime_security_falco"
+      ],
+      "learning_objectives": [
+        "Execute structured incident response playbooks for compromised cloud workloads",
+        "Perform forensic analysis on isolated virtual machines and author post-incident remediation plans"
+      ],
+      "feynman_prompts": [
+        "Why should a compromised cloud instance be isolated via security groups rather than immediately terminated?"
+      ],
+      "key_misconceptions": [
+        "Shutting down compromised servers immediately, destroying volatile memory evidence"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_vulnerability_management_triage",
+      "concept_id": "concept_devsecops_vulnerability_management_triage",
+      "title": "Enterprise Vulnerability Management & Risk Prioritization",
+      "subtitle": "Risk scoring (EPSS vs CVSS), SLA remediation timelines, exception workflows",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devsecops_ci_security_gates"
+      ],
+      "learning_objectives": [
+        "Prioritize security patches using Exploit Prediction Scoring System (EPSS) and reachability",
+        "Establish automated SLA tracking and developer exception review workflows"
+      ],
+      "feynman_prompts": [
+        "Why does EPSS provide better remediation prioritization than relying solely on raw CVSS scores?"
+      ],
+      "key_misconceptions": [
+        "Forcing developers to drop critical features to patch low-exploitability theoretical vulnerabilities"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devsecops_devsecops_culture_metrics",
+      "concept_id": "concept_devsecops_devsecops_culture_metrics",
+      "title": "DevSecOps Culture, Metrics & Program Maturation",
+      "subtitle": "MTTR for vulnerabilities, security champion networks, developer security enablement",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devsecops_security_threat_modeling"
+      ],
+      "learning_objectives": [
+        "Measure security program effectiveness using Mean Time to Remediate (MTTR)",
+        "Scale security culture across engineering teams through security champion programs"
+      ],
+      "feynman_prompts": [
+        "How do security champion networks scale security governance across large engineering organizations?"
+      ],
+      "key_misconceptions": [
+        "Measuring security success solely by number of blocked PRs, creating friction with product teams"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_devsecops",
+  "description": "Master DevSecOps Engineer with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "DevSecOps Engineer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "DevSecOps Engineer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "DevSecOps Engineer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "DevSecOps Engineer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "DevSecOps Engineer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

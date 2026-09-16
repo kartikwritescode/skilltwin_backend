@@ -1,0 +1,624 @@
+{
+  "slug": "backend",
+  "title": "Backend Developer",
+  "domain": "Backend Development",
+  "target_role": "Senior Backend Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "backend",
+    "api",
+    "databases",
+    "sql",
+    "postgresql",
+    "redis",
+    "docker",
+    "microservices",
+    "rest"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_backend_protocols_networking",
+      "concept_id": "concept_backend_protocols_networking",
+      "title": "Internet Protocols & Networking Fundamentals",
+      "subtitle": "TCP/IP, UDP, DNS resolution, HTTP/1.1 vs HTTP/2 vs HTTP/3, TLS/SSL handshake",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Explain how TCP provides reliable, ordered transmission compared to UDP",
+        "Analyze the phases of an HTTPS TLS 1.3 handshake"
+      ],
+      "feynman_prompts": [
+        "Why does TCP require a 3-way handshake before transmitting data while UDP does not?"
+      ],
+      "key_misconceptions": [
+        "Assuming HTTPS encrypts IP addresses and domain names during DNS lookup without DoH"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_runtime_concurrency",
+      "concept_id": "concept_backend_runtime_concurrency",
+      "title": "Backend Language Runtime & Concurrency Models",
+      "subtitle": "Process memory model, threads, async event loop vs thread pool, I/O multiplexing",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_protocols_networking"
+      ],
+      "learning_objectives": [
+        "Differentiate CPU-bound from I/O-bound bottlenecks in backend services",
+        "Implement non-blocking asynchronous request handlers"
+      ],
+      "feynman_prompts": [
+        "Explain why a single-threaded event loop can handle 10,000 concurrent I/O connections."
+      ],
+      "key_misconceptions": [
+        "Running long CPU-intensive algorithms directly on the asynchronous event loop thread"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_project_structure",
+      "concept_id": "concept_backend_project_structure",
+      "title": "Dependency Management & Project Architecture",
+      "subtitle": "Virtual environments, package managers, configuration management, 12-factor app",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_backend_runtime_concurrency"
+      ],
+      "learning_objectives": [
+        "Structure clean multi-layered backend projects (controller, service, repository)",
+        "Manage environment variables and secrets following Twelve-Factor principles"
+      ],
+      "feynman_prompts": [
+        "Why should configuration and secrets never be committed into source code repositories?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding database connection strings and secrets in application source files"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_sql_foundations",
+      "concept_id": "concept_backend_sql_foundations",
+      "title": "Relational Databases & SQL Foundations",
+      "subtitle": "PostgreSQL/MySQL, tables, primary/foreign keys, joins, aggregations, schema design",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_project_structure"
+      ],
+      "learning_objectives": [
+        "Design normalized relational database schemas with foreign key constraints",
+        "Write efficient SQL queries using INNER, LEFT, and FULL OUTER joins"
+      ],
+      "feynman_prompts": [
+        "Explain the difference between WHERE (row filter) and HAVING (group filter) in SQL queries."
+      ],
+      "key_misconceptions": [
+        "Assuming database foreign keys are purely for documentation without checking constraint costs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_indexing_optimization",
+      "concept_id": "concept_backend_indexing_optimization",
+      "title": "Database Indexing & Query Execution Plans",
+      "subtitle": "B-Tree indexes, composite indexes, EXPLAIN ANALYZE, table scans vs index scans",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_sql_foundations"
+      ],
+      "learning_objectives": [
+        "Diagnose slow queries using EXPLAIN ANALYZE and inspect execution plans",
+        "Create composite indexes adhering to the leftmost prefix rule"
+      ],
+      "feynman_prompts": [
+        "Why does adding an index speed up SELECT queries but slow down INSERT and UPDATE operations?"
+      ],
+      "key_misconceptions": [
+        "Adding indexes to every single column blindly, degrading write throughput"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_acid_transactions",
+      "concept_id": "concept_backend_acid_transactions",
+      "title": "ACID Transactions & Concurrency Isolation Levels",
+      "subtitle": "Atomicity, Consistency, Isolation, Durability, dirty reads, non-repeatable reads, phantom reads",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_indexing_optimization"
+      ],
+      "learning_objectives": [
+        "Execute multi-step database operations safely inside transactional boundaries",
+        "Select appropriate isolation levels (Read Committed, Repeatable Read, Serializable)"
+      ],
+      "feynman_prompts": [
+        "How does a database prevent dirty reads in the Read Committed isolation level?"
+      ],
+      "key_misconceptions": [
+        "Assuming transactions are completely isolated by default without checking the database isolation level"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_orm_migrations",
+      "concept_id": "concept_backend_orm_migrations",
+      "title": "ORM Patterns & Database Migration Strategies",
+      "subtitle": "SQLAlchemy/Prisma/Hibernate, active record vs data mapper, schema migrations, N+1 problem",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_acid_transactions"
+      ],
+      "learning_objectives": [
+        "Execute safe, versioned database schema migrations with zero-downtime rollback",
+        "Detect and eliminate the N+1 query problem using eager loading / joins"
+      ],
+      "feynman_prompts": [
+        "Explain how the N+1 query problem occurs and how eager loading solves it."
+      ],
+      "key_misconceptions": [
+        "Relying on ORM auto-generated queries without inspecting the underlying SQL in production"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_rest_architecture",
+      "concept_id": "concept_backend_rest_architecture",
+      "title": "RESTful API Architecture & HTTP Contracts",
+      "subtitle": "HTTP verbs, idempotent operations, status codes, OpenAPI/Swagger, error formats",
+      "phase": "Core",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 8,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_backend_project_structure"
+      ],
+      "learning_objectives": [
+        "Design intuitive REST endpoints adhering to standard HTTP semantics",
+        "Format structured error responses following RFC 7807 problem details"
+      ],
+      "feynman_prompts": [
+        "Why is an HTTP PUT request idempotent while an HTTP POST request is not?"
+      ],
+      "key_misconceptions": [
+        "Returning HTTP 200 OK with an error message in the JSON response payload"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_request_validation",
+      "concept_id": "concept_backend_request_validation",
+      "title": "Request Validation & Serialization",
+      "subtitle": "Schema validation, Pydantic/Zod, input sanitization, type coercion, payload validation",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_backend_rest_architecture"
+      ],
+      "learning_objectives": [
+        "Enforce strict schema validation on all incoming API request payloads",
+        "Sanitize and reject untrusted input before it reaches service business logic"
+      ],
+      "feynman_prompts": [
+        "Why must API request validation happen at the perimeter before calling business services?"
+      ],
+      "key_misconceptions": [
+        "Trusting client data types without server-side validation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_jwt_auth",
+      "concept_id": "concept_backend_jwt_auth",
+      "title": "Authentication: JWT, Sessions & Password Hashing",
+      "subtitle": "Stateful sessions vs stateless JWTs, bcrypt/argon2 hashing, refresh token rotation",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_request_validation"
+      ],
+      "learning_objectives": [
+        "Hash passwords securely using bcrypt with appropriate work factor / cost",
+        "Implement stateless JWT authentication with short-lived access tokens and refresh tokens"
+      ],
+      "feynman_prompts": [
+        "Why is it dangerous to hash user passwords with fast algorithms like MD5 or SHA-256?"
+      ],
+      "key_misconceptions": [
+        "Storing sensitive claims (passwords, PII) inside unencrypted JWT payloads"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_rbac_authz",
+      "concept_id": "concept_backend_rbac_authz",
+      "title": "Authorization: RBAC & Policy Enforcement",
+      "subtitle": "Role-Based Access Control (RBAC), Attribute-Based Access Control (ABAC), middleware guards",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_backend_jwt_auth"
+      ],
+      "learning_objectives": [
+        "Enforce granular user role and permission checks on API routes",
+        "Protect resources against Broken Object Level Authorization (BOLA/IDOR)"
+      ],
+      "feynman_prompts": [
+        "Explain the difference between Authentication (who you are) and Authorization (what you can do)."
+      ],
+      "key_misconceptions": [
+        "Relying only on UI button hiding for access control without backend route authorization"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_redis_caching",
+      "concept_id": "concept_backend_redis_caching",
+      "title": "Caching Strategies with Redis",
+      "subtitle": "In-memory caching, Cache-Aside pattern, Write-Through, TTL expiration, cache invalidation",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_orm_migrations"
+      ],
+      "learning_objectives": [
+        "Implement the Cache-Aside pattern with Redis to reduce primary database load",
+        "Set appropriate TTLs and handle cache invalidation on resource updates"
+      ],
+      "feynman_prompts": [
+        "What is a Cache Stampede (Thundering Herd) and how can it be mitigated?"
+      ],
+      "key_misconceptions": [
+        "Treating Redis as a permanent database without persistence or eviction configurations"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_nosql_stores",
+      "concept_id": "concept_backend_nosql_stores",
+      "title": "NoSQL Databases: Document & Key-Value Stores",
+      "subtitle": "MongoDB, Redis, eventual consistency, denormalization, CAP theorem trade-offs",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_backend_redis_caching"
+      ],
+      "learning_objectives": [
+        "Model denormalized document schemas for read-heavy application workflows",
+        "Evaluate the CAP theorem trade-offs between consistency and partition tolerance"
+      ],
+      "feynman_prompts": [
+        "When should you choose a relational database over a document-oriented NoSQL database?"
+      ],
+      "key_misconceptions": [
+        "Using document databases for deeply interconnected multi-table relational data"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_websockets_realtime",
+      "concept_id": "concept_backend_websockets_realtime",
+      "title": "Real-Time Systems: WebSockets & SSE",
+      "subtitle": "Full-duplex WebSockets, Server-Sent Events (SSE), connection management, heartbeats",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_rest_architecture"
+      ],
+      "learning_objectives": [
+        "Implement low-latency bidirectional communication using WebSockets",
+        "Handle socket reconnections, heartbeats, and client disconnect cleanup"
+      ],
+      "feynman_prompts": [
+        "When should you use Server-Sent Events (SSE) instead of full-duplex WebSockets?"
+      ],
+      "key_misconceptions": [
+        "Polling a REST API every 500ms instead of using a WebSocket or SSE connection"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_async_workers",
+      "concept_id": "concept_backend_async_workers",
+      "title": "Background Tasks & Asynchronous Queues",
+      "subtitle": "Celery, BullMQ, Redis Streams, task serialization, retries, dead-letter queues",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_redis_caching"
+      ],
+      "learning_objectives": [
+        "Offload heavy report generation and external API calls to background worker pools",
+        "Configure exponential backoff retries and dead-letter queues for failed jobs"
+      ],
+      "feynman_prompts": [
+        "Why is a dead-letter queue (DLQ) essential when processing background messages?"
+      ],
+      "key_misconceptions": [
+        "Executing multi-minute processing tasks synchronously inside HTTP request threads"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_message_brokers",
+      "concept_id": "concept_backend_message_brokers",
+      "title": "Message Brokers & Event-Driven Architecture",
+      "subtitle": "RabbitMQ, Apache Kafka, pub/sub, message persistence, consumer groups, idempotency",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_backend_async_workers"
+      ],
+      "learning_objectives": [
+        "Architect decoupled event-driven microservices using publish/subscribe patterns",
+        "Design idempotent event consumers that handle duplicate message deliveries safely"
+      ],
+      "feynman_prompts": [
+        "Why must event consumers be designed to be idempotent in distributed systems?"
+      ],
+      "key_misconceptions": [
+        "Assuming message brokers guarantee exactly-once delivery without consumer deduplication"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_docker_containers",
+      "concept_id": "concept_backend_docker_containers",
+      "title": "Containerization with Docker",
+      "subtitle": "Dockerfiles, layers, multi-stage builds, container networking, docker-compose",
+      "phase": "Advanced",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_project_structure"
+      ],
+      "learning_objectives": [
+        "Author secure, lightweight multi-stage Dockerfiles for backend services",
+        "Orchestrate multi-container local development environments with Docker Compose"
+      ],
+      "feynman_prompts": [
+        "Why do multi-stage Docker builds produce significantly smaller and more secure images?"
+      ],
+      "key_misconceptions": [
+        "Running production Docker containers as the default root user"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_nginx_proxies",
+      "concept_id": "concept_backend_nginx_proxies",
+      "title": "Web Servers & Reverse Proxies (Nginx)",
+      "subtitle": "Nginx, reverse proxying, SSL termination, load balancing, rate limiting, gzip/brotli",
+      "phase": "Advanced",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_docker_containers"
+      ],
+      "learning_objectives": [
+        "Configure Nginx as a reverse proxy for upstream application servers",
+        "Implement IP-based rate limiting and SSL termination at the edge"
+      ],
+      "feynman_prompts": [
+        "Why should an application server run behind a reverse proxy like Nginx rather than exposed directly?"
+      ],
+      "key_misconceptions": [
+        "Exposing backend application ports directly to the public internet"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_scalability_loadbalancing",
+      "concept_id": "concept_backend_scalability_loadbalancing",
+      "title": "System Scalability & Load Balancing",
+      "subtitle": "Horizontal vs vertical scaling, round-robin, least connections, sticky sessions, statelessness",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 19,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_backend_nginx_proxies"
+      ],
+      "learning_objectives": [
+        "Design stateless backend architectures capable of horizontal auto-scaling",
+        "Configure load balancing algorithms and handle database connection pooling at scale"
+      ],
+      "feynman_prompts": [
+        "Why is session state storage inside application server memory an obstacle to horizontal scaling?"
+      ],
+      "key_misconceptions": [
+        "Storing uploaded user files on local server disks instead of cloud object storage"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_owasp_backend",
+      "concept_id": "concept_backend_owasp_backend",
+      "title": "Backend Security & OWASP Top 10",
+      "subtitle": "SQL injection, SSRF, IDOR, command injection, rate limiting, security headers",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 20,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_rbac_authz"
+      ],
+      "learning_objectives": [
+        "Prevent SQL injection using parameterized queries and ORM binding",
+        "Protect against Server-Side Request Forgery (SSRF) and Insecure Direct Object References (IDOR)"
+      ],
+      "feynman_prompts": [
+        "How does parameterized SQL query execution guarantee immunity against SQL injection?"
+      ],
+      "key_misconceptions": [
+        "Concatenating user string input directly into SQL query statements"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_observability_telemetry",
+      "concept_id": "concept_backend_observability_telemetry",
+      "title": "Observability: Logging, Metrics & Tracing",
+      "subtitle": "Structured JSON logging, OpenTelemetry, Prometheus metrics, distributed trace IDs",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 21,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_scalability_loadbalancing"
+      ],
+      "learning_objectives": [
+        "Implement structured logging with correlation IDs across microservice requests",
+        "Instrument golden metrics (latency, traffic, errors, saturation) with Prometheus"
+      ],
+      "feynman_prompts": [
+        "Why is p99 latency a far more critical metric for SLAs than average response time?"
+      ],
+      "key_misconceptions": [
+        "Printing unstructured string logs without request IDs or contextual timestamps"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_backend_cicd_deployment",
+      "concept_id": "concept_backend_cicd_deployment",
+      "title": "CI/CD Pipelines & Production Deployment",
+      "subtitle": "GitHub Actions, automated test pipelines, health checks, zero-downtime rolling deploys",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 22,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_backend_docker_containers"
+      ],
+      "learning_objectives": [
+        "Automate unit testing and container image publishing via GitHub Actions",
+        "Configure readiness and liveness health checks for zero-downtime deployments"
+      ],
+      "feynman_prompts": [
+        "What is the difference between a container liveness probe and a readiness probe?"
+      ],
+      "key_misconceptions": [
+        "Deploying new code versions to production without automated regression testing"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_backend",
+  "description": "Master Backend Developer with an industry-standard, comprehensive curriculum spanning 22 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Backend Developer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Backend Developer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Backend Developer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Backend Developer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Backend Developer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

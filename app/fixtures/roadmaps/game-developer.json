@@ -1,0 +1,517 @@
+{
+  "id": "roadmap_game_developer",
+  "slug": "game-developer",
+  "title": "Game Developer",
+  "description": "End-to-end game development: 2D/3D game math, game loops, physics & collisions, engine architecture, input juice, state machines, animations, audio, AI (A* and behavior trees), shaders, optimization, and game publishing.",
+  "category": "Game Development",
+  "difficulty_level": "intermediate",
+  "estimated_hours": 90,
+  "tags": [
+    "game-dev",
+    "unity",
+    "unreal",
+    "csharp",
+    "shaders",
+    "physics",
+    "game-ai",
+    "optimization"
+  ],
+  "phases": [
+    {
+      "title": "Game Math & Architecture Foundations",
+      "tier": "foundation",
+      "focus": "Vector Math, Game Loop Timesteps, Collision Detection & Engine Component Hierarchies",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Gameplay Systems & AI Core",
+      "tier": "core",
+      "focus": "Player Input Juice, State Machines, Blend Trees, Adaptive Audio & Behavior Tree AI",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Visuals, Shaders & Optimization",
+      "tier": "advanced",
+      "focus": "HLSL Shaders, GPU Particles, Level Design, Save Systems & Profiling Optimization",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Multiplayer & Commercial Capstone",
+      "tier": "capstone",
+      "focus": "Client-Side Prediction, Responsive Game UI, and Polished Vertical Slice Release",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_game-developer_game_math_vectors",
+      "concept_id": "concept_game-developer_game_math_vectors",
+      "title": "Game Math & Physics Foundations",
+      "subtitle": "2D/3D vectors, dot product, cross product, vector normalization, radians, coordinate spaces",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Calculate angles, directions, and distances between game objects using vector math",
+        "Apply dot products to determine field-of-view visibility and directional facing"
+      ],
+      "feynman_prompts": [
+        "Explain what the dot product of two normalized vectors reveals about their direction."
+      ],
+      "key_misconceptions": [
+        "Mixing up local coordinate space with global world coordinate space"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_game_loop_architecture",
+      "concept_id": "concept_game-developer_game_loop_architecture",
+      "title": "Game Loop Architecture & Delta Time",
+      "subtitle": "FixedUpdate vs Update, variable vs fixed timestep, delta time, frame rate independence, vsync",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_game-developer_game_math_vectors"
+      ],
+      "learning_objectives": [
+        "Implement frame-rate-independent character movement using delta time",
+        "Distinguish physics simulation ticks (fixed timestep) from visual rendering ticks"
+      ],
+      "feynman_prompts": [
+        "Why does moving an object by speed without multiplying by delta time break at different FPS?"
+      ],
+      "key_misconceptions": [
+        "Placing physics calculations inside the variable-rate render loop"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_collision_detection_2d",
+      "concept_id": "concept_game-developer_collision_detection_2d",
+      "title": "Collision Detection & 2D Physics",
+      "subtitle": "AABB (Axis-Aligned Bounding Box), Circle-Circle collision, SAT (Separating Axis Theorem), raycasting",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_game-developer_game_math_vectors"
+      ],
+      "learning_objectives": [
+        "Implement AABB and circle collision detection algorithms from scratch",
+        "Perform raycasts to detect ground surfaces, obstacles, and line-of-sight in 2D/3D"
+      ],
+      "feynman_prompts": [
+        "Explain how Separating Axis Theorem (SAT) detects collisions between rotated convex polygons."
+      ],
+      "key_misconceptions": [
+        "Assuming bounding boxes must always be oriented along the screen axes (ignoring rotation)"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_engine_fundamentals_csharp",
+      "concept_id": "concept_game-developer_engine_fundamentals_csharp",
+      "title": "Game Engine Fundamentals: Unity / Godot / Unreal",
+      "subtitle": "Game objects, actors, components, transforms, prefabs/scenes, script lifecycles (Awake, Start, Update)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_game-developer_game_loop_architecture"
+      ],
+      "learning_objectives": [
+        "Structure game entities using component composition over rigid object-oriented inheritance",
+        "Instantiate and configure dynamic game object prefabs at runtime"
+      ],
+      "feynman_prompts": [
+        "Why is composition (adding components) superior to deep class inheritance in game architecture?"
+      ],
+      "key_misconceptions": [
+        "Creating monolithic God-classes that handle input, audio, rendering, and physics all in one script"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_input_handling_game_feel",
+      "concept_id": "concept_game-developer_input_handling_game_feel",
+      "title": "Input Systems & Player Controller 'Juice'",
+      "subtitle": "New Input System, action maps, buffering, coyote time, jump apex gravity tuning, screenshake",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_game-developer_engine_fundamentals_csharp"
+      ],
+      "learning_objectives": [
+        "Tune player controller physics with jump buffering, coyote time, and variable jump height",
+        "Add 'game juice' (screen shake, hit-stop freeze frames, particle bursts) to heighten responsiveness"
+      ],
+      "feynman_prompts": [
+        "What is coyote time and why does it make platformer jump controls feel fair to players?"
+      ],
+      "key_misconceptions": [
+        "Relying strictly on realistic raw physics equations without tuning for game feel and responsiveness"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_state_machines_gameplay",
+      "concept_id": "concept_game-developer_state_machines_gameplay",
+      "title": "Game State Management & Finite State Machines (FSM)",
+      "subtitle": "FSM architecture, character state machines (Idle, Run, Jump, Attack, Hurt), hierarchical state machines",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_game-developer_engine_fundamentals_csharp"
+      ],
+      "learning_objectives": [
+        "Build clean finite state machines for complex player character and enemy state management",
+        "Prevent illegal animation and logic transitions (e.g. attacking while dodging) using explicit FSM states"
+      ],
+      "feynman_prompts": [
+        "Why does using boolean flags (`isJumping`, `isAttacking`, `isDead`) quickly lead to spaghetti code?"
+      ],
+      "key_misconceptions": [
+        "Allowing multiple conflicting character states to be active simultaneously"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_animation_systems_blending",
+      "concept_id": "concept_game-developer_animation_systems_blending",
+      "title": "Animation Systems & Blend Trees",
+      "subtitle": "Skeletal animation, state machine transitions, blend trees, inverse kinematics (IK), root motion",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_game-developer_state_machines_gameplay"
+      ],
+      "learning_objectives": [
+        "Configure 1D and 2D animation blend trees for smooth locomotion transitions (walk to sprint)",
+        "Apply two-bone Inverse Kinematics (IK) to anchor character feet to uneven ground geometry"
+      ],
+      "feynman_prompts": [
+        "Explain how animation blend trees interpolate between multiple directional movement clips."
+      ],
+      "key_misconceptions": [
+        "Hard-snapping between animations without transition cross-fading"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_game_audio_fmod_wwise",
+      "concept_id": "concept_game-developer_game_audio_fmod_wwise",
+      "title": "Game Audio Architecture & Adaptive Sound",
+      "subtitle": "Audio listeners, 3D spatial sound, audio mixers, ducking, adaptive music layering, sound cues",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_game-developer_engine_fundamentals_csharp"
+      ],
+      "learning_objectives": [
+        "Implement 3D spatial attenuation and sound occlusion based on room geometry",
+        "Design dynamic music systems that transition stems based on combat intensity"
+      ],
+      "feynman_prompts": [
+        "How does dynamic audio ducking prevent sound clipping during intense explosion sequences?"
+      ],
+      "key_misconceptions": [
+        "Playing repetitive sound effects at constant volume and pitch without subtle random variations"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_pathfinding_ai_navigation",
+      "concept_id": "concept_game-developer_pathfinding_ai_navigation",
+      "title": "Game AI & Pathfinding: A* and NavMesh",
+      "subtitle": "A* algorithm, heuristic functions, navigation meshes (NavMesh), agent steering, avoidance",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_game-developer_game_math_vectors",
+        "concept_game-developer_engine_fundamentals_csharp"
+      ],
+      "learning_objectives": [
+        "Implement the A* pathfinding algorithm on grid and node graph representations",
+        "Bake dynamic NavMeshes and configure AI agent obstacle avoidance in 3D worlds"
+      ],
+      "feynman_prompts": [
+        "Explain how the heuristic function in A* guides the search towards the target faster than Dijkstra."
+      ],
+      "key_misconceptions": [
+        "Recalculating complete pathfinding routes every single frame for dozens of enemies"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_ai_behavior_trees",
+      "concept_id": "concept_game-developer_ai_behavior_trees",
+      "title": "Advanced AI: Behavior Trees & Utility AI",
+      "subtitle": "Behavior trees (Sequencer, Selector, Decorators, Blackboard), utility AI, sensory perception",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_game-developer_pathfinding_ai_navigation"
+      ],
+      "learning_objectives": [
+        "Design modular behavior trees with composite nodes and decorators for intelligent enemy AI",
+        "Implement sensory perception systems (hearing footsteps, field-of-view cone detection)"
+      ],
+      "feynman_prompts": [
+        "Why are behavior trees more scalable for complex game AI than massive finite state machines?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding AI logic directly into game update loops instead of blackboard data"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_shaders_graphics_pipeline",
+      "concept_id": "concept_game-developer_shaders_graphics_pipeline",
+      "title": "Graphics Pipeline, Shaders & Materials",
+      "subtitle": "Vertex & fragment shaders, HLSL/Shader Graph, PBR materials, normal maps, lighting models",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_game-developer_game_math_vectors"
+      ],
+      "learning_objectives": [
+        "Write custom fragment shaders for rim lighting, dissolve effects, and water surfaces",
+        "Configure Physically Based Rendering (PBR) materials with albedo, metallic, roughness, and normal maps"
+      ],
+      "feynman_prompts": [
+        "Explain the difference in responsibility between vertex shaders and fragment/pixel shaders."
+      ],
+      "key_misconceptions": [
+        "Executing expensive mathematical calculations in fragment shaders that could be computed once in vertex shaders"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_vfx_particle_systems",
+      "concept_id": "concept_game-developer_vfx_particle_systems",
+      "title": "VFX & Particle Systems (VFX Graph / Niagara)",
+      "subtitle": "GPU particles, emitter modules, forces, turbulence, sprite sheets, particle collision",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_game-developer_shaders_graphics_pipeline"
+      ],
+      "learning_objectives": [
+        "Author high-performance GPU particle simulations for spells, fire, and weather effects",
+        "Trigger context-aware impact particle effects matched to surface physical materials"
+      ],
+      "feynman_prompts": [
+        "Why do GPU particle systems handle millions of particles while CPU systems choke on thousands?"
+      ],
+      "key_misconceptions": [
+        "Spawning separate particle game objects dynamically instead of recycling via object pooling"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_level_design_spatial_flow",
+      "concept_id": "concept_game-developer_level_design_spatial_flow",
+      "title": "Level Design, Whiteboxing & Environmental Storytelling",
+      "subtitle": "Grayboxing/whiteboxing, sightlines, breadcrumbing, choke points, pacing, lighting cues",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_game-developer_engine_fundamentals_csharp"
+      ],
+      "learning_objectives": [
+        "Block out playable 3D levels using primitive geometry to test pacing and player metrics",
+        "Guide player navigation naturally using architectural lighting, leading lines, and color contrast"
+      ],
+      "feynman_prompts": [
+        "Why should gameplay levels be thoroughly playtested in graybox before any 3D art is created?"
+      ],
+      "key_misconceptions": [
+        "Decorating an unplayable, confusing level with final high-poly art assets"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_save_systems_serialization",
+      "concept_id": "concept_game-developer_save_systems_serialization",
+      "title": "Save Systems, Persistence & Serialization",
+      "subtitle": "JSON/binary serialization, save versioning, encryption, cloud saves, state persistence",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_game-developer_state_machines_gameplay"
+      ],
+      "learning_objectives": [
+        "Architect robust save/load systems capable of serializing dynamic world and inventory state",
+        "Implement save file versioning and migration to prevent breaking user saves on game patches"
+      ],
+      "feynman_prompts": [
+        "How do you prevent players from modifying local plaintext save files to cheat progression?"
+      ],
+      "key_misconceptions": [
+        "Attempting to serialize raw game engine objects directly instead of clean data transfer DTOs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_game_optimization_profiling",
+      "concept_id": "concept_game-developer_game_optimization_profiling",
+      "title": "Game Optimization, Profiling & Memory Management",
+      "subtitle": "CPU/GPU profiler, draw calls, dynamic/static batching, LODs, occlusion culling, garbage collection",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_game-developer_shaders_graphics_pipeline"
+      ],
+      "learning_objectives": [
+        "Profile frame spikes, identify GC memory allocations, and eliminate runtime heap churn",
+        "Reduce draw calls using GPU instancing, texture atlases, and occlusion culling"
+      ],
+      "feynman_prompts": [
+        "Explain how garbage collection pauses cause noticeable micro-stutters during high-speed gameplay."
+      ],
+      "key_misconceptions": [
+        "Instantiating and destroying hundreds of projectiles per minute instead of using an Object Pool"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_multiplayer_networking_client",
+      "concept_id": "concept_game-developer_multiplayer_networking_client",
+      "title": "Multiplayer Fundamentals & Client-Side Prediction",
+      "subtitle": "Client-server architecture, client-side prediction, server reconciliation, entity interpolation",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_game-developer_game_loop_architecture"
+      ],
+      "learning_objectives": [
+        "Implement client-side movement prediction with server authoritative snapshot reconciliation",
+        "Interpolate remote player positions smoothly across variable network latency"
+      ],
+      "feynman_prompts": [
+        "Why must the server remain authoritative over player position and health in multiplayer games?"
+      ],
+      "key_misconceptions": [
+        "Trusting the client to report when it takes damage or where it moves"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_game_ui_localization",
+      "concept_id": "concept_game-developer_game_ui_localization",
+      "title": "Game UI, Accessibility & Localization",
+      "subtitle": "Canvas scalability, screen-safe areas, gamepad navigation, input glyph rebinding, localization tables",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_game-developer_input_handling_game_feel"
+      ],
+      "learning_objectives": [
+        "Design responsive game HUDs and menus that scale across ultrawide and handheld resolutions",
+        "Implement full gamepad navigation, UI audio feedback, and dynamic subtitle font scaling"
+      ],
+      "feynman_prompts": [
+        "Why must UI layouts be designed with flexible text bounding boxes for international localization?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding string text directly inside UI scripts and buttons"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_game-developer_full_game_release_capstone",
+      "concept_id": "concept_game-developer_full_game_release_capstone",
+      "title": "Full Game Polish & Release Capstone",
+      "subtitle": "Vertical slice development, platform SDKs (Steamworks/Console), bug hunting, build pipelines",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 40,
+      "prerequisites": [
+        "concept_game-developer_game_optimization_profiling",
+        "concept_game-developer_save_systems_serialization"
+      ],
+      "learning_objectives": [
+        "Build, profile, and package a polished commercial vertical slice game demo",
+        "Integrate platform SDKs (achievements, cloud saves, leaderboards) and automated build pipelines"
+      ],
+      "feynman_prompts": [
+        "What differentiates a completed, polished game from an unfinished prototype?"
+      ],
+      "key_misconceptions": [
+        "Spending years adding feature after feature to a game without ever locking scope and polishing"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior Game Developer"
+}

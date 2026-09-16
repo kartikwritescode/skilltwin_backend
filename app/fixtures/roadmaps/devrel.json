@@ -1,0 +1,515 @@
+{
+  "id": "roadmap_devrel",
+  "slug": "devrel",
+  "title": "Developer Relations & Advocacy",
+  "description": "Master developer relations, advocacy, technical content creation, developer experience (DX), community architecture, open source stewardship, and developer marketing.",
+  "category": "Developer Experience",
+  "difficulty_level": "intermediate",
+  "estimated_hours": 85,
+  "tags": [
+    "devrel",
+    "developer-advocacy",
+    "community",
+    "developer-experience",
+    "dx",
+    "public-speaking"
+  ],
+  "phases": [
+    {
+      "title": "DevRel & Content Foundations",
+      "tier": "foundation",
+      "focus": "The DevRel Flywheel, Technical Writing, API DX & Community Architecture",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advocacy & Community Stewardship",
+      "tier": "core",
+      "focus": "Sample Apps, Public Speaking, Open Source Community, Product Advocacy & Orbit Metrics",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Advanced Developer Programs",
+      "tier": "advanced",
+      "focus": "Video/Streaming, Ambassador Programs, SDK Ergonomics, Launches & DX Audits",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "DevRel Strategy & Team Building",
+      "tier": "capstone",
+      "focus": "Executive DevRel Strategy, Proving ROI, and Scaling Advocacy Teams",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_devrel_devrel_foundations",
+      "concept_id": "concept_devrel_devrel_foundations",
+      "title": "Developer Relations Foundations & The Flywheel",
+      "subtitle": "DevRel definition, Developer Experience (DX), product feedback loops, DevRel flywheel",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Explain the four pillars of DevRel: Documentation, Community, Advocacy, and Marketing",
+        "Map the developer adoption journey from awareness to champion"
+      ],
+      "feynman_prompts": [
+        "What makes developer relations fundamentally different from traditional marketing?"
+      ],
+      "key_misconceptions": [
+        "Treating DevRel as pure sales promotion rather than genuine developer advocacy"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_technical_writing_devrel",
+      "concept_id": "concept_devrel_technical_writing_devrel",
+      "title": "Technical Content & Developer Blogging",
+      "subtitle": "Tutorial design, code snippet clarity, SEO for technical searches, thought leadership",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devrel_devrel_foundations"
+      ],
+      "learning_objectives": [
+        "Write engaging, copy-paste-runnable tutorials solving specific developer problems",
+        "Optimize technical content for long-tail search queries without keyword stuffing"
+      ],
+      "feynman_prompts": [
+        "Why must every code snippet in a developer tutorial be tested and runnable?"
+      ],
+      "key_misconceptions": [
+        "Writing shallow high-level marketing articles that lack actual code implementation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_api_dx_documentation",
+      "concept_id": "concept_devrel_api_dx_documentation",
+      "title": "API Design, SDKs & Developer Onboarding",
+      "subtitle": "Time-to-hello-world (TTHW), OpenAPI specs, SDK ergonomics, friction logging",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devrel_technical_writing_devrel"
+      ],
+      "learning_objectives": [
+        "Conduct friction logs on developer signup and API authentication workflows",
+        "Optimize developer onboarding to achieve under 5-minute Time-to-Hello-World"
+      ],
+      "feynman_prompts": [
+        "What is 'friction logging' and why is it essential for API products?"
+      ],
+      "key_misconceptions": [
+        "Assuming developers will read a 50-page manual before attempting to run an API call"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_community_platforms_discord_slack",
+      "concept_id": "concept_devrel_community_platforms_discord_slack",
+      "title": "Community Architecture (Discord, Discourse, Slack)",
+      "subtitle": "Community onboarding, channel taxonomy, moderation guidelines, gamification vs engagement",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devrel_devrel_foundations"
+      ],
+      "learning_objectives": [
+        "Architect a welcoming community server structure with clear channels and code of conduct",
+        "Implement moderation bots and community safety guidelines"
+      ],
+      "feynman_prompts": [
+        "Why is Discourse/forums often better than Discord/Slack for searchable technical questions?"
+      ],
+      "key_misconceptions": [
+        "Measuring community health purely by raw member count rather than active helpful engagement"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_sample_apps_templates",
+      "concept_id": "concept_devrel_sample_apps_templates",
+      "title": "Reference Architectures & Sample Applications",
+      "subtitle": "Starter templates, demo apps, monorepos, GitHub template repos, stack diversity",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devrel_api_dx_documentation"
+      ],
+      "learning_objectives": [
+        "Build production-ready starter applications showcasing SDK best practices",
+        "Maintain sample repositories with automated CI test runs to prevent code rot"
+      ],
+      "feynman_prompts": [
+        "Why is a complete full-stack sample app better than disconnected code snippets?"
+      ],
+      "key_misconceptions": [
+        "Allowing sample application dependencies to become deprecated and broken over time"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_public_speaking_demos",
+      "concept_id": "concept_devrel_public_speaking_demos",
+      "title": "Technical Speaking & Live Coding Demos",
+      "subtitle": "Conference talk proposals (CFPs), slide design, live demo safety nets, vocal delivery",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devrel_devrel_foundations"
+      ],
+      "learning_objectives": [
+        "Draft compelling conference CFP submissions that get accepted",
+        "Execute live coding presentations with pre-recorded fallback videos for emergencies"
+      ],
+      "feynman_prompts": [
+        "What are the three essential backup plans every presenter needs for a live demo?"
+      ],
+      "key_misconceptions": [
+        "Reading code line-by-line off a dense slide rather than explaining concepts visually"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_open_source_community_stewardship",
+      "concept_id": "concept_devrel_open_source_community_stewardship",
+      "title": "Open Source Stewardship & GitHub Management",
+      "subtitle": "CONTRIBUTING guides, issue triage, good-first-issues, pull request reviews, license compliance",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devrel_sample_apps_templates"
+      ],
+      "learning_objectives": [
+        "Curate welcoming good-first-issues to attract first-time open source contributors",
+        "Review community PRs with constructive, appreciative feedback"
+      ],
+      "feynman_prompts": [
+        "Why is transparent public triage on GitHub essential for developer trust?"
+      ],
+      "key_misconceptions": [
+        "Leaving community issues and pull requests unanswered for weeks without acknowledgment"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_hackathon_event_management",
+      "concept_id": "concept_devrel_hackathon_event_management",
+      "title": "Hackathon Organization & Event Mentorship",
+      "subtitle": "Judging criteria, API bounties, mentoring hackers, logistics, sponsorship activations",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devrel_public_speaking_demos"
+      ],
+      "learning_objectives": [
+        "Design engaging hackathon challenge prompts and fair scoring rubrics",
+        "Provide hands-on architectural troubleshooting support to hackathon teams under deadlines"
+      ],
+      "feynman_prompts": [
+        "What makes a hackathon workshop effective for developers under time pressure?"
+      ],
+      "key_misconceptions": [
+        "Delivering a 60-minute theoretical pitch at a hackathon instead of a 15-minute quickstart demo"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_developer_advocacy_product_feedback",
+      "concept_id": "concept_devrel_developer_advocacy_product_feedback",
+      "title": "Internal Advocacy: Bridging Users to Product",
+      "subtitle": "Aggregating community feedback, bug advocacy, PM alignment, customer sentiment reports",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devrel_api_dx_documentation",
+        "concept_devrel_open_source_community_stewardship"
+      ],
+      "learning_objectives": [
+        "Synthesize scattered Discord/GitHub feedback into actionable product bug tickets",
+        "Represent developer pain points in internal sprint planning meetings"
+      ],
+      "feynman_prompts": [
+        "How does a developer advocate defend user interests without alienating internal engineering?"
+      ],
+      "key_misconceptions": [
+        "Acting as an uncritical megaphone for user complaints rather than curating actionable data"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_devrel_metrics_orbit_model",
+      "concept_id": "concept_devrel_devrel_metrics_orbit_model",
+      "title": "DevRel Metrics & The Orbit Model",
+      "subtitle": "Orbit model (Love, Reach, Gravity), qualified developer leads, attribution, NPS",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devrel_community_platforms_discord_slack"
+      ],
+      "learning_objectives": [
+        "Track community growth and member progression using the Orbit framework",
+        "Demonstrate DevRel business impact without reducing developers to sales funnels"
+      ],
+      "feynman_prompts": [
+        "Why does the traditional sales funnel fail to capture developer advocacy and community gravity?"
+      ],
+      "key_misconceptions": [
+        "Attributing individual customer enterprise contracts directly to a single conference talk"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_video_streaming_podcasts",
+      "concept_id": "concept_devrel_video_streaming_podcasts",
+      "title": "Video Content, Live Streaming & Workshops",
+      "subtitle": "YouTube tutorials, Twitch live coding, podcasting, production equipment, editing",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_devrel_public_speaking_demos"
+      ],
+      "learning_objectives": [
+        "Produce high-retention technical YouTube walkthroughs with chapters and visual overlays",
+        "Host interactive live coding streams handling real-time viewer questions"
+      ],
+      "feynman_prompts": [
+        "How does audience pacing differ in a recorded tutorial versus a live interactive stream?"
+      ],
+      "key_misconceptions": [
+        "Producing low-energy, rambling 2-hour streams with zero structure or prepared milestones"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_developer_programs_champions",
+      "concept_id": "concept_devrel_developer_programs_champions",
+      "title": "Champions & Ambassador Programs",
+      "subtitle": "Developer MVP programs, swag distribution, early access betas, community councils",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devrel_devrel_metrics_orbit_model"
+      ],
+      "learning_objectives": [
+        "Design an exclusive developer champions program that rewards top community contributors",
+        "Organize private feedback sessions and roadmap previews for trusted ambassadors"
+      ],
+      "feynman_prompts": [
+        "What motivates top developers to contribute to an ambassador program beyond free swag?"
+      ],
+      "key_misconceptions": [
+        "Exploiting community champions for free labor without providing genuine career visibility"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_sdk_design_ergonomics",
+      "concept_id": "concept_devrel_sdk_design_ergonomics",
+      "title": "SDK Ergonomics & Language Idioms",
+      "subtitle": "Type safety, error handling idioms across languages (Pythonic, Go, JS), async client patterns",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devrel_api_dx_documentation",
+        "concept_devrel_sample_apps_templates"
+      ],
+      "learning_objectives": [
+        "Design client libraries that feel native to each specific programming language ecosystem",
+        "Implement resilient retry policies and clear error hierarchies across SDKs"
+      ],
+      "feynman_prompts": [
+        "Why does generating an SDK strictly via OpenAPI generator often result in poor DX?"
+      ],
+      "key_misconceptions": [
+        "Directly porting Java-style object conventions into a Python or Go SDK"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_developer_marketing_launches",
+      "concept_id": "concept_devrel_developer_marketing_launches",
+      "title": "Developer Marketing, Show HN & Launch Strategy",
+      "subtitle": "Hacker News etiquette, Product Hunt launches, Reddit r/programming, technical PR",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devrel_technical_writing_devrel"
+      ],
+      "learning_objectives": [
+        "Draft genuine 'Show HN' posts that resonate with technical audiences and adhere to rules",
+        "Orchestrate multi-channel product launches across developer communities"
+      ],
+      "feynman_prompts": [
+        "Why will aggressive marketing speak instantly cause a developer launch to fail on Hacker News?"
+      ],
+      "key_misconceptions": [
+        "Using marketing buzzwords (revolutionary, disruptive) when describing a technical API"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_international_community_expansion",
+      "concept_id": "concept_devrel_international_community_expansion",
+      "title": "Global DevRel & Localized Communities",
+      "subtitle": "Regional developer ecosystems (LATAM, EMEA, APAC), translation, cultural etiquette",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "niche",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devrel_developer_programs_champions"
+      ],
+      "learning_objectives": [
+        "Adapt DevRel strategy to distinct international developer ecosystems and developer hubs",
+        "Support community-led translation and regional meetup chapters"
+      ],
+      "feynman_prompts": [
+        "How do developer adoption patterns and payment models vary across global regions?"
+      ],
+      "key_misconceptions": [
+        "Assuming developer tool adoption patterns in San Francisco reflect developer workflows worldwide"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_dx_auditing_consulting",
+      "concept_id": "concept_devrel_dx_auditing_consulting",
+      "title": "Developer Experience (DX) Auditing",
+      "subtitle": "End-to-end friction audits, cognitive load scoring, error message UX, documentation audits",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devrel_api_dx_documentation"
+      ],
+      "learning_objectives": [
+        "Execute deep developer experience audits for third-party tools and internal platforms",
+        "Score cognitive load and compile prioritized DX remediation roadmaps"
+      ],
+      "feynman_prompts": [
+        "What makes error documentation in an API as important as the primary endpoint documentation?"
+      ],
+      "key_misconceptions": [
+        "Auditing DX only on the happy path while ignoring rate limit errors and invalid tokens"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_devrel_strategy_csuite",
+      "concept_id": "concept_devrel_devrel_strategy_csuite",
+      "title": "DevRel Strategy & Executive Alignment",
+      "subtitle": "DevRel business case, budgeting, proving ROI to the CFO, organizational placement",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_devrel_devrel_metrics_orbit_model"
+      ],
+      "learning_objectives": [
+        "Align DevRel team goals directly with company revenue, hiring, and product adoption",
+        "Secure long-term DevRel budgets during macroeconomic downturns"
+      ],
+      "feynman_prompts": [
+        "How do you defend the value of developer relations when the CFO asks for immediate ROI?"
+      ],
+      "key_misconceptions": [
+        "Positioning DevRel as an unaccountable travel-and-t-shirt hobby team"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_devrel_building_devrel_teams",
+      "concept_id": "concept_devrel_building_devrel_teams",
+      "title": "Building, Leading & Scaling DevRel Teams",
+      "subtitle": "DevRel team archetypes, hiring technical advocates, preventing advocate burnout",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_devrel_devrel_strategy_csuite"
+      ],
+      "learning_objectives": [
+        "Structure DevRel teams balancing community, documentation, and evangelism specializations",
+        "Manage continuous conference travel schedules to prevent advocate burnout"
+      ],
+      "feynman_prompts": [
+        "Why is travel burnout the primary reason senior developer advocates leave the profession?"
+      ],
+      "key_misconceptions": [
+        "Expecting a single developer advocate to be a world-class coder, speaker, writer, and event planner"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior Developer Relations & Advocacy"
+}

@@ -1,0 +1,517 @@
+{
+  "slug": "software-architect",
+  "title": "Software Architect",
+  "domain": "Systems Architecture",
+  "target_role": "Principal Software Architect",
+  "difficulty_baseline": "Intermediate",
+  "tags": [
+    "architecture",
+    "domain-driven-design",
+    "microservices",
+    "clean-architecture",
+    "cqrs",
+    "event-driven"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_software-architect_software_design_principles_solid",
+      "concept_id": "concept_software-architect_software_design_principles_solid",
+      "title": "Software Design Principles: SOLID & GRASP",
+      "subtitle": "Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Refactor legacy codebases adhering to SOLID principles to maximize maintainability",
+        "Apply the Dependency Inversion Principle to decouple high-level policy from low-level details"
+      ],
+      "feynman_prompts": [
+        "Explain why violating the Liskov Substitution Principle causes unexpected runtime crashes when subclassing."
+      ],
+      "key_misconceptions": [
+        "Treating design patterns as rigid dogma to be forced into every trivial class"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_domain_driven_design_core",
+      "concept_id": "concept_software-architect_domain_driven_design_core",
+      "title": "Domain-Driven Design (DDD): Strategic Design",
+      "subtitle": "Ubiquitous Language, Bounded Contexts, Context Mapping, Core Domain vs Generic Subdomains",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_software-architect_software_design_principles_solid"
+      ],
+      "learning_objectives": [
+        "Establish a shared Ubiquitous Language between domain experts and software engineers",
+        "Decompose enterprise systems into clean, decoupled Bounded Contexts using Context Mapping"
+      ],
+      "feynman_prompts": [
+        "What is a Bounded Context in DDD and why is sharing a single unified data model across an enterprise toxic?"
+      ],
+      "key_misconceptions": [
+        "Creating an enormous enterprise-wide 'Canonical Data Model' that attempts to model everything"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_ddd_tactical_patterns",
+      "concept_id": "concept_software-architect_ddd_tactical_patterns",
+      "title": "DDD Tactical Patterns: Aggregates, Entities & Value Objects",
+      "subtitle": "Entities vs Value Objects, Aggregate Roots, invariant enforcement, Domain Events, Repositories",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_software-architect_domain_driven_design_core"
+      ],
+      "learning_objectives": [
+        "Design rich domain models where Aggregate Roots strictly enforce consistency boundaries",
+        "Model immutable Value Objects that encapsulate business validation rules"
+      ],
+      "feynman_prompts": [
+        "Why must external services only interact with an Aggregate through its Aggregate Root?"
+      ],
+      "key_misconceptions": [
+        "Creating anemic domain models that are just bags of getters and setters with zero business logic"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_architectural_styles_monolith_micro",
+      "concept_id": "concept_software-architect_architectural_styles_monolith_micro",
+      "title": "Architectural Styles: Modular Monolith vs Microservices",
+      "subtitle": "Monolith First, Modular Monoliths, Microservices trade-offs, Conway's Law, distributed tax",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_software-architect_ddd_tactical_patterns"
+      ],
+      "learning_objectives": [
+        "Evaluate the high organizational and operational cost (distributed tax) of microservices",
+        "Architect strict in-process boundaries in a Modular Monolith before splitting into services"
+      ],
+      "feynman_prompts": [
+        "How does Conway's Law dictate that software architecture inevitably reflects team communication structures?"
+      ],
+      "key_misconceptions": [
+        "Defaulting to microservices for early-stage startups before product-market fit and domain understanding"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_clean_architecture_hexagonal",
+      "concept_id": "concept_software-architect_clean_architecture_hexagonal",
+      "title": "Clean Architecture & Hexagonal (Ports & Adapters)",
+      "subtitle": "Dependency Rule, Entities, Use Cases, Interface Adapters, Frameworks & Drivers, Ports & Adapters",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_software-architect_software_design_principles_solid"
+      ],
+      "learning_objectives": [
+        "Structure enterprise applications where business logic has zero dependencies on databases or web frameworks",
+        "Define clear Input and Output Ports with decoupled infrastructure adapters"
+      ],
+      "feynman_prompts": [
+        "Explain the Clean Architecture Dependency Rule: source code dependencies must point only inward toward higher-level policies."
+      ],
+      "key_misconceptions": [
+        "Importing database ORM entities directly into domain business logic Use Cases"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_event_driven_architecture_eda",
+      "concept_id": "concept_software-architect_event_driven_architecture_eda",
+      "title": "Event-Driven Architecture (EDA) & Event Sourcing",
+      "subtitle": "Events vs commands, publish-subscribe, Event Sourcing, append-only event logs, state reconstruction",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 6,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_software-architect_ddd_tactical_patterns"
+      ],
+      "learning_objectives": [
+        "Design decoupled, event-driven distributed systems using domain events",
+        "Implement Event Sourcing where state changes are recorded as an immutable append-only ledger"
+      ],
+      "feynman_prompts": [
+        "What is the fundamental difference between storing current state vs storing an immutable history of events (Event Sourcing)?"
+      ],
+      "key_misconceptions": [
+        "Using events as glorified RPC commands, re-introducing tight temporal coupling between services"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_cqrs_architectural_pattern",
+      "concept_id": "concept_software-architect_cqrs_architectural_pattern",
+      "title": "CQRS: Command Query Responsibility Segregation",
+      "subtitle": "Read models vs Write models, eventual consistency, projection workers, denormalized read views",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 7,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_software-architect_event_driven_architecture_eda"
+      ],
+      "learning_objectives": [
+        "Separate complex write transaction models from high-performance read projections using CQRS",
+        "Build denormalized read-optimized views that update asynchronously via domain events"
+      ],
+      "feynman_prompts": [
+        "Why does separating the Command model from the Query model unlock massive read-side scalability?"
+      ],
+      "key_misconceptions": [
+        "Applying full CQRS and Event Sourcing to simple CRUD applications that don't need it"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_api_strategy_governance",
+      "concept_id": "concept_software-architect_api_strategy_governance",
+      "title": "API Strategy, Protocols & Contract Governance",
+      "subtitle": "REST, GraphQL, gRPC, Protobuf, versioning strategies (URI, header), backward compatibility, OpenAPI",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_software-architect_architectural_styles_monolith_micro"
+      ],
+      "learning_objectives": [
+        "Select optimal communication protocols: REST for public APIs, gRPC for low-latency internal microservices",
+        "Enforce strict backward compatibility and semantic API versioning across teams"
+      ],
+      "feynman_prompts": [
+        "Why is gRPC significantly faster and more bandwidth-efficient than REST/JSON for microservice-to-microservice traffic?"
+      ],
+      "key_misconceptions": [
+        "Introducing breaking API schema changes without versioning, crashing downstream client applications"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_enterprise_integration_patterns",
+      "concept_id": "concept_software-architect_enterprise_integration_patterns",
+      "title": "Enterprise Integration Patterns (EIP)",
+      "subtitle": "Content-based router, message translator, scatter-gather, dead-letter channel, idempotent receiver",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_software-architect_event_driven_architecture_eda"
+      ],
+      "learning_objectives": [
+        "Apply classic Enterprise Integration Patterns to connect disparate legacy and cloud systems",
+        "Implement scatter-gather patterns to aggregate responses from multiple backend systems in parallel"
+      ],
+      "feynman_prompts": [
+        "How does an Idempotent Receiver pattern protect systems from duplicate message processing?"
+      ],
+      "key_misconceptions": [
+        "Assuming network delivery is reliable and failing to design for message duplication or network timeouts"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_data_architecture_polyglot",
+      "concept_id": "concept_software-architect_data_architecture_polyglot",
+      "title": "Data Architecture: Polyglot Persistence & Data Mesh",
+      "subtitle": "Relational, document, key-value, graph, time-series, vector databases, Data Mesh principles",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_software-architect_architectural_styles_monolith_micro"
+      ],
+      "learning_objectives": [
+        "Select optimal storage engines for specific access patterns (Polyglot Persistence)",
+        "Apply Data Mesh principles treating data as a product owned by cross-functional domain teams"
+      ],
+      "feynman_prompts": [
+        "Why is forcing all application data into a single database engine an architectural anti-pattern?"
+      ],
+      "key_misconceptions": [
+        "Building a single centralized monolithic data lake that becomes an unmaintainable bottleneck"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_security_architecture_threat_modeling",
+      "concept_id": "concept_software-architect_security_architecture_threat_modeling",
+      "title": "Security Architecture & Zero Trust Principles",
+      "subtitle": "Identity providers (OAuth2/OIDC), zero trust network access (ZTNA), defense-in-depth, STRIDE",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_software-architect_clean_architecture_hexagonal"
+      ],
+      "learning_objectives": [
+        "Architect enterprise authentication and authorization using OAuth 2.0 and OpenID Connect",
+        "Enforce defense-in-depth where every internal network layer authenticates and encrypts requests"
+      ],
+      "feynman_prompts": [
+        "Why does Zero Trust require mutual TLS and identity verification even for traffic inside private networks?"
+      ],
+      "key_misconceptions": [
+        "Assuming the internal corporate or cloud VPC network is trusted and safe from lateral movement"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_distributed_systems_resilience_architecture",
+      "concept_id": "concept_software-architect_distributed_systems_resilience_architecture",
+      "title": "Resilience Engineering: Fault Tolerance & Chaos",
+      "subtitle": "Blast radius reduction, graceful degradation, circuit breakers, load shedding, chaos engineering",
+      "phase": "Applied",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_software-architect_architectural_styles_monolith_micro"
+      ],
+      "learning_objectives": [
+        "Minimize failure blast radius so that an outage in one subsystem does not take down the entire business",
+        "Design systems capable of graceful degradation under catastrophic load (dropping non-critical features)"
+      ],
+      "feynman_prompts": [
+        "How does load shedding intentionally drop low-priority requests to save a server from total collapse?"
+      ],
+      "key_misconceptions": [
+        "Designing systems where every single component must be 100% operational for any feature to work"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_c4_model_architecture_documentation",
+      "concept_id": "concept_software-architect_c4_model_architecture_documentation",
+      "title": "Architecture Documentation: The C4 Model & ADRs",
+      "subtitle": "C4 Model (Context, Containers, Components, Code), Architecture Decision Records (ADRs)",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_software-architect_domain_driven_design_core"
+      ],
+      "learning_objectives": [
+        "Communicate complex software architectures clearly using C4 Model hierarchical diagrams",
+        "Document architectural rationale, trade-offs, and decisions using Architecture Decision Records (ADRs)"
+      ],
+      "feynman_prompts": [
+        "Why are Architecture Decision Records (ADRs) critical for preserving institutional architectural memory?"
+      ],
+      "key_misconceptions": [
+        "Drawing unstandardized architectural boxes-and-arrows diagrams with undefined boundary semantics"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_legacy_modernization_strangler",
+      "concept_id": "concept_software-architect_legacy_modernization_strangler",
+      "title": "Legacy Modernization & The Strangler Fig Pattern",
+      "subtitle": "Strangler Fig pattern, anti-corruption layers (ACL), branch by abstraction, database migration",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_software-architect_clean_architecture_hexagonal"
+      ],
+      "learning_objectives": [
+        "Incrementally replace legacy monolithic systems using the Strangler Fig pattern without downtime",
+        "Isolate new clean systems from legacy domain pollution using Anti-Corruption Layers (ACL)"
+      ],
+      "feynman_prompts": [
+        "Why is the Strangler Fig pattern vastly superior to risky high-stakes 'big bang' rewrites?"
+      ],
+      "key_misconceptions": [
+        "Attempting a complete ground-up rewrite of a massive legacy system from scratch in one release"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_non_functional_requirements_slas",
+      "concept_id": "concept_software-architect_non_functional_requirements_slas",
+      "title": "Architecting for NFRs: Availability, Latency & SLAs",
+      "subtitle": "NFR engineering, 99.9% vs 99.99% availability math, p99 latency budgeting, scalability metrics",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_software-architect_distributed_systems_resilience_architecture"
+      ],
+      "learning_objectives": [
+        "Calculate composite availability and downtime allowances for complex multi-tier dependencies",
+        "Translate ambiguous business goals into concrete, measurable Non-Functional Requirements (NFRs)"
+      ],
+      "feynman_prompts": [
+        "Explain why four nines (99.99%) availability permits only 4.38 minutes of total downtime per month."
+      ],
+      "key_misconceptions": [
+        "Accepting requirements like 'the system must be fast and never go down' without concrete metrics"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_cost_engineering_finops",
+      "concept_id": "concept_software-architect_cost_engineering_finops",
+      "title": "Cloud Cost Engineering & FinOps Architecture",
+      "subtitle": "Cloud cost optimization, compute right-sizing, spot instances, egress cost architecture, FinOps",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_software-architect_architectural_styles_monolith_micro"
+      ],
+      "learning_objectives": [
+        "Architect systems that minimize cloud data transfer and cross-region egress costs",
+        "Establish FinOps visibility matching cloud infrastructure spend directly to business unit revenue"
+      ],
+      "feynman_prompts": [
+        "How does cross-availability-zone data transfer quietly generate massive unexpected cloud bills?"
+      ],
+      "key_misconceptions": [
+        "Over-provisioning cloud compute clusters without autoscaling or utilization analysis"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_technical_governance_evolution",
+      "concept_id": "concept_software-architect_technical_governance_evolution",
+      "title": "Technical Governance & Evolutionary Architecture",
+      "subtitle": "Fitness functions, architectural guardrails, RFC review processes, managing technical debt",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_software-architect_c4_model_architecture_documentation"
+      ],
+      "learning_objectives": [
+        "Automate architectural rule compliance using automated fitness functions in CI",
+        "Lead collaborative Request for Comments (RFC) processes that build engineering consensus"
+      ],
+      "feynman_prompts": [
+        "What is an architectural fitness function and how does it prevent architectural drift over time?"
+      ],
+      "key_misconceptions": [
+        "Acting as an ivory-tower architect who dictates designs without consulting implementing engineers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_software-architect_ai_system_architecture_llms",
+      "concept_id": "concept_software-architect_ai_system_architecture_llms",
+      "title": "AI & LLM Architecture Integration in Enterprise",
+      "subtitle": "LLM gateways, prompt orchestration, RAG architectures, model evaluation, AI cost & latency controls",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 18,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_software-architect_clean_architecture_hexagonal"
+      ],
+      "learning_objectives": [
+        "Integrate Large Language Models into enterprise architectures using modular RAG pipelines",
+        "Design AI gateways providing rate limiting, cost monitoring, fallback models, and guardrails"
+      ],
+      "feynman_prompts": [
+        "Why must enterprise architectures isolate LLM calls behind an abstraction gateway rather than direct API calls?"
+      ],
+      "key_misconceptions": [
+        "Allowing raw un-sanitized user input directly into LLM prompts without validation guardrails"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_software-architect",
+  "description": "Master Software Architect with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Software Architect - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Software Architect - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Software Architect - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Software Architect - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Software Architect - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

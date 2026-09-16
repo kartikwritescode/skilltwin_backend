@@ -1,0 +1,519 @@
+{
+  "slug": "flutter_mobile",
+  "title": "Flutter & Dart Mobile Architecture",
+  "domain": "Mobile Development",
+  "target_role": "Lead Mobile Architect",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "flutter",
+    "dart",
+    "mobile",
+    "riverpod",
+    "cross-platform",
+    "ios",
+    "android",
+    "custompainter"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_flutter_mobile_dart_type_system_oop",
+      "concept_id": "concept_flutter_mobile_dart_type_system_oop",
+      "title": "Dart Language Core & Type System",
+      "subtitle": "Sound null safety, extension methods, records & patterns, mixins, factory constructors",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Leverage Dart sound null safety to prevent runtime null dereference exceptions",
+        "Use records, pattern matching, and mixins for clean data modeling"
+      ],
+      "feynman_prompts": [
+        "Explain how Dart sound null safety guarantees that non-nullable variables never contain null."
+      ],
+      "key_misconceptions": [
+        "Overusing the ! operator instead of handling nullable states with if-case patterns"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_dart_async_streams",
+      "concept_id": "concept_flutter_mobile_dart_async_streams",
+      "title": "Dart Asynchronous Programming & Streams",
+      "subtitle": "Futures, async/await, Streams, StreamControllers, generators (sync*, async*)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_flutter_mobile_dart_type_system_oop"
+      ],
+      "learning_objectives": [
+        "Manage asynchronous operations cleanly with Futures and Streams",
+        "Create reactive data pipelines using StreamTransformers and broadcast streams"
+      ],
+      "feynman_prompts": [
+        "What is the fundamental architectural difference between a Future and a Stream in Dart?"
+      ],
+      "key_misconceptions": [
+        "Using single-subscription streams when multiple UI listeners are required"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_widget_tree_render_objects",
+      "concept_id": "concept_flutter_mobile_widget_tree_render_objects",
+      "title": "Flutter Architectural Mechanics: The Three Trees",
+      "subtitle": "Widget Tree, Element Tree, RenderObject Tree, layout & paint phases",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_flutter_mobile_dart_type_system_oop"
+      ],
+      "learning_objectives": [
+        "Explain the distinct responsibilities of the Widget, Element, and RenderObject trees",
+        "Diagnose and resolve common layout constraints (BoxConstraints) errors"
+      ],
+      "feynman_prompts": [
+        "Why does Flutter rebuild lightweight Widgets frequently while reusing persistent RenderObjects?"
+      ],
+      "key_misconceptions": [
+        "Assuming Widget rebuilds are expensive, confusing them with heavy DOM reflows"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_responsive_layouts_constraints",
+      "concept_id": "concept_flutter_mobile_responsive_layouts_constraints",
+      "title": "Responsive Layouts & Constraint Architecture",
+      "subtitle": "Constraints go down, sizes go up, parent sets position; LayoutBuilder, MediaQuery",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_flutter_mobile_widget_tree_render_objects"
+      ],
+      "learning_objectives": [
+        "Build responsive layouts adapting seamlessly to mobile, tablet, and desktop screens",
+        "Debug RenderFlex overflow errors using Flexible, Expanded, and SingleChildScrollView"
+      ],
+      "feynman_prompts": [
+        "Explain Flutter's golden layout rule: Constraints go down, sizes go up, parent sets position."
+      ],
+      "key_misconceptions": [
+        "Wrapping unbounded widgets inside unbounded parents, triggering layout crashes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_riverpod_state_management",
+      "concept_id": "concept_flutter_mobile_riverpod_state_management",
+      "title": "Reactive State Management with Riverpod 2.x",
+      "subtitle": "NotifierProvider, AsyncNotifier, ref.watch vs ref.read, family, autoDispose",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_flutter_mobile_dart_async_streams"
+      ],
+      "learning_objectives": [
+        "Manage global reactive application state cleanly using Riverpod Notifiers",
+        "Handle asynchronous loading, error, and data states declaratively with AsyncValue"
+      ],
+      "feynman_prompts": [
+        "Why should ref.watch be used inside build() methods while ref.read is reserved for event callbacks?"
+      ],
+      "key_misconceptions": [
+        "Calling ref.read inside build() methods, causing UI to miss state updates"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_gorouter_navigation",
+      "concept_id": "concept_flutter_mobile_gorouter_navigation",
+      "title": "Declarative Navigation & Deep Linking with GoRouter",
+      "subtitle": "GoRoute, ShellRoute, redirect guards, path parameters, nested tab navigation",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_flutter_mobile_riverpod_state_management"
+      ],
+      "learning_objectives": [
+        "Configure type-safe declarative routing with nested bottom navigation ShellRoutes",
+        "Implement authentication redirect guards to protect private screens"
+      ],
+      "feynman_prompts": [
+        "How does declarative routing with GoRouter simplify deep linking and web URL synchronization?"
+      ],
+      "key_misconceptions": [
+        "Navigating imperatively with Navigator.push() without URL state synchronization"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_dio_networking_interceptors",
+      "concept_id": "concept_flutter_mobile_dio_networking_interceptors",
+      "title": "Networking with Dio & REST Architecture",
+      "subtitle": "Dio client, interceptors, auth token refresh, retry policies, JSON serialization",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_flutter_mobile_dart_async_streams"
+      ],
+      "learning_objectives": [
+        "Implement robust API communication with centralized auth interceptors",
+        "Handle automatic JWT token refresh on HTTP 401 Unauthorized responses"
+      ],
+      "feynman_prompts": [
+        "How do Dio interceptors enable centralized auth injection and automatic retry policies?"
+      ],
+      "key_misconceptions": [
+        "Parsing raw JSON maps directly in UI widgets without strongly-typed data models"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_offline_persistence_sqlite_hive",
+      "concept_id": "concept_flutter_mobile_offline_persistence_sqlite_hive",
+      "title": "Offline Persistence: SQLite, Drift & Hive",
+      "subtitle": "Local database design, Drift type-safe SQL, Hive / SharedPreferences caching",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_flutter_mobile_riverpod_state_management"
+      ],
+      "learning_objectives": [
+        "Persist structured data offline using type-safe SQLite abstractions with Drift",
+        "Cache user settings and authentication tokens with SharedPreferences/Hive"
+      ],
+      "feynman_prompts": [
+        "Why should relational data with queries be stored in SQLite rather than flat key-value files?"
+      ],
+      "key_misconceptions": [
+        "Storing large structured datasets in SharedPreferences, causing UI freezes on startup"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_custom_painter_canvas",
+      "concept_id": "concept_flutter_mobile_custom_painter_canvas",
+      "title": "Custom Painting, Canvas & Path Animations",
+      "subtitle": "CustomPainter, Canvas API, Path operations, Paint objects, CustomPaint widget",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_flutter_mobile_widget_tree_render_objects"
+      ],
+      "learning_objectives": [
+        "Draw custom geometric shapes, graphs, and winding roadmap paths using Canvas",
+        "Optimize repainting by implementing shouldRepaint accurately"
+      ],
+      "feynman_prompts": [
+        "Why is returning false from shouldRepaint essential when CustomPainter properties haven't changed?"
+      ],
+      "key_misconceptions": [
+        "Allocating heavy Paint or Path objects inside the paint() method on every frame"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_animations_implicit_explicit",
+      "concept_id": "concept_flutter_mobile_animations_implicit_explicit",
+      "title": "Flutter Animations: Implicit vs Explicit",
+      "subtitle": "AnimatedContainer, AnimationController, CurvedAnimation, Hero transitions",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_flutter_mobile_widget_tree_render_objects"
+      ],
+      "learning_objectives": [
+        "Create fluid UI micro-interactions using implicit animated widgets",
+        "Build orchestrated multi-stage animations with AnimationControllers and TickerProvider"
+      ],
+      "feynman_prompts": [
+        "What is the difference between an implicit animation widget and an explicit AnimationController?"
+      ],
+      "key_misconceptions": [
+        "Forgetting to dispose AnimationControllers in State.dispose(), leaking memory"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_clean_architecture_flutter",
+      "concept_id": "concept_flutter_mobile_clean_architecture_flutter",
+      "title": "Clean Architecture & Feature-First Project Structure",
+      "subtitle": "Domain (Entities, Use Cases), Data (Repositories, Data Sources), Presentation layers",
+      "phase": "Applied",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_flutter_mobile_dio_networking_interceptors"
+      ],
+      "learning_objectives": [
+        "Organize scalable Flutter applications using feature-first domain-driven design",
+        "Decouple domain business logic completely from Flutter UI widgets and external packages"
+      ],
+      "feynman_prompts": [
+        "Why should domain entities and repository interfaces have zero dependencies on Flutter UI packages?"
+      ],
+      "key_misconceptions": [
+        "Calling API HTTP clients directly from widget build methods"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_flutter_automated_testing",
+      "concept_id": "concept_flutter_mobile_flutter_automated_testing",
+      "title": "Automated Testing: Unit, Widget & Integration",
+      "subtitle": "flutter_test, testWidgets, WidgetTester, Finder, Mockito / Mocktail, Golden tests",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_flutter_mobile_clean_architecture_flutter"
+      ],
+      "learning_objectives": [
+        "Write comprehensive unit tests for Riverpod notifiers and domain use cases",
+        "Test widget interactions and verify visual regression using golden tests"
+      ],
+      "feynman_prompts": [
+        "How does testWidgets simulate user taps, gestures, and frame pump ticks?"
+      ],
+      "key_misconceptions": [
+        "Running widget tests that perform real HTTP calls without mocking the network layer"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_platform_channels_native",
+      "concept_id": "concept_flutter_mobile_platform_channels_native",
+      "title": "Platform Channels: Native Android & iOS Integration",
+      "subtitle": "MethodChannel, EventChannel, native Kotlin and Swift code integration",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_flutter_mobile_dart_async_streams"
+      ],
+      "learning_objectives": [
+        "Communicate bidirectionally between Dart and native Android (Kotlin) / iOS (Swift) code",
+        "Stream continuous native sensor or battery data to Flutter using EventChannels"
+      ],
+      "feynman_prompts": [
+        "Explain how the binary messenger serializes data across the platform channel boundary."
+      ],
+      "key_misconceptions": [
+        "Passing massive binary payloads across MethodChannels synchronously, blocking the main UI thread"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_performance_devtools_profiling",
+      "concept_id": "concept_flutter_mobile_performance_devtools_profiling",
+      "title": "Performance Profiling & Memory Leak Optimization",
+      "subtitle": "Flutter DevTools, CPU Profiler, Memory Allocations, RepaintBoundary, DevTools timeline",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "advanced",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_flutter_mobile_widget_tree_render_objects"
+      ],
+      "learning_objectives": [
+        "Profile and fix UI jank and dropped frames (120fps optimization) using Flutter DevTools",
+        "Isolate expensive custom drawings using RepaintBoundary widgets"
+      ],
+      "feynman_prompts": [
+        "How does RepaintBoundary prevent expensive subtree repainting during animations?"
+      ],
+      "key_misconceptions": [
+        "Rebuilding the entire screen when only a single text label needs updating"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_push_notifications_fcm",
+      "concept_id": "concept_flutter_mobile_push_notifications_fcm",
+      "title": "Push Notifications with Firebase Cloud Messaging (FCM)",
+      "subtitle": "FCM tokens, background message handlers, local notifications, payload navigation",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_flutter_mobile_gorouter_navigation"
+      ],
+      "learning_objectives": [
+        "Configure Firebase Cloud Messaging for foreground and background push alerts",
+        "Handle user notification taps and deep-link directly into relevant feature screens"
+      ],
+      "feynman_prompts": [
+        "Why must background message handlers be top-level or static entry points (@pragma('vm:entry-point'))?"
+      ],
+      "key_misconceptions": [
+        "Accessing Flutter UI context inside background notification handlers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_security_biometrics_storage",
+      "concept_id": "concept_flutter_mobile_security_biometrics_storage",
+      "title": "Mobile Security: Biometrics & Secure Storage",
+      "subtitle": "flutter_secure_storage, Keychain / Keystore encryption, local_auth biometrics",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_flutter_mobile_offline_persistence_sqlite_hive"
+      ],
+      "learning_objectives": [
+        "Encrypt and store sensitive auth tokens using hardware-backed platform keystores",
+        "Enforce biometric Face ID / Fingerprint verification for sensitive app actions"
+      ],
+      "feynman_prompts": [
+        "Why is flutter_secure_storage safer for access tokens than standard SharedPreferences?"
+      ],
+      "key_misconceptions": [
+        "Storing plain unencrypted API secrets or tokens in local SQLite databases"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_ci_cd_fastlane_github",
+      "concept_id": "concept_flutter_mobile_ci_cd_fastlane_github",
+      "title": "CI/CD & Mobile Automation with Fastlane",
+      "subtitle": "Fastlane match, App Store Connect API, Google Play publishing, GitHub Actions workflows",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_flutter_mobile_flutter_automated_testing"
+      ],
+      "learning_objectives": [
+        "Automate building and signing iOS IPAs and Android AABs with Fastlane",
+        "Publish automated TestFlight and Play Store internal track releases on PR merges"
+      ],
+      "feynman_prompts": [
+        "Why is automated mobile build signing via CI essential for engineering team velocity?"
+      ],
+      "key_misconceptions": [
+        "Manually building and uploading APKs/IPAs from personal developer machines"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_flutter_mobile_app_store_play_store_launch",
+      "concept_id": "concept_flutter_mobile_app_store_play_store_launch",
+      "title": "App Store & Play Store Launch Readiness",
+      "subtitle": "App icons, splash screens, permissions rationale, store review guidelines, analytics",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_flutter_mobile_ci_cd_fastlane_github"
+      ],
+      "learning_objectives": [
+        "Configure production app bundle identifiers, splash screens, and adaptive icons",
+        "Comply with Apple App Store and Google Play privacy nutrition and permission guidelines"
+      ],
+      "feynman_prompts": [
+        "What are the most common rejection reasons during App Store review and how do you avoid them?"
+      ],
+      "key_misconceptions": [
+        "Requesting sensitive runtime permissions without user context or explanatory UI"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_flutter_mobile",
+  "description": "Master Flutter & Dart Mobile Architecture with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Flutter & Dart Mobile Architecture - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Flutter & Dart Mobile Architecture - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Flutter & Dart Mobile Architecture - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Flutter & Dart Mobile Architecture - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Flutter & Dart Mobile Architecture - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

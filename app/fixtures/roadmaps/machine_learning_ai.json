@@ -1,0 +1,520 @@
+{
+  "slug": "machine_learning_ai",
+  "title": "Machine Learning & Gen AI",
+  "domain": "Artificial Intelligence",
+  "target_role": "Principal AI Architect",
+  "difficulty_baseline": "Intermediate",
+  "tags": [
+    "ai",
+    "gen-ai",
+    "llm",
+    "rag",
+    "transformers",
+    "machine-learning",
+    "pytorch",
+    "agents",
+    "vllm"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_machine_learning_ai_math_foundations_genai",
+      "concept_id": "concept_machine_learning_ai_math_foundations_genai",
+      "title": "Mathematics for Machine Learning & Generative AI",
+      "subtitle": "Linear algebra, matrix operations, probability distributions, multivariate calculus, gradient optimization",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Compute vector dot products and cosine similarity across high-dimensional semantic spaces",
+        "Analyze how gradient descent optimizes parameters in non-convex multi-billion-parameter landscapes"
+      ],
+      "feynman_prompts": [
+        "Why is matrix multiplication the core computational primitive for both neural networks and transformers?"
+      ],
+      "key_misconceptions": [
+        "Treating neural networks as black boxes without understanding loss gradients and optimization"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_classical_ml_foundations",
+      "concept_id": "concept_machine_learning_ai_classical_ml_foundations",
+      "title": "Classical Machine Learning Foundations",
+      "subtitle": "Supervised regression, classification, decision trees, ensemble methods, model evaluation",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine_learning_ai_math_foundations_genai"
+      ],
+      "learning_objectives": [
+        "Train supervised classification and regression models and evaluate with cross-validation",
+        "Select optimal trade-offs between bias and variance using regularization"
+      ],
+      "feynman_prompts": [
+        "What is the fundamental difference between supervised learning (with labels) and unsupervised clustering?"
+      ],
+      "key_misconceptions": [
+        "Evaluating models on training data alone without held-out validation sets"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_deep_learning_neural_mechanics",
+      "concept_id": "concept_machine_learning_ai_deep_learning_neural_mechanics",
+      "title": "Deep Learning Mechanics & Neural Optimization",
+      "subtitle": "Backpropagation, activation functions (ReLU, GELU), Adam optimizer, LayerNorm, loss surfaces",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine_learning_ai_classical_ml_foundations"
+      ],
+      "learning_objectives": [
+        "Build and train multi-layer neural networks using modern deep learning frameworks",
+        "Stabilize deep network training using Layer Normalization and AdamW optimizers"
+      ],
+      "feynman_prompts": [
+        "How does Layer Normalization stabilize gradient flows during deep transformer training?"
+      ],
+      "key_misconceptions": [
+        "Using constant high learning rates that cause loss divergence during training"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_convolutional_sequence_models",
+      "concept_id": "concept_machine_learning_ai_convolutional_sequence_models",
+      "title": "Computer Vision & Sequence Modeling Architectures",
+      "subtitle": "CNNs for spatial representations, RNNs/LSTMs for temporal sequence modeling, transfer learning",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine_learning_ai_deep_learning_neural_mechanics"
+      ],
+      "learning_objectives": [
+        "Extract visual features using convolutional neural networks and transfer learning",
+        "Analyze the limitations of sequential recurrent models that motivated transformer architectures"
+      ],
+      "feynman_prompts": [
+        "Why do recurrent networks suffer from catastrophic forgetting on long sequence contexts?"
+      ],
+      "key_misconceptions": [
+        "Attempting to train sequence models from scratch without pre-trained representations"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_transformer_attention_deep_dive",
+      "concept_id": "concept_machine_learning_ai_transformer_attention_deep_dive",
+      "title": "The Transformer Architecture & Attention Deep Dive",
+      "subtitle": "Scaled dot-product attention, multi-head attention, queries/keys/values, positional encodings",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 5,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine_learning_ai_deep_learning_neural_mechanics"
+      ],
+      "learning_objectives": [
+        "Implement multi-head self-attention mechanisms from mathematical first principles",
+        "Explain how self-attention calculates contextual token representations across entire documents in parallel"
+      ],
+      "feynman_prompts": [
+        "Why does self-attention eliminate the sequential bottleneck inherent in legacy recurrent networks?"
+      ],
+      "key_misconceptions": [
+        "Assuming attention weights represent absolute factual importance rather than mathematical correlation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_llm_foundations_pretraining",
+      "concept_id": "concept_machine_learning_ai_llm_foundations_pretraining",
+      "title": "Large Language Model Foundations & Pre-training",
+      "subtitle": "Causal language modeling, next-token prediction, tokenization (BPE), scaling laws, compute budget",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine_learning_ai_transformer_attention_deep_dive"
+      ],
+      "learning_objectives": [
+        "Explain the autoregressive pre-training objective used by modern frontier LLMs",
+        "Apply Chinchilla scaling laws to estimate optimal model size and training tokens for a compute budget"
+      ],
+      "feynman_prompts": [
+        "What do the Chinchilla scaling laws state regarding the optimal balance between parameters and tokens?"
+      ],
+      "key_misconceptions": [
+        "Assuming LLMs understand reality rather than predicting the most statistically probable next token"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_tokenization_embeddings_spaces",
+      "concept_id": "concept_machine_learning_ai_tokenization_embeddings_spaces",
+      "title": "Tokenization, Vector Embeddings & Semantic Spaces",
+      "subtitle": "Byte-Pair Encoding (BPE), subwords, dense embedding models, vector dimensions, cosine distance",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine_learning_ai_llm_foundations_pretraining"
+      ],
+      "learning_objectives": [
+        "Tokenize arbitrary text using Byte-Pair Encoding and diagnose tokenization edge cases",
+        "Generate dense vector embeddings to represent semantic concepts in high-dimensional vector spaces"
+      ],
+      "feynman_prompts": [
+        "Why do subword tokenizers handle previously unseen vocabulary without out-of-vocabulary crashes?"
+      ],
+      "key_misconceptions": [
+        "Confusing string character length with token count, leading to context window overflows"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_systematic_prompt_engineering",
+      "concept_id": "concept_machine_learning_ai_systematic_prompt_engineering",
+      "title": "Systematic Prompt Engineering & Reasoning Scaffolds",
+      "subtitle": "System prompts, Few-Shot prompting, Chain-of-Thought (CoT), output formatting, prompt injection",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 8,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_machine_learning_ai_llm_foundations_pretraining"
+      ],
+      "learning_objectives": [
+        "Author robust system prompts that elicit deterministic structured outputs from LLMs",
+        "Improve multi-step logical reasoning accuracy using Few-Shot and Chain-of-Thought techniques"
+      ],
+      "feynman_prompts": [
+        "Why does Chain-of-Thought (CoT) prompting drastically improve complex multi-step reasoning?"
+      ],
+      "key_misconceptions": [
+        "Concatenating untrusted user input directly into system prompts without injection guards"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_vector_databases_similarity_search",
+      "concept_id": "concept_machine_learning_ai_vector_databases_similarity_search",
+      "title": "Vector Databases & Semantic Search Engines",
+      "subtitle": "pgvector, Qdrant, Pinecone, Approximate Nearest Neighbor (ANN), HNSW indexing, metadata filtering",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine_learning_ai_tokenization_embeddings_spaces"
+      ],
+      "learning_objectives": [
+        "Deploy scalable vector databases and configure HNSW index parameters for sub-50ms search",
+        "Execute filtered semantic similarity searches combining vector distance with relational metadata"
+      ],
+      "feynman_prompts": [
+        "How does HNSW enable sub-linear Approximate Nearest Neighbor search across millions of vectors?"
+      ],
+      "key_misconceptions": [
+        "Running brute-force exact vector distance scans in production without vector indexing"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_rag_pipeline_architecture",
+      "concept_id": "concept_machine_learning_ai_rag_pipeline_architecture",
+      "title": "Retrieval-Augmented Generation (RAG) Architecture",
+      "subtitle": "Document chunking (semantic/recursive), dense vs sparse retrieval, hybrid search (BM25 + vector)",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine_learning_ai_vector_databases_similarity_search"
+      ],
+      "learning_objectives": [
+        "Build production RAG pipelines that ground LLM answers in verified private enterprise knowledge",
+        "Implement hybrid search combining dense semantic vectors with sparse BM25 keyword matching"
+      ],
+      "feynman_prompts": [
+        "Why does hybrid search (dense + sparse) solve the specific vocabulary and product code problem in RAG?"
+      ],
+      "key_misconceptions": [
+        "Using arbitrary fixed chunk sizes that cut critical sentences and code blocks in half"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_advanced_rag_reranking_hyde",
+      "concept_id": "concept_machine_learning_ai_advanced_rag_reranking_hyde",
+      "title": "Advanced RAG: Query Expansion, HyDE & Reranking",
+      "subtitle": "Hypothetical Document Embeddings (HyDE), Cross-Encoder reranking, multi-query expansion",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine_learning_ai_rag_pipeline_architecture"
+      ],
+      "learning_objectives": [
+        "Re-rank retrieved context documents using high-precision Cross-Encoder models before prompting",
+        "Expand ambiguous user questions using Hypothetical Document Embeddings (HyDE)"
+      ],
+      "feynman_prompts": [
+        "How does Cross-Encoder reranking improve RAG retrieval precision over bi-encoder cosine search alone?"
+      ],
+      "key_misconceptions": [
+        "Passing 50 irrelevant retrieved context documents into the LLM context, diluting answer quality"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_fine_tuning_peft_lora",
+      "concept_id": "concept_machine_learning_ai_fine_tuning_peft_lora",
+      "title": "Parameter-Efficient Fine-Tuning (PEFT & LoRA)",
+      "subtitle": "Full fine-tuning vs PEFT, LoRA rank decomposition, QLoRA 4-bit quantization, dataset prep",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine_learning_ai_transformer_attention_deep_dive"
+      ],
+      "learning_objectives": [
+        "Fine-tune open-weights models (Llama 3, Mistral) on domain instruction datasets using QLoRA",
+        "Decide objectively when to apply RAG (dynamic knowledge) vs Fine-Tuning (style, format, task)"
+      ],
+      "feynman_prompts": [
+        "Why does LoRA freeze base model weights and only train low-rank adapter matrices?"
+      ],
+      "key_misconceptions": [
+        "Attempting to use fine-tuning to teach models frequently changing factual information"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_alignment_rlhf_dpo",
+      "concept_id": "concept_machine_learning_ai_alignment_rlhf_dpo",
+      "title": "Model Alignment: RLHF & Direct Preference Optimization",
+      "subtitle": "Supervised Fine-Tuning (SFT), Reward Modeling, PPO, Direct Preference Optimization (DPO)",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine_learning_ai_fine_tuning_peft_lora"
+      ],
+      "learning_objectives": [
+        "Align generative models with human preferences using Direct Preference Optimization (DPO)",
+        "Structure pairwise preference datasets (chosen vs rejected responses) for alignment training"
+      ],
+      "feynman_prompts": [
+        "Why is Direct Preference Optimization (DPO) significantly simpler and more stable to train than PPO?"
+      ],
+      "key_misconceptions": [
+        "Assuming that pre-trained base language models are safe and ready for conversational users without alignment"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_autonomous_ai_agents_tools",
+      "concept_id": "concept_machine_learning_ai_autonomous_ai_agents_tools",
+      "title": "Autonomous AI Agents & Tool Execution Frameworks",
+      "subtitle": "Function calling, ReAct pattern (Reason + Act), tool schemas, multi-step planning, error recovery",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine_learning_ai_systematic_prompt_engineering"
+      ],
+      "learning_objectives": [
+        "Build autonomous AI agents that reason, call external APIs, evaluate results, and solve multi-step tasks",
+        "Enforce strict JSON schema validation on tool arguments to prevent runtime execution failures"
+      ],
+      "feynman_prompts": [
+        "How does the ReAct framework enable models to self-correct when an API tool call returns an error?"
+      ],
+      "key_misconceptions": [
+        "Granting AI agents unconstrained destructive write permissions without human-in-the-loop safeguards"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_multimodal_generative_ai",
+      "concept_id": "concept_machine_learning_ai_multimodal_generative_ai",
+      "title": "Multimodal Generative AI: Vision-Language Models",
+      "subtitle": "Vision-Language Models (VLMs), image patch projection, CLIP embeddings, document visual reasoning",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine_learning_ai_transformer_attention_deep_dive"
+      ],
+      "learning_objectives": [
+        "Process and reason over multimodal inputs (images, diagrams, UI wireframes) using frontier VLMs",
+        "Analyze how vision transformers project image patches into the same semantic space as text tokens"
+      ],
+      "feynman_prompts": [
+        "How do Vision-Language Models convert 2D image patches into visual tokens for the transformer?"
+      ],
+      "key_misconceptions": [
+        "Relying exclusively on OCR text extraction when visual document layout contains critical context"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_ai_evaluation_ragas_benchmarks",
+      "concept_id": "concept_machine_learning_ai_ai_evaluation_ragas_benchmarks",
+      "title": "AI Evaluation Frameworks & Hallucination Auditing",
+      "subtitle": "Ragas evaluation, Faithfulness, Context Precision, LLM-as-a-Judge, automated regression suites",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine_learning_ai_advanced_rag_reranking_hyde"
+      ],
+      "learning_objectives": [
+        "Implement automated evaluation pipelines quantifying RAG faithfulness and hallucination rates",
+        "Design calibrated multi-criteria rubrics for automated LLM-as-a-Judge assessment suites"
+      ],
+      "feynman_prompts": [
+        "What is Faithfulness in RAG evaluation and how does it verify that claims are grounded in context?"
+      ],
+      "key_misconceptions": [
+        "Evaluating enterprise AI applications based on subjective impressions rather than rigorous automated benchmarks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_ai_safety_guardrails_redteaming",
+      "concept_id": "concept_machine_learning_ai_ai_safety_guardrails_redteaming",
+      "title": "AI Safety, Guardrails & Adversarial Robustness",
+      "subtitle": "NeMo Guardrails, prompt injection mitigation, jailbreak defense, PII masking, automated red teaming",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine_learning_ai_systematic_prompt_engineering"
+      ],
+      "learning_objectives": [
+        "Implement input/output guardrails to detect and block prompt injection attacks and toxic outputs",
+        "Conduct systematic red teaming to identify adversarial jailbreak vulnerabilities in AI applications"
+      ],
+      "feynman_prompts": [
+        "How do indirect prompt injection attacks exploit AI applications that process external web content?"
+      ],
+      "key_misconceptions": [
+        "Assuming that prompt instructions alone are sufficient to defend against adversarial injection attacks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine_learning_ai_llm_serving_production_scale",
+      "concept_id": "concept_machine_learning_ai_llm_serving_production_scale",
+      "title": "Production LLM Serving & Performance Optimization",
+      "subtitle": "vLLM, continuous batching, PagedAttention, quantization (AWQ/GGUF), semantic caching, cost controls",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 18,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine_learning_ai_llm_foundations_pretraining"
+      ],
+      "learning_objectives": [
+        "Deploy high-throughput open-source LLM inference servers using vLLM and continuous batching",
+        "Implement semantic caching and model routing to slash API token expenses by 60%"
+      ],
+      "feynman_prompts": [
+        "How does PagedAttention eliminate memory fragmentation in GPU VRAM during concurrent inference?"
+      ],
+      "key_misconceptions": [
+        "Deploying LLMs using basic sequential Python loops that handle only one user query at a time"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_machine_learning_ai",
+  "description": "Master Machine Learning & Gen AI with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Machine Learning & Gen AI - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Machine Learning & Gen AI - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Machine Learning & Gen AI - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Machine Learning & Gen AI - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Machine Learning & Gen AI - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

@@ -1,0 +1,677 @@
+{
+  "slug": "frontend",
+  "title": "Frontend Developer",
+  "domain": "Frontend Web Development",
+  "target_role": "Senior Frontend Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "frontend",
+    "web",
+    "html",
+    "css",
+    "javascript",
+    "react",
+    "typescript",
+    "tailwind",
+    "vite",
+    "ui"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_frontend_browser_internals",
+      "concept_id": "concept_frontend_browser_internals",
+      "title": "Internet & Browser Mechanics",
+      "subtitle": "DNS, HTTP/HTTPS, TCP/IP, Browser Rendering Engine, DOM tree vs Render tree",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Explain the journey of a URL from browser request to pixel rendering",
+        "Analyze critical rendering path and repaint/reflow triggers"
+      ],
+      "feynman_prompts": [
+        "Explain step-by-step what happens in the browser from typing a URL to seeing pixels."
+      ],
+      "key_misconceptions": [
+        "Believing the browser downloads and executes all HTML/CSS/JS in a single synchronous pass"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_semantic_html5",
+      "concept_id": "concept_frontend_semantic_html5",
+      "title": "Semantic HTML5 & Accessibility (a11y)",
+      "subtitle": "Accessible markup, ARIA roles, form validations, SEO metadata",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_browser_internals"
+      ],
+      "learning_objectives": [
+        "Structure pages with proper semantic landmarks (<main>, <nav>, <article>)",
+        "Implement keyboard navigation and ARIA attributes for screen readers"
+      ],
+      "feynman_prompts": [
+        "Why is a semantic <button> better for assistive technologies than a <div> with an onClick handler?"
+      ],
+      "key_misconceptions": [
+        "Treating accessibility as an optional post-launch enhancement rather than core web standard"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_css_box_model",
+      "concept_id": "concept_frontend_css_box_model",
+      "title": "CSS Box Model & Display Mechanics",
+      "subtitle": "Content-box vs border-box, margin collapsing, inline vs block vs inline-block",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_semantic_html5"
+      ],
+      "learning_objectives": [
+        "Calculate exact element dimensions using standard vs border-box models",
+        "Prevent and resolve vertical margin collapse issues"
+      ],
+      "feynman_prompts": [
+        "Explain why margins collapse vertically between sibling elements but paddings do not."
+      ],
+      "key_misconceptions": [
+        "Assuming width: 100% includes padding and border without box-sizing: border-box"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_css_flexbox",
+      "concept_id": "concept_frontend_css_flexbox",
+      "title": "Modern CSS: Flexbox 1D Alignment",
+      "subtitle": "Flex container properties, flex-grow, flex-shrink, flex-basis, alignment axes",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_css_box_model"
+      ],
+      "learning_objectives": [
+        "Build responsive navigation bars and centered hero sections using Flexbox",
+        "Control item resizing dynamics with flex-grow and flex-shrink"
+      ],
+      "feynman_prompts": [
+        "How do the main axis and cross axis change when flex-direction switches to column?"
+      ],
+      "key_misconceptions": [
+        "Confusing justify-content (main axis) with align-items (cross axis)"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_css_grid",
+      "concept_id": "concept_frontend_css_grid",
+      "title": "Modern CSS: 2D CSS Grid Mastery",
+      "subtitle": "Grid template columns/rows, fr units, minmax, auto-fill vs auto-fit, grid areas",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_css_flexbox"
+      ],
+      "learning_objectives": [
+        "Create fluid two-dimensional dashboard layouts without media queries",
+        "Design template area layouts with named grid lines"
+      ],
+      "feynman_prompts": [
+        "Explain the practical difference between auto-fill and auto-fit in a minmax grid."
+      ],
+      "key_misconceptions": [
+        "Over-nesting Flexbox containers where a single CSS Grid would be simpler"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_css_responsive_vars",
+      "concept_id": "concept_frontend_css_responsive_vars",
+      "title": "Responsive Design & CSS Custom Properties",
+      "subtitle": "Fluid clamping clamp(), media queries, container queries, CSS variables",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 6,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_css_grid"
+      ],
+      "learning_objectives": [
+        "Implement dynamic theme switching using CSS custom properties",
+        "Create fluid typography without rigid pixel breakpoints using clamp()"
+      ],
+      "feynman_prompts": [
+        "Why are container queries more modular for reusable components than viewport media queries?"
+      ],
+      "key_misconceptions": [
+        "Hardcoding fixed pixel widths that break on small mobile devices"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_tailwind_css",
+      "concept_id": "concept_frontend_tailwind_css",
+      "title": "Utility-First Styling with Tailwind CSS",
+      "subtitle": "Tailwind JIT, design tokens, responsive prefixes, component extraction",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_css_responsive_vars"
+      ],
+      "learning_objectives": [
+        "Build complex responsive interfaces rapidly using Tailwind utility classes",
+        "Configure design theme tokens and dark mode variants"
+      ],
+      "feynman_prompts": [
+        "What are the performance and maintainability trade-offs of utility classes vs traditional BEM CSS?"
+      ],
+      "key_misconceptions": [
+        "Copying long repetitive class strings everywhere instead of extracting reusable UI components"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_js_types_closures",
+      "concept_id": "concept_frontend_js_types_closures",
+      "title": "JavaScript Types, Scopes & Closures",
+      "subtitle": "Primitives vs reference types, execution context, lexical scope, closures",
+      "phase": "Core",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_browser_internals"
+      ],
+      "learning_objectives": [
+        "Differentiate value copying from reference mutation in objects and arrays",
+        "Leverage lexical closures for data encapsulation and factory functions"
+      ],
+      "feynman_prompts": [
+        "Explain how a closure retains access to its outer scope variables even after the outer function returns."
+      ],
+      "key_misconceptions": [
+        "Mutating object references unintentionally leading to side-effect bugs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_js_es6_arrays",
+      "concept_id": "concept_frontend_js_es6_arrays",
+      "title": "Modern ES6+ Syntax & Array Methods",
+      "subtitle": "Map, filter, reduce, destructuring, spread/rest, optional chaining, nullish coalescing",
+      "phase": "Core",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 9,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_js_types_closures"
+      ],
+      "learning_objectives": [
+        "Transform complex nested datasets declaratively using map, filter, and reduce",
+        "Use destructuring, optional chaining (?.), and nullish coalescing (??) safely"
+      ],
+      "feynman_prompts": [
+        "What is the difference between the || operator and the ?? (nullish coalescing) operator?"
+      ],
+      "key_misconceptions": [
+        "Using Array.prototype.map when no return value is needed instead of forEach or for-of"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_js_event_loop",
+      "concept_id": "concept_frontend_js_event_loop",
+      "title": "JavaScript Event Loop & Concurrency",
+      "subtitle": "Call stack, Web APIs, task queue (macrotasks), microtask queue, Promise resolution",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_js_es6_arrays"
+      ],
+      "learning_objectives": [
+        "Predict asynchronous code execution order between setTimeout, Promises, and sync code",
+        "Avoid blocking the single thread with heavy computational loops"
+      ],
+      "feynman_prompts": [
+        "Why does a resolved Promise callback run before a setTimeout(fn, 0) callback?"
+      ],
+      "key_misconceptions": [
+        "Thinking JavaScript is multi-threaded because of asynchronous async/await keywords"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_dom_events",
+      "concept_id": "concept_frontend_dom_events",
+      "title": "DOM Manipulation & Event Architecture",
+      "subtitle": "querySelector, DOM mutations, event bubbling, event capturing, event delegation",
+      "phase": "Core",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 11,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_js_types_closures"
+      ],
+      "learning_objectives": [
+        "Implement high-performance event delegation on dynamic lists with 1,000+ items",
+        "Manipulate the DOM safely without triggering layout thrashing"
+      ],
+      "feynman_prompts": [
+        "How does event bubbling allow handling clicks on dynamic child elements from a single parent listener?"
+      ],
+      "key_misconceptions": [
+        "Attaching individual event listeners to hundreds of list items instead of using event delegation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_async_fetch_apis",
+      "concept_id": "concept_frontend_async_fetch_apis",
+      "title": "Asynchronous JavaScript & Fetch API",
+      "subtitle": "Promises, async/await, Fetch API, HTTP headers, status codes, error handling",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_js_event_loop"
+      ],
+      "learning_objectives": [
+        "Handle asynchronous HTTP requests with robust try/catch and response.ok checks",
+        "Handle parallel requests efficiently using Promise.all and Promise.allSettled"
+      ],
+      "feynman_prompts": [
+        "Why does fetch() not reject its promise on HTTP 404 or 500 error status codes?"
+      ],
+      "key_misconceptions": [
+        "Forgetting to check response.ok when using fetch(), assuming HTTP errors throw automatically"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_browser_storage",
+      "concept_id": "concept_frontend_browser_storage",
+      "title": "Browser Storage & Client State Persistence",
+      "subtitle": "localStorage, sessionStorage, Cookies (HttpOnly, SameSite), IndexedDB",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_async_fetch_apis"
+      ],
+      "learning_objectives": [
+        "Persist user preferences in localStorage with JSON serialization",
+        "Evaluate security implications of storing auth tokens in localStorage vs HttpOnly cookies"
+      ],
+      "feynman_prompts": [
+        "Why are sensitive auth tokens stored in localStorage vulnerable to XSS attacks?"
+      ],
+      "key_misconceptions": [
+        "Storing large structured datasets synchronously in localStorage instead of IndexedDB"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_git_npm_workflow",
+      "concept_id": "concept_frontend_git_npm_workflow",
+      "title": "Version Control (Git) & Package Managers",
+      "subtitle": "Git branching, merge vs rebase, npm vs pnpm vs yarn, semantic versioning",
+      "phase": "Applied",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 14,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_js_es6_arrays"
+      ],
+      "learning_objectives": [
+        "Manage feature branches and resolve merge conflicts using Git",
+        "Manage dependencies and lockfiles using pnpm/npm with semantic versioning"
+      ],
+      "feynman_prompts": [
+        "What is the difference between dependencies and devDependencies in package.json?"
+      ],
+      "key_misconceptions": [
+        "Manually deleting or editing package-lock.json when resolving dependency conflicts"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_react_architecture",
+      "concept_id": "concept_frontend_react_architecture",
+      "title": "React Component Architecture & JSX",
+      "subtitle": "Virtual DOM, JSX compilation, unidirectional data flow, pure components, props",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_js_es6_arrays"
+      ],
+      "learning_objectives": [
+        "Structure reusable component hierarchies with clean separation of concerns",
+        "Pass data and callbacks cleanly through props without prop drilling"
+      ],
+      "feynman_prompts": [
+        "Why must React components and render outputs be pure functions with respect to their props?"
+      ],
+      "key_misconceptions": [
+        "Directly mutating state variables instead of calling setState or dispatch"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_react_hooks",
+      "concept_id": "concept_frontend_react_hooks",
+      "title": "React Hooks: useState, useEffect & useRef",
+      "subtitle": "Reactivity, dependency array rules, cleanup functions, DOM references",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_react_architecture"
+      ],
+      "learning_objectives": [
+        "Manage local component state with useState and useReducer",
+        "Manage side-effects and cleanup subscriptions correctly with useEffect"
+      ],
+      "feynman_prompts": [
+        "Why does omitting a reactive variable from the useEffect dependency array lead to stale closure bugs?"
+      ],
+      "key_misconceptions": [
+        "Using useEffect for data transformation that could be calculated synchronously during render"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_typescript_react",
+      "concept_id": "concept_frontend_typescript_react",
+      "title": "TypeScript Fundamentals for UI Engineers",
+      "subtitle": "Type inference, interfaces vs types, generics, typing React props and events",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_react_hooks"
+      ],
+      "learning_objectives": [
+        "Type React components, custom hooks, and synthetic browser events strictly",
+        "Use generics to build type-safe UI components like dropdowns and tables"
+      ],
+      "feynman_prompts": [
+        "What is the difference between a TypeScript interface and a type alias when building component props?"
+      ],
+      "key_misconceptions": [
+        "Overusing 'any' type to silence compiler errors instead of writing proper type definitions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_client_routing",
+      "concept_id": "concept_frontend_client_routing",
+      "title": "Client-Side Routing & SPA Architecture",
+      "subtitle": "HTML5 History API, React Router / TanStack Router, route parameters, protected routes",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_react_hooks"
+      ],
+      "learning_objectives": [
+        "Configure client-side routing with nested layouts and dynamic URL parameters",
+        "Implement route guards and redirect unauthenticated users cleanly"
+      ],
+      "feynman_prompts": [
+        "How does client-side routing manipulate browser history without reloading the page from the server?"
+      ],
+      "key_misconceptions": [
+        "Using <a> tags instead of <Link> components, causing full page refreshes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_tanstack_query",
+      "concept_id": "concept_frontend_tanstack_query",
+      "title": "Server State & Caching with TanStack Query",
+      "subtitle": "Query keys, staleTime vs gcTime, mutations, optimistic updates, query invalidation",
+      "phase": "Advanced",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 19,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_client_routing"
+      ],
+      "learning_objectives": [
+        "Decouple remote server data caching from local client UI state",
+        "Implement optimistic updates with automatic rollback on network failure"
+      ],
+      "feynman_prompts": [
+        "Why is it an anti-pattern to copy server response data into global Redux/Zustand state stores?"
+      ],
+      "key_misconceptions": [
+        "Refetching data manually in useEffect instead of using declarative query caching"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_global_state",
+      "concept_id": "concept_frontend_global_state",
+      "title": "Global Client State: Zustand & Context API",
+      "subtitle": "Context API trade-offs, Zustand stores, selectors, immutable state updates",
+      "phase": "Advanced",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 20,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_tanstack_query"
+      ],
+      "learning_objectives": [
+        "Manage cross-cutting client UI state (modals, active themes, cart) with Zustand",
+        "Optimize rendering performance using fine-grained store selectors"
+      ],
+      "feynman_prompts": [
+        "Why does updating React Context trigger re-renders in all consuming components regardless of selector?"
+      ],
+      "key_misconceptions": [
+        "Putting high-frequency server data into global client stores"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_build_bundlers",
+      "concept_id": "concept_frontend_build_bundlers",
+      "title": "Build Tools, Bundlers & Vite",
+      "subtitle": "ES modules in development, Rollup production bundling, tree-shaking, code splitting",
+      "phase": "Advanced",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 21,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_frontend_typescript_react"
+      ],
+      "learning_objectives": [
+        "Configure code-splitting using dynamic import() for faster initial page loads",
+        "Analyze and reduce production bundle sizes using bundle analyzer tools"
+      ],
+      "feynman_prompts": [
+        "Explain how tree-shaking removes dead exports from production JavaScript bundles."
+      ],
+      "key_misconceptions": [
+        "Importing an entire monolithic library when only a single utility function is needed"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_frontend_testing",
+      "concept_id": "concept_frontend_frontend_testing",
+      "title": "Frontend Testing: Unit & Component Testing",
+      "subtitle": "Vitest, React Testing Library, testing accessible roles, mocking network calls",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 22,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_react_hooks"
+      ],
+      "learning_objectives": [
+        "Write resilient component tests querying elements by accessible roles (getByRole)",
+        "Mock network API responses cleanly with Mock Service Worker (MSW)"
+      ],
+      "feynman_prompts": [
+        "Why should component tests verify user behavior rather than internal component implementation details?"
+      ],
+      "key_misconceptions": [
+        "Testing implementation details like internal state variable names that break on refactors"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_web_vitals",
+      "concept_id": "concept_frontend_web_vitals",
+      "title": "Web Performance & Core Web Vitals",
+      "subtitle": "LCP, INP, CLS, critical rendering path, image optimization, font display swap",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "advanced",
+      "difficulty": "advanced",
+      "order": 23,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_frontend_build_bundlers"
+      ],
+      "learning_objectives": [
+        "Diagnose and eliminate layout shifts (CLS) caused by unsized media",
+        "Optimize Largest Contentful Paint (LCP) with priority resource hints"
+      ],
+      "feynman_prompts": [
+        "How do unsized image elements cause Cumulative Layout Shift (CLS)?"
+      ],
+      "key_misconceptions": [
+        "Loading heavy third-party tracking scripts synchronously in the document <head>"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_frontend_web_security",
+      "concept_id": "concept_frontend_web_security",
+      "title": "Web Security: XSS, CSRF, CSP & CORS",
+      "subtitle": "Cross-Site Scripting (XSS), CSRF tokens, Content Security Policy, CORS preflight",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 24,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_frontend_browser_storage"
+      ],
+      "learning_objectives": [
+        "Sanitize user-generated content to prevent stored and reflected XSS attacks",
+        "Configure strict Content Security Policy (CSP) headers and understand CORS preflight requests"
+      ],
+      "feynman_prompts": [
+        "What is the difference between CORS (browser-enforced policy) and actual server-side authentication?"
+      ],
+      "key_misconceptions": [
+        "Assuming CORS prevents malicious attackers from querying backend APIs with tools like curl"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_frontend",
+  "description": "Master Frontend Developer with an industry-standard, comprehensive curriculum spanning 24 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Frontend Developer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Frontend Developer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Frontend Developer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Frontend Developer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Frontend Developer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

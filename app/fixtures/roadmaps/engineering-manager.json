@@ -1,0 +1,513 @@
+{
+  "id": "roadmap_engineering_manager",
+  "slug": "engineering-manager",
+  "title": "Engineering Manager",
+  "description": "Comprehensive path for engineering leadership: IC-to-EM transition, high-impact 1:1s, coaching, hiring, DORA velocity metrics, blameless postmortems, org design, and strategic leadership.",
+  "category": "Leadership & Management",
+  "difficulty_level": "advanced",
+  "estimated_hours": 90,
+  "tags": [
+    "engineering-management",
+    "leadership",
+    "people-management",
+    "dora-metrics",
+    "org-design"
+  ],
+  "phases": [
+    {
+      "title": "People & 1:1 Foundations",
+      "tier": "foundation",
+      "focus": "IC-to-EM Transition, High-Impact 1:1s, Feedback Models & Career Ladders",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Execution & Operational Health",
+      "tier": "core",
+      "focus": "Performance Management, Hiring Pipelines, Team Trust, DORA Velocity & Tech Debt",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Cross-Functional & Org Scaling",
+      "tier": "advanced",
+      "focus": "Stakeholder Partnering, Blameless Incidents, Staff+ Coaching & Team Topologies",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Executive & Strategic Mastery",
+      "tier": "capstone",
+      "focus": "Engineering Strategy, Business Alignment, and Executive Board Reporting",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_engineering-manager_ic_to_em_transition",
+      "concept_id": "concept_engineering-manager_ic_to_em_transition",
+      "title": "The Transition from IC to Engineering Manager",
+      "subtitle": "The shift from coding to coaching, letting go of code ownership, the EM calendar",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Overcome the productivity guilt of writing less code while managing engineers",
+        "Define the core responsibilities of an EM: people, execution, and strategy"
+      ],
+      "feynman_prompts": [
+        "Why is continuing to take critical-path coding tasks harmful as an Engineering Manager?"
+      ],
+      "key_misconceptions": [
+        "Measuring your personal daily productivity by GitHub commits rather than team enablement"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_one_on_ones_mastery",
+      "concept_id": "concept_engineering-manager_one_on_ones_mastery",
+      "title": "High-Impact 1:1s & Active Listening",
+      "subtitle": "1:1 meeting architecture, active listening, asking powerful open questions, psychological safety",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_engineering-manager_ic_to_em_transition"
+      ],
+      "learning_objectives": [
+        "Conduct recurring 1:1 meetings focused on engineer growth rather than status updates",
+        "Demonstrate active listening and create an atmosphere of psychological safety"
+      ],
+      "feynman_prompts": [
+        "Why should a 1:1 meeting belong to the engineer rather than the manager?"
+      ],
+      "key_misconceptions": [
+        "Turning weekly 1:1s into project status reports that could have been handled asynchronously"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_feedback_coaching_models",
+      "concept_id": "concept_engineering-manager_feedback_coaching_models",
+      "title": "Constructive Feedback & Coaching Frameworks",
+      "subtitle": "SBI model (Situation-Behavior-Impact), radical candor, coaching vs directing",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_engineering-manager_one_on_ones_mastery"
+      ],
+      "learning_objectives": [
+        "Deliver timely, actionable constructive feedback using the SBI framework",
+        "Practice the Radical Candor matrix (Care Personally + Challenge Directly)"
+      ],
+      "feynman_prompts": [
+        "Why is withholding critical feedback out of kindness actually ruinous empathy?"
+      ],
+      "key_misconceptions": [
+        "Saving up negative feedback for annual reviews instead of delivering it in real-time"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_career_development_frameworks",
+      "concept_id": "concept_engineering-manager_career_development_frameworks",
+      "title": "Career Ladders, Growth Plans & Mentorship",
+      "subtitle": "Competency matrices, engineering levels (Junior to Staff), IDPs, mentorship pairing",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_engineering-manager_feedback_coaching_models"
+      ],
+      "learning_objectives": [
+        "Map individual contributors to company engineering ladders with clear expectations",
+        "Co-create Individual Development Plans (IDP) tailored to personal career goals"
+      ],
+      "feynman_prompts": [
+        "How do you explain the qualitative leap between Senior Engineer and Staff Engineer?"
+      ],
+      "key_misconceptions": [
+        "Promoting engineers based solely on tenure rather than sustained competency demonstration"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_performance_management_pips",
+      "concept_id": "concept_engineering-manager_performance_management_pips",
+      "title": "Performance Management & Navigating PIPs",
+      "subtitle": "Managing underperformance, documented remediation, fair PIP processes, terminations",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_engineering-manager_feedback_coaching_models"
+      ],
+      "learning_objectives": [
+        "Identify root causes of underperformance (skill gap vs motivation vs personal distress)",
+        "Write unambiguous, measurable Performance Improvement Plans (PIP)"
+      ],
+      "feynman_prompts": [
+        "Why should a PIP outcome never come as a complete surprise to an underperforming engineer?"
+      ],
+      "key_misconceptions": [
+        "Avoiding difficult conversations with underperformers hoping the problem solves itself"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_hiring_interview_pipelines",
+      "concept_id": "concept_engineering-manager_hiring_interview_pipelines",
+      "title": "Technical Hiring & Inclusive Interview Pipelines",
+      "subtitle": "Structured interviewing, rubrics, anti-bias training, candidate experience, closing offers",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_engineering-manager_career_development_frameworks"
+      ],
+      "learning_objectives": [
+        "Design structured interview loops with standardized evaluation rubrics",
+        "Conduct debrief calibration meetings that mitigate unconscious hiring biases"
+      ],
+      "feynman_prompts": [
+        "Why are standardized interview questions superior to freeform conversational interviews?"
+      ],
+      "key_misconceptions": [
+        "Relying on vague 'culture fit' gut feelings during hiring debriefs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_team_health_culture",
+      "concept_id": "concept_engineering-manager_team_health_culture",
+      "title": "Building High-Trust Culture & Psychological Safety",
+      "subtitle": "Team charters, blameless culture, managing conflict, burnout prevention, recognition",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_engineering-manager_one_on_ones_mastery"
+      ],
+      "learning_objectives": [
+        "Facilitate team retrospectives that identify systemic friction without personal blame",
+        "Recognize early warning signs of developer burnout and proactively rebalance workload"
+      ],
+      "feynman_prompts": [
+        "What is Google's Project Aristotle and why did psychological safety emerge as #1?"
+      ],
+      "key_misconceptions": [
+        "Punishing honest mistakes, which drives engineers to hide outages and tech debt"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_engineering_velocity_dora",
+      "concept_id": "concept_engineering-manager_engineering_velocity_dora",
+      "title": "Engineering Metrics & DORA Principles",
+      "subtitle": "DORA metrics (Deployment Frequency, Lead Time, Change Fail Rate, MTTR), SPACE framework",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_engineering-manager_ic_to_em_transition"
+      ],
+      "learning_objectives": [
+        "Track and improve the 4 key DORA metrics across team deployment pipelines",
+        "Utilize the SPACE framework to balance velocity, satisfaction, and flow state"
+      ],
+      "feynman_prompts": [
+        "Why is measuring individual lines of code or PR counts a dangerous anti-pattern?"
+      ],
+      "key_misconceptions": [
+        "Gamifying engineering metrics such that engineers write smaller useless PRs to boost stats"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_agile_delivery_capacity",
+      "concept_id": "concept_engineering-manager_agile_delivery_capacity",
+      "title": "Sprint Planning, Estimation & Capacity Management",
+      "subtitle": "Story point estimation, team velocity, buffer allocation, roadmap predictability",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_engineering-manager_engineering_velocity_dora"
+      ],
+      "learning_objectives": [
+        "Forecast team delivery timelines using rolling historical velocity and capacity buffers",
+        "Prevent scope blowouts by enforcing clear definition of done and WIP limits"
+      ],
+      "feynman_prompts": [
+        "Why should teams never plan for 100% engineering capacity in a sprint?"
+      ],
+      "key_misconceptions": [
+        "Treating story point estimates as firm contractual guarantees"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_technical_debt_strategy",
+      "concept_id": "concept_engineering-manager_technical_debt_strategy",
+      "title": "Managing Technical Debt & Refactoring Strategy",
+      "subtitle": "Debt quadrants, negotiating debt payoffs with PMs, architectural debt, maintenance ratios",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_engineering-manager_agile_delivery_capacity"
+      ],
+      "learning_objectives": [
+        "Quantify the business cost of technical debt to gain PM and leadership buy-in",
+        "Allocate a consistent 15-20% capacity budget for system refactoring and hygiene"
+      ],
+      "feynman_prompts": [
+        "How do you explain the compounding interest of technical debt to a non-technical PM?"
+      ],
+      "key_misconceptions": [
+        "Allowing the entire codebase to degrade until a catastrophic, multi-month rewrite is demanded"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_cross_functional_alignment",
+      "concept_id": "concept_engineering-manager_cross_functional_alignment",
+      "title": "Cross-Functional Partnering & Managing Up",
+      "subtitle": "Partnering with PM, Design, and Sales, communicating risks to executives, stakeholder updates",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_engineering-manager_agile_delivery_capacity"
+      ],
+      "learning_objectives": [
+        "Communicate technical delays early with clear impact analysis and remediation options",
+        "Build tight collaborative triad relationships with Product Managers and Design Leads"
+      ],
+      "feynman_prompts": [
+        "Why is announcing a project delay 2 days before launch an executive communication failure?"
+      ],
+      "key_misconceptions": [
+        "Filtering all bad news upward to look good until an unpreventable crisis explodes"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_incident_management_postmortems",
+      "concept_id": "concept_engineering-manager_incident_management_postmortems",
+      "title": "Incident Response & Blameless Postmortems",
+      "subtitle": "On-call rotation design, SEV classification, incident commander role, 5 Whys, action items",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_engineering-manager_team_health_culture"
+      ],
+      "learning_objectives": [
+        "Establish sustainable on-call rotations that protect engineers from alert fatigue",
+        "Run blameless postmortem meetings focusing on systemic root causes rather than human error"
+      ],
+      "feynman_prompts": [
+        "Why does naming an individual in an incident report destroy engineering trust?"
+      ],
+      "key_misconceptions": [
+        "Treating an incident postmortem as a punitive trial rather than an organizational learning tool"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_staff_plus_sponsorship",
+      "concept_id": "concept_engineering-manager_staff_plus_sponsorship",
+      "title": "Coaching Staff+ Engineers & Technical Leadership",
+      "subtitle": "Sponsoring Staff/Principal engineers, technical roadmaps, navigating tech vs people track",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_engineering-manager_career_development_frameworks"
+      ],
+      "learning_objectives": [
+        "Partner with Staff+ engineers on multi-year technical vision and architectural RFCs",
+        "Sponsor senior talent into high-visibility company-wide technical initiatives"
+      ],
+      "feynman_prompts": [
+        "How does managing a Staff Engineer differ fundamentally from managing a Senior Engineer?"
+      ],
+      "key_misconceptions": [
+        "Micro-managing Staff engineers on task-level details instead of guiding organizational impact"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_org_design_team_topologies",
+      "concept_id": "concept_engineering-manager_org_design_team_topologies",
+      "title": "Organization Design & Team Topologies",
+      "subtitle": "Stream-aligned vs enabling vs platform vs subsystem teams, Conway's Law, sizing teams",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_engineering-manager_cross_functional_alignment"
+      ],
+      "learning_objectives": [
+        "Apply Team Topologies patterns to optimize team boundaries and reduce cognitive load",
+        "Restructure engineering groups according to Conway's Law and software boundaries"
+      ],
+      "feynman_prompts": [
+        "Explain Conway's Law and its implications for team structure."
+      ],
+      "key_misconceptions": [
+        "Creating teams around technical layers (e.g. 'DB team', 'CSS team') rather than value streams"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_engineering_budget_vendors",
+      "concept_id": "concept_engineering-manager_engineering_budget_vendors",
+      "title": "Engineering Headcount, Budgets & Vendor Selection",
+      "subtitle": "Headcount planning, cloud spend optimization (FinOps), build vs buy evaluations",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_engineering-manager_org_design_team_topologies"
+      ],
+      "learning_objectives": [
+        "Develop annual headcount hiring models tied to product growth targets",
+        "Evaluate enterprise vendor licensing and cloud compute costs (build vs buy)"
+      ],
+      "feynman_prompts": [
+        "How do you evaluate whether to build a custom internal tool versus paying for SaaS?"
+      ],
+      "key_misconceptions": [
+        "Underestimating the long-term maintenance and engineering salary costs of building in-house"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_distributed_teams_async",
+      "concept_id": "concept_engineering-manager_distributed_teams_async",
+      "title": "Remote & Globally Distributed Engineering Management",
+      "subtitle": "Async communication hygiene, documentation culture, timezone overlap, inclusion",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_engineering-manager_team_health_culture"
+      ],
+      "learning_objectives": [
+        "Establish asynchronous engineering workflows that empower distributed team members",
+        "Maintain team cohesion and social trust across disparate international timezones"
+      ],
+      "feynman_prompts": [
+        "Why does default-to-meeting culture severely disadvantage remote engineers?"
+      ],
+      "key_misconceptions": [
+        "Expecting remote workers to conform to a single headquarters timezone's working hours"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_strategic_tech_leadership",
+      "concept_id": "concept_engineering-manager_strategic_tech_leadership",
+      "title": "Engineering Strategy & Business Alignment",
+      "subtitle": "Translating business OKRs into engineering strategy, tech horizon scanning, M&A due diligence",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_engineering-manager_org_design_team_topologies",
+        "concept_engineering-manager_technical_debt_strategy"
+      ],
+      "learning_objectives": [
+        "Synthesize company business OKRs into coherent multi-quarter engineering strategies",
+        "Guide enterprise tech modernization while maintaining zero downtime business continuity"
+      ],
+      "feynman_prompts": [
+        "How do you align technical modernization with long-term commercial goals?"
+      ],
+      "key_misconceptions": [
+        "Viewing engineering as an isolated cost center rather than a primary business driver"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_engineering-manager_executive_presence_board_reporting",
+      "concept_id": "concept_engineering-manager_executive_presence_board_reporting",
+      "title": "Executive Presence, Board Reporting & Leadership",
+      "subtitle": "C-suite communication, engineering department health reports, crisis leadership",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_engineering-manager_strategic_tech_leadership"
+      ],
+      "learning_objectives": [
+        "Present engineering ROI and reliability metrics to the CEO and Board of Directors",
+        "Lead the engineering organization through layoffs, reorganizations, and crises with empathy"
+      ],
+      "feynman_prompts": [
+        "How do you present complex system outages to non-technical board members?"
+      ],
+      "key_misconceptions": [
+        "Drowning executives in low-level technical jargon instead of business impact and risk mitigations"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior Engineering Manager"
+}

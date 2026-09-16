@@ -1,0 +1,518 @@
+{
+  "slug": "cyber-security",
+  "title": "Cyber Security Specialist",
+  "domain": "Information Security",
+  "target_role": "Senior Security Analyst / Penetration Tester",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "cyber-security",
+    "security",
+    "penetration-testing",
+    "siem",
+    "networking",
+    "wireshark",
+    "dfir"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_cyber-security_cyber_foundations_networking",
+      "concept_id": "concept_cyber-security_cyber_foundations_networking",
+      "title": "Networking Protocols & Packet Mechanics for Security",
+      "subtitle": "OSI model, TCP/IP handshake, ARP spoofing, ICMP, DNS hijacking, Wireshark packet capture",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Analyze live network packet captures with Wireshark to identify anomalous traffic",
+        "Explain the mechanics of ARP cache poisoning and Man-in-the-Middle (MitM) attacks"
+      ],
+      "feynman_prompts": [
+        "How does ARP spoofing trick local network hosts into redirecting traffic to an attacker?"
+      ],
+      "key_misconceptions": [
+        "Assuming encrypted HTTPS traffic cannot be subjected to SNI domain inspection"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_os_internals_linux_windows",
+      "concept_id": "concept_cyber-security_os_internals_linux_windows",
+      "title": "Operating System Security & Internals",
+      "subtitle": "Linux permissions, setuid, Windows access tokens, registry hives, privilege levels",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_cyber-security_cyber_foundations_networking"
+      ],
+      "learning_objectives": [
+        "Audit Linux and Windows user privileges, scheduled tasks, and system services",
+        "Identify dangerous setuid binaries and weak Windows service permissions"
+      ],
+      "feynman_prompts": [
+        "Why does a setuid root binary represent a major privilege escalation risk if not securely written?"
+      ],
+      "key_misconceptions": [
+        "Running production services under administrative or root accounts without service isolation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_cryptography_symmetric_asymmetric",
+      "concept_id": "concept_cyber-security_cryptography_symmetric_asymmetric",
+      "title": "Applied Cryptography: Ciphers, Hashes & PKI",
+      "subtitle": "Symmetric (AES), Asymmetric (RSA, ECC), hashing (SHA-256, bcrypt), digital certificates, PKI",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_cyber-security_cyber_foundations_networking"
+      ],
+      "learning_objectives": [
+        "Select appropriate cryptographic algorithms for data-at-rest and data-in-transit",
+        "Explain the Public Key Infrastructure (PKI) certificate validation chain"
+      ],
+      "feynman_prompts": [
+        "Why must password hashing algorithms incorporate salt and computational work factors?"
+      ],
+      "key_misconceptions": [
+        "Attempting to invent custom cryptographic algorithms instead of using proven industry standards"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_reconnaissance_nmap_osint",
+      "concept_id": "concept_cyber-security_reconnaissance_nmap_osint",
+      "title": "Reconnaissance, Port Scanning & OSINT",
+      "subtitle": "Nmap scanning techniques, service versioning, NSE scripts, OSINT methodologies, Shodan",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_cyber-security_cyber_foundations_networking"
+      ],
+      "learning_objectives": [
+        "Conduct stealthy network service discovery and banner grabbing using Nmap",
+        "Identify exposed enterprise assets and leaked credentials using open-source intelligence"
+      ],
+      "feynman_prompts": [
+        "What is the difference between a TCP SYN (half-open) scan and a full TCP connect scan in Nmap?"
+      ],
+      "key_misconceptions": [
+        "Scanning third-party networks without explicit legal authorization and written rules of engagement"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_web_vulnerabilities_owasp_deep",
+      "concept_id": "concept_cyber-security_web_vulnerabilities_owasp_deep",
+      "title": "Web Application Attacks: OWASP Deep Dive",
+      "subtitle": "SQLi, XSS, CSRF, SSRF, Command Injection, Insecure Deserialization, XXE",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_cyber-security_reconnaissance_nmap_osint"
+      ],
+      "learning_objectives": [
+        "Exploit and remediate Server-Side Request Forgery (SSRF) and SQL injection flaws",
+        "Execute blind SQL injection using time-based and boolean-based payloads"
+      ],
+      "feynman_prompts": [
+        "How does an attacker pivot an SSRF vulnerability into cloud metadata credential theft?"
+      ],
+      "key_misconceptions": [
+        "Relying on client-side JavaScript input filtering to prevent web application attacks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_authentication_identity_attacks",
+      "concept_id": "concept_cyber-security_authentication_identity_attacks",
+      "title": "Authentication, Passwords & Identity Attacks",
+      "subtitle": "Credential stuffing, brute-forcing with Hydra, password spraying, MFA bypass methods",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_cyber-security_web_vulnerabilities_owasp_deep"
+      ],
+      "learning_objectives": [
+        "Test authentication endpoints against credential stuffing and brute-force attacks",
+        "Analyze the security trade-offs of SMS vs TOTP vs FIDO2 WebAuthn authentication"
+      ],
+      "feynman_prompts": [
+        "Why is FIDO2 WebAuthn resistant to phishing attacks while TOTP authenticator apps are not?"
+      ],
+      "key_misconceptions": [
+        "Assuming account lockout policies prevent brute-force attacks without considering password spraying"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_network_defense_firewalls_ids",
+      "concept_id": "concept_cyber-security_network_defense_firewalls_ids",
+      "title": "Network Defense: Next-Gen Firewalls & IDS/IPS",
+      "subtitle": "Stateful inspection, Snort / Suricata rule authoring, signature vs anomaly detection",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_cyber-security_cyber_foundations_networking"
+      ],
+      "learning_objectives": [
+        "Author custom Suricata/Snort detection rules to identify malicious payload patterns",
+        "Configure stateful packet filtering and demilitarized zones (DMZ)"
+      ],
+      "feynman_prompts": [
+        "What is the operational difference between an Intrusion Detection System (IDS) and an IPS?"
+      ],
+      "key_misconceptions": [
+        "Relying exclusively on signature detection for zero-day and polymorphic attack vectors"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_endpoint_detection_edr",
+      "concept_id": "concept_cyber-security_endpoint_detection_edr",
+      "title": "Endpoint Detection, Response (EDR) & Sysmon",
+      "subtitle": "EDR agents, Windows Sysmon logging, Process creation (Event 1), LOLBins, parent-child process analysis",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_cyber-security_os_internals_linux_windows"
+      ],
+      "learning_objectives": [
+        "Configure Windows Sysmon to log critical process creation and network connection events",
+        "Identify Living-off-the-Land Binaries (LOLBins) used for stealthy execution"
+      ],
+      "feynman_prompts": [
+        "How do security analysts use parent-child process relationships (e.g. Word spawning powershell.exe) to detect attacks?"
+      ],
+      "key_misconceptions": [
+        "Disabling endpoint monitoring because antivirus is already installed"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_siem_soc_operations",
+      "concept_id": "concept_cyber-security_siem_soc_operations",
+      "title": "Security Operations & SIEM Log Analysis",
+      "subtitle": "Splunk, ELK, log parsing, correlation rules, alert triage, false positive reduction",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_cyber-security_endpoint_detection_edr"
+      ],
+      "learning_objectives": [
+        "Build correlation searches in Splunk/ELK to detect multi-stage cyber attacks",
+        "Execute structured Tier-1/Tier-2 SOC alert triage and document incident tickets"
+      ],
+      "feynman_prompts": [
+        "Why is log normalization and correlation critical when analyzing telemetry from 50 disparate tools?"
+      ],
+      "key_misconceptions": [
+        "Setting up un-tuned SIEM alerts that flood analysts with thousands of false positives daily"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_privilege_escalation_techniques",
+      "concept_id": "concept_cyber-security_privilege_escalation_techniques",
+      "title": "Privilege Escalation: Linux & Windows",
+      "subtitle": "LinPEAS, WinPEAS, kernel exploits, SUID abuse, token impersonation, potato attacks",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_cyber-security_os_internals_linux_windows"
+      ],
+      "learning_objectives": [
+        "Identify and exploit misconfigured sudo permissions and vulnerable SUID binaries on Linux",
+        "Execute Windows privilege escalation using unquoted service paths and token manipulation"
+      ],
+      "feynman_prompts": [
+        "Explain how an unquoted Windows service path with spaces can allow an attacker to gain SYSTEM privileges."
+      ],
+      "key_misconceptions": [
+        "Assuming low-privilege service account compromise cannot be escalated to full domain control"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_active_directory_security",
+      "concept_id": "concept_cyber-security_active_directory_security",
+      "title": "Active Directory Attacks & Defense",
+      "subtitle": "Kerberos authentication, Kerberoasting, AS-REP roasting, BloodHound, Pass-the-Hash",
+      "phase": "Applied",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_cyber-security_privilege_escalation_techniques"
+      ],
+      "learning_objectives": [
+        "Map Active Directory attack paths and Domain Admin escalation routes using BloodHound",
+        "Execute and defend against Kerberoasting attacks targeting service accounts"
+      ],
+      "feynman_prompts": [
+        "Explain how Kerberoasting extracts service account password hashes without touching target servers."
+      ],
+      "key_misconceptions": [
+        "Using short, simple passwords for Active Directory service accounts with Service Principal Names"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_malware_analysis_fundamentals",
+      "concept_id": "concept_cyber-security_malware_analysis_fundamentals",
+      "title": "Malware Analysis Fundamentals & Sandboxing",
+      "subtitle": "Static analysis with Strings/PEStudio, dynamic analysis in sandboxes, disassembly basics",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_cyber-security_os_internals_linux_windows"
+      ],
+      "learning_objectives": [
+        "Extract indicator of compromise (IOC) strings and imported APIs from suspicious binaries",
+        "Execute behavioral malware analysis in isolated sandboxes while monitoring network beacons"
+      ],
+      "feynman_prompts": [
+        "What is the difference between static malware analysis and dynamic behavioral analysis?"
+      ],
+      "key_misconceptions": [
+        "Detonating suspicious files on production or corporate workstations instead of isolated labs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_threat_hunting_mitre_attack",
+      "concept_id": "concept_cyber-security_threat_hunting_mitre_attack",
+      "title": "Threat Hunting & MITRE ATT&CK Framework",
+      "subtitle": "MITRE ATT&CK matrix, cyber kill chain, hypothesis-driven threat hunting, threat intelligence",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_cyber-security_siem_soc_operations"
+      ],
+      "learning_objectives": [
+        "Map observed adversary tactics and techniques directly to the MITRE ATT&CK framework",
+        "Execute hypothesis-driven threat hunts across enterprise telemetry to uncover stealthy persistence"
+      ],
+      "feynman_prompts": [
+        "Why is hypothesis-driven threat hunting necessary when automated alert rules detect zero anomalies?"
+      ],
+      "key_misconceptions": [
+        "Focusing only on indicators of compromise (hashes/IPs) instead of adversary TTPs (tactics, techniques, procedures)"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_cloud_security_aws_azure",
+      "concept_id": "concept_cyber-security_cloud_security_aws_azure",
+      "title": "Cloud Security Architecture & Identity Attacks",
+      "subtitle": "AWS IAM policies, metadata service (IMDSv2), Azure AD, cloud privilege escalation",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_cyber-security_siem_soc_operations"
+      ],
+      "learning_objectives": [
+        "Enforce IMDSv2 across cloud workloads to prevent SSRF cloud credential theft",
+        "Audit cloud tenant permissions for external guest access and excessive wildcard permissions"
+      ],
+      "feynman_prompts": [
+        "How does IMDSv2 mitigate SSRF attacks that exploit AWS instance metadata endpoints?"
+      ],
+      "key_misconceptions": [
+        "Allowing IMDSv1 on cloud instances where web application services are deployed"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_incident_response_containment",
+      "concept_id": "concept_cyber-security_incident_response_containment",
+      "title": "Digital Forensics & Incident Response (DFIR)",
+      "subtitle": "Live response, volatility memory analysis, disk imaging, evidence chain of custody",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_cyber-security_active_directory_security"
+      ],
+      "learning_objectives": [
+        "Capture volatile system RAM before shutting down compromised endpoints",
+        "Maintain strict legal chain of custody for digital evidence during forensic investigations"
+      ],
+      "feynman_prompts": [
+        "Why must volatile system memory be dumped before pulling the power cord on a compromised server?"
+      ],
+      "key_misconceptions": [
+        "Modifying or browsing files directly on an original compromised forensic evidence disk"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_penetration_testing_reporting",
+      "concept_id": "concept_cyber-security_penetration_testing_reporting",
+      "title": "Penetration Testing Methodologies & Reporting",
+      "subtitle": "Scope definition, rules of engagement, vulnerability exploitation, executive reporting",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_cyber-security_web_vulnerabilities_owasp_deep"
+      ],
+      "learning_objectives": [
+        "Execute structured penetration testing adhering to PTES and OWASP testing standards",
+        "Author clear executive summaries and actionable technical remediation reports for clients"
+      ],
+      "feynman_prompts": [
+        "Why is an actionable remediation section more valuable to an executive than a list of exploits?"
+      ],
+      "key_misconceptions": [
+        "Delivering automated vulnerability scanner output as a finalized penetration testing report"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_security_governance_risk",
+      "concept_id": "concept_cyber-security_security_governance_risk",
+      "title": "Security Governance, Risk & Compliance (GRC)",
+      "subtitle": "NIST Cybersecurity Framework (CSF), risk matrices, vulnerability risk assessments, policies",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_cyber-security_penetration_testing_reporting"
+      ],
+      "learning_objectives": [
+        "Assess organizational cybersecurity posture using the NIST CSF framework",
+        "Calculate risk impact and likelihood using structured risk assessment matrices"
+      ],
+      "feynman_prompts": [
+        "What are the five core functions of the NIST Cybersecurity Framework (Identify, Protect, Detect, Respond, Recover)?"
+      ],
+      "key_misconceptions": [
+        "Viewing security compliance checklists as equivalent to operational cybersecurity resilience"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_cyber-security_security_automation_soar",
+      "concept_id": "concept_cyber-security_security_automation_soar",
+      "title": "Security Orchestration, Automation & Response (SOAR)",
+      "subtitle": "SOAR playbooks, automated IP blocking, webhook integrations, automated incident triage",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_cyber-security_incident_response_containment"
+      ],
+      "learning_objectives": [
+        "Design automated SOAR playbooks that ingest alerts and quarantine infected endpoints instantly",
+        "Integrate threat intelligence feeds into automated SIEM enrichment workflows"
+      ],
+      "feynman_prompts": [
+        "How does SOAR automation reduce mean time to respond (MTTR) from hours to seconds?"
+      ],
+      "key_misconceptions": [
+        "Automating destructive isolation actions without human-in-the-loop approval for critical domain controllers"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_cyber-security",
+  "description": "Master Cyber Security Specialist with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Cyber Security Specialist - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Cyber Security Specialist - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Cyber Security Specialist - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Cyber Security Specialist - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Cyber Security Specialist - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

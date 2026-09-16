@@ -1,0 +1,513 @@
+{
+  "id": "roadmap_ux_design",
+  "slug": "ux-design",
+  "title": "UX Designer",
+  "description": "Comprehensive curriculum covering cognitive psychology, qualitative and quantitative user research, information architecture, usability testing, accessibility, and UX leadership.",
+  "category": "Design & Product",
+  "difficulty_level": "intermediate",
+  "estimated_hours": 85,
+  "tags": [
+    "ux-research",
+    "information-architecture",
+    "usability-testing",
+    "accessibility",
+    "a11y",
+    "heuristics"
+  ],
+  "phases": [
+    {
+      "title": "UX Foundations",
+      "tier": "foundation",
+      "focus": "Cognitive Psychology, Generative Research, Personas & Journey Mapping",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Architecture & Testing",
+      "tier": "core",
+      "focus": "Information Architecture, Task Flows, Moderated Usability Testing & UX Writing",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Advanced Research & Experimentation",
+      "tier": "advanced",
+      "focus": "Heuristics, Mixed Methods, A/B Testing, Omnichannel Service Design & Ethical UX",
+      "estimated_weeks": 4
+    },
+    {
+      "title": "Leadership & Strategy",
+      "tier": "capstone",
+      "focus": "UX Strategy, Stakeholder Management, and Senior Case Study Defense",
+      "estimated_weeks": 2
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cnode_ux-design_ux_fundamentals",
+      "concept_id": "concept_ux-design_ux_fundamentals",
+      "title": "UX Foundations & Cognitive Psychology",
+      "subtitle": "Mental models, cognitive load, Hick's Law, Fitts's Law, Miller's Law, Gestalt principles",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Apply Gestalt principles of visual grouping to digital interface layouts",
+        "Evaluate cognitive load and decision latency using Hick's Law and Fitts's Law"
+      ],
+      "feynman_prompts": [
+        "Explain how Fitts's law influences button sizing and placement on mobile devices."
+      ],
+      "key_misconceptions": [
+        "Designing interfaces that force users to remember information across screen steps"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_user_research_qualitative",
+      "concept_id": "concept_ux-design_user_research_qualitative",
+      "title": "Qualitative User Research Methodologies",
+      "subtitle": "Generative interviews, contextual inquiry, observation, diary studies, focus groups",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ux-design_ux_fundamentals"
+      ],
+      "learning_objectives": [
+        "Plan and conduct semi-structured user interviews with open-ended discovery questions",
+        "Observe users in their natural environment via contextual inquiry"
+      ],
+      "feynman_prompts": [
+        "Why are open-ended questions like 'Walk me through how you...' better than yes/no questions?"
+      ],
+      "key_misconceptions": [
+        "Pitching features or defending product ideas during research interviews"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_personas_empathy_mapping",
+      "concept_id": "concept_ux-design_personas_empathy_mapping",
+      "title": "User Personas & Empathy Mapping",
+      "subtitle": "Proto-personas, behavioral archetypes, empathy mapping (Says, Thinks, Does, Feels)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_ux-design_user_research_qualitative"
+      ],
+      "learning_objectives": [
+        "Distill interview findings into actionable behavioral archetypes instead of demographics",
+        "Build 4-quadrant empathy maps to align cross-functional product teams"
+      ],
+      "feynman_prompts": [
+        "Why are behavioral personas superior to demographic personas (e.g. 'Jane, 35, suburban')?"
+      ],
+      "key_misconceptions": [
+        "Treating personas as fictional creative writing exercises unconnected to real research data"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_journey_mapping",
+      "concept_id": "concept_ux-design_journey_mapping",
+      "title": "Customer Journey & Service Blueprinting",
+      "subtitle": "User touchpoints, emotional highs/lows, frontstage vs backstage actions, pain point discovery",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ux-design_personas_empathy_mapping"
+      ],
+      "learning_objectives": [
+        "Map end-to-end customer journeys highlighting pain points and opportunity areas",
+        "Create service blueprints connecting user actions to backend internal processes"
+      ],
+      "feynman_prompts": [
+        "How does a service blueprint uncover root causes of poor customer experiences?"
+      ],
+      "key_misconceptions": [
+        "Limiting journey maps strictly to on-screen UI clicks while ignoring offline touchpoints"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_information_architecture",
+      "concept_id": "concept_ux-design_information_architecture",
+      "title": "Information Architecture & Card Sorting",
+      "subtitle": "Tree testing, open vs closed card sorting, taxonomy, hierarchical vs flat navigation",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ux-design_journey_mapping"
+      ],
+      "learning_objectives": [
+        "Run open and closed card sorting sessions to validate mental model categorization",
+        "Validate site navigation structures through quantitative tree testing"
+      ],
+      "feynman_prompts": [
+        "What is the difference between an open card sort and a closed card sort?"
+      ],
+      "key_misconceptions": [
+        "Organizing product navigation based on internal company org chart rather than user tasks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_task_flows_wireframes",
+      "concept_id": "concept_ux-design_task_flows_wireframes",
+      "title": "Task Flows & Low-Fidelity Wireframes",
+      "subtitle": "User task flows, decision diamonds, wireframes, rapid sketch iterations",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_ux-design_information_architecture"
+      ],
+      "learning_objectives": [
+        "Diagram step-by-step user task flows identifying happy paths and error branches",
+        "Translate user flows into clear, low-fidelity wireframe screens"
+      ],
+      "feynman_prompts": [
+        "Why is mapping decision branches essential before drawing screen wireframes?"
+      ],
+      "key_misconceptions": [
+        "Assuming every user completes a workflow linearly without interruptions or errors"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_usability_testing_moderated",
+      "concept_id": "concept_ux-design_usability_testing_moderated",
+      "title": "Moderated Usability Testing & Protocols",
+      "subtitle": "Test protocol scripting, think-aloud facilitation, observer debriefs, bias minimization",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ux-design_task_flows_wireframes"
+      ],
+      "learning_objectives": [
+        "Write unbiased usability test scenarios focused on real user tasks",
+        "Facilitate usability tests without providing hints or leading user actions"
+      ],
+      "feynman_prompts": [
+        "How do you handle a participant who asks 'Did I do this right?' during a test?"
+      ],
+      "key_misconceptions": [
+        "Intervening immediately whenever a user encounters friction instead of letting them explore"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_unmoderated_quantitative_testing",
+      "concept_id": "concept_ux-design_unmoderated_quantitative_testing",
+      "title": "Unmoderated & Quantitative Usability Testing",
+      "subtitle": "Maze/UserTesting tools, task completion rate, Time-on-Task, Single Ease Question (SEQ)",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ux-design_usability_testing_moderated"
+      ],
+      "learning_objectives": [
+        "Configure remote unmoderated usability tests with clear success criteria",
+        "Calculate task completion rates and evaluate Single Ease Question (SEQ) benchmarks"
+      ],
+      "feynman_prompts": [
+        "When should you choose unmoderated testing over moderated qualitative testing?"
+      ],
+      "key_misconceptions": [
+        "Trusting unmoderated test metrics without reviewing video screen recordings for context"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_accessibility_wcag_standards",
+      "concept_id": "concept_ux-design_accessibility_wcag_standards",
+      "title": "Accessibility (a11y) & Inclusive Design",
+      "subtitle": "WCAG 2.1 guidelines, keyboard navigation, screen reader testing, color blindness simulation",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ux-design_task_flows_wireframes"
+      ],
+      "learning_objectives": [
+        "Audit interfaces against WCAG 2.1 Level AA compliance criteria",
+        "Test user flows strictly using keyboard tab order and screen reader announcements"
+      ],
+      "feynman_prompts": [
+        "Why is accessibility essential for temporary situational impairments as well as disabilities?"
+      ],
+      "key_misconceptions": [
+        "Believing accessibility is only relevant for blind users using screen readers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_ux_writing_microcopy",
+      "concept_id": "concept_ux-design_ux_writing_microcopy",
+      "title": "UX Writing & Content Strategy",
+      "subtitle": "Microcopy, empty states, error messages, tone of voice, terminology consistency",
+      "phase": "Core",
+      "tier": "core",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_ux-design_task_flows_wireframes"
+      ],
+      "learning_objectives": [
+        "Write clear, actionable error messages that explain what happened and how to fix it",
+        "Design empty states that encourage user action and onboarding exploration"
+      ],
+      "feynman_prompts": [
+        "Explain the three elements of an effective error message."
+      ],
+      "key_misconceptions": [
+        "Writing generic error messages like 'Something went wrong. Try again later.'"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_heuristic_evaluation",
+      "concept_id": "concept_ux-design_heuristic_evaluation",
+      "title": "Heuristic Evaluation & Expert Reviews",
+      "subtitle": "Nielsen Norman 10 Usability Heuristics, severity ratings, heuristic audit reports",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ux-design_usability_testing_moderated"
+      ],
+      "learning_objectives": [
+        "Perform comprehensive heuristic evaluations using Nielsen's 10 usability principles",
+        "Assign severity ratings (cosmetic, minor, major, catastrophic) to identified issues"
+      ],
+      "feynman_prompts": [
+        "How does heuristic evaluation differ from empirical usability testing with users?"
+      ],
+      "key_misconceptions": [
+        "Confusing personal visual design preferences with objective heuristic violations"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_mixed_methods_research",
+      "concept_id": "concept_ux-design_mixed_methods_research",
+      "title": "Mixed Methods UX Research",
+      "subtitle": "Triangulation, survey design, Likert scales, combining telemetry data with interviews",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ux-design_unmoderated_quantitative_testing"
+      ],
+      "learning_objectives": [
+        "Triangulate analytics funnels with qualitative interview insights",
+        "Design robust surveys avoiding double-barreled and acquiescence bias"
+      ],
+      "feynman_prompts": [
+        "Why is method triangulation crucial when product stakeholders dispute research findings?"
+      ],
+      "key_misconceptions": [
+        "Relying exclusively on survey self-reports without behavioral verification"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_ab_testing_ux_experimentation",
+      "concept_id": "concept_ux-design_ab_testing_ux_experimentation",
+      "title": "A/B Testing & UX Experimentation",
+      "subtitle": "Hypothesis formation, control vs treatment, statistical significance, minimum detectable effect",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 13,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ux-design_mixed_methods_research"
+      ],
+      "learning_objectives": [
+        "Formulate testable UX hypotheses linked to behavioral metrics",
+        "Interpret p-values, sample sizes, and statistical confidence in split tests"
+      ],
+      "feynman_prompts": [
+        "Why can optimizing solely for local click conversion damage long-term user retention?"
+      ],
+      "key_misconceptions": [
+        "Calling an A/B test winner prematurely before achieving statistical sample size"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_service_design_omnichannel",
+      "concept_id": "concept_ux-design_service_design_omnichannel",
+      "title": "Service Design & Omnichannel UX",
+      "subtitle": "Cross-device continuity, offline-to-online transitions, support integration, customer lifecycle",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ux-design_journey_mapping"
+      ],
+      "learning_objectives": [
+        "Architect frictionless handoffs across mobile, desktop, email, and physical touchpoints",
+        "Design support escalation and post-purchase customer recovery experiences"
+      ],
+      "feynman_prompts": [
+        "How do you maintain user context across device switches (e.g. mobile to web)?"
+      ],
+      "key_misconceptions": [
+        "Designing digital screens in isolation from customer support and operational realities"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_ethical_ux_dark_patterns",
+      "concept_id": "concept_ux-design_ethical_ux_dark_patterns",
+      "title": "Ethical UX & Dark Pattern Prevention",
+      "subtitle": "Deceptive patterns (confirmshaming, hidden costs, roach motel), privacy by design, consent UX",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 15,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_ux-design_ux_fundamentals"
+      ],
+      "learning_objectives": [
+        "Identify and eliminate deceptive design patterns that exploit cognitive vulnerabilities",
+        "Design transparent cookie consent and subscription cancellation flows"
+      ],
+      "feynman_prompts": [
+        "Explain the business danger and regulatory penalties of employing 'roach motel' cancellation flows."
+      ],
+      "key_misconceptions": [
+        "Believing dark patterns are acceptable because they drive short-term conversion boosts"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_ux_for_emerging_tech",
+      "concept_id": "concept_ux-design_ux_for_emerging_tech",
+      "title": "UX for AI, Voice & Spatial Computing",
+      "subtitle": "Conversational UX, VUX design, intent recognition, ambient computing, multimodal interfaces",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "niche",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ux-design_ux_writing_microcopy"
+      ],
+      "learning_objectives": [
+        "Design intuitive conversational and multimodal user interaction flows",
+        "Craft error handling and repair mechanisms for speech and LLM misunderstandings"
+      ],
+      "feynman_prompts": [
+        "How does conversational error handling differ from traditional GUI form validation?"
+      ],
+      "key_misconceptions": [
+        "Treating conversational AI as an unguided open text prompt with no affordances"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_design_leadership_stakeholders",
+      "concept_id": "concept_ux-design_design_leadership_stakeholders",
+      "title": "UX Strategy & Stakeholder Management",
+      "subtitle": "Executive storytelling, evangelizing UX maturity, overcoming resistance, design ROI",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ux-design_heuristic_evaluation"
+      ],
+      "learning_objectives": [
+        "Communicate research findings persuasively to engineering and executive leadership",
+        "Assess and elevate organizational UX maturity from reactive to strategic"
+      ],
+      "feynman_prompts": [
+        "How do you prioritize research insights when engineering has limited sprint capacity?"
+      ],
+      "key_misconceptions": [
+        "Delivering 80-page research reports that stakeholders never read instead of bite-sized insights"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ux-design_ux_case_study_portfolio",
+      "concept_id": "concept_ux-design_ux_case_study_portfolio",
+      "title": "UX Portfolio & Senior Case Studies",
+      "subtitle": "Reflective research documentation, impact metrics, failure analysis, portfolio defense",
+      "phase": "Mastery",
+      "tier": "capstone",
+      "importance": "essential",
+      "difficulty": "expert",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ux-design_design_leadership_stakeholders"
+      ],
+      "learning_objectives": [
+        "Document end-to-end UX research and iteration cycles demonstrating business impact",
+        "Articulate research trade-offs, constraints, and pivot points during design reviews"
+      ],
+      "feynman_prompts": [
+        "Why does explaining what failed and how you adapted make a UX case study stronger?"
+      ],
+      "key_misconceptions": [
+        "Presenting UX case studies as linear, frictionless success stories with no setbacks"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "domain": "Software Engineering",
+  "target_role": "Senior UX Designer"
+}

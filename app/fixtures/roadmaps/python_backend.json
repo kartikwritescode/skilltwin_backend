@@ -1,0 +1,519 @@
+{
+  "slug": "python_backend",
+  "title": "Python Backend & Systems",
+  "domain": "Backend Systems",
+  "target_role": "Senior Python Backend Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "python",
+    "fastapi",
+    "backend",
+    "sqlalchemy",
+    "asyncio",
+    "celery",
+    "redis",
+    "postgresql"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_python_backend_python_data_model_dunder",
+      "concept_id": "concept_python_backend_python_data_model_dunder",
+      "title": "Python Data Model & Dunder Methods",
+      "subtitle": "__init__, __str__, __repr__, __eq__, __hash__, __len__, custom container protocols",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Leverage Python dunder methods to build intuitive, pythonic classes",
+        "Implement custom collection classes supporting indexing and iteration"
+      ],
+      "feynman_prompts": [
+        "What is the fundamental difference between __str__ and __repr__ in Python?"
+      ],
+      "key_misconceptions": [
+        "Defining mutable default arguments in functions (def fn(items=[])), creating shared state bugs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_iterators_generators_memory",
+      "concept_id": "concept_python_backend_iterators_generators_memory",
+      "title": "Iterators, Generators & Memory Optimization",
+      "subtitle": "Iterables, iterators, yield statements, generator expressions, memory efficiency",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_python_backend_python_data_model_dunder"
+      ],
+      "learning_objectives": [
+        "Stream and process massive datasets lazily without exhausting RAM using generators",
+        "Implement custom iterable classes using __iter__ and __next__"
+      ],
+      "feynman_prompts": [
+        "Why do generator expressions consume significantly less memory than list comprehensions?"
+      ],
+      "key_misconceptions": [
+        "Converting large database query streams into full lists with list(), exhausting server memory"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_decorators_context_managers",
+      "concept_id": "concept_python_backend_decorators_context_managers",
+      "title": "Decorators & Context Managers",
+      "subtitle": "Closures, functools.wraps, parameterized decorators, with statement, contextlib",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_iterators_generators_memory"
+      ],
+      "learning_objectives": [
+        "Author reusable function and method decorators preserving metadata with functools.wraps",
+        "Manage external resources (sockets, files, DB sessions) safely using context managers"
+      ],
+      "feynman_prompts": [
+        "Explain how the with statement guarantees cleanup even if an unexpected exception occurs."
+      ],
+      "key_misconceptions": [
+        "Forgetting to use @functools.wraps on decorators, erasing the original function name and docstring"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_type_hinting_mypy",
+      "concept_id": "concept_python_backend_type_hinting_mypy",
+      "title": "Type Hinting & Static Analysis with Mypy",
+      "subtitle": "Typing module, Union, Optional, Literal, TypedDict, Generics, strict mypy checks",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "recommended",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_python_backend_python_data_model_dunder"
+      ],
+      "learning_objectives": [
+        "Annotate Python codebases with comprehensive type hints to catch bugs before runtime",
+        "Configure strict mypy static type checking in continuous integration pipelines"
+      ],
+      "feynman_prompts": [
+        "Why does type hinting improve code maintainability and IDE auto-completion in large teams?"
+      ],
+      "key_misconceptions": [
+        "Assuming Python type hints enforce runtime type validation without runtime libraries like Pydantic"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_asyncio_concurrency_event_loop",
+      "concept_id": "concept_python_backend_asyncio_concurrency_event_loop",
+      "title": "Asynchronous Programming with Asyncio",
+      "subtitle": "async/await, event loop, Tasks, asyncio.gather, asyncio.run, non-blocking I/O",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_decorators_context_managers"
+      ],
+      "learning_objectives": [
+        "Write high-concurrency asynchronous code using Python asyncio",
+        "Execute parallel asynchronous tasks cleanly with asyncio.gather and TaskGroups"
+      ],
+      "feynman_prompts": [
+        "Why does calling time.sleep() inside an async function freeze the entire asyncio event loop?"
+      ],
+      "key_misconceptions": [
+        "Calling synchronous blocking I/O functions inside async def endpoints instead of running in a thread pool"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_fastapi_architecture",
+      "concept_id": "concept_python_backend_fastapi_architecture",
+      "title": "FastAPI Framework & Modern Web APIs",
+      "subtitle": "Path operations, query/path parameters, status codes, OpenAPI docs, Starlette core",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 6,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_python_backend_asyncio_concurrency_event_loop"
+      ],
+      "learning_objectives": [
+        "Build production RESTful APIs using FastAPI with automatic OpenAPI Swagger documentation",
+        "Handle HTTP errors and custom exceptions cleanly with HTTPException handlers"
+      ],
+      "feynman_prompts": [
+        "How does FastAPI achieve high performance comparable to Node.js and Go?"
+      ],
+      "key_misconceptions": [
+        "Returning internal Python traceback strings to clients on server errors instead of clean JSON"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_pydantic_v2_validation",
+      "concept_id": "concept_python_backend_pydantic_v2_validation",
+      "title": "Data Modeling & Validation with Pydantic v2",
+      "subtitle": "BaseModel, Field validation, computed fields, model serializers, Rust core speed",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_fastapi_architecture"
+      ],
+      "learning_objectives": [
+        "Enforce strict request and response schema validation using Pydantic v2 models",
+        "Write custom field validators and root validators to enforce business constraints"
+      ],
+      "feynman_prompts": [
+        "How does Pydantic v2's Rust-powered validation engine improve API serialization speed?"
+      ],
+      "key_misconceptions": [
+        "Using raw Python dictionaries instead of strongly-typed Pydantic schemas across service boundaries"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_fastapi_dependency_injection",
+      "concept_id": "concept_python_backend_fastapi_dependency_injection",
+      "title": "FastAPI Dependency Injection System",
+      "subtitle": "Depends(), yield dependencies, database session injection, auth guards, sub-dependencies",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_fastapi_architecture"
+      ],
+      "learning_objectives": [
+        "Decouple services and inject database sessions cleanly using FastAPI Depends()",
+        "Implement reusable authentication and permission guards across API routes"
+      ],
+      "feynman_prompts": [
+        "Why is dependency injection via Depends() superior to importing global database session objects?"
+      ],
+      "key_misconceptions": [
+        "Sharing a single database session across multiple concurrent asynchronous requests"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_sqlalchemy2_async_orm",
+      "concept_id": "concept_python_backend_sqlalchemy2_async_orm",
+      "title": "SQLAlchemy 2.0 Async ORM & Alembic Migrations",
+      "subtitle": "declarative_base, async_sessionmaker, select(), joins, relationships, Alembic migrations",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_python_backend_fastapi_dependency_injection"
+      ],
+      "learning_objectives": [
+        "Model relational database schemas using modern SQLAlchemy 2.0 declarative syntax",
+        "Execute versioned schema migrations safely using Alembic"
+      ],
+      "feynman_prompts": [
+        "How does SQLAlchemy 2.0 select() syntax provide type-safe asynchronous database queries?"
+      ],
+      "key_misconceptions": [
+        "Running database migrations manually with raw SQL files instead of versioned Alembic revisions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_postgresql_optimization_python",
+      "concept_id": "concept_python_backend_postgresql_optimization_python",
+      "title": "PostgreSQL Indexing, Performance & EXPLAIN",
+      "subtitle": "B-Tree indexes, composite indexes, query analysis with EXPLAIN ANALYZE, connection pooling",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_sqlalchemy2_async_orm"
+      ],
+      "learning_objectives": [
+        "Analyze slow database queries and optimize indexes using EXPLAIN ANALYZE",
+        "Configure asynchronous connection pooling with asyncpg and pool recycling"
+      ],
+      "feynman_prompts": [
+        "Why is connection pooling essential for high-concurrency FastAPI applications?"
+      ],
+      "key_misconceptions": [
+        "Opening and closing a new database connection on every single HTTP request"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_redis_caching_python",
+      "concept_id": "concept_python_backend_redis_caching_python",
+      "title": "Caching & In-Memory Data with Redis",
+      "subtitle": "redis-py, async Redis client, Cache-Aside pattern, serialization, key expiration",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_fastapi_dependency_injection"
+      ],
+      "learning_objectives": [
+        "Implement fast in-memory caching using asynchronous Redis clients",
+        "Cache expensive query results with automatic TTL invalidation"
+      ],
+      "feynman_prompts": [
+        "How does caching reduce database load and improve p99 API response latency?"
+      ],
+      "key_misconceptions": [
+        "Caching un-serialized Python object references instead of standardized JSON strings"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_background_tasks_celery",
+      "concept_id": "concept_python_backend_background_tasks_celery",
+      "title": "Background Tasks with Celery & Redis",
+      "subtitle": "Celery app, worker processes, broker & backend, task retries, dead-letter queues",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_redis_caching_python"
+      ],
+      "learning_objectives": [
+        "Offload long-running background jobs (emails, report generation) to Celery workers",
+        "Configure automatic task retries with exponential backoff and dead-letter queues"
+      ],
+      "feynman_prompts": [
+        "Why should heavy computational or external network calls never run inside the HTTP request thread?"
+      ],
+      "key_misconceptions": [
+        "Passing massive database entity objects into Celery tasks instead of passing object IDs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_pytest_automated_testing",
+      "concept_id": "concept_python_backend_pytest_automated_testing",
+      "title": "Automated Testing with Pytest & Fixtures",
+      "subtitle": "pytest, pytest-asyncio, fixtures, mocking with unittest.mock / respx, test coverage",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_fastapi_dependency_injection"
+      ],
+      "learning_objectives": [
+        "Write deterministic unit and integration tests using pytest and async fixtures",
+        "Mock external HTTP APIs and database sessions cleanly with respx and mock fixtures"
+      ],
+      "feynman_prompts": [
+        "Why are pytest fixtures superior to traditional xUnit setUp/tearDown methods?"
+      ],
+      "key_misconceptions": [
+        "Writing tests that run against live third-party external APIs"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_authentication_jwt_oauth2",
+      "concept_id": "concept_python_backend_authentication_jwt_oauth2",
+      "title": "Authentication: JWT, OAuth2 & Password Hashing",
+      "subtitle": "passlib / bcrypt, OAuth2PasswordBearer, JWT tokens, refresh tokens, scopes",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_fastapi_dependency_injection"
+      ],
+      "learning_objectives": [
+        "Hash passwords securely using bcrypt with appropriate salt work factor",
+        "Issue and verify asymmetric JWT access tokens with expiration timestamps"
+      ],
+      "feynman_prompts": [
+        "Why should password hashing algorithms intentionally be computationally expensive?"
+      ],
+      "key_misconceptions": [
+        "Storing unencrypted plain passwords in database columns"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_docker_python_production",
+      "concept_id": "concept_python_backend_docker_python_production",
+      "title": "Dockerizing Python Applications for Production",
+      "subtitle": "Multi-stage Dockerfiles, non-root user, slim base images, poetry/uv dependency caching",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_fastapi_architecture"
+      ],
+      "learning_objectives": [
+        "Author lean, secure multi-stage Docker images for Python applications",
+        "Optimize Docker build layer caching using modern package managers like uv or poetry"
+      ],
+      "feynman_prompts": [
+        "Why should production Python containers use lightweight slim/alpine base images?"
+      ],
+      "key_misconceptions": [
+        "Running production Docker containers as root without a dedicated application user"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_production_server_uvicorn_gunicorn",
+      "concept_id": "concept_python_backend_production_server_uvicorn_gunicorn",
+      "title": "Production Deployment: Uvicorn & Gunicorn",
+      "subtitle": "Uvicorn ASGI server, Gunicorn process manager, worker processes, graceful shutdown",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_python_backend_docker_python_production"
+      ],
+      "learning_objectives": [
+        "Deploy FastAPI services using Gunicorn with Uvicorn worker processes",
+        "Handle graceful server shutdown and configure worker lifecycle management"
+      ],
+      "feynman_prompts": [
+        "What is the role of Gunicorn as a process manager in front of Uvicorn ASGI workers?"
+      ],
+      "key_misconceptions": [
+        "Running the development reloader (uvicorn --reload) in production environments"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_observability_python_telemetry",
+      "concept_id": "concept_python_backend_observability_python_telemetry",
+      "title": "Observability: OpenTelemetry & Prometheus",
+      "subtitle": "OpenTelemetry Python SDK, trace context propagation, Prometheus FastAPI instrumentator",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_python_backend_production_server_uvicorn_gunicorn"
+      ],
+      "learning_objectives": [
+        "Instrument distributed tracing across microservices with OpenTelemetry",
+        "Export real-time API latency and error metrics to Prometheus"
+      ],
+      "feynman_prompts": [
+        "Why are distributed trace IDs essential when debugging microservice call chains?"
+      ],
+      "key_misconceptions": [
+        "Relying only on print() statements instead of structured JSON log formatters"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_python_backend_system_security_owasp_python",
+      "concept_id": "concept_python_backend_system_security_owasp_python",
+      "title": "Web Security & Hardening (OWASP Top 10)",
+      "subtitle": "SQL injection prevention, CORS middleware, rate limiting, security headers, bandit audit",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_python_backend_authentication_jwt_oauth2"
+      ],
+      "learning_objectives": [
+        "Protect FastAPI services against common OWASP vulnerabilities",
+        "Audit Python dependencies and codebases for known security vulnerabilities with bandit/safety"
+      ],
+      "feynman_prompts": [
+        "How do parameterized queries in SQLAlchemy prevent SQL injection attacks?"
+      ],
+      "key_misconceptions": [
+        "Allowing unrestricted CORS origins (origins=['*']) with allow_credentials=True"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_python_backend",
+  "description": "Master Python Backend & Systems with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Python Backend & Systems - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Python Backend & Systems - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Python Backend & Systems - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Python Backend & Systems - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Python Backend & Systems - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

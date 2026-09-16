@@ -1,0 +1,520 @@
+{
+  "slug": "network-engineer",
+  "title": "Network Engineer",
+  "domain": "Networking & Telecommunications",
+  "target_role": "Senior Network Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "network",
+    "cisco",
+    "routing",
+    "switching",
+    "bgp",
+    "ospf",
+    "wireshark",
+    "subnets",
+    "vpn"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_network-engineer_osi_tcpip_models",
+      "concept_id": "concept_network-engineer_osi_tcpip_models",
+      "title": "Networking Models: OSI 7-Layer & TCP/IP Architecture",
+      "subtitle": "Physical, data link, network, transport, session, presentation, application layers",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Map real-world network protocols to their respective OSI layers",
+        "Analyze packet encapsulation and decapsulation across network hops"
+      ],
+      "feynman_prompts": [
+        "Explain how data encapsulation adds headers and footers as data moves down the OSI stack."
+      ],
+      "key_misconceptions": [
+        "Confusing Layer 2 MAC address frame forwarding with Layer 3 IP packet routing"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_ip_addressing_subnetting",
+      "concept_id": "concept_network-engineer_ip_addressing_subnetting",
+      "title": "IPv4 / IPv6 Addressing, Subnetting & CIDR",
+      "subtitle": "IPv4 classes, CIDR notation, subnet masks, network vs broadcast addresses, IPv6 basics",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_network-engineer_osi_tcpip_models"
+      ],
+      "learning_objectives": [
+        "Calculate usable host ranges and broadcast addresses from CIDR blocks (/24, /27)",
+        "Design efficient IP addressing schemes that minimize address waste"
+      ],
+      "feynman_prompts": [
+        "Why does a /28 subnet provide exactly 14 usable host IP addresses?"
+      ],
+      "key_misconceptions": [
+        "Assigning the network address or broadcast address directly to a host interface"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_ethernet_switching_vlans",
+      "concept_id": "concept_network-engineer_ethernet_switching_vlans",
+      "title": "Ethernet Switching, VLANs & Trunking",
+      "subtitle": "MAC address learning, collision domains, broadcast domains, 802.1Q VLAN trunking",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_network-engineer_ip_addressing_subnetting"
+      ],
+      "learning_objectives": [
+        "Segment corporate network traffic using 802.1Q tagged VLANs",
+        "Configure trunk and access ports on managed enterprise switches"
+      ],
+      "feynman_prompts": [
+        "How do VLANs isolate broadcast domains within the same physical switch?"
+      ],
+      "key_misconceptions": [
+        "Allowing native VLAN mismatch across trunk links, causing security leaks"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_spanning_tree_protocol",
+      "concept_id": "concept_network-engineer_spanning_tree_protocol",
+      "title": "Spanning Tree Protocol (STP & RSTP)",
+      "subtitle": "Switching loops, broadcast storms, root bridge election, port states, Rapid STP (802.1w)",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_network-engineer_ethernet_switching_vlans"
+      ],
+      "learning_objectives": [
+        "Prevent switching loops and broadcast storms in redundant switch topologies",
+        "Optimize root bridge election and configure RSTP portfast for edge hosts"
+      ],
+      "feynman_prompts": [
+        "Explain how a switching loop causes catastrophic broadcast storms in under 1 second."
+      ],
+      "key_misconceptions": [
+        "Connecting redundant physical switch links without enabling STP"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_routing_static_dynamic",
+      "concept_id": "concept_network-engineer_routing_static_dynamic",
+      "title": "IP Routing: Static Routing & Subnet Forwarding",
+      "subtitle": "Default gateways, routing tables, longest prefix match, administrative distance",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 5,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_network-engineer_ip_addressing_subnetting"
+      ],
+      "learning_objectives": [
+        "Configure static routes and default routes (0.0.0.0/0) on enterprise routers",
+        "Diagnose routing black holes using traceroute and route table inspection"
+      ],
+      "feynman_prompts": [
+        "How does a router determine the next-hop using the longest prefix match rule?"
+      ],
+      "key_misconceptions": [
+        "Assuming routers forward packets without verifying a valid return route path"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_ospf_dynamic_routing",
+      "concept_id": "concept_network-engineer_ospf_dynamic_routing",
+      "title": "Interior Dynamic Routing: OSPF Architecture",
+      "subtitle": "Link-state routing, Dijkstra shortest path algorithm, OSPF areas, LSA types, DR/BDR",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_network-engineer_routing_static_dynamic"
+      ],
+      "learning_objectives": [
+        "Deploy single-area and multi-area OSPF routing across enterprise networks",
+        "Configure OSPF hello timers, router IDs, and DR/BDR elections"
+      ],
+      "feynman_prompts": [
+        "Why does OSPF use link-state advertisements (LSAs) rather than distance-vector metrics?"
+      ],
+      "key_misconceptions": [
+        "Failing to connect non-backbone OSPF areas to Area 0"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_bgp_internet_routing",
+      "concept_id": "concept_network-engineer_bgp_internet_routing",
+      "title": "Exterior Gateway Protocol: BGP & Autonomous Systems",
+      "subtitle": "Autonomous Systems (AS), eBGP vs iBGP, path vector attributes (AS_PATH, Local Pref, MED)",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 7,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_network-engineer_ospf_dynamic_routing"
+      ],
+      "learning_objectives": [
+        "Establish eBGP peering sessions and advertise network prefixes to upstream ISPs",
+        "Control outbound traffic flows using BGP Local Preference attributes"
+      ],
+      "feynman_prompts": [
+        "Explain how BGP prevents routing loops between Autonomous Systems using the AS_PATH attribute."
+      ],
+      "key_misconceptions": [
+        "Accidentally becoming an open transit AS by leaking private routing tables to public peers"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_dhcp_dns_core_services",
+      "concept_id": "concept_network-engineer_dhcp_dns_core_services",
+      "title": "Core Network Services: DHCP & DNS Infrastructure",
+      "subtitle": "DHCP DORA process, DHCP relay agents, DNS recursive vs iterative queries, authoritative servers",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_network-engineer_ip_addressing_subnetting"
+      ],
+      "learning_objectives": [
+        "Configure high-availability DHCP scopes and IP helper/relay addresses",
+        "Deploy and troubleshoot enterprise DNS name resolution infrastructure"
+      ],
+      "feynman_prompts": [
+        "Explain the four-step DORA process (Discover, Offer, Request, Acknowledge) in DHCP."
+      ],
+      "key_misconceptions": [
+        "Forgetting to configure DHCP relay agents when DHCP servers reside in a different VLAN"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_nat_pat_address_translation",
+      "concept_id": "concept_network-engineer_nat_pat_address_translation",
+      "title": "Network Address Translation (NAT) & Port Forwarding",
+      "subtitle": "Static NAT, Dynamic NAT, Port Address Translation (PAT / Overload), NAT traversal",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_network-engineer_routing_static_dynamic"
+      ],
+      "learning_objectives": [
+        "Configure PAT (NAT overload) allowing thousands of private hosts to share a public IP",
+        "Set up static NAT port forwarding for public-facing servers"
+      ],
+      "feynman_prompts": [
+        "Why was Port Address Translation (PAT) essential to prevent IPv4 address exhaustion?"
+      ],
+      "key_misconceptions": [
+        "Assuming NAT provides complete security without explicit stateful firewall rules"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_network_security_acls_firewalls",
+      "concept_id": "concept_network-engineer_network_security_acls_firewalls",
+      "title": "Network Access Control Lists (ACLs) & Firewalls",
+      "subtitle": "Standard vs extended ACLs, stateful firewall inspection, zone-based policy firewalls",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_network-engineer_nat_pat_address_translation"
+      ],
+      "learning_objectives": [
+        "Author restrictive extended ACLs filtering by source/dest IP and TCP/UDP ports",
+        "Deploy stateful firewall inspection rules separating untrusted from trusted zones"
+      ],
+      "feynman_prompts": [
+        "Why should standard ACLs be placed near the destination while extended ACLs go near the source?"
+      ],
+      "key_misconceptions": [
+        "Placing a permit-all rule before specific deny rules in an ordered ACL"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_vpn_ipsec_wireguard",
+      "concept_id": "concept_network-engineer_vpn_ipsec_wireguard",
+      "title": "Site-to-Site & Remote Access VPNs (IPsec / WireGuard)",
+      "subtitle": "IPsec Phase 1 (IKE) and Phase 2, ESP, Tunnel vs Transport mode, modern WireGuard",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_network-engineer_network_security_acls_firewalls"
+      ],
+      "learning_objectives": [
+        "Establish secure IPsec site-to-site VPN tunnels connecting branch offices to cloud VPCs",
+        "Configure cryptographic transform sets and pre-shared key / certificate authentication"
+      ],
+      "feynman_prompts": [
+        "What is the difference between IPsec Tunnel mode (new IP header) and Transport mode?"
+      ],
+      "key_misconceptions": [
+        "Mismatched IKE Phase 1 lifetime or encryption proposals causing tunnel negotiation failures"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_wireless_networking_wifi",
+      "concept_id": "concept_network-engineer_wireless_networking_wifi",
+      "title": "Enterprise Wireless Networking (Wi-Fi)",
+      "subtitle": "802.11 standards (Wi-Fi 6/6E/7), 2.4GHz vs 5GHz, WPA3 enterprise, Roaming, SSIDs",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_network-engineer_ethernet_switching_vlans"
+      ],
+      "learning_objectives": [
+        "Design enterprise Wi-Fi coverage avoiding co-channel interference",
+        "Implement WPA3 Enterprise authentication with RADIUS and 802.1X"
+      ],
+      "feynman_prompts": [
+        "Why is channel overlap in the 2.4GHz band (channels 1, 6, 11) a primary cause of Wi-Fi performance drops?"
+      ],
+      "key_misconceptions": [
+        "Deploying access points with maximum transmit power, causing sticky client roaming issues"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_snmp_netflow_telemetry",
+      "concept_id": "concept_network-engineer_snmp_netflow_telemetry",
+      "title": "Network Monitoring: SNMP, NetFlow & Telemetry",
+      "subtitle": "SNMPv3 polling, MIBs, OIDs, NetFlow / sFlow traffic analysis, bandwidth utilization",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_network-engineer_dhcp_dns_core_services"
+      ],
+      "learning_objectives": [
+        "Monitor interface link saturation and error discards using SNMPv3",
+        "Analyze top talkers and protocol distribution across WAN links using NetFlow"
+      ],
+      "feynman_prompts": [
+        "Why should network administrators use SNMPv3 instead of legacy SNMPv1/v2c?"
+      ],
+      "key_misconceptions": [
+        "Using default 'public' community strings on enterprise network equipment"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_wireshark_packet_troubleshooting",
+      "concept_id": "concept_network-engineer_wireshark_packet_troubleshooting",
+      "title": "Deep Packet Analysis & Troubleshooting with Wireshark",
+      "subtitle": "Packet dissection, TCP windowing, retransmissions, zero window, filtering syntax",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_network-engineer_osi_tcpip_models"
+      ],
+      "learning_objectives": [
+        "Diagnose application latency bottlenecks by identifying TCP zero window and retransmissions",
+        "Filter and isolate malicious traffic patterns during network outages"
+      ],
+      "feynman_prompts": [
+        "How do TCP duplicate ACKs and retransmissions indicate packet loss on an intermediate link?"
+      ],
+      "key_misconceptions": [
+        "Assuming high ping latency always indicates network failure without checking host CPU saturation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_quality_of_service_qos",
+      "concept_id": "concept_network-engineer_quality_of_service_qos",
+      "title": "Quality of Service (QoS) & Traffic Shaping",
+      "subtitle": "Classification & marking (DSCP, CoS), queuing (WFQ, CBWFQ), policing vs shaping, VoIP prioritization",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_network-engineer_routing_static_dynamic"
+      ],
+      "learning_objectives": [
+        "Prioritize real-time voice and video packets (VoIP) using Expedited Forwarding (EF)",
+        "Configure traffic shaping to prevent bursty traffic from exceeding ISP committed rates"
+      ],
+      "feynman_prompts": [
+        "What is the difference between traffic policing (drops excess) and traffic shaping (buffers excess)?"
+      ],
+      "key_misconceptions": [
+        "Configuring QoS markings that get stripped at the ISP WAN boundary"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_network_automation_python",
+      "concept_id": "concept_network-engineer_network_automation_python",
+      "title": "Network Automation with Python & Netmiko",
+      "subtitle": "SSH automation with Netmiko/Paramiko, parsing CLI output with TextFSM, NAPALM, Jinja2 templating",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_network-engineer_routing_static_dynamic"
+      ],
+      "learning_objectives": [
+        "Automate configuration backups and bulk VLAN changes across 50 switches with Python",
+        "Generate standardized device configurations dynamically using Jinja2 templates"
+      ],
+      "feynman_prompts": [
+        "Why is automated configuration generation using templates superior to manual CLI copy-pasting?"
+      ],
+      "key_misconceptions": [
+        "Deploying automated configuration scripts across all production switches simultaneously without testing"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_infrastructure_as_code_ansible_net",
+      "concept_id": "concept_network-engineer_infrastructure_as_code_ansible_net",
+      "title": "Infrastructure as Code for Networks with Ansible",
+      "subtitle": "Ansible network modules, playbooks, inventory variables, idempotency in networking",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_network-engineer_network_automation_python"
+      ],
+      "learning_objectives": [
+        "Execute idempotent configuration management on Cisco/Juniper devices with Ansible",
+        "Maintain version-controlled network configuration repositories in Git"
+      ],
+      "feynman_prompts": [
+        "How does Ansible achieve agentless network automation over SSH?"
+      ],
+      "key_misconceptions": [
+        "Executing raw CLI command tasks instead of using declarative Ansible network modules"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_network-engineer_cloud_networking_hybrid_connectivity",
+      "concept_id": "concept_network-engineer_cloud_networking_hybrid_connectivity",
+      "title": "Cloud Networking & Hybrid Connectivity",
+      "subtitle": "AWS VPC, transit gateways, direct connect / express route, peering, cloud firewalls",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 18,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_network-engineer_vpn_ipsec_wireguard"
+      ],
+      "learning_objectives": [
+        "Design multi-region cloud VPC hub-and-spoke topologies with AWS Transit Gateway",
+        "Configure dedicated hybrid interconnects (AWS Direct Connect / Azure ExpressRoute)"
+      ],
+      "feynman_prompts": [
+        "Why is a Transit Gateway preferred over complex full-mesh VPC peering in large enterprise clouds?"
+      ],
+      "key_misconceptions": [
+        "Overlapping CIDR blocks across on-premises and cloud VPC subnets, preventing IP routing"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_network-engineer",
+  "description": "Master Network Engineer with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Network Engineer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Network Engineer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Network Engineer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Network Engineer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Network Engineer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

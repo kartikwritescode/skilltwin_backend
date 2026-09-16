@@ -175,39 +175,106 @@ class LearningPathService:
 
         total_capacity_hours = round((days_until_deadline * daily_minutes) / 60.0, 1)
 
-        # 1. Build prompt from versioned template
-        prompt_str = lp_prompt.USER_PROMPT_TEMPLATE.format(
-            learning_goal=learning_goal,
-            target_level=target_level,
-            custom_target=custom_target or "Comprehensive applied competence",
-            target_deadline=deadline_str,
-            available_time=f"{daily_minutes} minutes/day",
-            total_capacity_hours=f"{total_capacity_hours} hours total",
-            current_knowledge=", ".join(current_knowledge) if current_knowledge else "None specified",
-            learning_preferences=learning_preferences or "Practical, concept-first, project-oriented",
-            strengths=strengths or "Motivated learner",
-            weaknesses=weaknesses or "New to advanced architecture",
-        )
-
-        logger.info(f"Generating hierarchical learning path via prompt template {lp_prompt.VERSION} for goal: '{learning_goal}'")
-
-        # 2. Invoke LLM with strict Structured Schema
         plan: Optional[GeneratedHierarchicalPath] = None
+        canonical_slug: Optional[str] = None
+
+        # 1. Fast-track via Canonical Technology Roadmaps (0 LLM tokens, verified industry curricula)
         try:
-            plan = await self.llm.generate_structured(
-                prompt=prompt_str,
-                response_schema=GeneratedHierarchicalPath,
-                system_prompt=lp_prompt.SYSTEM_PROMPT,
-                temperature=0.2,
+            from app.services.canonical_roadmap_service import canonical_roadmap_service
+            canonical_match = await canonical_roadmap_service.find_matching_roadmap(
+                goal_title=learning_goal,
+                goal_description=custom_target,
+                threshold=0.65,
             )
+
+            if canonical_match:
+                matched_rm, sim_score = canonical_match
+                canonical_slug = matched_rm.slug
+                logger.info(
+                    f"Fast-tracking LearningPath for user {user_id} via Canonical Roadmap '{matched_rm.title}' "
+                    f"(similarity: {sim_score:.3f}). 0 LLM tokens consumed."
+                )
+                tailored_sections = canonical_roadmap_service.tailor_curriculum_for_goal(
+                    roadmap=matched_rm,
+                    target_level=target_level,
+                    daily_minutes=daily_minutes,
+                    deadline_days=days_until_deadline,
+                    current_knowledge=current_knowledge,
+                )
+
+                gen_sections: List[GeneratedSectionItem] = []
+                for sec in tailored_sections:
+                    gen_topics: List[GeneratedTopicItem] = []
+                    for t_idx, top in enumerate(sec.get("topics", [])):
+                        gen_topics.append(
+                            GeneratedTopicItem(
+                                title=top["title"],
+                                description=top["description"],
+                                order_index=t_idx + 1,
+                                difficulty=top.get("difficulty", "intermediate"),
+                                estimated_minutes=top.get("estimated_minutes", 25),
+                                prerequisites=top.get("prerequisites", []),
+                                learning_objectives=top.get("learning_objectives", []),
+                                key_concepts=[top["title"]],
+                                status=top.get("status", "not_started"),
+                            )
+                        )
+                    gen_sections.append(
+                        GeneratedSectionItem(
+                            title=sec["title"],
+                            description=sec.get("description", sec["title"]),
+                            order_index=sec["order_index"],
+                            topics=gen_topics,
+                        )
+                    )
+
+                if gen_sections:
+                    plan = GeneratedHierarchicalPath(
+                        title=f"{matched_rm.title} Mastery",
+                        description=matched_rm.description,
+                        target_level=target_level,
+                        estimated_duration=f"{max(2, days_until_deadline // 7)} weeks",
+                        sections=gen_sections,
+                    )
         except Exception as e:
-            logger.warning(f"LLM path generation failed: {e}. Generating curriculum via pedagogical generator.")
+            logger.warning(f"Canonical roadmap fast-track failed: {e}. Falling back to dynamic synthesis.")
+
+        # 2. Fallback to LLM with strict Structured Schema if no canonical match
+        if not plan or not plan.sections:
+            prompt_str = lp_prompt.USER_PROMPT_TEMPLATE.format(
+                learning_goal=learning_goal,
+                target_level=target_level,
+                custom_target=custom_target or "Comprehensive applied competence",
+                target_deadline=deadline_str,
+                available_time=f"{daily_minutes} minutes/day",
+                total_capacity_hours=f"{total_capacity_hours} hours total",
+                current_knowledge=", ".join(current_knowledge) if current_knowledge else "None specified",
+                learning_preferences=learning_preferences or "Practical, concept-first, project-oriented",
+                strengths=strengths or "Motivated learner",
+                weaknesses=weaknesses or "New to advanced architecture",
+            )
+
+            logger.info(f"Generating hierarchical learning path via prompt template {lp_prompt.VERSION} for goal: '{learning_goal}'")
+
+            try:
+                plan = await self.llm.generate_structured(
+                    prompt=prompt_str,
+                    response_schema=GeneratedHierarchicalPath,
+                    system_prompt=lp_prompt.SYSTEM_PROMPT,
+                    temperature=0.2,
+                )
+            except Exception as e:
+                logger.warning(f"LLM path generation failed: {e}. Generating curriculum via pedagogical generator.")
 
         if not plan or not plan.sections:
             plan = self._generate_fallback_curriculum(learning_goal, target_level, custom_target)
 
         # 3. Normalize & Persist to Database
         path_id = str(uuid.uuid4())
+        path_metadata = {"prompt_version": lp_prompt.VERSION}
+        if canonical_slug:
+            path_metadata["canonical_roadmap_slug"] = canonical_slug
+
         path = LearningPathModel(
             id=path_id,
             goal_id=goal_id,
@@ -220,7 +287,7 @@ class LearningPathService:
             status="ACTIVE",
             generation_status="READY",
             progress=0.0,
-            metadata_json={"prompt_version": lp_prompt.VERSION},
+            metadata_json=path_metadata,
         )
         await self.repo.save_path(path)
 

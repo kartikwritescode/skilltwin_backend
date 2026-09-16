@@ -1,0 +1,519 @@
+{
+  "slug": "ai-data-scientist",
+  "title": "AI and Data Scientist",
+  "domain": "Data Science & AI",
+  "target_role": "Senior Data Scientist",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "data-science",
+    "machine-learning",
+    "statistics",
+    "pytorch",
+    "xgboost",
+    "eda",
+    "nlp",
+    "shap"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_ai-data-scientist_stats_probability_distributions",
+      "concept_id": "concept_ai-data-scientist_stats_probability_distributions",
+      "title": "Statistical Foundations & Probability Distributions",
+      "subtitle": "Normal, binomial, Poisson distributions, central limit theorem, z-scores, p-values",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Explain how the Central Limit Theorem enables statistical inference on non-normal populations",
+        "Calculate confidence intervals and z-scores for continuous business distributions"
+      ],
+      "feynman_prompts": [
+        "Why does the Central Limit Theorem apply regardless of the underlying population distribution shape?"
+      ],
+      "key_misconceptions": [
+        "Assuming small sample sizes (N < 30) behave like normal distributions without using t-distributions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_eda_feature_engineering",
+      "concept_id": "concept_ai-data-scientist_eda_feature_engineering",
+      "title": "Exploratory Data Analysis & Advanced Feature Engineering",
+      "subtitle": "Handling missing data, scaling (Standard, Robust), one-hot encoding, target encoding, interaction terms",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_stats_probability_distributions"
+      ],
+      "learning_objectives": [
+        "Transform raw, noisy datasets into engineered features that boost model predictive power",
+        "Prevent data leakage by fitting transformers strictly on training splits"
+      ],
+      "feynman_prompts": [
+        "What is data leakage and how does fitting scalers on full datasets invalidate test scores?"
+      ],
+      "key_misconceptions": [
+        "Applying fit_transform() on testing datasets instead of transform() alone"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_linear_regression_regularization",
+      "concept_id": "concept_ai-data-scientist_linear_regression_regularization",
+      "title": "Supervised Learning: Linear Regression & Regularization",
+      "subtitle": "OLS regression, Ridge (L2), Lasso (L1), ElasticNet, bias-variance trade-off, MSE/RMSE/R2",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_eda_feature_engineering"
+      ],
+      "learning_objectives": [
+        "Build regularized regression models and analyze feature selection using Lasso L1 penalties",
+        "Diagnose underfitting vs overfitting using training and validation learning curves"
+      ],
+      "feynman_prompts": [
+        "How does Lasso (L1) regularization force regression coefficients to exactly zero for feature selection?"
+      ],
+      "key_misconceptions": [
+        "Assuming high R-squared guarantees model accuracy without checking residual error plots"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_classification_evaluation_metrics",
+      "concept_id": "concept_ai-data-scientist_classification_evaluation_metrics",
+      "title": "Classification Algorithms & Threshold Optimization",
+      "subtitle": "Logistic regression, decision thresholds, ROC-AUC curves, precision-recall trade-offs, confusion matrix",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 4,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_linear_regression_regularization"
+      ],
+      "learning_objectives": [
+        "Select optimal classification decision thresholds to minimize costly false negatives",
+        "Evaluate imbalanced classification models using Precision-Recall AUC rather than ROC-AUC"
+      ],
+      "feynman_prompts": [
+        "Why is classification accuracy a misleading metric for highly imbalanced datasets (e.g. 99% negative)?"
+      ],
+      "key_misconceptions": [
+        "Defaulting to a 0.5 probability threshold when false negatives carry 10x higher business cost"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_tree_models_random_forests",
+      "concept_id": "concept_ai-data-scientist_tree_models_random_forests",
+      "title": "Tree-Based Models: Decision Trees & Random Forests",
+      "subtitle": "Gini impurity, information gain, bagging, ensemble learning, feature importance, out-of-bag error",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_classification_evaluation_metrics"
+      ],
+      "learning_objectives": [
+        "Train robust Random Forest ensembles that reduce single-tree variance",
+        "Interpret feature importance and out-of-bag (OOB) error estimates"
+      ],
+      "feynman_prompts": [
+        "How does bootstrap aggregation (bagging) reduce variance without increasing model bias?"
+      ],
+      "key_misconceptions": [
+        "Allowing decision trees to grow to infinite depth, memorizing training noise"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_gradient_boosted_trees_xgboost",
+      "concept_id": "concept_ai-data-scientist_gradient_boosted_trees_xgboost",
+      "title": "Gradient Boosted Decision Trees: XGBoost & LightGBM",
+      "subtitle": "Boosting mechanics, residual fitting, learning rate, tree depth, XGBoost, LightGBM, CatBoost",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-data-scientist_tree_models_random_forests"
+      ],
+      "learning_objectives": [
+        "Train high-performance gradient boosted decision trees using XGBoost and LightGBM",
+        "Tune learning rates, subsample ratios, and early stopping rounds to maximize leaderboard metrics"
+      ],
+      "feynman_prompts": [
+        "Explain how gradient boosting trains trees sequentially on the residual errors of previous trees."
+      ],
+      "key_misconceptions": [
+        "Setting learning rates too high in gradient boosting, causing optimization divergence"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_unsupervised_clustering_kmeans",
+      "concept_id": "concept_ai-data-scientist_unsupervised_clustering_kmeans",
+      "title": "Unsupervised Learning: Clustering & Segmentation",
+      "subtitle": "K-Means, inertia, silhouette scores, DBSCAN density clustering, hierarchical clustering",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_ai-data-scientist_eda_feature_engineering"
+      ],
+      "learning_objectives": [
+        "Segment customer behavioral datasets using K-Means and determine K with silhouette analysis",
+        "Identify arbitrary density clusters and outliers using DBSCAN"
+      ],
+      "feynman_prompts": [
+        "Why does K-Means fail when applied to non-spherical or widely varying density clusters?"
+      ],
+      "key_misconceptions": [
+        "Picking the number of clusters (K) arbitrarily without elbow method or silhouette validation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_dimensionality_reduction_pca",
+      "concept_id": "concept_ai-data-scientist_dimensionality_reduction_pca",
+      "title": "Dimensionality Reduction: PCA & t-SNE",
+      "subtitle": "Principal Component Analysis (PCA), eigenvalues, variance explained, t-SNE vs UMAP visualization",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_unsupervised_clustering_kmeans"
+      ],
+      "learning_objectives": [
+        "Reduce multi-hundred-feature datasets into principal components capturing 95% variance",
+        "Visualize high-dimensional data manifolds in 2D using t-SNE and UMAP"
+      ],
+      "feynman_prompts": [
+        "Why is PCA a linear projection technique while t-SNE preserves non-linear local neighborhood topology?"
+      ],
+      "key_misconceptions": [
+        "Using t-SNE output coordinates as features for downstream predictive models"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_pytorch_deep_learning_foundations",
+      "concept_id": "concept_ai-data-scientist_pytorch_deep_learning_foundations",
+      "title": "Deep Learning Foundations with PyTorch",
+      "subtitle": "PyTorch tensors, computation graphs, autograd, forward pass, loss functions, Adam optimizer",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-data-scientist_linear_regression_regularization"
+      ],
+      "learning_objectives": [
+        "Build and train custom neural networks in PyTorch using nn.Module and autograd",
+        "Implement the standard training loop: zero_grad, forward, backward, step"
+      ],
+      "feynman_prompts": [
+        "Why must optimizer.zero_grad() be called before loss.backward() in PyTorch training loops?"
+      ],
+      "key_misconceptions": [
+        "Forgetting to call model.eval() during validation, leaving Dropout and BatchNorm active"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_convolutional_neural_networks_cv",
+      "concept_id": "concept_ai-data-scientist_convolutional_neural_networks_cv",
+      "title": "Computer Vision: Convolutional Networks (CNNs)",
+      "subtitle": "Convolutions, kernels, padding, pooling, ResNet architecture, transfer learning with Torchvision",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-data-scientist_pytorch_deep_learning_foundations"
+      ],
+      "learning_objectives": [
+        "Fine-tune pre-trained vision backbones (ResNet, EfficientNet) for domain image classification",
+        "Explain how convolutional kernels detect hierarchical spatial patterns (edges -> textures -> objects)"
+      ],
+      "feynman_prompts": [
+        "How do residual skip connections in ResNet solve the vanishing gradient problem in deep networks?"
+      ],
+      "key_misconceptions": [
+        "Training deep convolutional networks from scratch on small datasets (< 1,000 images) instead of transfer learning"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_nlp_embeddings_transformers",
+      "concept_id": "concept_ai-data-scientist_nlp_embeddings_transformers",
+      "title": "Natural Language Processing: Embeddings & Transformers",
+      "subtitle": "Tokenization (BPE), Word2Vec, BERT embeddings, HuggingFace Transformers, fine-tuning for classification",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_ai-data-scientist_pytorch_deep_learning_foundations"
+      ],
+      "learning_objectives": [
+        "Fine-tune transformer language models using HuggingFace Transformers for text classification",
+        "Extract dense semantic sentence embeddings using Sentence-Transformers"
+      ],
+      "feynman_prompts": [
+        "How does bidirectional self-attention in BERT differ from unidirectional causal attention in GPT?"
+      ],
+      "key_misconceptions": [
+        "Tokenizing text with naive whitespace splitting instead of using the model's dedicated tokenizer"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_model_explainability_shap",
+      "concept_id": "concept_ai-data-scientist_model_explainability_shap",
+      "title": "Model Explainability & Interpretability (SHAP & LIME)",
+      "subtitle": "Explainable AI (XAI), Shapley values, SHAP summary plots, dependence plots, LIME local explanations",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 12,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_gradient_boosted_trees_xgboost"
+      ],
+      "learning_objectives": [
+        "Explain individual model predictions to business stakeholders using SHAP waterfall plots",
+        "Identify global feature interactions and non-linear feature impacts using SHAP dependence analysis"
+      ],
+      "feynman_prompts": [
+        "What are Shapley values and how do they fairly distribute prediction attribution across all features?"
+      ],
+      "key_misconceptions": [
+        "Treating high feature importance as evidence of causality rather than statistical correlation"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_ml_experiment_tracking_mlflow",
+      "concept_id": "concept_ai-data-scientist_ml_experiment_tracking_mlflow",
+      "title": "ML Experiment Tracking & Model Registry with MLflow",
+      "subtitle": "MLflow tracking, logging parameters, metrics, artifacts, Model Registry, staging to production",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_gradient_boosted_trees_xgboost"
+      ],
+      "learning_objectives": [
+        "Log experimental runs, hyperparameters, and ROC curves automatically with MLflow",
+        "Register and version production-ready model artifacts in the MLflow Model Registry"
+      ],
+      "feynman_prompts": [
+        "Why is automated experiment tracking critical for team reproducibility compared to manual notes?"
+      ],
+      "key_misconceptions": [
+        "Saving model weights as unversioned local pickle files on developer laptops"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_data_leakage_rigorous_validation",
+      "concept_id": "concept_ai-data-scientist_data_leakage_rigorous_validation",
+      "title": "Rigorous Cross-Validation & Preventing Data Leakage",
+      "subtitle": "K-Fold cross-validation, StratifiedKFold, TimeSeriesSplit, target encoding leakage, group splits",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 14,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_classification_evaluation_metrics"
+      ],
+      "learning_objectives": [
+        "Design leak-free temporal validation splits for time-series forecasting datasets",
+        "Prevent group-level data leakage across patients or users using GroupKFold"
+      ],
+      "feynman_prompts": [
+        "Why does using random K-Fold cross-validation on time-series data result in catastrophic look-ahead bias?"
+      ],
+      "key_misconceptions": [
+        "Performing feature selection or scaling on the entire dataset before splitting into train/test"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_imbalanced_data_techniques",
+      "concept_id": "concept_ai-data-scientist_imbalanced_data_techniques",
+      "title": "Handling Class Imbalance & Cost-Sensitive Learning",
+      "subtitle": "SMOTE oversampling, RandomUnderSampler, class weights, Focal Loss, threshold tuning",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_classification_evaluation_metrics"
+      ],
+      "learning_objectives": [
+        "Balance fraud detection and medical diagnosis models using class weighting and SMOTE",
+        "Implement cost-sensitive loss functions that penalize false negatives proportionally"
+      ],
+      "feynman_prompts": [
+        "Why must synthetic oversampling (SMOTE) be applied strictly to training folds and never to validation folds?"
+      ],
+      "key_misconceptions": [
+        "Applying SMOTE to validation test sets, artificially inflating test performance metrics"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_model_serving_fastapi_docker",
+      "concept_id": "concept_ai-data-scientist_model_serving_fastapi_docker",
+      "title": "Model Deployment & Serving with FastAPI & Docker",
+      "subtitle": "Serializing with ONNX/joblib, building prediction REST APIs with FastAPI, Docker packaging",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 16,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_ml_experiment_tracking_mlflow"
+      ],
+      "learning_objectives": [
+        "Package machine learning models into containerized FastAPI microservices",
+        "Validate incoming prediction request payloads and return low-latency inference JSON"
+      ],
+      "feynman_prompts": [
+        "Why is containerizing ML models with Docker necessary to prevent production dependency drift?"
+      ],
+      "key_misconceptions": [
+        "Loading multi-gigabyte model weights on every single prediction request instead of at startup"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_drift_monitoring_data_concept",
+      "concept_id": "concept_ai-data-scientist_drift_monitoring_data_concept",
+      "title": "Continuous Model Monitoring: Data & Concept Drift",
+      "subtitle": "Covariate shift, concept drift, Kolmogorov-Smirnov test, population stability index (PSI)",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 17,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_ai-data-scientist_model_serving_fastapi_docker"
+      ],
+      "learning_objectives": [
+        "Detect covariate shift between training distributions and live production data with PSI",
+        "Trigger automated model retraining alerts when performance metrics degrade over time"
+      ],
+      "feynman_prompts": [
+        "What is the fundamental difference between data drift (input distribution changes) and concept drift (input-to-output relationship changes)?"
+      ],
+      "key_misconceptions": [
+        "Deploying models to production without continuous monitoring, assuming accuracy remains static"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_ai-data-scientist_ab_testing_online_ml",
+      "concept_id": "concept_ai-data-scientist_ab_testing_online_ml",
+      "title": "A/B Testing & Online Experimentation for ML",
+      "subtitle": "Online vs offline metrics, canary releases for models, interleaving tests, business impact analysis",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_ai-data-scientist_drift_monitoring_data_concept"
+      ],
+      "learning_objectives": [
+        "Design online A/B experiments comparing challenger ML models against existing baselines",
+        "Correlate ML offline evaluation metrics (AUC/RMSE) with live business revenue and conversion rates"
+      ],
+      "feynman_prompts": [
+        "Why does a model with higher offline validation accuracy sometimes perform worse in online A/B tests?"
+      ],
+      "key_misconceptions": [
+        "Replacing production models entirely without running canary traffic or shadow deployments"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_ai-data-scientist",
+  "description": "Master AI and Data Scientist with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "AI and Data Scientist - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "AI and Data Scientist - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "AI and Data Scientist - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "AI and Data Scientist - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "AI and Data Scientist - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}

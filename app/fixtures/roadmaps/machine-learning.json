@@ -1,0 +1,519 @@
+{
+  "slug": "machine-learning",
+  "title": "Machine Learning Engineer",
+  "domain": "Machine Learning",
+  "target_role": "Senior Machine Learning Engineer",
+  "difficulty_baseline": "Beginner",
+  "tags": [
+    "machine-learning",
+    "pytorch",
+    "deep-learning",
+    "xgboost",
+    "math",
+    "algorithms",
+    "transformers",
+    "onnx"
+  ],
+  "nodes": [
+    {
+      "id": "cnode_machine-learning_math_linear_algebra_ml",
+      "concept_id": "concept_machine-learning_math_linear_algebra_ml",
+      "title": "Linear Algebra Foundations for Machine Learning",
+      "subtitle": "Vectors, matrices, dot products, eigenvalues, eigenvectors, matrix decompositions (SVD)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 1,
+      "estimated_minutes": 25,
+      "prerequisites": [],
+      "learning_objectives": [
+        "Compute matrix transformations, dot products, and vector projections in NumPy",
+        "Apply Singular Value Decomposition (SVD) for low-rank matrix approximation"
+      ],
+      "feynman_prompts": [
+        "How does matrix multiplication enable parallel feature transformations in machine learning?"
+      ],
+      "key_misconceptions": [
+        "Confusing element-wise multiplication with matrix dot products"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_math_calculus_optimization",
+      "concept_id": "concept_machine-learning_math_calculus_optimization",
+      "title": "Multivariate Calculus & Convex Optimization",
+      "subtitle": "Partial derivatives, gradients, Jacobians, Hessians, convex functions, saddle points",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 2,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine-learning_math_linear_algebra_ml"
+      ],
+      "learning_objectives": [
+        "Compute partial derivatives and gradient vectors for multi-parameter loss functions",
+        "Analyze convergence behavior of convex optimization algorithms"
+      ],
+      "feynman_prompts": [
+        "Why is the gradient vector mathematically guaranteed to point in the direction of steepest ascent?"
+      ],
+      "key_misconceptions": [
+        "Assuming optimization functions always reach global minima in non-convex loss surfaces"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_probability_statistical_inference",
+      "concept_id": "concept_machine-learning_probability_statistical_inference",
+      "title": "Probability & Statistical Inference for ML",
+      "subtitle": "Random variables, joint/conditional probability, Bayes theorem, Maximum Likelihood Estimation (MLE)",
+      "phase": "Foundations",
+      "tier": "foundation",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 3,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine-learning_math_calculus_optimization"
+      ],
+      "learning_objectives": [
+        "Derive optimal model parameters using Maximum Likelihood Estimation (MLE)",
+        "Apply Bayesian inference to calculate posterior probabilities from priors"
+      ],
+      "feynman_prompts": [
+        "Explain how Maximum Likelihood Estimation (MLE) finds parameters that maximize observed data probability."
+      ],
+      "key_misconceptions": [
+        "Confusing prior probability with posterior probability in Bayesian decision models"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_scikit_learn_pipeline_design",
+      "concept_id": "concept_machine-learning_scikit_learn_pipeline_design",
+      "title": "Data Pipelines & Feature Transformations with Scikit-Learn",
+      "subtitle": "Pipeline, ColumnTransformer, Standard/MinMax scalers, OneHotEncoder, custom transformers",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "beginner",
+      "order": 4,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_machine-learning_math_linear_algebra_ml"
+      ],
+      "learning_objectives": [
+        "Build production-ready Scikit-Learn Pipelines that bundle pre-processing with models",
+        "Prevent data leakage by fitting transformers strictly on training splits"
+      ],
+      "feynman_prompts": [
+        "Why is encapsulating transformations into Scikit-Learn Pipelines essential to prevent data leakage?"
+      ],
+      "key_misconceptions": [
+        "Calling fit_transform() on the test split, causing test score contamination"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_linear_logistic_from_scratch",
+      "concept_id": "concept_machine-learning_linear_logistic_from_scratch",
+      "title": "Linear & Logistic Regression from Mathematical Scratch",
+      "subtitle": "Cost functions (MSE, Cross-Entropy), gradient descent update rules, decision boundaries",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 5,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine-learning_math_calculus_optimization"
+      ],
+      "learning_objectives": [
+        "Implement linear and logistic regression from scratch in pure NumPy using vectorization",
+        "Derive gradient update formulas for Mean Squared Error and Binary Cross-Entropy losses"
+      ],
+      "feynman_prompts": [
+        "Why does logistic regression use the sigmoid activation function to output valid probabilities?"
+      ],
+      "key_misconceptions": [
+        "Using Mean Squared Error as the loss function for logistic regression instead of Cross-Entropy"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_bias_variance_regularization",
+      "concept_id": "concept_machine-learning_bias_variance_regularization",
+      "title": "Bias-Variance Trade-Off & Regularization Mechanics",
+      "subtitle": "Underfitting, overfitting, L1 Lasso sparsity, L2 Ridge weight decay, validation learning curves",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 6,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine-learning_linear_logistic_from_scratch"
+      ],
+      "learning_objectives": [
+        "Diagnose whether a model suffers from high bias or high variance using learning curves",
+        "Apply L1 and L2 regularization to constrain model complexity and prevent overfitting"
+      ],
+      "feynman_prompts": [
+        "Why does L1 regularization (Lasso) produce sparse weight vectors with exact zero coefficients?"
+      ],
+      "key_misconceptions": [
+        "Adding more training data to solve a high bias (underfitting) problem without increasing model capacity"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_support_vector_machines",
+      "concept_id": "concept_machine-learning_support_vector_machines",
+      "title": "Support Vector Machines & Kernel Methods",
+      "subtitle": "Max-margin hyperplanes, support vectors, soft-margin slack variables (C), RBF kernel trick",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 7,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine-learning_linear_logistic_from_scratch"
+      ],
+      "learning_objectives": [
+        "Train maximal margin classifiers using Support Vector Machines (SVM)",
+        "Apply non-linear kernel tricks (RBF, Polynomial) to classify non-linearly separable data"
+      ],
+      "feynman_prompts": [
+        "How does the Kernel Trick compute inner products in infinite-dimensional Hilbert spaces without computing coordinates?"
+      ],
+      "key_misconceptions": [
+        "Scaling features inconsistently before training SVMs, destroying distance-based margins"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_decision_trees_random_forests",
+      "concept_id": "concept_machine-learning_decision_trees_random_forests",
+      "title": "Decision Trees & Random Forest Ensembles",
+      "subtitle": "Gini impurity, information gain, tree pruning, bootstrap aggregation, out-of-bag error",
+      "phase": "Core",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 8,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine-learning_scikit_learn_pipeline_design"
+      ],
+      "learning_objectives": [
+        "Construct decision trees by iteratively finding splits that maximize information gain",
+        "Train Random Forest ensembles with feature subsampling to decorrelate individual trees"
+      ],
+      "feynman_prompts": [
+        "How does bagging random subsets of features prevent dominant features from ruining tree diversity?"
+      ],
+      "key_misconceptions": [
+        "Allowing decision trees to split indefinitely until every training sample is an isolated leaf"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_gradient_boosting_xgboost",
+      "concept_id": "concept_machine-learning_gradient_boosting_xgboost",
+      "title": "Gradient Boosting & Bayesian Optimization (XGBoost)",
+      "subtitle": "Boosting mechanics, negative gradients as pseudo-residuals, shrinkage, Optuna hyperparameter search",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 9,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine-learning_decision_trees_random_forests"
+      ],
+      "learning_objectives": [
+        "Train enterprise gradient boosted decision trees using XGBoost, LightGBM, and CatBoost",
+        "Automate Bayesian hyperparameter optimization using Optuna with tree-structured Parzen estimators"
+      ],
+      "feynman_prompts": [
+        "How does gradient boosting optimize arbitrary differentiable loss functions using pseudo-residuals?"
+      ],
+      "key_misconceptions": [
+        "Setting tree depth too high in gradient boosting, negating the regularization benefits of weak learners"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_unsupervised_clustering_em",
+      "concept_id": "concept_machine-learning_unsupervised_clustering_em",
+      "title": "Unsupervised Clustering & Gaussian Mixture Models",
+      "subtitle": "K-Means, K-Means++, Expectation-Maximization (EM), Gaussian Mixture Models (GMM), silhouette",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "recommended",
+      "difficulty": "intermediate",
+      "order": 10,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine-learning_math_linear_algebra_ml"
+      ],
+      "learning_objectives": [
+        "Cluster complex multi-modal data using Gaussian Mixture Models and Expectation-Maximization",
+        "Evaluate clustering quality using silhouette coefficients and Davies-Bouldin index"
+      ],
+      "feynman_prompts": [
+        "How does Expectation-Maximization compute soft probabilistic cluster assignments compared to hard K-Means?"
+      ],
+      "key_misconceptions": [
+        "Assuming clusters must always be spherical, causing K-Means to misclassify elongated groupings"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_deep_learning_mlp_autograd",
+      "concept_id": "concept_machine-learning_deep_learning_mlp_autograd",
+      "title": "Deep Neural Networks: Multilayer Perceptrons & Autograd",
+      "subtitle": "Perceptrons, hidden layers, activation functions (ReLU, LeakyReLU, GELU), PyTorch autograd",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 11,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine-learning_math_calculus_optimization"
+      ],
+      "learning_objectives": [
+        "Implement multi-layer perceptrons (MLP) in PyTorch with custom forward and backward passes",
+        "Analyze vanishing and exploding gradients and resolve them using proper weight initialization (He/Xavier)"
+      ],
+      "feynman_prompts": [
+        "Why does the standard sigmoid activation function cause severe vanishing gradients in deep networks?"
+      ],
+      "key_misconceptions": [
+        "Initializing all neural network weights to zero, causing symmetric hidden neurons that never specialize"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_neural_optimization_algorithms",
+      "concept_id": "concept_machine-learning_neural_optimization_algorithms",
+      "title": "Deep Learning Optimization: SGD, Momentum & Adam",
+      "subtitle": "Stochastic Gradient Descent (SGD), mini-batching, Momentum, RMSprop, Adam optimizer dynamics",
+      "phase": "Applied",
+      "tier": "intermediate",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 12,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine-learning_deep_learning_mlp_autograd"
+      ],
+      "learning_objectives": [
+        "Select optimal optimizers and tune learning rates using learning rate schedulers (Cosine Annealing)",
+        "Explain how Adam combines momentum with adaptive per-parameter learning rate scaling"
+      ],
+      "feynman_prompts": [
+        "How does momentum help gradient descent escape shallow local minima and navigate saddle points?"
+      ],
+      "key_misconceptions": [
+        "Using default constant learning rates without warmups or decay schedules on complex architectures"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_neural_regularization_techniques",
+      "concept_id": "concept_machine-learning_neural_regularization_techniques",
+      "title": "Regularization: Dropout, Batch Normalization & LayerNorm",
+      "subtitle": "Dropout mechanics, Batch Normalization, Layer Normalization, Weight Decay, data augmentation",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 13,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine-learning_neural_optimization_algorithms"
+      ],
+      "learning_objectives": [
+        "Stabilize deep neural network training using Batch Normalization and Layer Normalization",
+        "Prevent overfitting in large neural networks using Dropout and stochastic regularizations"
+      ],
+      "feynman_prompts": [
+        "What is the fundamental difference between Batch Normalization (across batch) and Layer Normalization (across features)?"
+      ],
+      "key_misconceptions": [
+        "Leaving Dropout active during model inference, producing noisy non-deterministic predictions"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_convolutional_vision_backbones",
+      "concept_id": "concept_machine-learning_convolutional_vision_backbones",
+      "title": "Computer Vision: CNNs & Residual Architectures",
+      "subtitle": "Convolution operations, receptive fields, stride/padding, ResNet skip connections, transfer learning",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "recommended",
+      "difficulty": "advanced",
+      "order": 14,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine-learning_neural_regularization_techniques"
+      ],
+      "learning_objectives": [
+        "Implement convolutional neural networks for image classification and feature extraction",
+        "Fine-tune pre-trained vision backbones with frozen layers and progressive unfreezing"
+      ],
+      "feynman_prompts": [
+        "Why do residual skip connections allow training neural networks with 100+ layers without gradient vanishing?"
+      ],
+      "key_misconceptions": [
+        "Unfreezing all pre-trained backbone weights immediately with a high learning rate, destroying pre-trained representations"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_transformer_attention_mechanisms",
+      "concept_id": "concept_machine-learning_transformer_attention_mechanisms",
+      "title": "Self-Attention Mechanisms & The Transformer Architecture",
+      "subtitle": "Scaled dot-product attention, multi-head attention, queries/keys/values, positional encodings",
+      "phase": "Advanced",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 15,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine-learning_neural_regularization_techniques"
+      ],
+      "learning_objectives": [
+        "Implement multi-head self-attention mechanisms in PyTorch from mathematical primitives",
+        "Explain how self-attention captures long-range token dependencies in parallel compared to sequential RNNs"
+      ],
+      "feynman_prompts": [
+        "Why is the attention matrix calculation QK^T / sqrt(d_k) scaled by the square root of key dimension?"
+      ],
+      "key_misconceptions": [
+        "Thinking self-attention has innate knowledge of word order without adding positional encodings"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_model_quantization_onnx",
+      "concept_id": "concept_machine-learning_model_quantization_onnx",
+      "title": "Model Optimization: Quantization & ONNX Runtime",
+      "subtitle": "Post-training quantization (PTQ), FP16 vs INT8, model pruning, ONNX export, TensorRT acceleration",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "advanced",
+      "order": 16,
+      "estimated_minutes": 35,
+      "prerequisites": [
+        "concept_machine-learning_transformer_attention_mechanisms"
+      ],
+      "learning_objectives": [
+        "Quantize PyTorch neural networks to INT8, reducing memory footprint by 75% with < 1% accuracy drop",
+        "Export models to ONNX format and run high-performance inference using ONNX Runtime"
+      ],
+      "feynman_prompts": [
+        "How does INT8 quantization achieve 3x inference acceleration on modern CPU/GPU hardware?"
+      ],
+      "key_misconceptions": [
+        "Deploying raw un-optimized PyTorch models directly in latency-sensitive production environments"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_model_evaluation_metrics_deep",
+      "concept_id": "concept_machine-learning_model_evaluation_metrics_deep",
+      "title": "Comprehensive Model Evaluation & Error Analysis",
+      "subtitle": "Confusion matrix, F1-score, Brier score calibration, Cohen's kappa, error slicing, slicing metrics",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 17,
+      "estimated_minutes": 25,
+      "prerequisites": [
+        "concept_machine-learning_gradient_boosting_xgboost"
+      ],
+      "learning_objectives": [
+        "Calibrate model probabilities using Platt scaling or isotonic regression to reflect true likelihoods",
+        "Conduct granular error analysis across underrepresented demographic or technical slices"
+      ],
+      "feynman_prompts": [
+        "Why is a model with 95% accuracy useless if its predicted probabilities are completely uncalibrated?"
+      ],
+      "key_misconceptions": [
+        "Evaluating models only on aggregate top-line metrics, hiding catastrophic failure on key minority slices"
+      ],
+      "recommended_resources": []
+    },
+    {
+      "id": "cnode_machine-learning_production_ml_deployment",
+      "concept_id": "concept_machine-learning_production_ml_deployment",
+      "title": "Production ML Deployment & Low-Latency Serving",
+      "subtitle": "TorchServe, Triton Inference Server, FastAPI, dynamic batching, model caching, health checks",
+      "phase": "Production",
+      "tier": "advanced",
+      "importance": "essential",
+      "difficulty": "intermediate",
+      "order": 18,
+      "estimated_minutes": 30,
+      "prerequisites": [
+        "concept_machine-learning_model_quantization_onnx"
+      ],
+      "learning_objectives": [
+        "Deploy containerized machine learning models behind low-latency FastAPI / Triton inference endpoints",
+        "Configure dynamic batching to maximize GPU throughput under concurrent prediction requests"
+      ],
+      "feynman_prompts": [
+        "Why is dynamic request batching essential for high-throughput GPU model serving?"
+      ],
+      "key_misconceptions": [
+        "Running model inference synchronously inside the web framework event loop without worker isolation"
+      ],
+      "recommended_resources": []
+    }
+  ],
+  "id": "roadmap_machine-learning",
+  "description": "Master Machine Learning Engineer with an industry-standard, comprehensive curriculum spanning 18 core and advanced milestones.",
+  "phases": [
+    {
+      "title": "Foundations",
+      "tier": "foundations",
+      "focus": "Machine Learning Engineer - Foundations",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Core",
+      "tier": "core",
+      "focus": "Machine Learning Engineer - Core",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Applied",
+      "tier": "applied",
+      "focus": "Machine Learning Engineer - Applied",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Advanced",
+      "tier": "advanced",
+      "focus": "Machine Learning Engineer - Advanced",
+      "estimated_weeks": 3
+    },
+    {
+      "title": "Production",
+      "tier": "production",
+      "focus": "Machine Learning Engineer - Production",
+      "estimated_weeks": 3
+    }
+  ]
+}
