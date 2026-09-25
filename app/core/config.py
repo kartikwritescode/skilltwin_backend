@@ -43,9 +43,10 @@ class Settings(BaseSettings):
     @property
     def effective_youtube_api_key(self) -> Optional[str]:
         if self.YOUTUBE_API_KEY and self.YOUTUBE_API_KEY != "placeholder-api-key":
-            return self.YOUTUBE_API_KEY
-        if self.effective_api_key and self.effective_api_key != "placeholder-api-key":
-            return self.effective_api_key
+            return self.YOUTUBE_API_KEY.strip()
+        # Only fall back to effective_api_key if it is a Google Cloud API Key (starts with AIzaSy)
+        if self.effective_api_key and self.effective_api_key.startswith("AIzaSy"):
+            return self.effective_api_key.strip()
         return None
 
     @property

@@ -178,8 +178,14 @@ class YouTubeService:
         """Fetches title, description, creator, and thumbnail for the playlist."""
         api_key = settings.effective_youtube_api_key
 
-        if settings.YOUTUBE_MOCK or not api_key:
+        if settings.YOUTUBE_MOCK or settings.APP_ENV == "test":
             return self._get_mock_playlist_metadata(playlist_id)
+
+        if not api_key:
+            raise ValidationError(
+                "YouTube Data API Key is not configured on the server. "
+                "Please add 'YOUTUBE_API_KEY' with YouTube Data API v3 enabled in your Render environment variables."
+            )
 
         url = f"{YOUTUBE_API_BASE_URL}/playlists"
         params = {
@@ -195,7 +201,7 @@ class YouTubeService:
                     data = res.json()
                     items = data.get("items", [])
                     if not items:
-                        raise EntityNotFoundError(f"YouTube playlist '{playlist_id}' not found or is private.")
+                        raise EntityNotFoundError(f"YouTube playlist '{playlist_id}' not found or is private/unlisted.")
                     item = items[0]
                     snippet = item.get("snippet", {})
                     content_details = item.get("contentDetails", {})
@@ -217,21 +223,33 @@ class YouTubeService:
                         "video_count": int(content_details.get("itemCount", 0)),
                     }
                 elif res.status_code in (400, 401):
-                    logger.warning(f"YouTube API key invalid or API not enabled ({res.status_code}). Using fallback metadata.")
-                    return self._get_mock_playlist_metadata(playlist_id)
-                elif res.status_code == 429:
-                    logger.warning(f"YouTube API quota exceeded or forbidden ({res.status_code}): {res.text[:150]}")
-                    raise ResourceExhaustedError("YouTube API quota exceeded. Please check your YouTube API key or try again later.")
+                    err_msg = ""
+                    try:
+                        err_msg = res.json().get("error", {}).get("message", "")
+                    except Exception:
+                        pass
+                    raise ValidationError(
+                        f"YouTube Data API authorization failed ({res.status_code}): {err_msg}. "
+                        "Please verify that 'YOUTUBE_API_KEY' on Render has 'YouTube Data API v3' enabled in Google Cloud Console."
+                    )
+                elif res.status_code in (403, 429):
+                    err_msg = ""
+                    try:
+                        err_msg = res.json().get("error", {}).get("message", "")
+                    except Exception:
+                        pass
+                    raise ResourceExhaustedError(
+                        f"YouTube Data API quota exceeded or disabled in Google Cloud: {err_msg}."
+                    )
                 elif res.status_code == 404:
                     raise EntityNotFoundError(f"YouTube playlist '{playlist_id}' not found.")
                 else:
-                    logger.warning(f"YouTube API returned {res.status_code}: {res.text[:100]}")
-                    return self._get_mock_playlist_metadata(playlist_id)
-        except (ResourceExhaustedError, EntityNotFoundError):
+                    raise ValidationError(f"YouTube API returned error {res.status_code}: {res.text[:150]}")
+        except (ResourceExhaustedError, EntityNotFoundError, ValidationError):
             raise
         except Exception as e:
-            logger.error(f"Error calling YouTube API playlists: {e}. Falling back to resilient mock metadata.")
-            return self._get_mock_playlist_metadata(playlist_id)
+            logger.error(f"Error calling YouTube API playlists: {e}")
+            raise ValidationError(f"Failed to fetch YouTube playlist: {e}")
 
     async def fetch_playlist_items(self, playlist_id: str) -> List[Dict[str, Any]]:
         """
@@ -240,8 +258,14 @@ class YouTubeService:
         """
         api_key = settings.effective_youtube_api_key
 
-        if settings.YOUTUBE_MOCK or not api_key:
+        if settings.YOUTUBE_MOCK or settings.APP_ENV == "test":
             return self._get_mock_playlist_items(playlist_id)
+
+        if not api_key:
+            raise ValidationError(
+                "YouTube Data API Key is not configured on the server. "
+                "Please add 'YOUTUBE_API_KEY' with YouTube Data API v3 enabled in your Render environment variables."
+            )
 
         url = f"{YOUTUBE_API_BASE_URL}/playlistItems"
         raw_items: List[Dict[str, Any]] = []
@@ -268,20 +292,30 @@ class YouTubeService:
                         page_token = data.get("nextPageToken")
                         if not page_token:
                             break
-                    elif res.status_code == 429:
-                        logger.warning(f"YouTube API quota exceeded: {res.text[:150]}")
-                        raise ResourceExhaustedError("YouTube API quota exceeded.")
+                    elif res.status_code in (403, 429):
+                        err_msg = ""
+                        try:
+                            err_msg = res.json().get("error", {}).get("message", "")
+                        except Exception:
+                            pass
+                        raise ResourceExhaustedError(f"YouTube Data API quota exceeded or forbidden: {err_msg}")
+                    elif res.status_code in (400, 401):
+                        err_msg = ""
+                        try:
+                            err_msg = res.json().get("error", {}).get("message", "")
+                        except Exception:
+                            pass
+                        raise ValidationError(f"YouTube Data API rejected request ({res.status_code}): {err_msg}")
                     else:
-                        logger.warning(f"YouTube API status {res.status_code} fetching items: {res.text[:100]}")
                         break
-        except ResourceExhaustedError:
+        except (ResourceExhaustedError, ValidationError, EntityNotFoundError):
             raise
         except Exception as e:
             logger.error(f"Error fetching playlist items: {e}")
+            raise ValidationError(f"Failed to fetch playlist items: {e}")
 
         if not raw_items:
-            logger.info(f"Using resilient fallback items for playlist {playlist_id}.")
-            return self._get_mock_playlist_items(playlist_id)
+            raise ValidationError(f"No accessible videos found in playlist '{playlist_id}'.")
 
         # Process, preserve exact order, and safely filter unavailable videos
         parsed_videos: List[Dict[str, Any]] = []

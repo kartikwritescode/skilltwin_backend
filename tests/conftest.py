@@ -10,6 +10,8 @@ if str(backend_dir) not in sys.path:
 from app.core.config import settings
 settings.DATABASE_URL = "sqlite+aiosqlite:///./skilltwin.db"
 settings.LLM_PROVIDER = "mock"
+settings.YOUTUBE_MOCK = True
+settings.APP_ENV = "test"
 
 from app.main import app
 from app.core.security import create_access_token
