@@ -18,6 +18,19 @@ from app.schemas.sessions import (
 )
 from app.schemas.concepts import ConceptDetailResponse, MisconceptionSchema
 from app.schemas.revision import RevisionNextResponse, ReviewItemResponse, ReviewSubmissionRequest
+from app.schemas.adaptive_path import (
+    MicroSubgraphCreate,
+    MicroSubgraphRead,
+    CanonicalOntologyRead,
+    PathNodeCreate,
+    PathNodeRead,
+    PathNodeEdgeCreate,
+    PathNodeEdgeRead,
+    AdaptiveLearningPathCreate,
+    AdaptiveLearningPathRead,
+    ElaboratedTopicContent,
+    SynthesizedSubgraphSchema,
+)
 
 __all__ = [
     "APIResponse",
@@ -48,4 +61,15 @@ __all__ = [
     "RevisionNextResponse",
     "ReviewItemResponse",
     "ReviewSubmissionRequest",
+    "MicroSubgraphCreate",
+    "MicroSubgraphRead",
+    "CanonicalOntologyRead",
+    "PathNodeCreate",
+    "PathNodeRead",
+    "PathNodeEdgeCreate",
+    "PathNodeEdgeRead",
+    "AdaptiveLearningPathCreate",
+    "AdaptiveLearningPathRead",
+    "ElaboratedTopicContent",
 ]
+

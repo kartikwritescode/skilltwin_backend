@@ -197,6 +197,30 @@ class MentorDecisionPipeline:
                 logger.debug(f"Could not parse deadline for pressure calculation: {e}")
                 deadline_pressure = "normal"
 
+        # Check for ADAG Pacing Recalibration Alerts
+        pacing_alert: Optional[Dict[str, Any]] = None
+        if goal and getattr(goal, "id", None):
+            try:
+                from app.services.pacing_recalibration_service import pacing_recalibration_service
+                from app.core.database import get_session_factory
+                from app.core.db_models import AdaptiveLearningPathModel
+                from sqlalchemy import select
+                session_factory = get_session_factory()
+                async with session_factory() as sess:
+                    adag_stmt = select(AdaptiveLearningPathModel).where(
+                        AdaptiveLearningPathModel.goal_id == goal.id,
+                        AdaptiveLearningPathModel.status == "ACTIVE",
+                    )
+                    adag_path = (await sess.execute(adag_stmt)).scalars().first()
+                    if adag_path:
+                        pacing_alert = await pacing_recalibration_service.evaluate_pacing_alerts(
+                            str(adag_path.id), sess
+                        )
+                        if pacing_alert and pacing_alert.get("alert_type") == "PACING_BEHIND":
+                            deadline_pressure = "high"
+            except Exception as e:
+                logger.debug(f"ADAG pacing alert check notice: {e}")
+
         # ----------------------------------------------------------------------
         # STEP 9: DETERMINE CANDIDATE ACTIONS & SUITABILITY SCORES
         # ----------------------------------------------------------------------

@@ -639,3 +639,129 @@ class YouTubePlaylistCacheModel(Base):
         UniqueConstraint("youtube_playlist_id", "content_hash", name="uq_youtube_cache_playlist_hash"),
     )
 
+
+# ============================================================================
+# Adaptive Directed Acyclic Graph (ADAG) Engine Models
+# ============================================================================
+
+class CanonicalOntologyModel(Base):
+    __tablename__ = "canonical_ontologies"
+
+    id = Column(String(64), primary_key=True)  # e.g., ontology_web_development
+    domain = Column(String(64), nullable=False, index=True)
+    title = Column(String(128), nullable=False)
+    description = Column(Text, nullable=True)
+    embedding = Column(JSON, nullable=True)  # Vector embedding stored as JSON array for cross-platform compatibility
+    total_nodes = Column(Integer, default=0)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    subgraphs = relationship("MicroSubgraphModel", back_populates="ontology", cascade="all, delete-orphan")
+
+
+class MicroSubgraphModel(Base):
+    __tablename__ = "micro_subgraphs"
+
+    id = Column(String(64), primary_key=True)  # e.g., subgraph_jwt_auth
+    ontology_id = Column(String(64), ForeignKey("canonical_ontologies.id", ondelete="CASCADE"), nullable=True, index=True)
+    slug = Column(String(64), unique=True, index=True, nullable=False)
+    title = Column(String(128), nullable=False)
+    tier = Column(String(32), default="core")  # foundational, core, advanced, elective
+    estimated_minutes = Column(Integer, default=60)
+    prerequisites = Column(JSON, default=list)  # array of micro_subgraph slugs
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    ontology = relationship("CanonicalOntologyModel", back_populates="subgraphs")
+
+
+class AdaptiveLearningPathModel(Base):
+    __tablename__ = "adaptive_learning_paths"
+
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(GUID(), ForeignKey("profiles.id", ondelete="CASCADE"), nullable=False, index=True)
+    goal_id = Column(GUID(), ForeignKey("goals.id", ondelete="CASCADE"), nullable=False, index=True)
+    title = Column(String(128), nullable=False)
+    status = Column(String(32), default="ACTIVE")  # ACTIVE, COMPLETED, PAUSED, ARCHIVED
+    target_deadline = Column(Date, nullable=True)
+    daily_budget_minutes = Column(Integer, default=30)
+    velocity_factor = Column(Float, default=1.0)
+    path_metadata = Column("metadata", JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    nodes = relationship("PathNodeModel", back_populates="path", cascade="all, delete-orphan", order_by="PathNodeModel.order_index")
+    edges = relationship("PathNodeEdgeModel", back_populates="path", cascade="all, delete-orphan")
+
+
+class PathNodeModel(Base):
+    __tablename__ = "path_nodes"
+
+    id = Column(String(64), primary_key=True)  # UUID string or deterministic composite slug
+    path_id = Column(GUID(), ForeignKey("adaptive_learning_paths.id", ondelete="CASCADE"), nullable=False, index=True)
+    subgraph_id = Column(String(64), nullable=True, index=True)
+    concept_id = Column(String(64), nullable=False, index=True)
+    title = Column(String(128), nullable=False)
+    state = Column(String(32), default="LOCKED")  # LOCKED, AVAILABLE, CURRENT, COMPLETED, NEEDS_REVISION, REMEDIATING, BYPASSED
+    order_index = Column(Integer, nullable=False, index=True)
+    is_remediation = Column(Boolean, default=False)
+    spliced_after_node_id = Column(String(64), nullable=True)
+    is_elaborated = Column(Boolean, default=False)
+    mastery_score = Column(Float, default=0.0)
+    time_spent_minutes = Column(Integer, default=0)
+    node_metadata = Column("metadata", JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    path = relationship("AdaptiveLearningPathModel", back_populates="nodes")
+    outgoing_edges = relationship(
+        "PathNodeEdgeModel",
+        foreign_keys="PathNodeEdgeModel.source_node_id",
+        back_populates="source_node",
+        cascade="all, delete-orphan",
+    )
+    incoming_edges = relationship(
+        "PathNodeEdgeModel",
+        foreign_keys="PathNodeEdgeModel.target_node_id",
+        back_populates="target_node",
+        cascade="all, delete-orphan",
+    )
+
+    __table_args__ = (
+        UniqueConstraint("path_id", "concept_id", name="uq_path_concept"),
+    )
+
+
+class PathNodeEdgeModel(Base):
+    __tablename__ = "path_node_edges"
+
+    id = Column(String(64), primary_key=True, default=lambda: str(uuid.uuid4()))
+    path_id = Column(GUID(), ForeignKey("adaptive_learning_paths.id", ondelete="CASCADE"), nullable=False, index=True)
+    source_node_id = Column(String(64), ForeignKey("path_nodes.id", ondelete="CASCADE"), nullable=False, index=True)
+    target_node_id = Column(String(64), ForeignKey("path_nodes.id", ondelete="CASCADE"), nullable=False, index=True)
+    edge_type = Column(String(32), default="prerequisite")  # prerequisite, remediation_detour, recommendation
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+
+    path = relationship("AdaptiveLearningPathModel", back_populates="edges")
+    source_node = relationship("PathNodeModel", foreign_keys=[source_node_id], back_populates="outgoing_edges")
+    target_node = relationship("PathNodeModel", foreign_keys=[target_node_id], back_populates="incoming_edges")
+
+    __table_args__ = (
+        UniqueConstraint("path_id", "source_node_id", "target_node_id", name="uq_path_edge"),
+    )
+
+
+class ElaboratedTopicCacheModel(Base):
+    __tablename__ = "elaborated_topic_cache"
+
+    concept_id = Column(String(64), primary_key=True)
+    difficulty = Column(String(32), default="intermediate")
+    explanation_markdown = Column(Text, nullable=False)
+    key_invariants = Column(JSON, default=list)
+    practice_questions = Column(JSON, default=list)
+    code_challenges = Column(JSON, default=list)
+    prompt_version = Column(Integer, default=1)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+

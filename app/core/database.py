@@ -18,6 +18,7 @@ def _create_engine(url: str):
     connect_args = {}
     if "sqlite" in db_url:
         connect_args["check_same_thread"] = False
+        connect_args["timeout"] = 30.0
     else:
         # Crucial for Supabase transaction pooler / pgbouncer (port 6543)
         connect_args["statement_cache_size"] = 0
@@ -62,6 +63,12 @@ async def init_db():
     async def _apply_column_migrations(conn):
         from sqlalchemy import text
         is_sqlite = "sqlite" in str(conn.engine.url)
+        if is_sqlite:
+            try:
+                await conn.execute(text("PRAGMA journal_mode=WAL;"))
+                await conn.execute(text("PRAGMA busy_timeout=30000;"))
+            except Exception:
+                pass
         migrations = [
             ("goals", "target_level", "TEXT DEFAULT 'Intermediate'"),
             ("goals", "custom_target", "TEXT"),
@@ -71,12 +78,21 @@ async def init_db():
             ("learning_topics", "metadata", "TEXT DEFAULT '{}'"),
             ("learner_topic_progress", "metadata", "TEXT DEFAULT '{}'"),
             ("topic_questions", "metadata", "TEXT DEFAULT '{}'"),
+            ("adaptive_learning_paths", "metadata", "TEXT DEFAULT '{}'"),
+            ("adaptive_learning_paths", "velocity_factor", "FLOAT DEFAULT 1.0"),
+            ("path_nodes", "is_remediation", "BOOLEAN DEFAULT 0"),
+            ("path_nodes", "spliced_after_node_id", "TEXT"),
+            ("path_nodes", "is_elaborated", "BOOLEAN DEFAULT 0"),
+            ("path_nodes", "mastery_score", "FLOAT DEFAULT 0.0"),
+            ("path_nodes", "time_spent_minutes", "INTEGER DEFAULT 0"),
+            ("path_nodes", "metadata", "TEXT DEFAULT '{}'"),
         ]
         for tbl, col, col_def in migrations:
             if is_sqlite:
                 sql = f"ALTER TABLE {tbl} ADD COLUMN {col} {col_def}"
             else:
-                sql = f"ALTER TABLE {tbl} ADD COLUMN IF NOT EXISTS {col} {col_def}"
+                pg_def = col_def.replace("DEFAULT 0", "DEFAULT FALSE")
+                sql = f"ALTER TABLE {tbl} ADD COLUMN IF NOT EXISTS {col} {pg_def}"
             try:
                 await conn.execute(text(sql))
             except Exception:

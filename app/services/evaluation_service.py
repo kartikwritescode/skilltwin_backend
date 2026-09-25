@@ -162,5 +162,30 @@ class EvaluationService:
 
         return evaluation
 
+    async def dispatch_to_adaptive_mutator(
+        self,
+        path_id: str,
+        node_id: str,
+        score: float,
+        confidence: float = 0.5,
+        duration_seconds: int = 120,
+        misconceptions: Optional[List[str]] = None,
+        session: Optional[Any] = None,
+    ) -> Dict[str, Any]:
+        """
+        Dispatches evaluation results to AdaptiveGraphMutator to trigger
+        remediation splices, fast-track mastery bypasses, or milestone progression.
+        """
+        from app.services.adaptive_graph_mutator import adaptive_graph_mutator
+        return await adaptive_graph_mutator.handle_evidence_event(
+            path_id=path_id,
+            node_id=node_id,
+            score=score,
+            confidence=confidence,
+            duration_seconds=duration_seconds,
+            misconceptions=misconceptions,
+            session=session,
+        )
+
 
 evaluation_service = EvaluationService()

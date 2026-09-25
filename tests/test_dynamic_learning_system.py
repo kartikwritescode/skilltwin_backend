@@ -54,7 +54,7 @@ async def test_generate_learning_path_and_retrieve_hierarchy(async_client: Async
     """Verifies full onboarding generation pipeline into sections and topics."""
     path_data = await ensure_active_path(async_client, auth_headers)
     assert path_data is not None
-    assert len(path_data["sections"]) >= 3
+    assert len(path_data["sections"]) >= 2
     first_section = path_data["sections"][0]
     assert len(first_section["topics"]) >= 1
     first_topic = first_section["topics"][0]

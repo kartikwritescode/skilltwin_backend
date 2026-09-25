@@ -667,6 +667,115 @@ class MockLLMProvider(LLMProvider):
                 videos=analyzed_videos,
             )  # type: ignore
 
+        elif response_schema.__name__ == "SynthesizedSubgraphSchema":
+            import re
+            topic = "Custom Niche Domain"
+            topic_match = re.search(r'topic:\s*"([^"]+)"', prompt, re.IGNORECASE)
+            if topic_match:
+                topic = topic_match.group(1).strip()
+            clean_slug = re.sub(r"[^\w\s-]", "", topic.lower())
+            clean_slug = re.sub(r"[\s_]+", "-", clean_slug).strip("-")[:60] or "custom-topic"
+
+            from app.schemas.adaptive_path import SynthesizedSubgraphSchema, SynthesizedConceptItem
+            c1_id = f"concept_{clean_slug}_foundations"
+            c2_id = f"concept_{clean_slug}_core"
+            c3_id = f"concept_{clean_slug}_advanced"
+
+            return SynthesizedSubgraphSchema(
+                slug=clean_slug,
+                title=f"{topic}: Architecture & Implementation",
+                tier="core",
+                estimated_minutes=90,
+                prerequisites=[],
+                concepts=[
+                    SynthesizedConceptItem(
+                        concept_id=c1_id,
+                        title=f"{topic} Foundations & Setup",
+                        estimated_minutes=25,
+                        prerequisites=[],
+                    ),
+                    SynthesizedConceptItem(
+                        concept_id=c2_id,
+                        title=f"{topic} Core Mechanics",
+                        estimated_minutes=35,
+                        prerequisites=[c1_id],
+                    ),
+                    SynthesizedConceptItem(
+                        concept_id=c3_id,
+                        title=f"{topic} Advanced Optimization",
+                        estimated_minutes=30,
+                        prerequisites=[c2_id],
+                    ),
+                ],
+            )  # type: ignore
+
+        elif response_schema.__name__ == "ElaboratedTopicContent":
+            import re
+            concept_match = re.search(r'concept_id:\s*"([^"]+)"', prompt, re.IGNORECASE)
+            concept_id = concept_match.group(1).strip() if concept_match else "concept_default"
+            title_match = re.search(r'topic title:\s*"([^"]+)"', prompt, re.IGNORECASE)
+            title = title_match.group(1).strip() if title_match else concept_id.replace("_", " ").title()
+
+            from app.schemas.adaptive_path import (
+                ElaboratedTopicContent,
+                PracticeQuestion,
+                PracticeQuestionOption,
+                CodeChallenge,
+                CodeChallengeTestCase,
+            )
+
+            return ElaboratedTopicContent(
+                concept_id=concept_id,
+                difficulty="intermediate",
+                explanation_markdown=(
+                    f"## {title}\n\n"
+                    f"{title} is a fundamental engineering milestone. Think of it like a well-structured "
+                    f"pipeline where each operation executes in deterministic isolation.\n\n"
+                    f"By understanding how inputs flow into predictable states, you eliminate cognitive overhead "
+                    f"and debug system boundaries with confidence."
+                ),
+                key_invariants=[
+                    f"Ensure deterministic state transitions within {title}",
+                    "Validate boundary conditions and guard against unexpected nulls",
+                    "Handle side effects and asynchronous cleanup explicitly",
+                ],
+                practice_questions=[
+                    PracticeQuestion(
+                        id=f"q_{concept_id}_1",
+                        question=f"What is the primary architectural invariant when working with {title}?",
+                        options=[
+                            PracticeQuestionOption(id="opt_1", text="Explicit boundary validation and deterministic state", is_correct=True, explanation="Core principle"),
+                            PracticeQuestionOption(id="opt_2", text="Ignoring asynchronous failure modes", is_correct=False, explanation="Causes uncaught exceptions"),
+                            PracticeQuestionOption(id="opt_3", text="Global mutable state across threads", is_correct=False, explanation="Causes race conditions"),
+                        ],
+                        explanation=f"Maintaining deterministic state is essential for {title}.",
+                    ),
+                    PracticeQuestion(
+                        id=f"q_{concept_id}_2",
+                        question=f"Which condition indicates an anti-pattern in {title}?",
+                        options=[
+                            PracticeQuestionOption(id="opt_a", text="Implicit side effects without cleanup", is_correct=True, explanation="Leads to resource leaks"),
+                            PracticeQuestionOption(id="opt_b", text="Strict input validation", is_correct=False, explanation="Recommended pattern"),
+                        ],
+                        explanation="Uncontrolled side effects lead to resource leaks and silent bugs.",
+                    ),
+                ],
+                code_challenges=[
+                    CodeChallenge(
+                        id=f"code_{concept_id}_1",
+                        title=f"Refactor {title} Implementation",
+                        instructions="Refactor the function to handle edge cases safely.",
+                        starter_code="def process_element(val):\n    return val * 2",
+                        solution_code="def process_element(val):\n    if val is None:\n        return 0\n    return val * 2",
+                        test_cases=[
+                            CodeChallengeTestCase(input="val=5", expected_output="10", explanation="Standard flow"),
+                            CodeChallengeTestCase(input="val=None", expected_output="0", explanation="Edge case"),
+                        ],
+                    )
+                ],
+                prompt_version=1,
+            )  # type: ignore
+
         # Fallback dummy initialization for arbitrary Pydantic models
         try:
             return response_schema.model_validate({})
