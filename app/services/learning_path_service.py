@@ -413,6 +413,7 @@ class LearningPathService:
                         revision_count=rev_count,
                         completed_at=completed_at,
                         next_revision_at=next_rev,
+                        metadata=top_meta,
                     )
                 )
 
@@ -432,6 +433,8 @@ class LearningPathService:
             await self.repo.update_path_progress(path.id, calc_progress)
             path.progress = calc_progress
 
+        path_meta = path.metadata_json if hasattr(path, "metadata_json") and isinstance(path.metadata_json, dict) else {}
+
         return LearningPathResponse(
             id=path.id,
             goal_id=path.goal_id,
@@ -446,6 +449,7 @@ class LearningPathService:
             generation_error=path.generation_error,
             progress=path.progress,
             sections=section_responses,
+            metadata=path_meta,
             created_at=path.created_at,
             updated_at=path.updated_at,
         )

@@ -36,6 +36,18 @@ class Settings(BaseSettings):
     GEMINI_MODEL: Optional[str] = Field(default=None, description="Gemini model alias")
     EMBEDDING_MODEL: str = Field(default="text-embedding-004", description="Model identifier for vector embeddings")
 
+    # YouTube Configuration
+    YOUTUBE_API_KEY: Optional[str] = Field(default=None, description="YouTube Data API v3 key")
+    YOUTUBE_MOCK: bool = Field(default=False, description="Force YouTube mock responses for offline testing")
+
+    @property
+    def effective_youtube_api_key(self) -> Optional[str]:
+        if self.YOUTUBE_API_KEY and self.YOUTUBE_API_KEY != "placeholder-api-key":
+            return self.YOUTUBE_API_KEY
+        if self.effective_api_key and self.effective_api_key != "placeholder-api-key":
+            return self.effective_api_key
+        return None
+
     @property
     def effective_api_key(self) -> str:
         if self.LLM_API_KEY and self.LLM_API_KEY != "placeholder-api-key":

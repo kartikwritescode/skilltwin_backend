@@ -13,6 +13,7 @@ from sqlalchemy import (
     ForeignKey,
     JSON,
     Index,
+    UniqueConstraint,
 )
 from sqlalchemy.types import TypeDecorator, CHAR
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID, ENUM as PG_ENUM
@@ -551,4 +552,90 @@ class CanonicalNodeModel(Base):
     created_at = Column(DateTime(timezone=True), default=utcnow)
 
     roadmap = relationship("CanonicalRoadmapModel", back_populates="nodes")
+
+
+# =========================================================
+# YOUTUBE PLAYLIST & ROADMAP PERSISTENCE MODELS
+# =========================================================
+
+class YouTubePlaylistModel(Base):
+    __tablename__ = "youtube_playlists"
+
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(GUID(), ForeignKey("profiles.id", ondelete="CASCADE"), nullable=False, index=True)
+    youtube_playlist_id = Column(String(128), nullable=False, index=True)
+    title = Column(String, nullable=False)
+    description = Column(Text, nullable=True)
+    channel_name = Column(String, nullable=True)
+    thumbnail_url = Column(String, nullable=True)
+    video_count = Column(Integer, default=0)
+    total_duration_seconds = Column(Integer, default=0)
+    content_hash = Column(String(64), nullable=False, index=True)
+    analysis_status = Column(String(32), default="READY")  # QUEUED, FETCHING, ANALYZING, GENERATING_ROADMAP, READY, FAILED
+    analysis_version = Column(Integer, default=1)
+    learning_path_id = Column(GUID(), ForeignKey("learning_paths.id", ondelete="SET NULL"), nullable=True, index=True)
+    metadata_json = Column("metadata", JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    videos = relationship("YouTubePlaylistVideoModel", back_populates="playlist", cascade="all, delete-orphan", order_by="YouTubePlaylistVideoModel.position")
+
+
+class YouTubePlaylistVideoModel(Base):
+    __tablename__ = "youtube_playlist_videos"
+
+    id = Column(GUID(), primary_key=True, default=lambda: str(uuid.uuid4()))
+    playlist_id = Column(GUID(), ForeignKey("youtube_playlists.id", ondelete="CASCADE"), nullable=False, index=True)
+    youtube_video_id = Column(String(64), nullable=False, index=True)
+    position = Column(Integer, nullable=False, index=True)
+    title = Column(String, nullable=False)
+    description = Column(Text, nullable=True)
+    duration_seconds = Column(Integer, default=0)
+    thumbnail_url = Column(String, nullable=True)
+    youtube_url = Column(String, nullable=False)
+    topic = Column(String, nullable=True)
+    subtopics = Column(JSON, default=list)
+    difficulty = Column(String(32), default="beginner")
+    concepts = Column(JSON, default=list)
+    prerequisite_positions = Column(JSON, default=list)
+    status = Column(String(32), default="NOT_STARTED")  # NOT_STARTED, IN_PROGRESS, COMPLETED, SKIPPED
+    availability = Column(String(32), default="available")  # available, unavailable, private, deleted
+    notes = Column(Text, nullable=True)
+    watch_progress = Column(Float, default=0.0)
+    started_at = Column(DateTime(timezone=True), nullable=True)
+    completed_at = Column(DateTime(timezone=True), nullable=True)
+    user_rating = Column(Float, nullable=True)
+    metadata_json = Column("metadata", JSON, default=dict)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    playlist = relationship("YouTubePlaylistModel", back_populates="videos")
+
+    __table_args__ = (
+        UniqueConstraint("playlist_id", "youtube_video_id", name="uq_youtube_playlist_video"),
+        UniqueConstraint("playlist_id", "position", name="uq_youtube_playlist_position"),
+    )
+
+
+class YouTubePlaylistCacheModel(Base):
+    __tablename__ = "youtube_playlist_cache"
+
+    id = Column(String, primary_key=True)  # e.g. cache_{playlist_id}_{content_hash}
+    youtube_playlist_id = Column(String(128), nullable=False, index=True)
+    content_hash = Column(String(64), nullable=False, index=True)
+    title = Column(String, nullable=False)
+    description = Column(Text, nullable=True)
+    channel_name = Column(String, nullable=True)
+    thumbnail_url = Column(String, nullable=True)
+    video_count = Column(Integer, default=0)
+    total_duration_seconds = Column(Integer, default=0)
+    cached_videos = Column(JSON, default=list)
+    topic_groups = Column(JSON, default=list)
+    analysis_version = Column(Integer, default=1)
+    created_at = Column(DateTime(timezone=True), default=utcnow)
+    updated_at = Column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+    __table_args__ = (
+        UniqueConstraint("youtube_playlist_id", "content_hash", name="uq_youtube_cache_playlist_hash"),
+    )
 

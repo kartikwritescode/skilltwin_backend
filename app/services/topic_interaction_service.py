@@ -127,6 +127,7 @@ class TopicInteractionService:
             next_topic_id=next_id,
             has_cached_explanation=cached_exp is not None,
             question_count=len(questions),
+            metadata=topic.metadata_json if hasattr(topic, "metadata_json") and isinstance(topic.metadata_json, dict) else {},
         )
 
     # ---------------------------------------------------------------------------

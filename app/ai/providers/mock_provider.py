@@ -642,6 +642,31 @@ class MockLLMProvider(LLMProvider):
                 ],
             )  # type: ignore
 
+        elif response_schema.__name__ == "PlaylistCurriculumAnalysis":
+            import re
+            from app.services.youtube_service import PlaylistCurriculumAnalysis, VideoAnalysisItem
+
+            analyzed_videos = []
+            pos_matches = re.findall(r"Video Position:\s*(\d+)\s*\nTitle:\s*(.+)", prompt)
+            for pos_str, title in pos_matches:
+                pos = int(pos_str)
+                analyzed_videos.append(
+                    VideoAnalysisItem(
+                        position=pos,
+                        topic="Core Curriculum" if pos < 4 else "Advanced Applications",
+                        subtopics=[title.strip()],
+                        difficulty="beginner" if pos < 3 else "intermediate",
+                        concepts=[w for w in title.split() if len(w) > 4][:3],
+                        prerequisite_positions=[pos - 1] if pos > 0 else [],
+                    )
+                )
+
+            return PlaylistCurriculumAnalysis(
+                playlist_topic="Data Structures & Algorithms",
+                overall_level="beginner_to_intermediate",
+                videos=analyzed_videos,
+            )  # type: ignore
+
         # Fallback dummy initialization for arbitrary Pydantic models
         try:
             return response_schema.model_validate({})

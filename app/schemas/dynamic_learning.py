@@ -58,6 +58,7 @@ class LearningTopicResponse(BaseModel):
     revision_count: int = 0
     completed_at: Optional[datetime] = None
     next_revision_at: Optional[datetime] = None
+    metadata: Dict[str, Any] = Field(default_factory=dict)
 
 
 class LearningSectionResponse(BaseModel):
@@ -85,6 +86,7 @@ class LearningPathResponse(BaseModel):
     generation_error: Optional[str] = None
     progress: float = 0.0
     sections: List[LearningSectionResponse] = []
+    metadata: Dict[str, Any] = Field(default_factory=dict)
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
@@ -119,6 +121,7 @@ class TopicDetailResponse(BaseModel):
     next_topic_id: Optional[str] = None
     has_cached_explanation: bool = False
     question_count: int = 0
+    metadata: Dict[str, Any] = Field(default_factory=dict)
 
 
 class TopicExplanationResponse(BaseModel):

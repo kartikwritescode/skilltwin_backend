@@ -14,11 +14,17 @@ class SkillTwinException(Exception):
 
 
 class EntityNotFoundError(SkillTwinException):
-    def __init__(self, entity_name: str, entity_id: Any):
+    def __init__(self, entity_name: str, entity_id: Any = None):
+        if entity_id is None:
+            msg = entity_name
+            details = {}
+        else:
+            msg = f"{entity_name} with ID '{entity_id}' was not found."
+            details = {"entity_name": entity_name, "entity_id": str(entity_id)}
         super().__init__(
-            message=f"{entity_name} with ID '{entity_id}' was not found.",
+            message=msg,
             code="ENTITY_NOT_FOUND",
-            details={"entity_name": entity_name, "entity_id": str(entity_id)}
+            details=details,
         )
 
 
@@ -46,6 +52,11 @@ class AIProviderError(SkillTwinException):
         )
 
 
+class ResourceExhaustedError(SkillTwinException):
+    def __init__(self, message: str = "Resource quota or rate limit exceeded.", details: Optional[Dict[str, Any]] = None):
+        super().__init__(message=message, code="QUOTA_EXCEEDED", details=details)
+
+
 async def domain_exception_handler(request: Request, exc: SkillTwinException) -> JSONResponse:
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
     if isinstance(exc, EntityNotFoundError):
@@ -58,6 +69,8 @@ async def domain_exception_handler(request: Request, exc: SkillTwinException) ->
         status_code = status.HTTP_401_UNAUTHORIZED
     elif isinstance(exc, AIProviderError):
         status_code = status.HTTP_502_BAD_GATEWAY
+    elif isinstance(exc, ResourceExhaustedError):
+        status_code = status.HTTP_429_TOO_MANY_REQUESTS
 
     logger.warning(
         f"Domain exception on {request.method} {request.url.path}: {exc.code} - {exc.message}"

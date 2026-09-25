@@ -17,6 +17,7 @@ from app.api.v1.endpoints import (
     topics,
     voice,
     canonical_roadmaps,
+    youtube,
 )
 
 api_router = APIRouter()
@@ -38,4 +39,5 @@ api_router.include_router(revision.router)
 api_router.include_router(resources.router)
 api_router.include_router(knowledge.router)
 api_router.include_router(teach.router)
+api_router.include_router(youtube.router)
 
