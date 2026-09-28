@@ -14,6 +14,7 @@ from app.schemas.dynamic_learning import (
     HomeDashboardResponse,
     TwinDashboardResponse,
     AreaMasteryItem,
+    DailyTaskItem,
 )
 from app.core.logging import logger
 
@@ -172,16 +173,111 @@ class TwinAnalyticsService:
         else:
             schedule_status = "ON_TRACK"
 
-        # Today's target topic & key concepts
-        today_topic_title = current_topic.title if current_topic else None
-        today_topic_id = current_topic.id if current_topic else None
-        today_meta = current_topic.metadata_json if current_topic and hasattr(current_topic, "metadata_json") and isinstance(current_topic.metadata_json, dict) else {}
-        today_key_concepts = today_meta.get("key_concepts", []) if today_meta else []
-        today_est_minutes = current_topic.estimated_minutes if current_topic else (goal.daily_minutes or 30)
+        # -------------------------------------------------------------------
+        # Multi-Task Daily Queue & Scheduling
+        # -------------------------------------------------------------------
+        daily_mins = goal.daily_minutes or 30
+
+        # 1. Identify all topics completed today
+        completed_today_topics: List[LearningTopicModel] = []
+        for t in all_topics:
+            p = progress_map.get(t.id)
+            if p and p.status == "completed" and p.completed_at and p.completed_at.date() == now_date:
+                completed_today_topics.append(t)
+
+        # 2. Identify incomplete topics in sequential roadmap order
+        incomplete_topics: List[LearningTopicModel] = []
+        for t in all_topics:
+            p = progress_map.get(t.id)
+            if not p or p.status != "completed":
+                incomplete_topics.append(t)
+
+        # 3. Determine how many tasks belong to today's queue
+        # Today's queue includes all topics already completed today, PLUS
+        # enough incomplete topics to satisfy today's commitment / backlog.
+        today_plan_topics: List[LearningTopicModel] = list(completed_today_topics)
+
+        # Calculate minutes already completed today
+        mins_completed_today = sum(t.estimated_minutes or 25 for t in completed_today_topics)
+
+        # If user hasn't met daily commitment yet (or has backlog), queue subsequent topics
+        needed_mins = max(daily_mins - mins_completed_today, 0)
+        if not completed_today_topics and incomplete_topics and needed_mins <= 0:
+            needed_mins = daily_mins
+
+        allocated_mins = 0
+        for inc_t in incomplete_topics:
+            # If we haven't reached daily target or if backlog requires catch-up (queue at least 2 if backlog > 0)
+            if allocated_mins < needed_mins or (backlog_count > 0 and len(today_plan_topics) < 2 and len(today_plan_topics) < len(completed_today_topics) + 2):
+                today_plan_topics.append(inc_t)
+                allocated_mins += (inc_t.estimated_minutes or 25)
+            elif len(today_plan_topics) == 0:
+                today_plan_topics.append(inc_t)
+                break
+            else:
+                break
+
+        # Fallback: if no topics completed today and incomplete topics exist, guarantee at least 1
+        if not today_plan_topics and incomplete_topics:
+            today_plan_topics.append(incomplete_topics[0])
+
+        # 4. Construct DailyTaskItem list
+        today_tasks: List[DailyTaskItem] = []
+        current_found = False
+
+        for idx, t in enumerate(today_plan_topics):
+            p = progress_map.get(t.id)
+            is_comp = (p and p.status == "completed" and p.completed_at and p.completed_at.date() == now_date)
+            
+            task_status = "COMPLETED" if is_comp else ("LEARNING" if (p and p.status == "learning") else "NOT_STARTED")
+            is_cur = False
+            if not is_comp and not current_found:
+                is_cur = True
+                current_found = True
+
+            t_meta = t.metadata_json if hasattr(t, "metadata_json") and isinstance(t.metadata_json, dict) else {}
+            k_concepts = t_meta.get("key_concepts", []) if t_meta else []
+
+            today_tasks.append(
+                DailyTaskItem(
+                    id=str(t.id),
+                    topic_id=str(t.id),
+                    title=t.title,
+                    order_index=idx,
+                    estimated_minutes=t.estimated_minutes or 25,
+                    difficulty=t.difficulty or "beginner",
+                    status=task_status,
+                    key_concepts=k_concepts,
+                    is_current=is_cur,
+                )
+            )
+
+        today_tasks_total = len(today_tasks) if today_tasks else 1
+        today_tasks_completed = sum(1 for item in today_tasks if item.status == "COMPLETED")
+        is_today_completed = (today_tasks_completed >= today_tasks_total and today_tasks_total > 0) or (completed_topics >= total_topics and total_topics > 0)
+
+        # 5. Resolve active task for backward-compatible fields
+        current_daily_task = next((item for item in today_tasks if item.is_current), None)
+        if current_daily_task:
+            today_topic_title = current_daily_task.title
+            today_topic_id = current_daily_task.topic_id
+            today_key_concepts = current_daily_task.key_concepts
+            today_est_minutes = current_daily_task.estimated_minutes
+        elif is_today_completed and today_tasks:
+            # All done today - point to the last completed item
+            today_topic_title = today_tasks[-1].title
+            today_topic_id = today_tasks[-1].topic_id
+            today_key_concepts = today_tasks[-1].key_concepts
+            today_est_minutes = today_tasks[-1].estimated_minutes
+        else:
+            today_topic_title = current_topic.title if current_topic else None
+            today_topic_id = current_topic.id if current_topic else None
+            today_meta = current_topic.metadata_json if current_topic and hasattr(current_topic, "metadata_json") and isinstance(current_topic.metadata_json, dict) else {}
+            today_key_concepts = today_meta.get("key_concepts", []) if today_meta else []
+            today_est_minutes = current_topic.estimated_minutes if current_topic else daily_mins
 
         # Concrete daily instructions based on schedule status and backlog
         deadline_display = target_deadline.strftime("%b %d, %Y") if target_deadline else "your target date"
-        daily_mins = goal.daily_minutes or 30
 
         if schedule_status == "BEHIND_SCHEDULE":
             daily_instructions = (
@@ -259,6 +355,10 @@ class TwinAnalyticsService:
             today_key_concepts=today_key_concepts,
             today_estimated_minutes=today_est_minutes,
             daily_commitment_minutes=daily_mins,
+            is_today_completed=is_today_completed,
+            today_tasks=today_tasks,
+            today_tasks_total=today_tasks_total,
+            today_tasks_completed=today_tasks_completed,
         )
 
     # ---------------------------------------------------------------------------
@@ -296,8 +396,11 @@ class TwinAnalyticsService:
         now = datetime.now(timezone.utc)
         total_mastery = 0.0
 
+        topic_ids = [p.topic_id for p in user_progress]
+        topic_map = await self.repo.get_topics_by_ids(topic_ids)
+
         for p in user_progress:
-            t = await self.repo.get_topic_by_id(p.topic_id)
+            t = topic_map.get(p.topic_id)
             name = t.title if t else f"Topic {p.topic_id[:6]}"
 
             if p.status == "completed":

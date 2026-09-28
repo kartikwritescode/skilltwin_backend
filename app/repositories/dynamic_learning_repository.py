@@ -216,6 +216,15 @@ class DynamicLearningRepository:
             result = await session.execute(stmt)
             return result.scalar_one_or_none()
 
+    async def get_topics_by_ids(self, topic_ids: List[str]) -> Dict[str, LearningTopicModel]:
+        if not topic_ids:
+            return {}
+        async with AsyncSessionLocal() as session:
+            stmt = select(LearningTopicModel).where(LearningTopicModel.id.in_(topic_ids))
+            result = await session.execute(stmt)
+            topics = result.scalars().all()
+            return {t.id: t for t in topics}
+
     # ---------------------------------------------------------------------------
     # Learner Topic Progress
     # ---------------------------------------------------------------------------

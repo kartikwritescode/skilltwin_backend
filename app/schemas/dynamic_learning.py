@@ -191,6 +191,18 @@ class TopicStatusUpdateResponse(BaseModel):
 # Home & Twin Dashboard Schemas (True Dynamic Metrics)
 # ---------------------------------------------------------------------------
 
+class DailyTaskItem(BaseModel):
+    id: str
+    topic_id: str
+    title: str
+    order_index: int = 0
+    estimated_minutes: int = 25
+    difficulty: str = "beginner"
+    status: str = "NOT_STARTED"  # NOT_STARTED, LEARNING, COMPLETED
+    key_concepts: List[str] = []
+    is_current: bool = False
+
+
 class HomeDashboardResponse(BaseModel):
     goal_id: Optional[str] = None
     goal_title: str = "No Active Goal"
@@ -223,6 +235,10 @@ class HomeDashboardResponse(BaseModel):
     today_key_concepts: List[str] = []
     today_estimated_minutes: int = 30
     daily_commitment_minutes: int = 30
+    is_today_completed: bool = False
+    today_tasks: List[DailyTaskItem] = []
+    today_tasks_total: int = 1
+    today_tasks_completed: int = 0
 
 
 class AreaMasteryItem(BaseModel):
