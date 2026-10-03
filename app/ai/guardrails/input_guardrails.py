@@ -38,10 +38,11 @@ class InputGuardrail:
 
     # 2. Patterns attempting to exfiltrate secret keys or operational credentials
     EXFILTRATION_PATTERNS = [
-        r"(what\s+is|show|reveal|give\s+me|print)\s+(the\s+)?(api\s*key|secret\s*key|gemini\s*key|openai\s*key|access\s*token|jwt\s*secret|bearer\s*token)",
+        r"(what\s+is|show|reveal|give\s+me|print|output|display|dump|share|verify)\s+(the\s+)?(api\s*key|secret\s*key|gemini\s*key|openai\s*key|access\s*token|jwt\s*secret|bearer\s*token|supabase[_\s]*jwt[_\s]*secret)",
         r"(database|db|postgres|sqlite|supabase)\s*(password|connection\s*string|credentials|url)",
         r"(environment|env)\s*(variable|variables|vars|\.env)",
         r"backend\s*(secret|keys|config|credentials)",
+        r"(SUPABASE_JWT_SECRET|SUPABASE_SERVICE_ROLE_KEY|LLM_API_KEY|GEMINI_API_KEY|DATABASE_URL)",
     ]
 
     # 3. Patterns attempting jailbreaks or unrestricted persona overrides
@@ -142,12 +143,11 @@ class InputGuardrail:
                     ),
                 )
 
-        # Sanitize input: strip control characters, escape potential tag delimiters
-        sanitized = clean_msg.replace("<LEARNER_CONTEXT>", "").replace("</LEARNER_CONTEXT>", "")
-        sanitized = sanitized.replace("<USER_QUERY>", "").replace("</USER_QUERY>", "")
+        # Sanitize input: strip control characters and any XML/HTML delimiters to prevent prompt spoofing
+        sanitized = re.sub(r"</?[a-zA-Z_0-9\-]+>", "", clean_msg)
         sanitized = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", sanitized)
 
-        return GuardrailResult(is_safe=True, sanitized_input=sanitized)
+        return GuardrailResult(is_safe=True, sanitized_input=sanitized.strip())
 
 
 # Singleton instance
