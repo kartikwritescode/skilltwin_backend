@@ -1,0 +1,929 @@
+{
+  "roadmap_id": "datastructures_and_algorithms",
+  "title": "Data Structures and Algorithms",
+  "source_pdf": "datastructures-and-algorithms.pdf",
+  "audience": "Programmers seeking stronger problem solving, performance intuition, and interview readiness.",
+  "description": "Language-independent progression through complexity, core structures, trees/graphs, design techniques, advanced structures, and deliberate practice.",
+  "stages": [
+    {
+      "title": "Programming and analysis foundations",
+      "objective": "Reason about correctness and complexity before optimizing.",
+      "nodes": [
+        {
+          "id": "datastructures_and_algorithms-01-01-choose-one-language",
+          "sequence": 1,
+          "title": "Choose one language",
+          "level": "core",
+          "purpose": "Learn choose one language within programming and analysis foundations.",
+          "subtopics": [
+            "Python/Java/JavaScript/Go/C#/C++/Rust/Ruby",
+            "syntax/types",
+            "control",
+            "functions",
+            "collections",
+            "exceptions",
+            "I/O",
+            "standard library"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-01-02-correctness-and-recursion",
+          "sequence": 2,
+          "title": "Correctness and recursion",
+          "level": "core",
+          "purpose": "Learn correctness and recursion within programming and analysis foundations.",
+          "subtopics": [
+            "pre/postconditions",
+            "invariants",
+            "recursion stack/base cases",
+            "induction intuition",
+            "pseudocode",
+            "trace",
+            "edge cases",
+            "assertions"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-01-01-choose-one-language"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-01-03-complexity",
+          "sequence": 3,
+          "title": "Complexity",
+          "level": "core",
+          "purpose": "Learn complexity within programming and analysis foundations.",
+          "subtopics": [
+            "time/space",
+            "Big-O/Theta/Omega",
+            "best/average/worst",
+            "amortized",
+            "constant/log/linear/polynomial/exponential/factorial",
+            "honest operation counts"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-01-02-correctness-and-recursion"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-01-04-testing",
+          "sequence": 4,
+          "title": "Testing",
+          "level": "core",
+          "purpose": "Learn testing within programming and analysis foundations.",
+          "subtopics": [
+            "empty/singleton/large",
+            "duplicates",
+            "sorted/reverse",
+            "integer bounds",
+            "randomized/property tests",
+            "debugger",
+            "complexity regression"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-01-03-complexity"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        }
+      ],
+      "stage_number": 1,
+      "stage_type": "core",
+      "node_ids": [
+        "datastructures_and_algorithms-01-01-choose-one-language",
+        "datastructures_and_algorithms-01-02-correctness-and-recursion",
+        "datastructures_and_algorithms-01-03-complexity",
+        "datastructures_and_algorithms-01-04-testing"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating programming and analysis foundations.",
+        "exit_criteria": [
+          "Reason about correctness and complexity before optimizing.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Core linear structures",
+      "objective": "Choose structures from access pattern and analyze typical and worst cases.",
+      "nodes": [
+        {
+          "id": "datastructures_and_algorithms-02-01-arrays-and-strings",
+          "sequence": 5,
+          "title": "Arrays and strings",
+          "level": "core",
+          "purpose": "Learn arrays and strings within core linear structures.",
+          "subtopics": [
+            "indexing/contiguous memory",
+            "dynamic arrays/slices",
+            "2D arrays",
+            "immutability",
+            "in-place updates",
+            "prefix sums"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-01-04-testing"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-02-02-linked-lists",
+          "sequence": 6,
+          "title": "Linked lists",
+          "level": "core",
+          "purpose": "Learn linked lists within core linear structures.",
+          "subtopics": [
+            "singly/doubly",
+            "insert/delete",
+            "pointer invariants",
+            "reverse",
+            "cycle detection",
+            "sentinels",
+            "array comparison"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-02-01-arrays-and-strings"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-02-03-stacks-queues-deques",
+          "sequence": 7,
+          "title": "Stacks, queues, deques",
+          "level": "core",
+          "purpose": "Learn stacks, queues, deques within core linear structures.",
+          "subtopics": [
+            "LIFO/FIFO",
+            "implementation tradeoffs",
+            "monotonic structures",
+            "parsing",
+            "BFS",
+            "producer/consumer"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-02-02-linked-lists"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-02-04-hash-tables-and-sets",
+          "sequence": 8,
+          "title": "Hash tables and sets",
+          "level": "core",
+          "purpose": "Learn hash tables and sets within core linear structures.",
+          "subtopics": [
+            "hash/collision",
+            "chaining/open addressing",
+            "load factor/resizing",
+            "average/worst",
+            "equality contract",
+            "maps/frequencies"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-02-03-stacks-queues-deques"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-02-05-heaps-and-priority-queues",
+          "sequence": 9,
+          "title": "Heaps and priority queues",
+          "level": "core",
+          "purpose": "Learn heaps and priority queues within core linear structures.",
+          "subtopics": [
+            "heap property",
+            "push/pop/heapify",
+            "top-k",
+            "scheduling",
+            "streaming median",
+            "Dijkstra relation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-02-04-hash-tables-and-sets"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        }
+      ],
+      "stage_number": 2,
+      "stage_type": "core",
+      "node_ids": [
+        "datastructures_and_algorithms-02-01-arrays-and-strings",
+        "datastructures_and_algorithms-02-02-linked-lists",
+        "datastructures_and_algorithms-02-03-stacks-queues-deques",
+        "datastructures_and_algorithms-02-04-hash-tables-and-sets",
+        "datastructures_and_algorithms-02-05-heaps-and-priority-queues"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating core linear structures.",
+        "exit_criteria": [
+          "Choose structures from access pattern and analyze typical and worst cases.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Searching, sorting, and patterns",
+      "objective": "Recognize recurring array/string patterns and prove the invariant.",
+      "nodes": [
+        {
+          "id": "datastructures_and_algorithms-03-01-search",
+          "sequence": 10,
+          "title": "Search",
+          "level": "core",
+          "purpose": "Learn search within searching, sorting, and patterns.",
+          "subtopics": [
+            "linear",
+            "sorted precondition",
+            "lower/upper bound",
+            "binary search on answer",
+            "overflow/termination/invariants"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-02-05-heaps-and-priority-queues"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-03-02-sort",
+          "sequence": 11,
+          "title": "Sort",
+          "level": "core",
+          "purpose": "Learn sort within searching, sorting, and patterns.",
+          "subtopics": [
+            "bubble/selection/insertion",
+            "merge",
+            "quick",
+            "heap",
+            "stability",
+            "memory",
+            "lower bound",
+            "library sort"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-03-01-search"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-03-03-two-pointers-windows",
+          "sequence": 12,
+          "title": "Two pointers/windows",
+          "level": "core",
+          "purpose": "Learn two pointers/windows within searching, sorting, and patterns.",
+          "subtopics": [
+            "opposing/same-direction",
+            "fixed/variable window",
+            "frequency tracking",
+            "sorted pairs",
+            "invariants/off-by-one"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-03-02-sort"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-03-04-prefix-intervals",
+          "sequence": 13,
+          "title": "Prefix/intervals",
+          "level": "core",
+          "purpose": "Learn prefix/intervals within searching, sorting, and patterns.",
+          "subtopics": [
+            "prefix sums",
+            "difference arrays",
+            "merge intervals",
+            "sweep-line",
+            "range queries",
+            "coordinate compression",
+            "event ordering"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-03-03-two-pointers-windows"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-03-05-kth-two-heaps",
+          "sequence": 14,
+          "title": "Kth/two heaps",
+          "level": "core",
+          "purpose": "Learn kth/two heaps within searching, sorting, and patterns.",
+          "subtopics": [
+            "quickselect vs sort",
+            "heap streaming",
+            "partition invariants",
+            "duplicates"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-03-04-prefix-intervals"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        }
+      ],
+      "stage_number": 3,
+      "stage_type": "core",
+      "node_ids": [
+        "datastructures_and_algorithms-03-01-search",
+        "datastructures_and_algorithms-03-02-sort",
+        "datastructures_and_algorithms-03-03-two-pointers-windows",
+        "datastructures_and_algorithms-03-04-prefix-intervals",
+        "datastructures_and_algorithms-03-05-kth-two-heaps"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating searching, sorting, and patterns.",
+        "exit_criteria": [
+          "Recognize recurring array/string patterns and prove the invariant.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Trees, graphs, paths",
+      "objective": "Model hierarchical and relational problems and respect algorithm assumptions.",
+      "nodes": [
+        {
+          "id": "datastructures_and_algorithms-04-01-trees",
+          "sequence": 15,
+          "title": "Trees",
+          "level": "core",
+          "purpose": "Learn trees within trees, graphs, paths.",
+          "subtopics": [
+            "binary/BST/AVL overview/B-tree",
+            "trie",
+            "traversals",
+            "height/depth",
+            "recursion/stack",
+            "search/insert/delete"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-03-05-kth-two-heaps"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-04-02-tree-algorithms",
+          "sequence": 16,
+          "title": "Tree algorithms",
+          "level": "core",
+          "purpose": "Learn tree algorithms within trees, graphs, paths.",
+          "subtopics": [
+            "in/pre/post/level order",
+            "path sums",
+            "LCA",
+            "BST validation",
+            "serialization",
+            "segment/Fenwick tree overview"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-04-01-trees"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-04-03-graphs",
+          "sequence": 17,
+          "title": "Graphs",
+          "level": "core",
+          "purpose": "Learn graphs within trees, graphs, paths.",
+          "subtopics": [
+            "directed/undirected/weighted",
+            "adjacency list/matrix",
+            "BFS/DFS",
+            "components",
+            "cycle detection",
+            "islands",
+            "topological sort"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-04-02-tree-algorithms"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-04-04-paths-and-spanning-trees",
+          "sequence": 18,
+          "title": "Paths and spanning trees",
+          "level": "core",
+          "purpose": "Learn paths and spanning trees within trees, graphs, paths.",
+          "subtopics": [
+            "BFS unweighted",
+            "Dijkstra constraints",
+            "Bellman-Ford negatives/cycles",
+            "Prim/Kruskal",
+            "DSU",
+            "A* intuition"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-04-03-graphs"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-04-05-graph-modeling",
+          "sequence": 19,
+          "title": "Graph modeling",
+          "level": "core",
+          "purpose": "Learn graph modeling within trees, graphs, paths.",
+          "subtopics": [
+            "state graph",
+            "implicit graphs/grids",
+            "multi-source BFS",
+            "reachability vs shortest path",
+            "memory"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-04-04-paths-and-spanning-trees"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        }
+      ],
+      "stage_number": 4,
+      "stage_type": "core",
+      "node_ids": [
+        "datastructures_and_algorithms-04-01-trees",
+        "datastructures_and_algorithms-04-02-tree-algorithms",
+        "datastructures_and_algorithms-04-03-graphs",
+        "datastructures_and_algorithms-04-04-paths-and-spanning-trees",
+        "datastructures_and_algorithms-04-05-graph-modeling"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating trees, graphs, paths.",
+        "exit_criteria": [
+          "Model hierarchical and relational problems and respect algorithm assumptions.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Algorithm design",
+      "objective": "Select a method from problem structure and justify correctness.",
+      "nodes": [
+        {
+          "id": "datastructures_and_algorithms-05-01-brute-force-and-divide-conquer",
+          "sequence": 20,
+          "title": "Brute force and divide/conquer",
+          "level": "core",
+          "purpose": "Learn brute force and divide/conquer within algorithm design.",
+          "subtopics": [
+            "enumeration/pruning",
+            "recursion tree",
+            "mergesort/quicksort",
+            "recurrences",
+            "proof of coverage"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-04-05-graph-modeling"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-05-02-greedy",
+          "sequence": 21,
+          "title": "Greedy",
+          "level": "core",
+          "purpose": "Learn greedy within algorithm design.",
+          "subtopics": [
+            "local choices",
+            "exchange argument",
+            "scheduling/Huffman concept",
+            "counterexamples",
+            "proof obligation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-05-01-brute-force-and-divide-conquer"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-05-03-dynamic-programming",
+          "sequence": 22,
+          "title": "Dynamic programming",
+          "level": "core",
+          "purpose": "Learn dynamic programming within algorithm design.",
+          "subtopics": [
+            "state/recurrence",
+            "memoization/tabulation",
+            "base cases/order",
+            "1D/2D/knapsack/sequence",
+            "compression/reconstruction"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-05-02-greedy"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-05-04-backtracking",
+          "sequence": 23,
+          "title": "Backtracking",
+          "level": "core",
+          "purpose": "Learn backtracking within algorithm design.",
+          "subtopics": [
+            "choice/constraint/goal",
+            "pruning",
+            "permutations/combinations/subsets",
+            "constraint propagation",
+            "duplicate handling"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-05-03-dynamic-programming"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-05-05-randomized-and-concurrency-overview",
+          "sequence": 24,
+          "title": "Randomized and concurrency overview",
+          "level": "core",
+          "purpose": "Learn randomized and concurrency overview within algorithm design.",
+          "subtopics": [
+            "random pivots/expected runtime",
+            "hashing",
+            "race conditions",
+            "coordination overhead",
+            "when these matter"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-05-04-backtracking"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        }
+      ],
+      "stage_number": 5,
+      "stage_type": "core",
+      "node_ids": [
+        "datastructures_and_algorithms-05-01-brute-force-and-divide-conquer",
+        "datastructures_and_algorithms-05-02-greedy",
+        "datastructures_and_algorithms-05-03-dynamic-programming",
+        "datastructures_and_algorithms-05-04-backtracking",
+        "datastructures_and_algorithms-05-05-randomized-and-concurrency-overview"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating algorithm design.",
+        "exit_criteria": [
+          "Select a method from problem structure and justify correctness.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Advanced structures and deliberate practice",
+      "objective": "Transfer concepts to unfamiliar problems through systematic practice.",
+      "nodes": [
+        {
+          "id": "datastructures_and_algorithms-06-01-range-text-structures",
+          "sequence": 25,
+          "title": "Range/text structures",
+          "level": "core",
+          "purpose": "Learn range/text structures within advanced structures and deliberate practice.",
+          "subtopics": [
+            "segment/Fenwick",
+            "suffix arrays/trees",
+            "tries",
+            "skip lists",
+            "disjoint sets",
+            "supported ops and asymptotics"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-05-05-randomized-and-concurrency-overview"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-06-02-storage-index-structures",
+          "sequence": 26,
+          "title": "Storage/index structures",
+          "level": "core",
+          "purpose": "Learn storage/index structures within advanced structures and deliberate practice.",
+          "subtopics": [
+            "B/B+ trees",
+            "ISAM",
+            "2-3 trees",
+            "indexes",
+            "locality",
+            "read/write tradeoffs"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-06-01-range-text-structures"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-06-03-interview-method",
+          "sequence": 27,
+          "title": "Interview method",
+          "level": "core",
+          "purpose": "Learn interview method within advanced structures and deliberate practice.",
+          "subtopics": [
+            "clarify constraints",
+            "examples",
+            "brute force",
+            "optimize",
+            "communicate tradeoffs",
+            "readable code",
+            "edge tests",
+            "complexity"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-06-02-storage-index-structures"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        },
+        {
+          "id": "datastructures_and_algorithms-06-04-practice-and-portfolio",
+          "sequence": 28,
+          "title": "Practice and portfolio",
+          "level": "core",
+          "purpose": "Learn practice and portfolio within advanced structures and deliberate practice.",
+          "subtopics": [
+            "topic-wise easy/medium",
+            "spaced review",
+            "solve without hints",
+            "timed mocks",
+            "error notes",
+            "implement tested structures",
+            "capstone graph/DP problem"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "datastructures_and_algorithms-06-03-interview-method"
+          ],
+          "source_topic_families": [
+            "datastructures-and-algorithms"
+          ]
+        }
+      ],
+      "stage_number": 6,
+      "stage_type": "optional_specialization",
+      "node_ids": [
+        "datastructures_and_algorithms-06-01-range-text-structures",
+        "datastructures_and_algorithms-06-02-storage-index-structures",
+        "datastructures_and_algorithms-06-03-interview-method",
+        "datastructures_and_algorithms-06-04-practice-and-portfolio"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating advanced structures and deliberate practice.",
+        "exit_criteria": [
+          "Transfer concepts to unfamiliar problems through systematic practice.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    }
+  ],
+  "source_analysis": "PDF coverage: languages/fundamentals, arrays/lists/stacks/queues/hash tables, asymptotics, sorting/search, trees/traversals, graphs/BFS/DFS/shortest path/MST, advanced structures/indexing, recursion/backtracking/greedy/randomized/divide-conquer/DP, pointers/windows/heaps/islands/A*, and practice platforms.",
+  "schema_version": "1.0.0",
+  "last_reviewed": "2026-10-03",
+  "analysis_method": "Extracted labels from the one-page source PDF and visually reviewed the rendered roadmap layout; regrouped prerequisites into a sequential learning path and expanded topics for practical projects and production work.",
+  "learning_sequence": "Follow stages and nodes in order. Optional specialization can be revisited after the capstone.",
+  "references": [
+    {
+      "title": "OWASP Top 10 for LLM Applications 2025",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/",
+      "why": "Threat taxonomy for LLM application design and testing."
+    },
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "why": "Governance, mapping, measurement, and management of AI risk."
+    },
+    {
+      "title": "OpenAI API documentation",
+      "url": "https://platform.openai.com/docs/",
+      "why": "Check provider-specific API behavior and current supported features."
+    },
+    {
+      "title": "Hugging Face Transformers Trainer",
+      "url": "https://huggingface.co/docs/transformers/en/main_classes/trainer",
+      "why": "Official training and evaluation workflow reference."
+    },
+    {
+      "title": "MLflow GenAI docs",
+      "url": "https://mlflow.org/docs/latest/genai/",
+      "why": "Tracing, versioning, and evaluation lifecycle practices."
+    }
+  ],
+  "current_practice_note": "Technology and hosted model/service names change quickly. Learn stable concepts, choose one implementation, verify versions and APIs in linked primary documentation, and note the date and tradeoffs in project work."
+}

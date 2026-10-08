@@ -1,0 +1,810 @@
+{
+  "roadmap_id": "git_github",
+  "title": "Git and GitHub",
+  "source_pdf": "git-github.pdf",
+  "audience": "Developers collaborating on repositories from first commit through team automation and security.",
+  "description": "Progress from local Git to collaboration, safe history repair, planning, CI automation, APIs/hooks, and repository security.",
+  "stages": [
+    {
+      "title": "Version control and local workflow",
+      "objective": "Confidently make, inspect, and explain local commits.",
+      "nodes": [
+        {
+          "id": "git_github-01-01-why-version-control",
+          "sequence": 1,
+          "title": "Why version control",
+          "level": "core",
+          "purpose": "Learn why version control within version control and local workflow.",
+          "subtopics": [
+            "history/collaboration",
+            "backups distinction",
+            "Git vs centralized VCS",
+            "distributed model",
+            "commit snapshot"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-01-02-install-configure",
+          "sequence": 2,
+          "title": "Install/configure",
+          "level": "core",
+          "purpose": "Learn install/configure within version control and local workflow.",
+          "subtopics": [
+            "installation",
+            "global/local config",
+            "identity",
+            "default branch",
+            "line endings",
+            "credentials",
+            "inspect settings"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-01-01-why-version-control"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-01-03-repository-states",
+          "sequence": 3,
+          "title": "Repository states",
+          "level": "core",
+          "purpose": "Learn repository states within version control and local workflow.",
+          "subtopics": [
+            "init/clone",
+            "working tree/index/staging",
+            "commit/status/diff",
+            ".gitignore",
+            "tracked/untracked",
+            "add/remove/rename/restore"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-01-02-install-configure"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-01-04-history-and-quality",
+          "sequence": 4,
+          "title": "History and quality",
+          "level": "core",
+          "purpose": "Learn history and quality within version control and local workflow.",
+          "subtopics": [
+            "log/show/blame",
+            "focused commits",
+            "imperative messages",
+            "local amend",
+            "tags",
+            "README/hygiene"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-01-03-repository-states"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        }
+      ],
+      "stage_number": 1,
+      "stage_type": "core",
+      "node_ids": [
+        "git_github-01-01-why-version-control",
+        "git_github-01-02-install-configure",
+        "git_github-01-03-repository-states",
+        "git_github-01-04-history-and-quality"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating version control and local workflow.",
+        "exit_criteria": [
+          "Confidently make, inspect, and explain local commits.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Branches and team collaboration",
+      "objective": "Collaborate through review while keeping remote history safe.",
+      "nodes": [
+        {
+          "id": "git_github-02-01-branch-merge",
+          "sequence": 5,
+          "title": "Branch/merge",
+          "level": "core",
+          "purpose": "Learn branch/merge within branches and team collaboration.",
+          "subtopics": [
+            "create/switch/rename/delete",
+            "HEAD/detached HEAD",
+            "merge",
+            "fast-forward/non-FF",
+            "conflicts",
+            "resolve/test/abort"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-01-04-history-and-quality"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-02-02-remotes",
+          "sequence": 6,
+          "title": "Remotes",
+          "level": "core",
+          "purpose": "Learn remotes within branches and team collaboration.",
+          "subtopics": [
+            "remote management",
+            "fetch vs pull",
+            "upstream",
+            "push",
+            "divergence",
+            "force-with-lease",
+            "protect others' commits"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-02-01-branch-merge"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-02-03-github-essentials",
+          "sequence": 7,
+          "title": "GitHub essentials",
+          "level": "core",
+          "purpose": "Learn github essentials within branches and team collaboration.",
+          "subtopics": [
+            "profile",
+            "public/private repos",
+            "clone vs fork",
+            "collaborators/org/team",
+            "issues/labels",
+            "Discussions/releases"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-02-02-remotes"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-02-04-pull-requests",
+          "sequence": 8,
+          "title": "Pull requests",
+          "level": "core",
+          "purpose": "Learn pull requests within branches and team collaboration.",
+          "subtopics": [
+            "focused branch/PR",
+            "templates",
+            "review/comments/suggestions/checks",
+            "rebase/squash/merge",
+            "conflicts",
+            "linked issues"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-02-03-github-essentials"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-02-05-team-conventions",
+          "sequence": 9,
+          "title": "Team conventions",
+          "level": "core",
+          "purpose": "Learn team conventions within branches and team collaboration.",
+          "subtopics": [
+            "branch names",
+            "commit style",
+            "contribution guide",
+            "CODEOWNERS",
+            "review",
+            "small PRs",
+            "default branch protection"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-02-04-pull-requests"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        }
+      ],
+      "stage_number": 2,
+      "stage_type": "core",
+      "node_ids": [
+        "git_github-02-01-branch-merge",
+        "git_github-02-02-remotes",
+        "git_github-02-03-github-essentials",
+        "git_github-02-04-pull-requests",
+        "git_github-02-05-team-conventions"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating branches and team collaboration.",
+        "exit_criteria": [
+          "Collaborate through review while keeping remote history safe.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "History editing and recovery",
+      "objective": "Select recovery operations based on whether work is shared or published.",
+      "nodes": [
+        {
+          "id": "git_github-03-01-rebase-and-cherry-pick",
+          "sequence": 10,
+          "title": "Rebase and cherry-pick",
+          "level": "core",
+          "purpose": "Learn rebase and cherry-pick within history editing and recovery.",
+          "subtopics": [
+            "linear history",
+            "sequence",
+            "conflicts",
+            "cherry-pick",
+            "rewrite rules",
+            "force-with-lease"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-02-05-team-conventions"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-03-02-undo-and-recovery",
+          "sequence": 11,
+          "title": "Undo and recovery",
+          "level": "core",
+          "purpose": "Learn undo and recovery within history editing and recovery.",
+          "subtopics": [
+            "revert vs reset",
+            "soft/mixed/hard",
+            "restore vs checkout",
+            "reflog",
+            "recover commit/branch",
+            "backup refs"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-03-01-rebase-and-cherry-pick"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-03-03-diff-and-inspection",
+          "sequence": 12,
+          "title": "Diff and inspection",
+          "level": "core",
+          "purpose": "Learn diff and inspection within history editing and recovery.",
+          "subtopics": [
+            "staged/unstaged",
+            "branch/commit",
+            "whitespace/rename",
+            "log options",
+            "blame limits",
+            "find introduction"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-03-02-undo-and-recovery"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-03-04-repository-maintenance",
+          "sequence": 13,
+          "title": "Repository maintenance",
+          "level": "core",
+          "purpose": "Learn repository maintenance within history editing and recovery.",
+          "subtopics": [
+            "stash",
+            "clean preview",
+            "annotated tags",
+            "attributes/line endings",
+            "LFS",
+            "submodule pitfalls",
+            "worktrees"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-03-03-diff-and-inspection"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        }
+      ],
+      "stage_number": 3,
+      "stage_type": "core",
+      "node_ids": [
+        "git_github-03-01-rebase-and-cherry-pick",
+        "git_github-03-02-undo-and-recovery",
+        "git_github-03-03-diff-and-inspection",
+        "git_github-03-04-repository-maintenance"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating history editing and recovery.",
+        "exit_criteria": [
+          "Select recovery operations based on whether work is shared or published.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Planning, documentation, releases",
+      "objective": "Make work and repositories understandable to a team.",
+      "nodes": [
+        {
+          "id": "git_github-04-01-markdown-docs",
+          "sequence": 14,
+          "title": "Markdown/docs",
+          "level": "core",
+          "purpose": "Learn markdown/docs within planning, documentation, releases.",
+          "subtopics": [
+            "README/setup/usage/license/changelog/CONTRIBUTING/code of conduct/templates/Wiki limits"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-03-04-repository-maintenance"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-04-02-github-projects",
+          "sequence": 15,
+          "title": "GitHub Projects",
+          "level": "core",
+          "purpose": "Learn github projects within planning, documentation, releases.",
+          "subtopics": [
+            "issues/fields/views/Kanban/roadmaps/automation/iterations/status ownership/PR links"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-04-01-markdown-docs"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-04-03-release-package",
+          "sequence": 16,
+          "title": "Release/package",
+          "level": "core",
+          "purpose": "Learn release/package within planning, documentation, releases.",
+          "subtopics": [
+            "semver concepts",
+            "tags/releases/notes/artifacts",
+            "Packages",
+            "Pages/custom domains"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-04-02-github-projects"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-04-04-open-source-contribution",
+          "sequence": 17,
+          "title": "Open source contribution",
+          "level": "core",
+          "purpose": "Learn open source contribution within planning, documentation, releases.",
+          "subtopics": [
+            "issue selection",
+            "fork/branch",
+            "contribution guide",
+            "test/docs",
+            "licensing",
+            "respond to review"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-04-03-release-package"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        }
+      ],
+      "stage_number": 4,
+      "stage_type": "core",
+      "node_ids": [
+        "git_github-04-01-markdown-docs",
+        "git_github-04-02-github-projects",
+        "git_github-04-03-release-package",
+        "git_github-04-04-open-source-contribution"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating planning, documentation, releases.",
+        "exit_criteria": [
+          "Make work and repositories understandable to a team.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Automation and integrations",
+      "objective": "Automate collaboration with explicit permissions and secure event handling.",
+      "nodes": [
+        {
+          "id": "git_github-05-01-actions-foundations",
+          "sequence": 18,
+          "title": "Actions foundations",
+          "level": "core",
+          "purpose": "Learn actions foundations within automation and integrations.",
+          "subtopics": [
+            "YAML",
+            "workflow triggers",
+            "jobs/steps",
+            "runners",
+            "contexts/expressions",
+            "permissions",
+            "concurrency",
+            "matrix",
+            "reusable flows"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-04-04-open-source-contribution"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-05-02-ci-cd",
+          "sequence": 19,
+          "title": "CI/CD",
+          "level": "core",
+          "purpose": "Learn ci/cd within automation and integrations.",
+          "subtopics": [
+            "build/test/lint",
+            "dependencies/cache",
+            "artifacts",
+            "environments/approvals",
+            "deployments",
+            "schedules",
+            "status checks",
+            "cancellation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-05-01-actions-foundations"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-05-03-workflow-security",
+          "sequence": 20,
+          "title": "Workflow security",
+          "level": "core",
+          "purpose": "Learn workflow security within automation and integrations.",
+          "subtopics": [
+            "least permission",
+            "secrets vs vars",
+            "OIDC",
+            "pin actions",
+            "untrusted PR input/script injection",
+            "fork behavior",
+            "cache/artifact poisoning"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-05-02-ci-cd"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-05-04-cli-api-apps-hooks",
+          "sequence": 21,
+          "title": "CLI/API/apps/hooks",
+          "level": "core",
+          "purpose": "Learn cli/api/apps/hooks within automation and integrations.",
+          "subtopics": [
+            "GitHub CLI",
+            "REST/GraphQL",
+            "OAuth vs GitHub Apps",
+            "signed webhooks",
+            "client/server hooks",
+            "commit-msg/precommit/prepush",
+            "patches"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-05-03-workflow-security"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        }
+      ],
+      "stage_number": 5,
+      "stage_type": "core",
+      "node_ids": [
+        "git_github-05-01-actions-foundations",
+        "git_github-05-02-ci-cd",
+        "git_github-05-03-workflow-security",
+        "git_github-05-04-cli-api-apps-hooks"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating automation and integrations.",
+        "exit_criteria": [
+          "Automate collaboration with explicit permissions and secure event handling.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Advanced repository practice",
+      "objective": "Demonstrate a complete team workflow and diagnose repository risks.",
+      "nodes": [
+        {
+          "id": "git_github-06-01-scale-features",
+          "sequence": 22,
+          "title": "Scale features",
+          "level": "core",
+          "purpose": "Learn scale features within advanced repository practice.",
+          "subtopics": [
+            "LFS/submodules/monorepo tradeoffs/sparse checkout/partial clone/worktrees/bisect/reflog/history rewrite coordination"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-05-04-cli-api-apps-hooks"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-06-02-github-security-and-tools",
+          "sequence": 23,
+          "title": "GitHub security and tools",
+          "level": "core",
+          "purpose": "Learn github security and tools within advanced repository practice.",
+          "subtopics": [
+            "Dependabot",
+            "secret/code scanning concepts",
+            "rulesets",
+            "signed commits",
+            "Codespaces",
+            "Copilot/Models boundaries",
+            "education/marketplace"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-06-01-scale-features"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        },
+        {
+          "id": "git_github-06-03-capstone-simulation",
+          "sequence": 24,
+          "title": "Capstone simulation",
+          "level": "core",
+          "purpose": "Learn capstone simulation within advanced repository practice.",
+          "subtopics": [
+            "repo/issue/project",
+            "branch/commits",
+            "reviewed PR",
+            "resolve conflict",
+            "Actions checks",
+            "tag release",
+            "recover local mistake",
+            "document and secure repo"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "git_github-06-02-github-security-and-tools"
+          ],
+          "source_topic_families": [
+            "git-github"
+          ]
+        }
+      ],
+      "stage_number": 6,
+      "stage_type": "core",
+      "node_ids": [
+        "git_github-06-01-scale-features",
+        "git_github-06-02-github-security-and-tools",
+        "git_github-06-03-capstone-simulation"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating advanced repository practice.",
+        "exit_criteria": [
+          "Demonstrate a complete team workflow and diagnose repository risks.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    }
+  ],
+  "source_analysis": "PDF coverage: Git basics/repository state, branches/merge/rebase/conflicts, GitHub collaboration/PRs/review, best practices/docs/orgs/projects, stash/reset/revert/diffs/amend/tags/hooks/submodules, CLI/Actions, APIs/apps/webhooks, Pages/Packages/Codespaces/Education/Marketplace/Security/Models/Copilot.",
+  "schema_version": "1.0.0",
+  "last_reviewed": "2026-10-03",
+  "analysis_method": "Extracted labels from the one-page source PDF and visually reviewed the rendered roadmap layout; regrouped prerequisites into a sequential learning path and expanded topics for practical projects and production work.",
+  "learning_sequence": "Follow stages and nodes in order. Optional specialization can be revisited after the capstone.",
+  "references": [
+    {
+      "title": "OWASP Top 10 for LLM Applications 2025",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/",
+      "why": "Threat taxonomy for LLM application design and testing."
+    },
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "why": "Governance, mapping, measurement, and management of AI risk."
+    },
+    {
+      "title": "OpenAI API documentation",
+      "url": "https://platform.openai.com/docs/",
+      "why": "Check provider-specific API behavior and current supported features."
+    },
+    {
+      "title": "Hugging Face Transformers Trainer",
+      "url": "https://huggingface.co/docs/transformers/en/main_classes/trainer",
+      "why": "Official training and evaluation workflow reference."
+    },
+    {
+      "title": "MLflow GenAI docs",
+      "url": "https://mlflow.org/docs/latest/genai/",
+      "why": "Tracing, versioning, and evaluation lifecycle practices."
+    }
+  ],
+  "current_practice_note": "Technology and hosted model/service names change quickly. Learn stable concepts, choose one implementation, verify versions and APIs in linked primary documentation, and note the date and tradeoffs in project work."
+}

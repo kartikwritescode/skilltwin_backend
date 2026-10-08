@@ -1,0 +1,1040 @@
+{
+  "roadmap_id": "ai_data_scientist",
+  "title": "AI and Data Scientist",
+  "source_pdf": "ai-data-scientist.pdf",
+  "audience": "Learners targeting analytics, experimentation, statistical modeling, and applied machine learning.",
+  "description": "Quantitative path through coding, statistical reasoning, experimentation, econometrics, ML, deep learning, reproducibility, and deployment.",
+  "stages": [
+    {
+      "title": "Math, probability, and statistical thinking",
+      "objective": "Explain estimates and uncertainty, including assumptions.",
+      "nodes": [
+        {
+          "id": "ai_data_scientist-01-01-linear-algebra-and-calculus",
+          "sequence": 1,
+          "title": "Linear algebra and calculus",
+          "level": "core",
+          "purpose": "Learn linear algebra and calculus within math, probability, and statistical thinking.",
+          "subtopics": [
+            "scalars/vectors/matrices/tensors",
+            "multiplication/rank",
+            "linear systems",
+            "eigenvalues",
+            "SVD",
+            "gradients/partials",
+            "chain rule",
+            "optimization intuition"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-01-02-probability-and-distributions",
+          "sequence": 2,
+          "title": "Probability and distributions",
+          "level": "core",
+          "purpose": "Learn probability and distributions within math, probability, and statistical thinking.",
+          "subtopics": [
+            "conditional probability",
+            "Bayes theorem",
+            "random variables",
+            "expectation/variance",
+            "distributions/PDF/CDF",
+            "LLN",
+            "CLT",
+            "sampling distributions"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-01-01-linear-algebra-and-calculus"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-01-03-descriptive-and-inferential-statistics",
+          "sequence": 3,
+          "title": "Descriptive and inferential statistics",
+          "level": "core",
+          "purpose": "Learn descriptive and inferential statistics within math, probability, and statistical thinking.",
+          "subtopics": [
+            "data types",
+            "central tendency/dispersion",
+            "quantiles/outliers",
+            "confidence intervals",
+            "standard errors",
+            "p-values",
+            "power",
+            "multiple comparisons",
+            "effect sizes",
+            "assumptions"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-01-02-probability-and-distributions"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-01-04-test-selection",
+          "sequence": 4,
+          "title": "Test selection",
+          "level": "core",
+          "purpose": "Learn test selection within math, probability, and statistical thinking.",
+          "subtopics": [
+            "one/two-sample and paired tests",
+            "categorical tests",
+            "parametric/nonparametric",
+            "bootstrap/permutation",
+            "assumptions",
+            "uncertainty reporting"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-01-03-descriptive-and-inferential-statistics"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        }
+      ],
+      "stage_number": 1,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_data_scientist-01-01-linear-algebra-and-calculus",
+        "ai_data_scientist-01-02-probability-and-distributions",
+        "ai_data_scientist-01-03-descriptive-and-inferential-statistics",
+        "ai_data_scientist-01-04-test-selection"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating math, probability, and statistical thinking.",
+        "exit_criteria": [
+          "Explain estimates and uncertainty, including assumptions.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Programming, querying, and reproducibility",
+      "objective": "Write reusable analyses and retrieve the correct population/grain.",
+      "nodes": [
+        {
+          "id": "ai_data_scientist-02-01-python",
+          "sequence": 5,
+          "title": "Python",
+          "level": "core",
+          "purpose": "Learn python within programming, querying, and reproducibility.",
+          "subtopics": [
+            "syntax/control flow",
+            "functions/modules",
+            "collections",
+            "exceptions",
+            "classes",
+            "iterators",
+            "files",
+            "environments",
+            "typing",
+            "scripts vs notebooks"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-01-04-test-selection"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-02-02-data-structures-and-algorithmic-habits",
+          "sequence": 6,
+          "title": "Data structures and algorithmic habits",
+          "level": "core",
+          "purpose": "Learn data structures and algorithmic habits within programming, querying, and reproducibility.",
+          "subtopics": [
+            "arrays/maps/sets",
+            "complexity intuition",
+            "search/sort",
+            "vectorization",
+            "memory-aware processing",
+            "readable transformations"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-02-01-python"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-02-03-sql",
+          "sequence": 7,
+          "title": "SQL",
+          "level": "core",
+          "purpose": "Learn sql within programming, querying, and reproducibility.",
+          "subtopics": [
+            "filters",
+            "joins/keys",
+            "aggregation",
+            "CTE/window functions",
+            "null/date semantics",
+            "query plans/indexes",
+            "grain",
+            "reproducible extracts",
+            "access control"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-02-02-data-structures-and-algorithmic-habits"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-02-04-python-data-stack",
+          "sequence": 8,
+          "title": "Python data stack",
+          "level": "core",
+          "purpose": "Learn python data stack within programming, querying, and reproducibility.",
+          "subtopics": [
+            "NumPy",
+            "pandas groupby/merge",
+            "Matplotlib/Seaborn",
+            "notebooks",
+            "environments",
+            "pytest",
+            "linting",
+            "Git",
+            "seeds",
+            "review"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-02-03-sql"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        }
+      ],
+      "stage_number": 2,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_data_scientist-02-01-python",
+        "ai_data_scientist-02-02-data-structures-and-algorithmic-habits",
+        "ai_data_scientist-02-03-sql",
+        "ai_data_scientist-02-04-python-data-stack"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating programming, querying, and reproducibility.",
+        "exit_criteria": [
+          "Write reusable analyses and retrieve the correct population/grain.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Data understanding and econometrics",
+      "objective": "Separate description, association, and causal evidence.",
+      "nodes": [
+        {
+          "id": "ai_data_scientist-03-01-data-sourcing-and-quality",
+          "sequence": 9,
+          "title": "Data sourcing and quality",
+          "level": "core",
+          "purpose": "Learn data sourcing and quality within data understanding and econometrics.",
+          "subtopics": [
+            "databases/APIs/files/logs/surveys/experiments",
+            "schemas",
+            "provenance",
+            "missingness",
+            "duplicates",
+            "outliers",
+            "leakage",
+            "representativeness",
+            "privacy"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-02-04-python-data-stack"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-03-02-eda",
+          "sequence": 10,
+          "title": "EDA",
+          "level": "core",
+          "purpose": "Learn eda within data understanding and econometrics.",
+          "subtopics": [
+            "univariate/bivariate summaries",
+            "distributions",
+            "cohorts",
+            "cross-tabs",
+            "visualization",
+            "correlation caveats",
+            "anomalies",
+            "hypotheses vs conclusions"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-03-01-data-sourcing-and-quality"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-03-03-regression-and-time-series",
+          "sequence": 11,
+          "title": "Regression and time series",
+          "level": "core",
+          "purpose": "Learn regression and time series within data understanding and econometrics.",
+          "subtopics": [
+            "linear regression assumptions",
+            "residuals",
+            "confounding",
+            "omitted variables",
+            "fixed effects basics",
+            "stationarity",
+            "trend/seasonality",
+            "ARIMA",
+            "temporal validation",
+            "forecast uncertainty"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-03-02-eda"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-03-04-causal-reasoning-and-experiment-design",
+          "sequence": 12,
+          "title": "Causal reasoning and experiment design",
+          "level": "core",
+          "purpose": "Learn causal reasoning and experiment design within data understanding and econometrics.",
+          "subtopics": [
+            "estimands",
+            "randomization",
+            "confounders",
+            "selection bias",
+            "A/B tests",
+            "power/sample size",
+            "MDE",
+            "guardrails",
+            "interference",
+            "sequential-testing caveats"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-03-03-regression-and-time-series"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        }
+      ],
+      "stage_number": 3,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_data_scientist-03-01-data-sourcing-and-quality",
+        "ai_data_scientist-03-02-eda",
+        "ai_data_scientist-03-03-regression-and-time-series",
+        "ai_data_scientist-03-04-causal-reasoning-and-experiment-design"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating data understanding and econometrics.",
+        "exit_criteria": [
+          "Separate description, association, and causal evidence.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Experimentation and decision science",
+      "objective": "Design experiments and make decisions with valid metrics.",
+      "nodes": [
+        {
+          "id": "ai_data_scientist-04-01-a-b-testing",
+          "sequence": 13,
+          "title": "A/B testing",
+          "level": "core",
+          "purpose": "Learn a/b testing within experimentation and decision science.",
+          "subtopics": [
+            "randomization unit",
+            "exposure logging",
+            "sample-ratio mismatch",
+            "preregistration",
+            "primary/guardrail metrics",
+            "duration",
+            "novelty/seasonality",
+            "stopping rules",
+            "intent-to-treat"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-03-04-causal-reasoning-and-experiment-design"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-04-02-sensitivity-and-variance-reduction",
+          "sequence": 14,
+          "title": "Sensitivity and variance reduction",
+          "level": "core",
+          "purpose": "Learn sensitivity and variance reduction within experimentation and decision science.",
+          "subtopics": [
+            "stratification",
+            "CUPED/CUPAC",
+            "ratio metrics and delta method",
+            "variance estimation",
+            "power sensitivity",
+            "robust errors",
+            "bias conditions"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-04-01-a-b-testing"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-04-03-experiment-communication",
+          "sequence": 15,
+          "title": "Experiment communication",
+          "level": "core",
+          "purpose": "Learn experiment communication within experimentation and decision science.",
+          "subtopics": [
+            "intervals/effect sizes/p-values",
+            "multiple tests",
+            "subgroup caution",
+            "missing outcomes",
+            "validity checklist",
+            "decision memo",
+            "follow-up experiment"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-04-02-sensitivity-and-variance-reduction"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-04-04-product-metrics",
+          "sequence": 16,
+          "title": "Product metrics",
+          "level": "core",
+          "purpose": "Learn product metrics within experimentation and decision science.",
+          "subtopics": [
+            "metric trees",
+            "leading/lagging",
+            "denominator",
+            "ratio metrics",
+            "north-star/guardrails",
+            "error costs",
+            "decision thresholds"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-04-03-experiment-communication"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        }
+      ],
+      "stage_number": 4,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_data_scientist-04-01-a-b-testing",
+        "ai_data_scientist-04-02-sensitivity-and-variance-reduction",
+        "ai_data_scientist-04-03-experiment-communication",
+        "ai_data_scientist-04-04-product-metrics"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating experimentation and decision science.",
+        "exit_criteria": [
+          "Design experiments and make decisions with valid metrics.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Classical machine learning",
+      "objective": "Build leakage-resistant baselines and diagnose failures.",
+      "nodes": [
+        {
+          "id": "ai_data_scientist-05-01-framing-and-splitting",
+          "sequence": 17,
+          "title": "Framing and splitting",
+          "level": "core",
+          "purpose": "Learn framing and splitting within classical machine learning.",
+          "subtopics": [
+            "target/unit/horizon",
+            "baseline",
+            "train/validation/test",
+            "temporal/group splits",
+            "leakage",
+            "class imbalance",
+            "pipelines",
+            "business costs"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-04-04-product-metrics"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-05-02-supervised-models",
+          "sequence": 18,
+          "title": "Supervised models",
+          "level": "core",
+          "purpose": "Learn supervised models within classical machine learning.",
+          "subtopics": [
+            "linear/logistic",
+            "Ridge/Lasso/ElasticNet",
+            "trees/forests/boosting",
+            "SVM",
+            "KNN",
+            "Naive Bayes",
+            "calibration",
+            "feature importance caveats"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-05-01-framing-and-splitting"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-05-03-unsupervised-methods",
+          "sequence": 19,
+          "title": "Unsupervised methods",
+          "level": "core",
+          "purpose": "Learn unsupervised methods within classical machine learning.",
+          "subtopics": [
+            "K-means/hierarchical/DBSCAN concepts",
+            "PCA",
+            "anomaly detection",
+            "cluster stability",
+            "semi-supervised concepts",
+            "segmentation caveats"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-05-02-supervised-models"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-05-04-evaluation-and-tuning",
+          "sequence": 20,
+          "title": "Evaluation and tuning",
+          "level": "core",
+          "purpose": "Learn evaluation and tuning within classical machine learning.",
+          "subtopics": [
+            "confusion matrix",
+            "precision/recall/F1",
+            "ROC/PR-AUC",
+            "log loss",
+            "MAE/RMSE/R2",
+            "thresholds",
+            "calibration",
+            "CV",
+            "search",
+            "error analysis",
+            "uncertainty",
+            "subgroups"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-05-03-unsupervised-methods"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-05-05-features-and-interpretation",
+          "sequence": 21,
+          "title": "Features and interpretation",
+          "level": "core",
+          "purpose": "Learn features and interpretation within classical machine learning.",
+          "subtopics": [
+            "encoding/scaling",
+            "missing values",
+            "time/text features",
+            "leakage",
+            "permutation/SHAP caveats",
+            "monotonicity",
+            "fairness",
+            "temporal stability"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-05-04-evaluation-and-tuning"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        }
+      ],
+      "stage_number": 5,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_data_scientist-05-01-framing-and-splitting",
+        "ai_data_scientist-05-02-supervised-models",
+        "ai_data_scientist-05-03-unsupervised-methods",
+        "ai_data_scientist-05-04-evaluation-and-tuning",
+        "ai_data_scientist-05-05-features-and-interpretation"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating classical machine learning.",
+        "exit_criteria": [
+          "Build leakage-resistant baselines and diagnose failures.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Deep learning and modern AI",
+      "objective": "Learn core architectures through reproducible experiments.",
+      "nodes": [
+        {
+          "id": "ai_data_scientist-06-01-neural-network-foundations",
+          "sequence": 22,
+          "title": "Neural network foundations",
+          "level": "core",
+          "purpose": "Learn neural network foundations within deep learning and modern ai.",
+          "subtopics": [
+            "perceptron/MLP",
+            "forward/backprop",
+            "activations/losses",
+            "optimizers/schedules",
+            "initialization",
+            "regularization",
+            "batch norm",
+            "gradient checks"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-05-05-features-and-interpretation"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-06-02-architectures",
+          "sequence": 23,
+          "title": "Architectures",
+          "level": "core",
+          "purpose": "Learn architectures within deep learning and modern ai.",
+          "subtopics": [
+            "CNN convolution/padding/stride/pooling",
+            "classification/segmentation",
+            "RNN/GRU/LSTM",
+            "attention",
+            "Transformer self/multi-head attention",
+            "transfer learning",
+            "autoencoders",
+            "GAN concepts"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-06-01-neural-network-foundations"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-06-03-nlp-and-representations",
+          "sequence": 24,
+          "title": "NLP and representations",
+          "level": "core",
+          "purpose": "Learn nlp and representations within deep learning and modern ai.",
+          "subtopics": [
+            "tokenization",
+            "stemming/lemmatization",
+            "vocabulary",
+            "embeddings",
+            "sequence models",
+            "pretrained encoders",
+            "fine-tuning",
+            "text classification vs retrieval/generation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-06-02-architectures"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-06-04-pytorch-tensorflow",
+          "sequence": 25,
+          "title": "PyTorch/TensorFlow",
+          "level": "core",
+          "purpose": "Learn pytorch/tensorflow within deep learning and modern ai.",
+          "subtopics": [
+            "tensor shapes/devices",
+            "datasets/loaders",
+            "modules",
+            "autograd",
+            "train/validation loops",
+            "checkpoint",
+            "GPU memory",
+            "deterministic runs",
+            "tracking",
+            "Keras"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-06-03-nlp-and-representations"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-06-05-evaluation",
+          "sequence": 26,
+          "title": "Evaluation",
+          "level": "core",
+          "purpose": "Learn evaluation within deep learning and modern ai.",
+          "subtopics": [
+            "task benchmark",
+            "baselines",
+            "contamination",
+            "subgroup metrics",
+            "robustness",
+            "ablations",
+            "reproducibility",
+            "inference cost/latency",
+            "model cards"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-06-04-pytorch-tensorflow"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        }
+      ],
+      "stage_number": 6,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_data_scientist-06-01-neural-network-foundations",
+        "ai_data_scientist-06-02-architectures",
+        "ai_data_scientist-06-03-nlp-and-representations",
+        "ai_data_scientist-06-04-pytorch-tensorflow",
+        "ai_data_scientist-06-05-evaluation"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating deep learning and modern ai.",
+        "exit_criteria": [
+          "Learn core architectures through reproducible experiments.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Communication, deployment, portfolio",
+      "objective": "Deliver reproducible findings and an actionable recommendation.",
+      "nodes": [
+        {
+          "id": "ai_data_scientist-07-01-visualization-and-storytelling",
+          "sequence": 27,
+          "title": "Visualization and storytelling",
+          "level": "core",
+          "purpose": "Learn visualization and storytelling within communication, deployment, portfolio.",
+          "subtopics": [
+            "chart/scale choice",
+            "uncertainty",
+            "distributions",
+            "accessible colors",
+            "aggregation",
+            "audience narrative"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-06-05-evaluation"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-07-02-reproducible-delivery-and-mlops",
+          "sequence": 28,
+          "title": "Reproducible delivery and MLOps",
+          "level": "core",
+          "purpose": "Learn reproducible delivery and mlops within communication, deployment, portfolio.",
+          "subtopics": [
+            "Git/review",
+            "parameterized scripts",
+            "dependencies/data lineage",
+            "tracking/registry",
+            "unit/data/model tests",
+            "notebook-to-package",
+            "batch/online",
+            "CI/CD",
+            "drift/quality monitoring",
+            "rollback"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-07-01-visualization-and-storytelling"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        },
+        {
+          "id": "ai_data_scientist-07-03-capstone",
+          "sequence": 29,
+          "title": "Capstone",
+          "level": "core",
+          "purpose": "Learn capstone within communication, deployment, portfolio.",
+          "subtopics": [
+            "sales forecast/churn/segmentation",
+            "define decision/baseline",
+            "document data",
+            "EDA",
+            "validation",
+            "compare models",
+            "uncertainty/subgroup risk",
+            "publish reproducible code and deployment recommendation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_data_scientist-07-02-reproducible-delivery-and-mlops"
+          ],
+          "source_topic_families": [
+            "ai-data-scientist"
+          ]
+        }
+      ],
+      "stage_number": 7,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_data_scientist-07-01-visualization-and-storytelling",
+        "ai_data_scientist-07-02-reproducible-delivery-and-mlops",
+        "ai_data_scientist-07-03-capstone"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating communication, deployment, portfolio.",
+        "exit_criteria": [
+          "Deliver reproducible findings and an actionable recommendation.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    }
+  ],
+  "source_analysis": "PDF coverage: calculus, statistics, CLT, hypothesis tests, sampling, A/B tests and sensitivity (MDE/CUPED/CUPAC/stratification/ratio metrics), econometrics/time series, Python/SQL/EDA, classic ML, deep learning/Transformers, and MLOps. Ordered into applied data-science work.",
+  "schema_version": "1.0.0",
+  "last_reviewed": "2026-10-03",
+  "analysis_method": "Extracted labels from the one-page source PDF and visually reviewed the rendered roadmap layout; regrouped prerequisites into a sequential learning path and expanded topics for practical projects and production work.",
+  "learning_sequence": "Follow stages and nodes in order. Optional specialization can be revisited after the capstone.",
+  "references": [
+    {
+      "title": "OWASP Top 10 for LLM Applications 2025",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/",
+      "why": "Threat taxonomy for LLM application design and testing."
+    },
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "why": "Governance, mapping, measurement, and management of AI risk."
+    },
+    {
+      "title": "OpenAI API documentation",
+      "url": "https://platform.openai.com/docs/",
+      "why": "Check provider-specific API behavior and current supported features."
+    },
+    {
+      "title": "Hugging Face Transformers Trainer",
+      "url": "https://huggingface.co/docs/transformers/en/main_classes/trainer",
+      "why": "Official training and evaluation workflow reference."
+    },
+    {
+      "title": "MLflow GenAI docs",
+      "url": "https://mlflow.org/docs/latest/genai/",
+      "why": "Tracing, versioning, and evaluation lifecycle practices."
+    }
+  ],
+  "current_practice_note": "Technology and hosted model/service names change quickly. Learn stable concepts, choose one implementation, verify versions and APIs in linked primary documentation, and note the date and tradeoffs in project work."
+}

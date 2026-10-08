@@ -1,0 +1,825 @@
+{
+  "roadmap_id": "data_analyst",
+  "title": "Data Analyst",
+  "source_pdf": "data-analyst.pdf",
+  "audience": "Analysts who turn business questions and operational data into defensible decisions.",
+  "description": "A practical path from spreadsheets and SQL through quality, EDA, statistics, experimentation, BI, and communication; ML and big data are optional branches.",
+  "stages": [
+    {
+      "title": "Business questions and spreadsheets",
+      "objective": "Define a metric and produce auditable spreadsheet analysis.",
+      "nodes": [
+        {
+          "id": "data_analyst-01-01-analyst-mindset",
+          "sequence": 1,
+          "title": "Analyst mindset",
+          "level": "core",
+          "purpose": "Learn analyst mindset within business questions and spreadsheets.",
+          "subtopics": [
+            "decision/stakeholder",
+            "unit of analysis",
+            "population",
+            "metric definitions",
+            "leading/lagging",
+            "baseline",
+            "assumptions",
+            "scope/ethics"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-01-02-excel-fundamentals",
+          "sequence": 2,
+          "title": "Excel fundamentals",
+          "level": "core",
+          "purpose": "Learn excel fundamentals within business questions and spreadsheets.",
+          "subtopics": [
+            "references",
+            "tables",
+            "sort/filter",
+            "IF",
+            "SUM/COUNT/AVERAGE/MIN/MAX",
+            "DATEDIF",
+            "TRIM/REPLACE/SUBSTITUTE/UPPER/LOWER/PROPER/CONCAT",
+            "VLOOKUP/HLOOKUP and modern lookups"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-01-01-analyst-mindset"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-01-03-spreadsheet-analysis",
+          "sequence": 3,
+          "title": "Spreadsheet analysis",
+          "level": "core",
+          "purpose": "Learn spreadsheet analysis within business questions and spreadsheets.",
+          "subtopics": [
+            "validation",
+            "duplicates",
+            "pivot tables/calculated fields",
+            "charts",
+            "date groups",
+            "Power Query concept",
+            "formula audit",
+            "refresh safety"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-01-02-excel-fundamentals"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-01-04-communication",
+          "sequence": 4,
+          "title": "Communication",
+          "level": "core",
+          "purpose": "Learn communication within business questions and spreadsheets.",
+          "subtopics": [
+            "finding/evidence/caveat",
+            "executive summary",
+            "chart annotation",
+            "decision ask",
+            "reproducible calculation trail"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-01-03-spreadsheet-analysis"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        }
+      ],
+      "stage_number": 1,
+      "stage_type": "core",
+      "node_ids": [
+        "data_analyst-01-01-analyst-mindset",
+        "data_analyst-01-02-excel-fundamentals",
+        "data_analyst-01-03-spreadsheet-analysis",
+        "data_analyst-01-04-communication"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating business questions and spreadsheets.",
+        "exit_criteria": [
+          "Define a metric and produce auditable spreadsheet analysis.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Data access and SQL",
+      "objective": "Retrieve the right records at the right grain and verify joins.",
+      "nodes": [
+        {
+          "id": "data_analyst-02-01-sources",
+          "sequence": 5,
+          "title": "Sources",
+          "level": "core",
+          "purpose": "Learn sources within data access and sql.",
+          "subtopics": [
+            "tables/schemas/keys",
+            "CSV/Excel",
+            "APIs/web data",
+            "catalog/docs",
+            "access",
+            "freshness",
+            "ownership"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-01-04-communication"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-02-02-sql",
+          "sequence": 6,
+          "title": "SQL",
+          "level": "core",
+          "purpose": "Learn sql within data access and sql.",
+          "subtopics": [
+            "SELECT/WHERE/CASE/null",
+            "joins",
+            "aggregation/HAVING",
+            "CTE/subquery",
+            "windows",
+            "dates/strings",
+            "set ops"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-02-01-sources"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-02-03-analytical-correctness",
+          "sequence": 7,
+          "title": "Analytical correctness",
+          "level": "core",
+          "purpose": "Learn analytical correctness within data access and sql.",
+          "subtopics": [
+            "grain/fanout",
+            "distinct counts",
+            "duplicate keys",
+            "SCD",
+            "cohort retention",
+            "funnels",
+            "time series",
+            "denominators",
+            "totals validation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-02-02-sql"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-02-04-efficiency-reproducibility",
+          "sequence": 8,
+          "title": "Efficiency/reproducibility",
+          "level": "core",
+          "purpose": "Learn efficiency/reproducibility within data access and sql.",
+          "subtopics": [
+            "query plan/index basics",
+            "avoid scans",
+            "reusable views",
+            "parameters",
+            "versioned SQL",
+            "permissions"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-02-03-analytical-correctness"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        }
+      ],
+      "stage_number": 2,
+      "stage_type": "core",
+      "node_ids": [
+        "data_analyst-02-01-sources",
+        "data_analyst-02-02-sql",
+        "data_analyst-02-03-analytical-correctness",
+        "data_analyst-02-04-efficiency-reproducibility"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating data access and sql.",
+        "exit_criteria": [
+          "Retrieve the right records at the right grain and verify joins.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Quality, cleaning, EDA",
+      "objective": "Understand data reliability and limitations before interpreting it.",
+      "nodes": [
+        {
+          "id": "data_analyst-03-01-quality-workflow",
+          "sequence": 9,
+          "title": "Quality workflow",
+          "level": "core",
+          "purpose": "Learn quality workflow within quality, cleaning, eda.",
+          "subtopics": [
+            "schema",
+            "completeness/validity/uniqueness/consistency/freshness",
+            "provenance",
+            "dictionary",
+            "reconciliation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-02-04-efficiency-reproducibility"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-03-02-cleaning",
+          "sequence": 10,
+          "title": "Cleaning",
+          "level": "core",
+          "purpose": "Learn cleaning within quality, cleaning, eda.",
+          "subtopics": [
+            "missingness",
+            "duplicates",
+            "investigate outliers",
+            "normalize categories",
+            "parse dates",
+            "transform",
+            "pandas/Dplyr",
+            "avoid silent row drops"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-03-01-quality-workflow"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-03-03-eda-and-descriptive-statistics",
+          "sequence": 11,
+          "title": "EDA and descriptive statistics",
+          "level": "core",
+          "purpose": "Learn eda and descriptive statistics within quality, cleaning, eda.",
+          "subtopics": [
+            "distribution/quantiles",
+            "central tendency/dispersion",
+            "mean/median/mode",
+            "range/variance/std",
+            "skew/kurtosis",
+            "cross-tabs",
+            "correlation limits"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-03-02-cleaning"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-03-04-python-or-r",
+          "sequence": 12,
+          "title": "Python or R",
+          "level": "core",
+          "purpose": "Learn python or r within quality, cleaning, eda.",
+          "subtopics": [
+            "choose one",
+            "pandas/NumPy or Dplyr",
+            "notebooks/scripts",
+            "reusable functions",
+            "environments",
+            "basic Git",
+            "documented assumptions"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-03-03-eda-and-descriptive-statistics"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        }
+      ],
+      "stage_number": 3,
+      "stage_type": "core",
+      "node_ids": [
+        "data_analyst-03-01-quality-workflow",
+        "data_analyst-03-02-cleaning",
+        "data_analyst-03-03-eda-and-descriptive-statistics",
+        "data_analyst-03-04-python-or-r"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating quality, cleaning, eda.",
+        "exit_criteria": [
+          "Understand data reliability and limitations before interpreting it.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Statistics and experiments",
+      "objective": "Know when evidence supports a comparison or causal decision.",
+      "nodes": [
+        {
+          "id": "data_analyst-04-01-inference",
+          "sequence": 13,
+          "title": "Inference",
+          "level": "core",
+          "purpose": "Learn inference within statistics and experiments.",
+          "subtopics": [
+            "sampling",
+            "standard error",
+            "intervals",
+            "hypothesis/p-values",
+            "effect size/power",
+            "practical significance",
+            "multiple tests",
+            "assumptions"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-03-04-python-or-r"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-04-02-relationships",
+          "sequence": 14,
+          "title": "Relationships",
+          "level": "core",
+          "purpose": "Learn relationships within statistics and experiments.",
+          "subtopics": [
+            "correlation vs causation",
+            "cross-tabs",
+            "regression interpretation",
+            "confounding",
+            "residual diagnostics",
+            "limitations"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-04-01-inference"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-04-03-a-b-experiments",
+          "sequence": 15,
+          "title": "A/B experiments",
+          "level": "core",
+          "purpose": "Learn a/b experiments within statistics and experiments.",
+          "subtopics": [
+            "randomization",
+            "treatment/control",
+            "primary/guardrail metrics",
+            "sample-ratio checks",
+            "power/MDE",
+            "stopping/seasonality",
+            "subgroup caution",
+            "decision memo"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-04-02-relationships"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-04-04-analytics-types",
+          "sequence": 16,
+          "title": "Analytics types",
+          "level": "core",
+          "purpose": "Learn analytics types within statistics and experiments.",
+          "subtopics": [
+            "descriptive/diagnostic/predictive/prescriptive",
+            "decision and evidence requirements for each"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-04-03-a-b-experiments"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        }
+      ],
+      "stage_number": 4,
+      "stage_type": "core",
+      "node_ids": [
+        "data_analyst-04-01-inference",
+        "data_analyst-04-02-relationships",
+        "data_analyst-04-03-a-b-experiments",
+        "data_analyst-04-04-analytics-types"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating statistics and experiments.",
+        "exit_criteria": [
+          "Know when evidence supports a comparison or causal decision.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Visualization and BI",
+      "objective": "Present a clear, accessible view that traces to a defined metric.",
+      "nodes": [
+        {
+          "id": "data_analyst-05-01-charts",
+          "sequence": 17,
+          "title": "Charts",
+          "level": "core",
+          "purpose": "Learn charts within visualization and bi.",
+          "subtopics": [
+            "bar/line/scatter/histogram/box/funnel/heatmap/stacked",
+            "pie only for few simple shares",
+            "axes/scales",
+            "sample size/uncertainty"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-04-04-analytics-types"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-05-02-tools",
+          "sequence": 18,
+          "title": "Tools",
+          "level": "core",
+          "purpose": "Learn tools within visualization and bi.",
+          "subtopics": [
+            "Excel",
+            "Matplotlib/Seaborn",
+            "ggplot2",
+            "Tableau",
+            "Power BI",
+            "dashboard filters",
+            "accessible palette",
+            "labels",
+            "refresh"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-05-01-charts"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-05-03-dashboard-design",
+          "sequence": 19,
+          "title": "Dashboard design",
+          "level": "core",
+          "purpose": "Learn dashboard design within visualization and bi.",
+          "subtopics": [
+            "metric owner/definition",
+            "grain",
+            "filters",
+            "KPI vs diagnostics",
+            "drilldown",
+            "alerts",
+            "refresh/performance",
+            "versioning"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-05-02-tools"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-05-04-storytelling",
+          "sequence": 20,
+          "title": "Storytelling",
+          "level": "core",
+          "purpose": "Learn storytelling within visualization and bi.",
+          "subtopics": [
+            "question-context-finding-action",
+            "annotations",
+            "caveats",
+            "alternatives",
+            "audience",
+            "reproducible dashboard and SQL"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-05-03-dashboard-design"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        }
+      ],
+      "stage_number": 5,
+      "stage_type": "core",
+      "node_ids": [
+        "data_analyst-05-01-charts",
+        "data_analyst-05-02-tools",
+        "data_analyst-05-03-dashboard-design",
+        "data_analyst-05-04-storytelling"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating visualization and bi.",
+        "exit_criteria": [
+          "Present a clear, accessible view that traces to a defined metric.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Advanced options and portfolio",
+      "objective": "Build a portfolio showing SQL correctness, reasoning, visualization, and communication.",
+      "nodes": [
+        {
+          "id": "data_analyst-06-01-ml-literacy",
+          "sequence": 21,
+          "title": "ML literacy",
+          "level": "core",
+          "purpose": "Learn ml literacy within advanced options and portfolio.",
+          "subtopics": [
+            "supervised/unsupervised/RL",
+            "regression/logistic/trees/NB/KNN/K-means",
+            "evaluation",
+            "when rules suffice"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-05-04-storytelling"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-06-02-big-data",
+          "sequence": 22,
+          "title": "Big data",
+          "level": "core",
+          "purpose": "Learn big data within advanced options and portfolio.",
+          "subtopics": [
+            "parallelism",
+            "Hadoop/MapReduce",
+            "Spark",
+            "partitioning",
+            "when warehouse SQL is sufficient"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-06-01-ml-literacy"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-06-03-optional-deep-learning",
+          "sequence": 23,
+          "title": "Optional deep learning",
+          "level": "core",
+          "purpose": "Learn optional deep learning within advanced options and portfolio.",
+          "subtopics": [
+            "neural nets/CNN/RNN",
+            "TensorFlow/PyTorch",
+            "image/NLP examples",
+            "output is not ground truth"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-06-02-big-data"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        },
+        {
+          "id": "data_analyst-06-04-capstone",
+          "sequence": 24,
+          "title": "Capstone",
+          "level": "core",
+          "purpose": "Learn capstone within advanced options and portfolio.",
+          "subtopics": [
+            "sales trend/funnel/retention/segmentation",
+            "lawful data",
+            "metric grain/quality",
+            "SQL",
+            "uncertainty",
+            "dashboard and concise decision brief"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_analyst-06-03-optional-deep-learning"
+          ],
+          "source_topic_families": [
+            "data-analyst"
+          ]
+        }
+      ],
+      "stage_number": 6,
+      "stage_type": "core",
+      "node_ids": [
+        "data_analyst-06-01-ml-literacy",
+        "data_analyst-06-02-big-data",
+        "data_analyst-06-03-optional-deep-learning",
+        "data_analyst-06-04-capstone"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating advanced options and portfolio.",
+        "exit_criteria": [
+          "Build a portfolio showing SQL correctness, reasoning, visualization, and communication.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    }
+  ],
+  "source_analysis": "PDF coverage: analytics types, collection/cleanup/EDA, Excel functions/pivots, R/Python libraries, databases/files/APIs/web scraping, statistics, Tableau/Power BI/chart forms, hypothesis/correlation/regression, ML, big data/Hadoop/Spark, optional deep learning, and projects.",
+  "schema_version": "1.0.0",
+  "last_reviewed": "2026-10-03",
+  "analysis_method": "Extracted labels from the one-page source PDF and visually reviewed the rendered roadmap layout; regrouped prerequisites into a sequential learning path and expanded topics for practical projects and production work.",
+  "learning_sequence": "Follow stages and nodes in order. Optional specialization can be revisited after the capstone.",
+  "references": [
+    {
+      "title": "OWASP Top 10 for LLM Applications 2025",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/",
+      "why": "Threat taxonomy for LLM application design and testing."
+    },
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "why": "Governance, mapping, measurement, and management of AI risk."
+    },
+    {
+      "title": "OpenAI API documentation",
+      "url": "https://platform.openai.com/docs/",
+      "why": "Check provider-specific API behavior and current supported features."
+    },
+    {
+      "title": "Hugging Face Transformers Trainer",
+      "url": "https://huggingface.co/docs/transformers/en/main_classes/trainer",
+      "why": "Official training and evaluation workflow reference."
+    },
+    {
+      "title": "MLflow GenAI docs",
+      "url": "https://mlflow.org/docs/latest/genai/",
+      "why": "Tracing, versioning, and evaluation lifecycle practices."
+    }
+  ],
+  "current_practice_note": "Technology and hosted model/service names change quickly. Learn stable concepts, choose one implementation, verify versions and APIs in linked primary documentation, and note the date and tradeoffs in project work."
+}

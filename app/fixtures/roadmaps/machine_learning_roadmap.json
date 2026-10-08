@@ -1,0 +1,897 @@
+{
+  "roadmap_id": "machine_learning",
+  "title": "Machine Learning Engineer",
+  "source_pdf": "machine-learning.pdf",
+  "audience": "Software and data practitioners who train, evaluate, deploy, and operate predictive models.",
+  "description": "Model-lifecycle-focused path from mathematical/coding foundations through algorithms, deep learning, evaluation, inference, and production MLOps.",
+  "stages": [
+    {
+      "title": "Programming and math prerequisites",
+      "objective": "Reason about model behavior and write reproducible training code.",
+      "nodes": [
+        {
+          "id": "machine_learning-01-01-python-and-engineering",
+          "sequence": 1,
+          "title": "Python and engineering",
+          "level": "core",
+          "purpose": "Learn python and engineering within programming and math prerequisites.",
+          "subtopics": [
+            "syntax/functions/classes/modules",
+            "exceptions/typing",
+            "NumPy/pandas",
+            "environments",
+            "Git/tests",
+            "profiling",
+            "packages/config"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-01-02-linear-algebra",
+          "sequence": 2,
+          "title": "Linear algebra",
+          "level": "core",
+          "purpose": "Learn linear algebra within programming and math prerequisites.",
+          "subtopics": [
+            "vectors/tensors",
+            "norms/dot products",
+            "matrix operations",
+            "inverse/determinant",
+            "eigenvalues/diagonalization",
+            "SVD",
+            "numerical stability"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-01-01-python-and-engineering"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-01-03-calculus-and-optimization",
+          "sequence": 3,
+          "title": "Calculus and optimization",
+          "level": "core",
+          "purpose": "Learn calculus and optimization within programming and math prerequisites.",
+          "subtopics": [
+            "derivatives/partials",
+            "chain rule",
+            "gradients/Jacobians/Hessians",
+            "gradient descent",
+            "learning rate",
+            "regularization"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-01-02-linear-algebra"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-01-04-probability-and-statistics",
+          "sequence": 4,
+          "title": "Probability and statistics",
+          "level": "core",
+          "purpose": "Learn probability and statistics within programming and math prerequisites.",
+          "subtopics": [
+            "descriptive statistics",
+            "distributions/PDFs",
+            "Bayes",
+            "sampling",
+            "estimation",
+            "intervals",
+            "variance",
+            "imbalance",
+            "uncertainty"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-01-03-calculus-and-optimization"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        }
+      ],
+      "stage_number": 1,
+      "stage_type": "core",
+      "node_ids": [
+        "machine_learning-01-01-python-and-engineering",
+        "machine_learning-01-02-linear-algebra",
+        "machine_learning-01-03-calculus-and-optimization",
+        "machine_learning-01-04-probability-and-statistics"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating programming and math prerequisites.",
+        "exit_criteria": [
+          "Reason about model behavior and write reproducible training code.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Data preparation and problem formulation",
+      "objective": "Prepare valid features and splits without contamination.",
+      "nodes": [
+        {
+          "id": "machine_learning-02-01-collection-and-formats",
+          "sequence": 5,
+          "title": "Collection and formats",
+          "level": "core",
+          "purpose": "Learn collection and formats within data preparation and problem formulation.",
+          "subtopics": [
+            "databases/APIs/files/logs",
+            "SQL/NoSQL",
+            "JSON/CSV/Excel/Parquet",
+            "schema/provenance/access/representativeness"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-01-04-probability-and-statistics"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-02-02-cleaning-and-preprocessing",
+          "sequence": 6,
+          "title": "Cleaning and preprocessing",
+          "level": "core",
+          "purpose": "Learn cleaning and preprocessing within data preparation and problem formulation.",
+          "subtopics": [
+            "missingness",
+            "invalid values",
+            "duplicates",
+            "outliers",
+            "encoding",
+            "normalization",
+            "text/image/audio transforms",
+            "fit preprocessing on training data only"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-02-01-collection-and-formats"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-02-03-feature-work",
+          "sequence": 7,
+          "title": "Feature work",
+          "level": "core",
+          "purpose": "Learn feature work within data preparation and problem formulation.",
+          "subtopics": [
+            "domain/time features",
+            "interactions",
+            "dimensionality reduction/PCA",
+            "selection",
+            "leakage",
+            "drift sensitivity",
+            "maintainability"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-02-02-cleaning-and-preprocessing"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-02-04-problem-and-split-design",
+          "sequence": 8,
+          "title": "Problem and split design",
+          "level": "core",
+          "purpose": "Learn problem and split design within data preparation and problem formulation.",
+          "subtopics": [
+            "supervised/unsupervised/semi/self-supervised/RL",
+            "task/target/horizon",
+            "baseline",
+            "label creation",
+            "train/validation/test",
+            "stratified/group/time splits",
+            "CV",
+            "data versioning"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-02-03-feature-work"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        }
+      ],
+      "stage_number": 2,
+      "stage_type": "core",
+      "node_ids": [
+        "machine_learning-02-01-collection-and-formats",
+        "machine_learning-02-02-cleaning-and-preprocessing",
+        "machine_learning-02-03-feature-work",
+        "machine_learning-02-04-problem-and-split-design"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating data preparation and problem formulation.",
+        "exit_criteria": [
+          "Prepare valid features and splits without contamination.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Classical supervised and unsupervised ML",
+      "objective": "Compare useful model families with valid experiments.",
+      "nodes": [
+        {
+          "id": "machine_learning-03-01-regression",
+          "sequence": 9,
+          "title": "Regression",
+          "level": "core",
+          "purpose": "Learn regression within classical supervised and unsupervised ml.",
+          "subtopics": [
+            "linear/polynomial",
+            "residuals",
+            "Ridge/Lasso/ElasticNet",
+            "multicollinearity",
+            "regularization"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-02-04-problem-and-split-design"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-03-02-classification",
+          "sequence": 10,
+          "title": "Classification",
+          "level": "core",
+          "purpose": "Learn classification within classical supervised and unsupervised ml.",
+          "subtopics": [
+            "logistic",
+            "KNN",
+            "SVM",
+            "trees/forests/boosting",
+            "class weights",
+            "thresholds",
+            "calibration"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-03-01-regression"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-03-03-unsupervised-learning",
+          "sequence": 11,
+          "title": "Unsupervised learning",
+          "level": "core",
+          "purpose": "Learn unsupervised learning within classical supervised and unsupervised ml.",
+          "subtopics": [
+            "K-means/hierarchical/density/probabilistic clustering",
+            "PCA",
+            "autoencoders",
+            "anomalies",
+            "cluster quality/stability"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-03-02-classification"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-03-04-reinforcement-learning",
+          "sequence": 12,
+          "title": "Reinforcement learning",
+          "level": "core",
+          "purpose": "Learn reinforcement learning within classical supervised and unsupervised ml.",
+          "subtopics": [
+            "agent/environment/reward",
+            "state/action/policy",
+            "Q-learning/DQN",
+            "policy gradients/actor-critic",
+            "exploration",
+            "when RL is justified"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-03-03-unsupervised-learning"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-03-05-scikit-learn-workflow",
+          "sequence": 13,
+          "title": "Scikit-learn workflow",
+          "level": "core",
+          "purpose": "Learn scikit-learn workflow within classical supervised and unsupervised ml.",
+          "subtopics": [
+            "estimators/transformers",
+            "pipelines/ColumnTransformer",
+            "fit/transform boundaries",
+            "CV/search",
+            "custom scoring",
+            "persistence",
+            "reproducibility"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-03-04-reinforcement-learning"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        }
+      ],
+      "stage_number": 3,
+      "stage_type": "core",
+      "node_ids": [
+        "machine_learning-03-01-regression",
+        "machine_learning-03-02-classification",
+        "machine_learning-03-03-unsupervised-learning",
+        "machine_learning-03-04-reinforcement-learning",
+        "machine_learning-03-05-scikit-learn-workflow"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating classical supervised and unsupervised ml.",
+        "exit_criteria": [
+          "Compare useful model families with valid experiments.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Evaluation, selection, and diagnostics",
+      "objective": "Select from representative held-out evidence and document fitness.",
+      "nodes": [
+        {
+          "id": "machine_learning-04-01-metrics",
+          "sequence": 14,
+          "title": "Metrics",
+          "level": "core",
+          "purpose": "Learn metrics within evaluation, selection, and diagnostics.",
+          "subtopics": [
+            "accuracy/precision/recall/F1",
+            "confusion matrix",
+            "ROC/PR-AUC",
+            "log loss",
+            "MAE/RMSE/R2",
+            "business thresholds",
+            "calibration"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-03-05-scikit-learn-workflow"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-04-02-validation-and-selection",
+          "sequence": 15,
+          "title": "Validation and selection",
+          "level": "core",
+          "purpose": "Learn validation and selection within evaluation, selection, and diagnostics.",
+          "subtopics": [
+            "holdout/K-fold/LOOCV",
+            "nested CV concept",
+            "search",
+            "early stopping",
+            "multiple comparisons",
+            "leakage",
+            "seeds"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-04-01-metrics"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-04-03-robustness-and-error-analysis",
+          "sequence": 16,
+          "title": "Robustness and error analysis",
+          "level": "core",
+          "purpose": "Learn robustness and error analysis within evaluation, selection, and diagnostics.",
+          "subtopics": [
+            "slice performance",
+            "label quality",
+            "distribution shift",
+            "stress/adversarial perturbations",
+            "subgroup metrics",
+            "intervals",
+            "calibration"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-04-02-validation-and-selection"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-04-04-interpretability-and-governance",
+          "sequence": 17,
+          "title": "Interpretability and governance",
+          "level": "core",
+          "purpose": "Learn interpretability and governance within evaluation, selection, and diagnostics.",
+          "subtopics": [
+            "local/global explanations",
+            "permutation/SHAP caveats",
+            "fairness",
+            "privacy",
+            "model/data cards",
+            "intended use",
+            "human override"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-04-03-robustness-and-error-analysis"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        }
+      ],
+      "stage_number": 4,
+      "stage_type": "core",
+      "node_ids": [
+        "machine_learning-04-01-metrics",
+        "machine_learning-04-02-validation-and-selection",
+        "machine_learning-04-03-robustness-and-error-analysis",
+        "machine_learning-04-04-interpretability-and-governance"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating evaluation, selection, and diagnostics.",
+        "exit_criteria": [
+          "Select from representative held-out evidence and document fitness.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Deep learning architectures and tooling",
+      "objective": "Implement representative neural architectures and compare against simpler baselines.",
+      "nodes": [
+        {
+          "id": "machine_learning-05-01-neural-foundations",
+          "sequence": 18,
+          "title": "Neural foundations",
+          "level": "core",
+          "purpose": "Learn neural foundations within deep learning architectures and tooling.",
+          "subtopics": [
+            "perceptron/MLP",
+            "tensor shapes",
+            "forward/backprop",
+            "activations/loss/optimizers",
+            "regularization",
+            "initialization",
+            "gradients"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-04-04-interpretability-and-governance"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-05-02-cnn-and-vision",
+          "sequence": 19,
+          "title": "CNN and vision",
+          "level": "core",
+          "purpose": "Learn cnn and vision within deep learning architectures and tooling.",
+          "subtopics": [
+            "convolution/kernel/padding/stride/pooling",
+            "classification",
+            "detection/recognition",
+            "segmentation",
+            "transfer learning",
+            "augmentation",
+            "metrics"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-05-01-neural-foundations"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-05-03-sequence-and-attention",
+          "sequence": 20,
+          "title": "Sequence and attention",
+          "level": "core",
+          "purpose": "Learn sequence and attention within deep learning architectures and tooling.",
+          "subtopics": [
+            "RNN/GRU/LSTM",
+            "vanishing gradients",
+            "batching",
+            "attention",
+            "self/multi-head attention",
+            "positional encodings",
+            "Transformers"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-05-02-cnn-and-vision"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-05-04-generative-architectures",
+          "sequence": 21,
+          "title": "Generative architectures",
+          "level": "core",
+          "purpose": "Learn generative architectures within deep learning architectures and tooling.",
+          "subtopics": [
+            "autoencoders",
+            "GANs",
+            "latent spaces",
+            "instability",
+            "evaluation limits",
+            "dataset rights"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-05-03-sequence-and-attention"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-05-05-frameworks-and-training",
+          "sequence": 22,
+          "title": "Frameworks and training",
+          "level": "core",
+          "purpose": "Learn frameworks and training within deep learning architectures and tooling.",
+          "subtopics": [
+            "PyTorch modules/autograd",
+            "TensorFlow/Keras",
+            "data pipelines",
+            "checkpoints",
+            "GPU/mixed precision concepts",
+            "distributed training overview",
+            "experiment tracking"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-05-04-generative-architectures"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        }
+      ],
+      "stage_number": 5,
+      "stage_type": "core",
+      "node_ids": [
+        "machine_learning-05-01-neural-foundations",
+        "machine_learning-05-02-cnn-and-vision",
+        "machine_learning-05-03-sequence-and-attention",
+        "machine_learning-05-04-generative-architectures",
+        "machine_learning-05-05-frameworks-and-training"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating deep learning architectures and tooling.",
+        "exit_criteria": [
+          "Implement representative neural architectures and compare against simpler baselines.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Deployment, MLOps, and monitoring",
+      "objective": "Operate models as versioned, reproducible software artifacts.",
+      "nodes": [
+        {
+          "id": "machine_learning-06-01-packaging-and-inference",
+          "sequence": 23,
+          "title": "Packaging and inference",
+          "level": "core",
+          "purpose": "Learn packaging and inference within deployment, mlops, and monitoring.",
+          "subtopics": [
+            "preprocessing/model bundle",
+            "batch/online",
+            "API",
+            "input schemas",
+            "latency/throughput",
+            "CPU/GPU",
+            "batching",
+            "quantization"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-05-05-frameworks-and-training"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-06-02-experiment-and-artifact-management",
+          "sequence": 24,
+          "title": "Experiment and artifact management",
+          "level": "core",
+          "purpose": "Learn experiment and artifact management within deployment, mlops, and monitoring.",
+          "subtopics": [
+            "track code/data/config/metrics",
+            "artifact store",
+            "registry",
+            "lineage",
+            "approval",
+            "reproducible builds",
+            "signatures",
+            "licenses"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-06-01-packaging-and-inference"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-06-03-deployment-patterns",
+          "sequence": 25,
+          "title": "Deployment patterns",
+          "level": "core",
+          "purpose": "Learn deployment patterns within deployment, mlops, and monitoring.",
+          "subtopics": [
+            "Docker",
+            "service/batch jobs",
+            "shadow/canary/blue-green",
+            "flags",
+            "rollback",
+            "CI/CD",
+            "IaC",
+            "secrets"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-06-02-experiment-and-artifact-management"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        },
+        {
+          "id": "machine_learning-06-04-monitoring-and-capstone",
+          "sequence": 26,
+          "title": "Monitoring and capstone",
+          "level": "core",
+          "purpose": "Learn monitoring and capstone within deployment, mlops, and monitoring.",
+          "subtopics": [
+            "availability/latency",
+            "data quality",
+            "drift vs performance",
+            "delayed labels",
+            "retrain/rollback",
+            "incident playbook",
+            "build dataset-model pipeline",
+            "compare baselines",
+            "expose scoring",
+            "containerize",
+            "simulate drift"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "machine_learning-06-03-deployment-patterns"
+          ],
+          "source_topic_families": [
+            "machine-learning"
+          ]
+        }
+      ],
+      "stage_number": 6,
+      "stage_type": "core",
+      "node_ids": [
+        "machine_learning-06-01-packaging-and-inference",
+        "machine_learning-06-02-experiment-and-artifact-management",
+        "machine_learning-06-03-deployment-patterns",
+        "machine_learning-06-04-monitoring-and-capstone"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating deployment, mlops, and monitoring.",
+        "exit_criteria": [
+          "Operate models as versioned, reproducible software artifacts.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    }
+  ],
+  "source_analysis": "PDF coverage: math/statistics, Python and data libraries, collection/formats, preprocessing/features, ML paradigms/algorithms, evaluation, deep learning including CNN/RNN/GRU/LSTM/Transformers/GAN, NLP, frameworks, and tuning. Production packaging and monitoring are expanded.",
+  "schema_version": "1.0.0",
+  "last_reviewed": "2026-10-03",
+  "analysis_method": "Extracted labels from the one-page source PDF and visually reviewed the rendered roadmap layout; regrouped prerequisites into a sequential learning path and expanded topics for practical projects and production work.",
+  "learning_sequence": "Follow stages and nodes in order. Optional specialization can be revisited after the capstone.",
+  "references": [
+    {
+      "title": "OWASP Top 10 for LLM Applications 2025",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/",
+      "why": "Threat taxonomy for LLM application design and testing."
+    },
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "why": "Governance, mapping, measurement, and management of AI risk."
+    },
+    {
+      "title": "OpenAI API documentation",
+      "url": "https://platform.openai.com/docs/",
+      "why": "Check provider-specific API behavior and current supported features."
+    },
+    {
+      "title": "Hugging Face Transformers Trainer",
+      "url": "https://huggingface.co/docs/transformers/en/main_classes/trainer",
+      "why": "Official training and evaluation workflow reference."
+    },
+    {
+      "title": "MLflow GenAI docs",
+      "url": "https://mlflow.org/docs/latest/genai/",
+      "why": "Tracing, versioning, and evaluation lifecycle practices."
+    }
+  ],
+  "current_practice_note": "Technology and hosted model/service names change quickly. Learn stable concepts, choose one implementation, verify versions and APIs in linked primary documentation, and note the date and tradeoffs in project work."
+}

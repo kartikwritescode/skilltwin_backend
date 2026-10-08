@@ -1,0 +1,953 @@
+{
+  "roadmap_id": "ai_engineer",
+  "title": "AI Engineer",
+  "source_pdf": "ai-engineer.pdf",
+  "audience": "Software developers moving into production AI application engineering.",
+  "description": "Build reliable AI products by combining software engineering, model selection, retrieval, tools, evaluation, safety, and operations.",
+  "stages": [
+    {
+      "title": "Engineering foundations",
+      "objective": "Build maintainable services and handle data correctly.",
+      "nodes": [
+        {
+          "id": "ai_engineer-01-01-python-for-services",
+          "sequence": 1,
+          "title": "Python for services",
+          "level": "core",
+          "purpose": "Learn python for services within engineering foundations.",
+          "subtopics": [
+            "typing and data models",
+            "packages and modules",
+            "exceptions and logging",
+            "iterators",
+            "context managers",
+            "async/concurrency",
+            "dependency management",
+            "linting",
+            "testable design"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-01-02-http-apis-and-contracts",
+          "sequence": 2,
+          "title": "HTTP, APIs, and contracts",
+          "level": "core",
+          "purpose": "Learn http, apis, and contracts within engineering foundations.",
+          "subtopics": [
+            "HTTP methods/status",
+            "REST resources",
+            "JSON/schema validation",
+            "pagination/idempotency",
+            "auth",
+            "rate limits/retries/timeouts",
+            "OpenAPI",
+            "webhooks"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-01-01-python-for-services"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-01-03-data-persistence-and-collaboration",
+          "sequence": 3,
+          "title": "Data, persistence, and collaboration",
+          "level": "core",
+          "purpose": "Learn data, persistence, and collaboration within engineering foundations.",
+          "subtopics": [
+            "SQL joins/transactions/indexes",
+            "PostgreSQL schema/migrations",
+            "Redis caching/TTL",
+            "object storage",
+            "JSONL/Parquet",
+            "validation",
+            "PII/secrets",
+            "Git review",
+            "Linux",
+            "CI"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-01-02-http-apis-and-contracts"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        }
+      ],
+      "stage_number": 1,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_engineer-01-01-python-for-services",
+        "ai_engineer-01-02-http-apis-and-contracts",
+        "ai_engineer-01-03-data-persistence-and-collaboration"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating engineering foundations.",
+        "exit_criteria": [
+          "Build maintainable services and handle data correctly.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Model and LLM fundamentals",
+      "objective": "Understand model behavior and make explicit choices about capability, cost, and data.",
+      "nodes": [
+        {
+          "id": "ai_engineer-02-01-ai-system-concepts",
+          "sequence": 4,
+          "title": "AI system concepts",
+          "level": "core",
+          "purpose": "Learn ai system concepts within model and llm fundamentals.",
+          "subtopics": [
+            "AI vs ML vs deep learning vs generative AI",
+            "AI engineer vs ML engineer",
+            "deterministic software vs probabilistic output",
+            "appropriate task selection",
+            "product impact and failure costs"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-01-03-data-persistence-and-collaboration"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-02-02-llm-mechanics",
+          "sequence": 5,
+          "title": "LLM mechanics",
+          "level": "core",
+          "purpose": "Learn llm mechanics within model and llm fundamentals.",
+          "subtopics": [
+            "tokens/tokenization",
+            "context windows/truncation",
+            "pretraining/instruction tuning",
+            "inference/decoding",
+            "temperature/sampling",
+            "latency/throughput",
+            "capability limits",
+            "cutoff dates",
+            "multimodality"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-02-01-ai-system-concepts"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-02-03-model-selection-and-providers",
+          "sequence": 6,
+          "title": "Model selection and providers",
+          "level": "core",
+          "purpose": "Learn model selection and providers within model and llm fundamentals.",
+          "subtopics": [
+            "hosted APIs vs open weights",
+            "task fit",
+            "context/modalities",
+            "quality benchmarks",
+            "data residency/retention",
+            "quotas/availability",
+            "pricing",
+            "portability",
+            "fallbacks",
+            "licensing/model cards"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-02-02-llm-mechanics"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-02-04-provider-integration-and-prompts",
+          "sequence": 7,
+          "title": "Provider integration and prompts",
+          "level": "core",
+          "purpose": "Learn provider integration and prompts within model and llm fundamentals.",
+          "subtopics": [
+            "current SDK/API lifecycle",
+            "streaming",
+            "structured outputs/schema",
+            "tool calling",
+            "errors/retries",
+            "token budgets",
+            "secure keys",
+            "version pinning",
+            "instruction hierarchy",
+            "examples",
+            "delimiters",
+            "untrusted input",
+            "prompt versioning",
+            "regression tests"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-02-03-model-selection-and-providers"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        }
+      ],
+      "stage_number": 2,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_engineer-02-01-ai-system-concepts",
+        "ai_engineer-02-02-llm-mechanics",
+        "ai_engineer-02-03-model-selection-and-providers",
+        "ai_engineer-02-04-provider-integration-and-prompts"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating model and llm fundamentals.",
+        "exit_criteria": [
+          "Understand model behavior and make explicit choices about capability, cost, and data.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Retrieval and grounding",
+      "objective": "Build and evaluate a permissions-aware knowledge pipeline.",
+      "nodes": [
+        {
+          "id": "ai_engineer-03-01-embeddings-and-indexes",
+          "sequence": 8,
+          "title": "Embeddings and indexes",
+          "level": "core",
+          "purpose": "Learn embeddings and indexes within retrieval and grounding.",
+          "subtopics": [
+            "embedding purpose",
+            "vectors and similarity",
+            "lexical vs semantic search",
+            "model/version compatibility",
+            "ingestion connectors",
+            "parsing/OCR",
+            "normalization/deduplication",
+            "provenance",
+            "deletion/version sync"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-02-04-provider-integration-and-prompts"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-03-02-chunking-and-retrieval",
+          "sequence": 9,
+          "title": "Chunking and retrieval",
+          "level": "core",
+          "purpose": "Learn chunking and retrieval within retrieval and grounding.",
+          "subtopics": [
+            "structure-aware/fixed/recursive chunking",
+            "overlap",
+            "tables/code",
+            "metadata",
+            "vector indexes HNSW/IVF concepts",
+            "filters and tenant isolation",
+            "top-k",
+            "BM25 hybrid",
+            "reranking",
+            "query rewrite",
+            "freshness"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-03-01-embeddings-and-indexes"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-03-03-rag-answer-generation",
+          "sequence": 10,
+          "title": "RAG answer generation",
+          "level": "core",
+          "purpose": "Learn rag answer generation within retrieval and grounding.",
+          "subtopics": [
+            "retrieve then generate",
+            "context assembly/token budget",
+            "evidence-grounded instructions",
+            "citation IDs",
+            "abstention",
+            "snippets",
+            "claim-evidence traceability",
+            "history boundaries",
+            "latency/cost"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-03-02-chunking-and-retrieval"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-03-04-rag-evaluation-and-alternatives",
+          "sequence": 11,
+          "title": "RAG evaluation and alternatives",
+          "level": "core",
+          "purpose": "Learn rag evaluation and alternatives within retrieval and grounding.",
+          "subtopics": [
+            "retrieval recall/precision",
+            "answer relevance/faithfulness",
+            "citation correctness",
+            "unanswerable/adversarial sets",
+            "expert labels",
+            "judge calibration",
+            "RAG vs fine-tuning/search/SQL/long-context"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-03-03-rag-answer-generation"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        }
+      ],
+      "stage_number": 3,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_engineer-03-01-embeddings-and-indexes",
+        "ai_engineer-03-02-chunking-and-retrieval",
+        "ai_engineer-03-03-rag-answer-generation",
+        "ai_engineer-03-04-rag-evaluation-and-alternatives"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating retrieval and grounding.",
+        "exit_criteria": [
+          "Build and evaluate a permissions-aware knowledge pipeline.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Tools, workflows, and agents",
+      "objective": "Constrain model-directed actions and evaluate agent behavior.",
+      "nodes": [
+        {
+          "id": "ai_engineer-04-01-tool-calling",
+          "sequence": 12,
+          "title": "Tool calling",
+          "level": "core",
+          "purpose": "Learn tool calling within tools, workflows, and agents.",
+          "subtopics": [
+            "tool schemas",
+            "argument validation",
+            "allowlists",
+            "app-side authorization",
+            "normalized results",
+            "side-effect boundaries",
+            "timeouts/retries/idempotency",
+            "audit logs",
+            "safe tool errors"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-03-04-rag-evaluation-and-alternatives"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-04-02-workflow-design",
+          "sequence": 13,
+          "title": "Workflow design",
+          "level": "core",
+          "purpose": "Learn workflow design within tools, workflows, and agents.",
+          "subtopics": [
+            "explicit state machines",
+            "deterministic steps around model decisions",
+            "routing",
+            "bounded loops",
+            "budgets/deadlines",
+            "resumability/checkpoints",
+            "duplicate events",
+            "approvals",
+            "workflow vs autonomy"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-04-01-tool-calling"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-04-03-agent-patterns-and-oversight",
+          "sequence": 14,
+          "title": "Agent patterns and oversight",
+          "level": "core",
+          "purpose": "Learn agent patterns and oversight within tools, workflows, and agents.",
+          "subtopics": [
+            "ReAct loops",
+            "planning",
+            "tool selection",
+            "memory boundaries",
+            "stopping criteria",
+            "delegation only when justified",
+            "indirect injection",
+            "least privilege",
+            "read-only first",
+            "confirmations",
+            "dry runs",
+            "rollback",
+            "escalation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-04-02-workflow-design"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-04-04-agent-evaluation",
+          "sequence": 15,
+          "title": "Agent evaluation",
+          "level": "core",
+          "purpose": "Learn agent evaluation within tools, workflows, and agents.",
+          "subtopics": [
+            "task success",
+            "tool choice/arguments",
+            "unnecessary actions",
+            "policy violations",
+            "multi-turn state",
+            "latency/cost",
+            "deterministic replay",
+            "scenario tests",
+            "trace review",
+            "red-team cases"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-04-03-agent-patterns-and-oversight"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        }
+      ],
+      "stage_number": 4,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_engineer-04-01-tool-calling",
+        "ai_engineer-04-02-workflow-design",
+        "ai_engineer-04-03-agent-patterns-and-oversight",
+        "ai_engineer-04-04-agent-evaluation"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating tools, workflows, and agents.",
+        "exit_criteria": [
+          "Constrain model-directed actions and evaluate agent behavior.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Product quality, safety, and trust",
+      "objective": "Define good and safe behavior and create evidence for the use case.",
+      "nodes": [
+        {
+          "id": "ai_engineer-05-01-product-framing",
+          "sequence": 16,
+          "title": "Product framing",
+          "level": "core",
+          "purpose": "Learn product framing within product quality, safety, and trust.",
+          "subtopics": [
+            "user/job-to-be-done",
+            "non-AI baseline",
+            "acceptable error/abstention",
+            "decision impact",
+            "journey/accessibility",
+            "human fallback",
+            "success metrics",
+            "rollout guardrails"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-04-04-agent-evaluation"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-05-02-evaluation-engineering",
+          "sequence": 17,
+          "title": "Evaluation engineering",
+          "level": "core",
+          "purpose": "Learn evaluation engineering within product quality, safety, and trust.",
+          "subtopics": [
+            "golden/representative sets",
+            "task metrics",
+            "human rubric",
+            "judge limits",
+            "inter-rater agreement",
+            "slice/cohort analysis",
+            "confidence intervals",
+            "offline/online correlation",
+            "thresholds"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-05-01-product-framing"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-05-03-safety-fairness-privacy",
+          "sequence": 18,
+          "title": "Safety, fairness, privacy",
+          "level": "core",
+          "purpose": "Learn safety, fairness, privacy within product quality, safety, and trust.",
+          "subtopics": [
+            "bias/subgroup performance",
+            "sensitive-data minimization",
+            "consent/retention",
+            "privacy leakage",
+            "moderation/refusals",
+            "policy boundaries",
+            "tenant isolation",
+            "redaction",
+            "provenance",
+            "escalation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-05-02-evaluation-engineering"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-05-04-ai-application-security-and-governance",
+          "sequence": 19,
+          "title": "AI application security and governance",
+          "level": "core",
+          "purpose": "Learn ai application security and governance within product quality, safety, and trust.",
+          "subtopics": [
+            "direct/indirect prompt injection",
+            "unsafe output",
+            "disclosure",
+            "excessive agency",
+            "tool abuse",
+            "vector poisoning",
+            "supply-chain and cost abuse",
+            "rate limits/sandboxing",
+            "OWASP risks",
+            "NIST Govern/Map/Measure/Manage",
+            "risk register",
+            "change control"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-05-03-safety-fairness-privacy"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        }
+      ],
+      "stage_number": 5,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_engineer-05-01-product-framing",
+        "ai_engineer-05-02-evaluation-engineering",
+        "ai_engineer-05-03-safety-fairness-privacy",
+        "ai_engineer-05-04-ai-application-security-and-governance"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating product quality, safety, and trust.",
+        "exit_criteria": [
+          "Define good and safe behavior and create evidence for the use case.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Production architecture and operations",
+      "objective": "Ship reliable, observable systems with safe rollback and cost controls.",
+      "nodes": [
+        {
+          "id": "ai_engineer-06-01-architecture-and-reliability",
+          "sequence": 20,
+          "title": "Architecture and reliability",
+          "level": "core",
+          "purpose": "Learn architecture and reliability within production architecture and operations.",
+          "subtopics": [
+            "service boundaries",
+            "sync vs queue",
+            "streaming UX",
+            "API gateway",
+            "semantic-cache risks",
+            "circuit breakers",
+            "model routing/fallbacks",
+            "tenant isolation",
+            "p50/p95/p99 and TTFT",
+            "concurrency",
+            "quotas",
+            "backpressure",
+            "SLOs"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-05-04-ai-application-security-and-governance"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-06-02-observability-and-cost",
+          "sequence": 21,
+          "title": "Observability and cost",
+          "level": "core",
+          "purpose": "Learn observability and cost within production architecture and operations.",
+          "subtopics": [
+            "correlation IDs",
+            "model/prompt versions",
+            "retrieval/tool spans",
+            "tokens/cost/latency/status",
+            "privacy-aware redacted logs",
+            "traces",
+            "quality signals",
+            "dashboards/alerts",
+            "per-task cost",
+            "batching",
+            "cache hit",
+            "budgets",
+            "runbooks"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-06-01-architecture-and-reliability"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-06-03-deployment-lifecycle",
+          "sequence": 22,
+          "title": "Deployment lifecycle",
+          "level": "core",
+          "purpose": "Learn deployment lifecycle within production architecture and operations.",
+          "subtopics": [
+            "Docker/config/secrets",
+            "CI gates",
+            "staging/production",
+            "canary/shadow",
+            "feature flags",
+            "model/prompt rollout",
+            "migrations/rollback",
+            "retention",
+            "dependency scanning",
+            "vendor incident handling"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-06-02-observability-and-cost"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        }
+      ],
+      "stage_number": 6,
+      "stage_type": "core",
+      "node_ids": [
+        "ai_engineer-06-01-architecture-and-reliability",
+        "ai_engineer-06-02-observability-and-cost",
+        "ai_engineer-06-03-deployment-lifecycle"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating production architecture and operations.",
+        "exit_criteria": [
+          "Ship reliable, observable systems with safe rollback and cost controls.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Open models, specialization, and capstone",
+      "objective": "Demonstrate a complete AI feature and specialize only where requirements justify it.",
+      "nodes": [
+        {
+          "id": "ai_engineer-07-01-open-models-and-fine-tuning",
+          "sequence": 23,
+          "title": "Open models and fine-tuning",
+          "level": "core",
+          "purpose": "Learn open models and fine-tuning within open models, specialization, and capstone.",
+          "subtopics": [
+            "model hub/cards/licensing",
+            "Transformers",
+            "local runtimes",
+            "GPU/hardware fit",
+            "quantization/batching/serving",
+            "prompting vs RAG vs SFT",
+            "LoRA/QLoRA",
+            "dataset rights/quality",
+            "safety regression"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-06-03-deployment-lifecycle"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-07-02-multimodal-applications",
+          "sequence": 24,
+          "title": "Multimodal applications",
+          "level": "core",
+          "purpose": "Learn multimodal applications within open models, specialization, and capstone.",
+          "subtopics": [
+            "vision inputs and OCR/layout",
+            "audio transcription/speech",
+            "timestamps/diarization",
+            "video frame sampling",
+            "image generation",
+            "modality safety",
+            "payload sizing",
+            "modality-specific evaluation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-07-01-open-models-and-fine-tuning"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        },
+        {
+          "id": "ai_engineer-07-03-production-knowledge-assistant-capstone",
+          "sequence": 25,
+          "title": "Production knowledge assistant capstone",
+          "level": "core",
+          "purpose": "Learn production knowledge assistant capstone within open models, specialization, and capstone.",
+          "subtopics": [
+            "bounded domain/task",
+            "ingest/version documents",
+            "enforce permissions",
+            "hybrid retrieval/reranking",
+            "schema-constrained cited answers",
+            "evaluate grounding/abstention",
+            "injection defenses",
+            "deploy API/UI",
+            "instrument quality/latency/cost",
+            "architecture/threat/operations guide"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "ai_engineer-07-02-multimodal-applications"
+          ],
+          "source_topic_families": [
+            "ai-engineer"
+          ]
+        }
+      ],
+      "stage_number": 7,
+      "stage_type": "optional_specialization",
+      "node_ids": [
+        "ai_engineer-07-01-open-models-and-fine-tuning",
+        "ai_engineer-07-02-multimodal-applications",
+        "ai_engineer-07-03-production-knowledge-assistant-capstone"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating open models, specialization, and capstone.",
+        "exit_criteria": [
+          "Demonstrate a complete AI feature and specialize only where requirements justify it.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    }
+  ],
+  "source_analysis": "PDF coverage: LLM/inference/training, providers, prompt engineering, embeddings and vector databases, RAG, agents, multimodal AI, safety, and development tools. Expanded with APIs, permissions, eval datasets, tracing, privacy, threat modeling, reliability, and a deployed capstone.",
+  "schema_version": "1.0.0",
+  "last_reviewed": "2026-10-03",
+  "analysis_method": "Extracted labels from the one-page source PDF and visually reviewed the rendered roadmap layout; regrouped prerequisites into a sequential learning path and expanded topics for practical projects and production work.",
+  "learning_sequence": "Follow stages and nodes in order. Optional specialization can be revisited after the capstone.",
+  "references": [
+    {
+      "title": "OWASP Top 10 for LLM Applications 2025",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/",
+      "why": "Threat taxonomy for LLM application design and testing."
+    },
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "why": "Governance, mapping, measurement, and management of AI risk."
+    },
+    {
+      "title": "OpenAI API documentation",
+      "url": "https://platform.openai.com/docs/",
+      "why": "Check provider-specific API behavior and current supported features."
+    },
+    {
+      "title": "Hugging Face Transformers Trainer",
+      "url": "https://huggingface.co/docs/transformers/en/main_classes/trainer",
+      "why": "Official training and evaluation workflow reference."
+    },
+    {
+      "title": "MLflow GenAI docs",
+      "url": "https://mlflow.org/docs/latest/genai/",
+      "why": "Tracing, versioning, and evaluation lifecycle practices."
+    }
+  ],
+  "current_practice_note": "Technology and hosted model/service names change quickly. Learn stable concepts, choose one implementation, verify versions and APIs in linked primary documentation, and note the date and tradeoffs in project work."
+}

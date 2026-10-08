@@ -1,0 +1,891 @@
+{
+  "roadmap_id": "full_stack",
+  "title": "Full Stack Development",
+  "source_pdf": "full-stack.pdf",
+  "audience": "Beginners who want to build, test, deploy, and maintain a complete web application.",
+  "description": "Project-led route through browser foundations, React, backend APIs, persistence, auth, cloud deployment, monitoring, and infrastructure.",
+  "stages": [
+    {
+      "title": "Web foundations and first interfaces",
+      "objective": "Create accessible static pages and interactive browser behavior.",
+      "nodes": [
+        {
+          "id": "full_stack-01-01-how-web-works",
+          "sequence": 1,
+          "title": "How web works",
+          "level": "core",
+          "purpose": "Learn how web works within web foundations and first interfaces.",
+          "subtopics": [
+            "browser/server",
+            "URLs/DNS",
+            "HTTP",
+            "HTML/CSS/JS roles",
+            "devtools",
+            "accessibility"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-01-02-html",
+          "sequence": 2,
+          "title": "HTML",
+          "level": "core",
+          "purpose": "Learn html within web foundations and first interfaces.",
+          "subtopics": [
+            "semantic structure",
+            "landmarks/headings",
+            "forms/labels",
+            "tables/lists",
+            "links/images",
+            "metadata",
+            "validation",
+            "keyboard navigation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-01-01-how-web-works"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-01-03-css",
+          "sequence": 3,
+          "title": "CSS",
+          "level": "core",
+          "purpose": "Learn css within web foundations and first interfaces.",
+          "subtopics": [
+            "cascade/selectors",
+            "box model",
+            "typography/color",
+            "flexbox/grid",
+            "responsive",
+            "focus states",
+            "tokens",
+            "browser compatibility"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-01-02-html"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-01-04-javascript",
+          "sequence": 4,
+          "title": "JavaScript",
+          "level": "core",
+          "purpose": "Learn javascript within web foundations and first interfaces.",
+          "subtopics": [
+            "types/control/functions/arrays/objects",
+            "DOM/events/modules",
+            "promises/fetch/async-await",
+            "errors",
+            "browser storage"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-01-03-css"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        }
+      ],
+      "stage_number": 1,
+      "stage_type": "core",
+      "node_ids": [
+        "full_stack-01-01-how-web-works",
+        "full_stack-01-02-html",
+        "full_stack-01-03-css",
+        "full_stack-01-04-javascript"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating web foundations and first interfaces.",
+        "exit_criteria": [
+          "Create accessible static pages and interactive browser behavior.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Frontend application development",
+      "objective": "Handle user states with components, tests, packages, and version control.",
+      "nodes": [
+        {
+          "id": "full_stack-02-01-npm-and-git",
+          "sequence": 5,
+          "title": "npm and Git",
+          "level": "core",
+          "purpose": "Learn npm and git within frontend application development.",
+          "subtopics": [
+            "package.json/dependencies/scripts/lockfiles",
+            "init/status/commit",
+            "branches/remotes",
+            "GitHub repositories/PRs/review"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-01-04-javascript"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-02-02-react",
+          "sequence": 6,
+          "title": "React",
+          "level": "core",
+          "purpose": "Learn react within frontend application development.",
+          "subtopics": [
+            "components/JSX/props/state/events/lists/keys/conditional/forms/hooks/effects/component boundaries"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-02-01-npm-and-git"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-02-03-routing-and-data",
+          "sequence": 7,
+          "title": "Routing and data",
+          "level": "core",
+          "purpose": "Learn routing and data within frontend application development.",
+          "subtopics": [
+            "client routing",
+            "URL state",
+            "loading/error/empty/success",
+            "cancellation",
+            "caching",
+            "pagination",
+            "optimistic updates",
+            "auth state",
+            "error boundaries"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-02-02-react"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-02-04-styling-and-quality",
+          "sequence": 8,
+          "title": "Styling and quality",
+          "level": "core",
+          "purpose": "Learn styling and quality within frontend application development.",
+          "subtopics": [
+            "Tailwind or CSS modules",
+            "tokens/responsive/accessibility",
+            "unit/component/browser tests",
+            "lint/format/performance"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-02-03-routing-and-data"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-02-05-checkpoint-ui",
+          "sequence": 9,
+          "title": "Checkpoint UI",
+          "level": "core",
+          "purpose": "Learn checkpoint ui within frontend application development.",
+          "subtopics": [
+            "responsive accessible app with mock data, forms, navigation, all request states, tests, README, reviewed PR"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-02-04-styling-and-quality"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        }
+      ],
+      "stage_number": 2,
+      "stage_type": "core",
+      "node_ids": [
+        "full_stack-02-01-npm-and-git",
+        "full_stack-02-02-react",
+        "full_stack-02-03-routing-and-data",
+        "full_stack-02-04-styling-and-quality",
+        "full_stack-02-05-checkpoint-ui"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating frontend application development.",
+        "exit_criteria": [
+          "Handle user states with components, tests, packages, and version control.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Backend, APIs, and persistence",
+      "objective": "Build an API with explicit contracts and durable data.",
+      "nodes": [
+        {
+          "id": "full_stack-03-01-choose-backend",
+          "sequence": 10,
+          "title": "Choose backend",
+          "level": "core",
+          "purpose": "Learn choose backend within backend, apis, and persistence.",
+          "subtopics": [
+            "Node.js continuity or Python/FastAPI, Java/Spring, C#/.NET, Go",
+            "runtime/package/config/logging/tests"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-02-05-checkpoint-ui"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-03-02-http-rest",
+          "sequence": 11,
+          "title": "HTTP/REST",
+          "level": "core",
+          "purpose": "Learn http/rest within backend, apis, and persistence.",
+          "subtopics": [
+            "resources/methods/status",
+            "JSON contracts",
+            "validation",
+            "pagination/filtering",
+            "idempotency",
+            "errors",
+            "OpenAPI/versioning/rate limits"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-03-01-choose-backend"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-03-03-database",
+          "sequence": 12,
+          "title": "Database",
+          "level": "core",
+          "purpose": "Learn database within backend, apis, and persistence.",
+          "subtopics": [
+            "PostgreSQL",
+            "relational model",
+            "keys/constraints",
+            "SQL/joins/transactions",
+            "migrations/indexes",
+            "seed",
+            "backup basics"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-03-02-http-rest"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-03-04-crud-and-domain-logic",
+          "sequence": 13,
+          "title": "CRUD and domain logic",
+          "level": "core",
+          "purpose": "Learn crud and domain logic within backend, apis, and persistence.",
+          "subtopics": [
+            "route/service/repository boundaries",
+            "validation/invariants",
+            "authorization",
+            "transaction/concurrency",
+            "integration tests"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-03-03-database"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-03-05-checkpoint-api",
+          "sequence": 14,
+          "title": "Checkpoint API",
+          "level": "core",
+          "purpose": "Learn checkpoint api within backend, apis, and persistence.",
+          "subtopics": [
+            "tested CRUD with migrations, input validation, consistent errors, API docs, frontend integration and persistence"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-03-04-crud-and-domain-logic"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        }
+      ],
+      "stage_number": 3,
+      "stage_type": "core",
+      "node_ids": [
+        "full_stack-03-01-choose-backend",
+        "full_stack-03-02-http-rest",
+        "full_stack-03-03-database",
+        "full_stack-03-04-crud-and-domain-logic",
+        "full_stack-03-05-checkpoint-api"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating backend, apis, and persistence.",
+        "exit_criteria": [
+          "Build an API with explicit contracts and durable data.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Security and complete product behavior",
+      "objective": "Create trustworthy user/data boundaries and handle failure states.",
+      "nodes": [
+        {
+          "id": "full_stack-04-01-auth-and-authorization",
+          "sequence": 15,
+          "title": "Auth and authorization",
+          "level": "core",
+          "purpose": "Learn auth and authorization within security and complete product behavior.",
+          "subtopics": [
+            "password hashing",
+            "sessions vs JWT",
+            "validation",
+            "OAuth/OIDC concepts",
+            "refresh/logout",
+            "roles/resource ownership",
+            "least privilege",
+            "CSRF/CORS"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-03-05-checkpoint-api"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-04-02-web-security",
+          "sequence": 16,
+          "title": "Web security",
+          "level": "core",
+          "purpose": "Learn web security within security and complete product behavior.",
+          "subtopics": [
+            "validation/output encoding",
+            "SQL injection/XSS/CSRF/SSRF",
+            "secure cookies/TLS",
+            "secrets",
+            "dependencies",
+            "security headers"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-04-01-auth-and-authorization"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-04-03-background-work-cache",
+          "sequence": 17,
+          "title": "Background work/cache",
+          "level": "core",
+          "purpose": "Learn background work/cache within security and complete product behavior.",
+          "subtopics": [
+            "Redis structures/TTL",
+            "cache invalidation",
+            "queues/jobs/retries/idempotency",
+            "email",
+            "DLQ"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-04-02-web-security"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-04-04-product-completeness",
+          "sequence": 18,
+          "title": "Product completeness",
+          "level": "core",
+          "purpose": "Learn product completeness within security and complete product behavior.",
+          "subtopics": [
+            "validation messages",
+            "empty/loading/error",
+            "pagination",
+            "audit where needed",
+            "accessibility",
+            "privacy/retention",
+            "rate limiting/abuse"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-04-03-background-work-cache"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-04-05-checkpoint-complete-app",
+          "sequence": 19,
+          "title": "Checkpoint complete app",
+          "level": "core",
+          "purpose": "Learn checkpoint complete app within security and complete product behavior.",
+          "subtopics": [
+            "accounts/permissions",
+            "PostgreSQL",
+            "tested UI/API",
+            "async or cache feature",
+            "secure config",
+            "threat notes"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-04-04-product-completeness"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        }
+      ],
+      "stage_number": 4,
+      "stage_type": "core",
+      "node_ids": [
+        "full_stack-04-01-auth-and-authorization",
+        "full_stack-04-02-web-security",
+        "full_stack-04-03-background-work-cache",
+        "full_stack-04-04-product-completeness",
+        "full_stack-04-05-checkpoint-complete-app"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating security and complete product behavior.",
+        "exit_criteria": [
+          "Create trustworthy user/data boundaries and handle failure states.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Deployment, DevOps, operations",
+      "objective": "Operate safely with delivery automation and data recovery.",
+      "nodes": [
+        {
+          "id": "full_stack-05-01-linux-deploy",
+          "sequence": 20,
+          "title": "Linux/deploy",
+          "level": "core",
+          "purpose": "Learn linux/deploy within deployment, devops, operations.",
+          "subtopics": [
+            "processes/env/ports/DNS/HTTPS/reverse proxy/logs/firewall/health/backups"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-04-05-checkpoint-complete-app"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-05-02-cloud-foundations",
+          "sequence": 21,
+          "title": "Cloud foundations",
+          "level": "core",
+          "purpose": "Learn cloud foundations within deployment, devops, operations.",
+          "subtopics": [
+            "choose one provider",
+            "EC2-like compute",
+            "VPC",
+            "S3-like object store",
+            "managed Postgres",
+            "DNS/Route53-like",
+            "SES-like email",
+            "IAM/cost"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-05-01-linux-deploy"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-05-03-docker-and-environments",
+          "sequence": 22,
+          "title": "Docker and environments",
+          "level": "core",
+          "purpose": "Learn docker and environments within deployment, devops, operations.",
+          "subtopics": [
+            "Dockerfile/Compose/volumes/health",
+            "environment separation",
+            "image tags",
+            "secrets",
+            "non-root",
+            "scanning"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-05-02-cloud-foundations"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-05-04-ci-cd-and-automation",
+          "sequence": 23,
+          "title": "CI/CD and automation",
+          "level": "core",
+          "purpose": "Learn ci/cd and automation within deployment, devops, operations.",
+          "subtopics": [
+            "GitHub Actions",
+            "tests/secrets/artifacts/staging/approvals/migrations/rollback",
+            "Ansible concepts",
+            "Terraform/IaC basics"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-05-03-docker-and-environments"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-05-05-monitoring",
+          "sequence": 24,
+          "title": "Monitoring",
+          "level": "core",
+          "purpose": "Learn monitoring within deployment, devops, operations.",
+          "subtopics": [
+            "structured logs/metrics/errors/traces",
+            "latency/uptime",
+            "alerts/SLOs",
+            "incidents",
+            "backup restore tests",
+            "capacity/cost"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-05-04-ci-cd-and-automation"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-05-06-checkpoint-deploy",
+          "sequence": 25,
+          "title": "Checkpoint deploy",
+          "level": "core",
+          "purpose": "Learn checkpoint deploy within deployment, devops, operations.",
+          "subtopics": [
+            "HTTPS, managed DB, backup, monitoring, CI/CD, rollback, short incident runbook"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-05-05-monitoring"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        }
+      ],
+      "stage_number": 5,
+      "stage_type": "core",
+      "node_ids": [
+        "full_stack-05-01-linux-deploy",
+        "full_stack-05-02-cloud-foundations",
+        "full_stack-05-03-docker-and-environments",
+        "full_stack-05-04-ci-cd-and-automation",
+        "full_stack-05-05-monitoring",
+        "full_stack-05-06-checkpoint-deploy"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating deployment, devops, operations.",
+        "exit_criteria": [
+          "Operate safely with delivery automation and data recovery.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Portfolio and next specialty",
+      "objective": "Publish an understandable application and choose specialization based on actual gaps.",
+      "nodes": [
+        {
+          "id": "full_stack-06-01-team-architecture-docs",
+          "sequence": 26,
+          "title": "Team/architecture docs",
+          "level": "core",
+          "purpose": "Learn team/architecture docs within portfolio and next specialty.",
+          "subtopics": [
+            "README/diagram/API docs/issues/PRs/reviews/changelog/feedback/accessibility/privacy"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-05-06-checkpoint-deploy"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-06-02-capstone-polish",
+          "sequence": 27,
+          "title": "Capstone polish",
+          "level": "core",
+          "purpose": "Learn capstone polish within portfolio and next specialty.",
+          "subtopics": [
+            "user and acceptance criteria",
+            "tests",
+            "safe demo data",
+            "performance/security review",
+            "measure behavior"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-06-01-team-architecture-docs"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        },
+        {
+          "id": "full_stack-06-03-follow-on-tracks",
+          "sequence": 28,
+          "title": "Follow-on tracks",
+          "level": "core",
+          "purpose": "Learn follow-on tracks within portfolio and next specialty.",
+          "subtopics": [
+            "frontend/backend/DevOps/cloud/DB/system design/architecture based on bottleneck, not tool collecting"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "full_stack-06-02-capstone-polish"
+          ],
+          "source_topic_families": [
+            "full-stack"
+          ]
+        }
+      ],
+      "stage_number": 6,
+      "stage_type": "core",
+      "node_ids": [
+        "full_stack-06-01-team-architecture-docs",
+        "full_stack-06-02-capstone-polish",
+        "full_stack-06-03-follow-on-tracks"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating portfolio and next specialty.",
+        "exit_criteria": [
+          "Publish an understandable application and choose specialization based on actual gaps.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    }
+  ],
+  "source_analysis": "PDF coverage: HTML/CSS/JavaScript/npm; static/interactivity checkpoints; Git/GitHub; Tailwind/React; collaboration/frontend app; backend/Node; REST/CRUD/JWT/Redis/Linux/Postgres; AWS EC2/VPC/Route53/SES/S3; monitoring; GitHub Actions; Ansible/Terraform.",
+  "schema_version": "1.0.0",
+  "last_reviewed": "2026-10-03",
+  "analysis_method": "Extracted labels from the one-page source PDF and visually reviewed the rendered roadmap layout; regrouped prerequisites into a sequential learning path and expanded topics for practical projects and production work.",
+  "learning_sequence": "Follow stages and nodes in order. Optional specialization can be revisited after the capstone.",
+  "references": [
+    {
+      "title": "OWASP Top 10 for LLM Applications 2025",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/",
+      "why": "Threat taxonomy for LLM application design and testing."
+    },
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "why": "Governance, mapping, measurement, and management of AI risk."
+    },
+    {
+      "title": "OpenAI API documentation",
+      "url": "https://platform.openai.com/docs/",
+      "why": "Check provider-specific API behavior and current supported features."
+    },
+    {
+      "title": "Hugging Face Transformers Trainer",
+      "url": "https://huggingface.co/docs/transformers/en/main_classes/trainer",
+      "why": "Official training and evaluation workflow reference."
+    },
+    {
+      "title": "MLflow GenAI docs",
+      "url": "https://mlflow.org/docs/latest/genai/",
+      "why": "Tracing, versioning, and evaluation lifecycle practices."
+    }
+  ],
+  "current_practice_note": "Technology and hosted model/service names change quickly. Learn stable concepts, choose one implementation, verify versions and APIs in linked primary documentation, and note the date and tradeoffs in project work."
+}

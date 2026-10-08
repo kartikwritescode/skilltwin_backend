@@ -1,0 +1,956 @@
+{
+  "roadmap_id": "data_engineer",
+  "title": "Data Engineer",
+  "source_pdf": "data-engineer.pdf",
+  "audience": "Engineers building reliable, governed data platforms and pipelines.",
+  "description": "Progress from programming and database fundamentals through modeling, batch/stream processing, distributed systems, cloud, orchestration, quality, security, and serving.",
+  "stages": [
+    {
+      "title": "Computing and engineering foundations",
+      "objective": "Write and debug reliable software that moves data.",
+      "nodes": [
+        {
+          "id": "data_engineer-01-01-programming",
+          "sequence": 1,
+          "title": "Programming",
+          "level": "core",
+          "purpose": "Learn programming within computing and engineering foundations.",
+          "subtopics": [
+            "Python default",
+            "optional Java/Scala/Go",
+            "types/modules",
+            "I/O",
+            "exceptions/logging",
+            "tests",
+            "profiling"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-01-02-sql-and-structures",
+          "sequence": 2,
+          "title": "SQL and structures",
+          "level": "core",
+          "purpose": "Learn sql and structures within computing and engineering foundations.",
+          "subtopics": [
+            "joins/windows/transactions/indexes/query plans",
+            "arrays/maps/queues",
+            "complexity",
+            "robust parsing",
+            "schema evolution"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-01-01-programming"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-01-03-linux-and-networking",
+          "sequence": 3,
+          "title": "Linux and networking",
+          "level": "core",
+          "purpose": "Learn linux and networking within computing and engineering foundations.",
+          "subtopics": [
+            "shell/permissions/processes",
+            "DNS/HTTP/TLS",
+            "ports/firewalls/SSH",
+            "env config",
+            "logs"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-01-02-sql-and-structures"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-01-04-distributed-systems",
+          "sequence": 4,
+          "title": "Distributed systems",
+          "level": "core",
+          "purpose": "Learn distributed systems within computing and engineering foundations.",
+          "subtopics": [
+            "partial failure",
+            "retries/idempotency",
+            "replication/partitioning",
+            "consistency/CAP",
+            "coordination",
+            "backpressure",
+            "delivery semantics"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-01-03-linux-and-networking"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        }
+      ],
+      "stage_number": 1,
+      "stage_type": "core",
+      "node_ids": [
+        "data_engineer-01-01-programming",
+        "data_engineer-01-02-sql-and-structures",
+        "data_engineer-01-03-linux-and-networking",
+        "data_engineer-01-04-distributed-systems"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating computing and engineering foundations.",
+        "exit_criteria": [
+          "Write and debug reliable software that moves data.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Sources, storage, and data modeling",
+      "objective": "Choose storage based on access patterns, analytical grain, and governance.",
+      "nodes": [
+        {
+          "id": "data_engineer-02-01-sources-and-discovery",
+          "sequence": 5,
+          "title": "Sources and discovery",
+          "level": "core",
+          "purpose": "Learn sources and discovery within sources, storage, and data modeling.",
+          "subtopics": [
+            "OLTP databases",
+            "APIs",
+            "logs",
+            "mobile/IoT",
+            "CDC/files",
+            "ownership",
+            "consent",
+            "volume/velocity",
+            "freshness",
+            "schema"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-01-04-distributed-systems"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-02-02-relational-databases",
+          "sequence": 6,
+          "title": "Relational databases",
+          "level": "core",
+          "purpose": "Learn relational databases within sources, storage, and data modeling.",
+          "subtopics": [
+            "normalization",
+            "keys/constraints",
+            "transactions/isolation",
+            "indexing",
+            "PostgreSQL/MySQL",
+            "partitioning",
+            "backup/restore",
+            "pool/tuning"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-02-01-sources-and-discovery"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-02-03-nosql-and-search",
+          "sequence": 7,
+          "title": "NoSQL and search",
+          "level": "core",
+          "purpose": "Learn nosql and search within sources, storage, and data modeling.",
+          "subtopics": [
+            "document/key-value/column/graph",
+            "MongoDB/Redis/Cassandra/Elasticsearch",
+            "access patterns",
+            "consistency",
+            "TTL",
+            "relational comparison"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-02-02-relational-databases"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-02-04-analytical-modeling",
+          "sequence": 8,
+          "title": "Analytical modeling",
+          "level": "core",
+          "purpose": "Learn analytical modeling within sources, storage, and data modeling.",
+          "subtopics": [
+            "warehouse/lake/lakehouse",
+            "OLTP vs OLAP",
+            "grain",
+            "facts/dimensions",
+            "SCD",
+            "star/snowflake",
+            "marts",
+            "semantic layer"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-02-03-nosql-and-search"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-02-05-storage-architecture",
+          "sequence": 9,
+          "title": "Storage architecture",
+          "level": "core",
+          "purpose": "Learn storage architecture within sources, storage, and data modeling.",
+          "subtopics": [
+            "object storage/Parquet",
+            "compression/partitioning",
+            "BigQuery/Redshift/Snowflake patterns",
+            "Delta Lake",
+            "mesh/fabric/hub",
+            "cost/governance"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-02-04-analytical-modeling"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        }
+      ],
+      "stage_number": 2,
+      "stage_type": "core",
+      "node_ids": [
+        "data_engineer-02-01-sources-and-discovery",
+        "data_engineer-02-02-relational-databases",
+        "data_engineer-02-03-nosql-and-search",
+        "data_engineer-02-04-analytical-modeling",
+        "data_engineer-02-05-storage-architecture"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating sources, storage, and data modeling.",
+        "exit_criteria": [
+          "Choose storage based on access patterns, analytical grain, and governance.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Ingestion and transformation",
+      "objective": "Make pipelines restartable, backfillable, and explicit about quality.",
+      "nodes": [
+        {
+          "id": "data_engineer-03-01-batch-ingestion",
+          "sequence": 10,
+          "title": "Batch ingestion",
+          "level": "core",
+          "purpose": "Learn batch ingestion within ingestion and transformation.",
+          "subtopics": [
+            "full/incremental loads",
+            "watermarks",
+            "CDC",
+            "pagination",
+            "late records",
+            "backfills",
+            "checkpointing",
+            "schema drift",
+            "dedupe",
+            "rate limits"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-02-05-storage-architecture"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-03-02-etl-elt",
+          "sequence": 11,
+          "title": "ETL/ELT",
+          "level": "core",
+          "purpose": "Learn etl/elt within ingestion and transformation.",
+          "subtopics": [
+            "extract-transform-load",
+            "transformation location",
+            "dbt layers",
+            "modular SQL",
+            "tests/docs/lineage"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-03-01-batch-ingestion"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-03-03-orchestration",
+          "sequence": 12,
+          "title": "Orchestration",
+          "level": "core",
+          "purpose": "Learn orchestration within ingestion and transformation.",
+          "subtopics": [
+            "Airflow DAGs",
+            "dependencies/retries/SLAs/sensors/backfills",
+            "idempotence",
+            "secrets",
+            "scheduler/executor",
+            "event triggers"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-03-02-etl-elt"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-03-04-formats-and-schemas",
+          "sequence": 13,
+          "title": "Formats and schemas",
+          "level": "core",
+          "purpose": "Learn formats and schemas within ingestion and transformation.",
+          "subtopics": [
+            "CSV/JSON pitfalls",
+            "Parquet layout/compression",
+            "partition pruning",
+            "small files",
+            "schema registry",
+            "Avro/Protobuf",
+            "Unicode/timestamps"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-03-03-orchestration"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-03-05-quality-and-contracts",
+          "sequence": 14,
+          "title": "Quality and contracts",
+          "level": "core",
+          "purpose": "Learn quality and contracts within ingestion and transformation.",
+          "subtopics": [
+            "freshness/completeness/uniqueness/validity/referential checks",
+            "contracts",
+            "quarantine",
+            "alerts",
+            "ownership/remediation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-03-04-formats-and-schemas"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        }
+      ],
+      "stage_number": 3,
+      "stage_type": "core",
+      "node_ids": [
+        "data_engineer-03-01-batch-ingestion",
+        "data_engineer-03-02-etl-elt",
+        "data_engineer-03-03-orchestration",
+        "data_engineer-03-04-formats-and-schemas",
+        "data_engineer-03-05-quality-and-contracts"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating ingestion and transformation.",
+        "exit_criteria": [
+          "Make pipelines restartable, backfillable, and explicit about quality.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Streaming and distributed processing",
+      "objective": "Choose batch or streaming deliberately and reason about ordering, replay, state, and recovery.",
+      "nodes": [
+        {
+          "id": "data_engineer-04-01-messaging-concepts",
+          "sequence": 15,
+          "title": "Messaging concepts",
+          "level": "core",
+          "purpose": "Learn messaging concepts within streaming and distributed processing.",
+          "subtopics": [
+            "async vs sync",
+            "queue vs stream",
+            "events",
+            "ordering",
+            "partitions",
+            "consumer groups",
+            "replay/retention",
+            "DLQ",
+            "delivery guarantees",
+            "compatibility"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-03-05-quality-and-contracts"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-04-02-kafka-and-alternatives",
+          "sequence": 16,
+          "title": "Kafka and alternatives",
+          "level": "core",
+          "purpose": "Learn kafka and alternatives within streaming and distributed processing.",
+          "subtopics": [
+            "topics/partitions/offsets",
+            "producers/consumers",
+            "rebalancing",
+            "compaction",
+            "transactions",
+            "Connect",
+            "RabbitMQ/cloud queues/pub-sub"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-04-01-messaging-concepts"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-04-03-stream-processing",
+          "sequence": 17,
+          "title": "Stream processing",
+          "level": "core",
+          "purpose": "Learn stream processing within streaming and distributed processing.",
+          "subtopics": [
+            "event vs processing time",
+            "windows/watermarks/late data",
+            "stateful ops/joins",
+            "dedupe",
+            "checkpoint",
+            "exactly-once caveats",
+            "microbatch"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-04-02-kafka-and-alternatives"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-04-04-spark-and-hadoop",
+          "sequence": 18,
+          "title": "Spark and Hadoop",
+          "level": "core",
+          "purpose": "Learn spark and hadoop within streaming and distributed processing.",
+          "subtopics": [
+            "HDFS",
+            "MapReduce",
+            "YARN",
+            "Spark DataFrames",
+            "shuffle/skew",
+            "cache",
+            "executor sizing",
+            "cluster scheduling"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-04-03-stream-processing"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-04-05-performance",
+          "sequence": 19,
+          "title": "Performance",
+          "level": "core",
+          "purpose": "Learn performance within streaming and distributed processing.",
+          "subtopics": [
+            "parallelism",
+            "locality",
+            "shuffle reduction",
+            "skew",
+            "memory spills",
+            "serialization",
+            "small files",
+            "cost/TB",
+            "profiling"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-04-04-spark-and-hadoop"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        }
+      ],
+      "stage_number": 4,
+      "stage_type": "core",
+      "node_ids": [
+        "data_engineer-04-01-messaging-concepts",
+        "data_engineer-04-02-kafka-and-alternatives",
+        "data_engineer-04-03-stream-processing",
+        "data_engineer-04-04-spark-and-hadoop",
+        "data_engineer-04-05-performance"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating streaming and distributed processing.",
+        "exit_criteria": [
+          "Choose batch or streaming deliberately and reason about ordering, replay, state, and recovery.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Cloud, containers, and infrastructure",
+      "objective": "Deploy repeatably in one selected cloud.",
+      "nodes": [
+        {
+          "id": "data_engineer-05-01-cloud-fundamentals",
+          "sequence": 20,
+          "title": "Cloud fundamentals",
+          "level": "core",
+          "purpose": "Learn cloud fundamentals within cloud, containers, and infrastructure.",
+          "subtopics": [
+            "shared responsibility",
+            "IAM",
+            "VPC",
+            "compute/storage",
+            "managed DB/warehouse",
+            "regions/AZ",
+            "private endpoints",
+            "encryption",
+            "budgets"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-04-05-performance"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-05-02-one-cloud-implementation",
+          "sequence": 21,
+          "title": "One cloud implementation",
+          "level": "core",
+          "purpose": "Learn one cloud implementation within cloud, containers, and infrastructure.",
+          "subtopics": [
+            "select AWS/Azure/GCP",
+            "map compute/object storage/SQL/ETL/warehouse/queue/monitoring",
+            "least-privilege pipeline",
+            "compare concepts"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-05-01-cloud-fundamentals"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-05-03-containers",
+          "sequence": 22,
+          "title": "Containers",
+          "level": "core",
+          "purpose": "Learn containers within cloud, containers, and infrastructure.",
+          "subtopics": [
+            "Docker images/layers",
+            "volumes/networks",
+            "Compose",
+            "Kubernetes",
+            "resource limits",
+            "secrets",
+            "probes",
+            "managed vs self-hosted"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-05-02-one-cloud-implementation"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-05-04-infrastructure-as-code",
+          "sequence": 23,
+          "title": "Infrastructure as code",
+          "level": "core",
+          "purpose": "Learn infrastructure as code within cloud, containers, and infrastructure.",
+          "subtopics": [
+            "Terraform/OpenTofu state/locking/modules/environments/plans",
+            "secrets",
+            "drift/idempotence",
+            "CDK alternatives"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-05-03-containers"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-05-05-ci-cd",
+          "sequence": 24,
+          "title": "CI/CD",
+          "level": "core",
+          "purpose": "Learn ci/cd within cloud, containers, and infrastructure.",
+          "subtopics": [
+            "lint/unit/integration checks",
+            "migration safety",
+            "promote artifacts",
+            "Actions/equivalent",
+            "pin dependencies",
+            "approvals",
+            "rollback/smoke tests"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-05-04-infrastructure-as-code"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        }
+      ],
+      "stage_number": 5,
+      "stage_type": "core",
+      "node_ids": [
+        "data_engineer-05-01-cloud-fundamentals",
+        "data_engineer-05-02-one-cloud-implementation",
+        "data_engineer-05-03-containers",
+        "data_engineer-05-04-infrastructure-as-code",
+        "data_engineer-05-05-ci-cd"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating cloud, containers, and infrastructure.",
+        "exit_criteria": [
+          "Deploy repeatably in one selected cloud.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Serving, governance, operations, capstone",
+      "objective": "Serve trustworthy data with clear ownership and run procedures.",
+      "nodes": [
+        {
+          "id": "data_engineer-06-01-serving-and-analytics",
+          "sequence": 25,
+          "title": "Serving and analytics",
+          "level": "core",
+          "purpose": "Learn serving and analytics within serving, governance, operations, capstone.",
+          "subtopics": [
+            "warehouse SQL",
+            "semantic models/BI",
+            "reverse ETL",
+            "APIs",
+            "feature serving",
+            "extracts",
+            "freshness contracts"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-05-05-ci-cd"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-06-02-observability-and-reliability",
+          "sequence": 26,
+          "title": "Observability and reliability",
+          "level": "core",
+          "purpose": "Learn observability and reliability within serving, governance, operations, capstone.",
+          "subtopics": [
+            "run status/logs/metrics/traces",
+            "freshness/volume alerts",
+            "SLOs",
+            "severity",
+            "lineage blast radius",
+            "runbooks/recovery"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-06-01-serving-and-analytics"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-06-03-security-governance",
+          "sequence": 27,
+          "title": "Security/governance",
+          "level": "core",
+          "purpose": "Learn security/governance within serving, governance, operations, capstone.",
+          "subtopics": [
+            "authn/authz",
+            "IAM/RBAC",
+            "encryption",
+            "tokenization/masking",
+            "secret management",
+            "audit",
+            "metadata/catalog/lineage",
+            "ownership",
+            "retention/deletion",
+            "applicable privacy rules"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-06-02-observability-and-reliability"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        },
+        {
+          "id": "data_engineer-06-04-platform-capstone",
+          "sequence": 28,
+          "title": "Platform capstone",
+          "level": "core",
+          "purpose": "Learn platform capstone within serving, governance, operations, capstone.",
+          "subtopics": [
+            "ingest API/database",
+            "raw landing",
+            "tested dimensional models",
+            "incremental and backfills",
+            "warehouse/BI",
+            "IaC/CI",
+            "quality/lineage/least privilege/cost alarms/runbook"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "data_engineer-06-03-security-governance"
+          ],
+          "source_topic_families": [
+            "data-engineer"
+          ]
+        }
+      ],
+      "stage_number": 6,
+      "stage_type": "core",
+      "node_ids": [
+        "data_engineer-06-01-serving-and-analytics",
+        "data_engineer-06-02-observability-and-reliability",
+        "data_engineer-06-03-security-governance",
+        "data_engineer-06-04-platform-capstone"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating serving, governance, operations, capstone.",
+        "exit_criteria": [
+          "Serve trustworthy data with clear ownership and run procedures.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    }
+  ],
+  "source_analysis": "PDF coverage: lifecycle, programming, SQL/NoSQL, modeling, warehouses/lakes/mesh, cloud, batch/stream ETL, Airflow/dbt, Hadoop/Spark, Docker/Kubernetes, CI/CD, tests/monitoring, Kafka/RabbitMQ/SQS/SNS, IaC, BI/reverse ETL, security, governance and quality.",
+  "schema_version": "1.0.0",
+  "last_reviewed": "2026-10-03",
+  "analysis_method": "Extracted labels from the one-page source PDF and visually reviewed the rendered roadmap layout; regrouped prerequisites into a sequential learning path and expanded topics for practical projects and production work.",
+  "learning_sequence": "Follow stages and nodes in order. Optional specialization can be revisited after the capstone.",
+  "references": [
+    {
+      "title": "OWASP Top 10 for LLM Applications 2025",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/",
+      "why": "Threat taxonomy for LLM application design and testing."
+    },
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "why": "Governance, mapping, measurement, and management of AI risk."
+    },
+    {
+      "title": "OpenAI API documentation",
+      "url": "https://platform.openai.com/docs/",
+      "why": "Check provider-specific API behavior and current supported features."
+    },
+    {
+      "title": "Hugging Face Transformers Trainer",
+      "url": "https://huggingface.co/docs/transformers/en/main_classes/trainer",
+      "why": "Official training and evaluation workflow reference."
+    },
+    {
+      "title": "MLflow GenAI docs",
+      "url": "https://mlflow.org/docs/latest/genai/",
+      "why": "Tracing, versioning, and evaluation lifecycle practices."
+    }
+  ],
+  "current_practice_note": "Technology and hosted model/service names change quickly. Learn stable concepts, choose one implementation, verify versions and APIs in linked primary documentation, and note the date and tradeoffs in project work."
+}

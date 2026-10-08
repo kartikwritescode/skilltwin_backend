@@ -1,0 +1,798 @@
+{
+  "roadmap_id": "docker",
+  "title": "Docker and Containers",
+  "source_pdf": "docker.pdf",
+  "audience": "Developers and operators packaging applications for repeatable development, CI, and deployment.",
+  "description": "From Linux/process foundations through images, runtime, storage/networking, Compose, security, CI, and orchestrator deployment.",
+  "stages": [
+    {
+      "title": "Container concepts and prerequisites",
+      "objective": "Understand container isolation and prepare a workable environment.",
+      "nodes": [
+        {
+          "id": "docker-01-01-why-containers",
+          "sequence": 1,
+          "title": "Why containers",
+          "level": "core",
+          "purpose": "Learn why containers within container concepts and prerequisites.",
+          "subtopics": [
+            "repeatable dependencies",
+            "isolation",
+            "packaging",
+            "bare metal vs VM vs container",
+            "image vs container",
+            "lifecycle",
+            "when unnecessary"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-01-02-linux-fundamentals",
+          "sequence": 2,
+          "title": "Linux fundamentals",
+          "level": "core",
+          "purpose": "Learn linux fundamentals within container concepts and prerequisites.",
+          "subtopics": [
+            "filesystem",
+            "users/groups/permissions",
+            "process/signals",
+            "environment",
+            "shell/scripting",
+            "ports/logs/exit codes/package managers"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-01-01-why-containers"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-01-03-isolation-model",
+          "sequence": 3,
+          "title": "Isolation model",
+          "level": "core",
+          "purpose": "Learn isolation model within container concepts and prerequisites.",
+          "subtopics": [
+            "namespaces",
+            "cgroups",
+            "union filesystems",
+            "shared kernel",
+            "resource limits/capabilities",
+            "containers are not VMs"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-01-02-linux-fundamentals"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-01-04-docker-and-oci",
+          "sequence": 4,
+          "title": "Docker and OCI",
+          "level": "core",
+          "purpose": "Learn docker and oci within container concepts and prerequisites.",
+          "subtopics": [
+            "Engine/CLI/Desktop",
+            "daemon/client",
+            "OCI concepts",
+            "registries",
+            "platform differences"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-01-03-isolation-model"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        }
+      ],
+      "stage_number": 1,
+      "stage_type": "core",
+      "node_ids": [
+        "docker-01-01-why-containers",
+        "docker-01-02-linux-fundamentals",
+        "docker-01-03-isolation-model",
+        "docker-01-04-docker-and-oci"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating container concepts and prerequisites.",
+        "exit_criteria": [
+          "Understand container isolation and prepare a workable environment.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Running containers and CLI",
+      "objective": "Run, inspect, and debug processes, networks, and resources.",
+      "nodes": [
+        {
+          "id": "docker-02-01-cli",
+          "sequence": 5,
+          "title": "CLI",
+          "level": "core",
+          "purpose": "Learn cli within running containers and cli.",
+          "subtopics": [
+            "version/info",
+            "pull/run/ps/logs/exec/inspect",
+            "stop/start/restart",
+            "rm/images",
+            "filters/cleanup"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-01-04-docker-and-oci"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-02-02-runtime-options",
+          "sequence": 6,
+          "title": "Runtime options",
+          "level": "core",
+          "purpose": "Learn runtime options within running containers and cli.",
+          "subtopics": [
+            "command/entrypoint",
+            "env",
+            "ports",
+            "working dir",
+            "user",
+            "restart policy",
+            "health check",
+            "limits",
+            "signals"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-02-01-cli"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-02-03-developer-experience",
+          "sequence": 7,
+          "title": "Developer experience",
+          "level": "core",
+          "purpose": "Learn developer experience within running containers and cli.",
+          "subtopics": [
+            "bind mounts",
+            "hot reload",
+            "debug shell",
+            "tests",
+            "file permissions",
+            "cross-platform paths",
+            "keep secrets out"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-02-02-runtime-options"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-02-04-networking",
+          "sequence": 8,
+          "title": "Networking",
+          "level": "core",
+          "purpose": "Learn networking within running containers and cli.",
+          "subtopics": [
+            "bridge/DNS/service names",
+            "publishing ports",
+            "host mode caveats",
+            "isolation",
+            "outbound access",
+            "debug names and ports"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-02-03-developer-experience"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        }
+      ],
+      "stage_number": 2,
+      "stage_type": "core",
+      "node_ids": [
+        "docker-02-01-cli",
+        "docker-02-02-runtime-options",
+        "docker-02-03-developer-experience",
+        "docker-02-04-networking"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating running containers and cli.",
+        "exit_criteria": [
+          "Run, inspect, and debug processes, networks, and resources.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Images and Dockerfiles",
+      "objective": "Build small, reproducible, non-root images.",
+      "nodes": [
+        {
+          "id": "docker-03-01-dockerfile",
+          "sequence": 9,
+          "title": "Dockerfile",
+          "level": "core",
+          "purpose": "Learn dockerfile within images and dockerfiles.",
+          "subtopics": [
+            "FROM/WORKDIR/COPY/RUN/ENV/ARG/USER/EXPOSE/CMD/ENTRYPOINT/HEALTHCHECK/labels",
+            "build context"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-02-04-networking"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-03-02-build-efficiency",
+          "sequence": 10,
+          "title": "Build efficiency",
+          "level": "core",
+          "purpose": "Learn build efficiency within images and dockerfiles.",
+          "subtopics": [
+            "layer order",
+            "cache invalidation",
+            "package cleanup",
+            ".dockerignore",
+            "multi-stage",
+            "BuildKit",
+            "deterministic inputs"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-03-01-dockerfile"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-03-03-size-and-platforms",
+          "sequence": 11,
+          "title": "Size and platforms",
+          "level": "core",
+          "purpose": "Learn size and platforms within images and dockerfiles.",
+          "subtopics": [
+            "minimal trusted base",
+            "distroless tradeoffs",
+            "architecture targets",
+            "pruning",
+            "multi-arch",
+            "memory/startup tradeoffs"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-03-02-build-efficiency"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-03-04-image-supply-chain",
+          "sequence": 12,
+          "title": "Image supply chain",
+          "level": "core",
+          "purpose": "Learn image supply chain within images and dockerfiles.",
+          "subtopics": [
+            "non-root",
+            "pin base digest",
+            "vulnerability scan",
+            "SBOM",
+            "signatures/provenance",
+            "update policy",
+            "never bake secrets into layers"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-03-03-size-and-platforms"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        }
+      ],
+      "stage_number": 3,
+      "stage_type": "core",
+      "node_ids": [
+        "docker-03-01-dockerfile",
+        "docker-03-02-build-efficiency",
+        "docker-03-03-size-and-platforms",
+        "docker-03-04-image-supply-chain"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating images and dockerfiles.",
+        "exit_criteria": [
+          "Build small, reproducible, non-root images.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Persistence, Compose, and registries",
+      "objective": "Run a multi-service application with intentional persistence and immutable artifacts.",
+      "nodes": [
+        {
+          "id": "docker-04-01-data-lifecycle",
+          "sequence": 13,
+          "title": "Data lifecycle",
+          "level": "core",
+          "purpose": "Learn data lifecycle within persistence, compose, and registries.",
+          "subtopics": [
+            "ephemeral writable layer",
+            "named volumes",
+            "bind mounts",
+            "backup/restore",
+            "ownership",
+            "database durability"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-03-04-image-supply-chain"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-04-02-compose",
+          "sequence": 14,
+          "title": "Compose",
+          "level": "core",
+          "purpose": "Learn compose within persistence, compose, and registries.",
+          "subtopics": [
+            "services/networks/volumes",
+            "health dependencies",
+            "profiles",
+            "env config",
+            "local DB/cache",
+            "DNS",
+            "dev vs prod"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-04-01-data-lifecycle"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-04-03-registries",
+          "sequence": 15,
+          "title": "Registries",
+          "level": "core",
+          "purpose": "Learn registries within persistence, compose, and registries.",
+          "subtopics": [
+            "Docker Hub/GHCR/ECR/GCR/ACR",
+            "auth",
+            "immutable digests",
+            "tag conventions",
+            "latest pitfalls",
+            "retention"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-04-02-compose"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-04-04-secrets-config",
+          "sequence": 16,
+          "title": "Secrets/config",
+          "level": "core",
+          "purpose": "Learn secrets/config within persistence, compose, and registries.",
+          "subtopics": [
+            "environment config",
+            "secret stores",
+            "Compose limitations",
+            "production injection",
+            "rotation",
+            "validation"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-04-03-registries"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        }
+      ],
+      "stage_number": 4,
+      "stage_type": "core",
+      "node_ids": [
+        "docker-04-01-data-lifecycle",
+        "docker-04-02-compose",
+        "docker-04-03-registries",
+        "docker-04-04-secrets-config"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating persistence, compose, and registries.",
+        "exit_criteria": [
+          "Run a multi-service application with intentional persistence and immutable artifacts.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Security, debugging, CI",
+      "objective": "Review artifacts and diagnose common runtime failures.",
+      "nodes": [
+        {
+          "id": "docker-05-01-runtime-security",
+          "sequence": 17,
+          "title": "Runtime security",
+          "level": "core",
+          "purpose": "Learn runtime security within security, debugging, ci.",
+          "subtopics": [
+            "least privilege",
+            "non-root",
+            "capabilities",
+            "read-only FS",
+            "seccomp/AppArmor",
+            "network boundaries",
+            "quotas",
+            "privileged risk",
+            "host mounts"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-04-04-secrets-config"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-05-02-supply-chain-and-policy",
+          "sequence": 18,
+          "title": "Supply chain and policy",
+          "level": "core",
+          "purpose": "Learn supply chain and policy within security, debugging, ci.",
+          "subtopics": [
+            "base provenance",
+            "dependency pins",
+            "scans",
+            "SBOM",
+            "signature verification",
+            "license",
+            "CI gates",
+            "patching cadence"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-05-01-runtime-security"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-05-03-troubleshooting",
+          "sequence": 19,
+          "title": "Troubleshooting",
+          "level": "core",
+          "purpose": "Learn troubleshooting within security, debugging, ci.",
+          "subtopics": [
+            "inspect/logs/events/resource usage",
+            "health",
+            "DNS/connectivity",
+            "disk/image cleanup",
+            "daemon",
+            "signals"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-05-02-supply-chain-and-policy"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-05-04-ci",
+          "sequence": 20,
+          "title": "CI",
+          "level": "core",
+          "purpose": "Learn ci within security, debugging, ci.",
+          "subtopics": [
+            "build/test",
+            "safe cache",
+            "ephemeral services",
+            "scan",
+            "registry auth via secrets",
+            "commit tags",
+            "promote tested digest",
+            "rollback"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-05-03-troubleshooting"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        }
+      ],
+      "stage_number": 5,
+      "stage_type": "core",
+      "node_ids": [
+        "docker-05-01-runtime-security",
+        "docker-05-02-supply-chain-and-policy",
+        "docker-05-03-troubleshooting",
+        "docker-05-04-ci"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating security, debugging, ci.",
+        "exit_criteria": [
+          "Review artifacts and diagnose common runtime failures.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    },
+    {
+      "title": "Deployment and capstone",
+      "objective": "Complete one build-test-publish-deploy lifecycle.",
+      "nodes": [
+        {
+          "id": "docker-06-01-targets-and-orchestration",
+          "sequence": 21,
+          "title": "Targets and orchestration",
+          "level": "core",
+          "purpose": "Learn targets and orchestration within deployment and capstone.",
+          "subtopics": [
+            "PaaS/single host/Swarm/Kubernetes/Nomad/managed containers",
+            "decision factors",
+            "health/readiness",
+            "config/secrets/state"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-05-04-ci"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-06-02-capstone",
+          "sequence": 22,
+          "title": "Capstone",
+          "level": "core",
+          "purpose": "Learn capstone within deployment and capstone.",
+          "subtopics": [
+            "containerize API and worker",
+            "multi-stage non-root images",
+            "Compose DB/cache",
+            "persistence",
+            "health checks",
+            "CI tests",
+            "scan/push immutable image",
+            "deploy",
+            "rollback/operations guide"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-06-01-targets-and-orchestration"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        },
+        {
+          "id": "docker-06-03-kubernetes-bridge",
+          "sequence": 23,
+          "title": "Kubernetes bridge",
+          "level": "core",
+          "purpose": "Learn kubernetes bridge within deployment and capstone.",
+          "subtopics": [
+            "pods/deployments/services/config/secrets",
+            "probes",
+            "limits",
+            "rolling rollout",
+            "ingress",
+            "volumes",
+            "logs/metrics",
+            "learn after container/network fundamentals"
+          ],
+          "practice": "Complete a small realistic exercise; include normal, edge, and failure cases, and explain design choices.",
+          "completion_evidence": [
+            "A working artifact or analysis committed to version control.",
+            "A clear explanation of assumptions, tradeoffs, and failure cases.",
+            "Automated checks or repeatable validation appropriate to the topic."
+          ],
+          "prerequisite_node_ids": [
+            "docker-06-02-capstone"
+          ],
+          "source_topic_families": [
+            "docker"
+          ]
+        }
+      ],
+      "stage_number": 6,
+      "stage_type": "core",
+      "node_ids": [
+        "docker-06-01-targets-and-orchestration",
+        "docker-06-02-capstone",
+        "docker-06-03-kubernetes-bridge"
+      ],
+      "checkpoint": {
+        "deliverable": "Integrated exercise demonstrating deployment and capstone.",
+        "exit_criteria": [
+          "Complete one build-test-publish-deploy lifecycle.",
+          "Review node evidence and record gaps before proceeding."
+        ]
+      }
+    }
+  ],
+  "source_analysis": "PDF coverage: concepts/VM comparison, Linux and application foundations, namespaces/cgroups/filesystems, setup, persistence/mounts, Dockerfiles/layer caching/size/security, registries/tagging, runtime/CLI/Compose, developer experience, CI, and deployment targets.",
+  "schema_version": "1.0.0",
+  "last_reviewed": "2026-10-03",
+  "analysis_method": "Extracted labels from the one-page source PDF and visually reviewed the rendered roadmap layout; regrouped prerequisites into a sequential learning path and expanded topics for practical projects and production work.",
+  "learning_sequence": "Follow stages and nodes in order. Optional specialization can be revisited after the capstone.",
+  "references": [
+    {
+      "title": "OWASP Top 10 for LLM Applications 2025",
+      "url": "https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/",
+      "why": "Threat taxonomy for LLM application design and testing."
+    },
+    {
+      "title": "NIST AI Risk Management Framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "why": "Governance, mapping, measurement, and management of AI risk."
+    },
+    {
+      "title": "OpenAI API documentation",
+      "url": "https://platform.openai.com/docs/",
+      "why": "Check provider-specific API behavior and current supported features."
+    },
+    {
+      "title": "Hugging Face Transformers Trainer",
+      "url": "https://huggingface.co/docs/transformers/en/main_classes/trainer",
+      "why": "Official training and evaluation workflow reference."
+    },
+    {
+      "title": "MLflow GenAI docs",
+      "url": "https://mlflow.org/docs/latest/genai/",
+      "why": "Tracing, versioning, and evaluation lifecycle practices."
+    }
+  ],
+  "current_practice_note": "Technology and hosted model/service names change quickly. Learn stable concepts, choose one implementation, verify versions and APIs in linked primary documentation, and note the date and tradeoffs in project work."
+}
